@@ -1,0 +1,9 @@
+type User {
+  id: ID! @unique
+  email: String
+  emailVerified: Boolean @default(value: "false")
+  auth0Id: String @unique
+  role: Role @default(value: "USER")
+  name: String
+  avatar: String
+}

@@ -1,0 +1,18 @@
+endpoint: http://localhost:4466/trump-said-wtf/development
+
+# The file containing the definition of your data model.
+datamodel:
+  - datamodel.graphql
+  - enums.graphql
+
+# Download the GraphQL schema of the Prisma API into
+# `src/generated/prisma.graphql` (as specfied in `.graphqlconfig.yml`).
+# Then generate the corresponding TypeScript definitions into
+# `src/generated/prisma.ts` (also specfied in `.graphqlconfig.yml`)
+# with `graphql codegen` .
+hooks:
+  post-deploy:
+    - graphql get-schema --project database
+    - graphql codegen
+
+secret: ${env:PRISMA_SECRET}
