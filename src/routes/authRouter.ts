@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
+import logger from '../util/logger';
 import secrets from '../util/secrets';
 
 // Base route is /
@@ -23,7 +24,7 @@ router.get(
     redirectUri: secrets.AUTH0_CALLBACK_URL,
     audience: secrets.AUTH0_AUDIENCE,
     responseType: 'token',
-    scope: 'openid',
+    scope: 'openid profile',
   } as IAuth0PassportConfig),
   (req, res) => {
     res.redirect('/');
@@ -41,7 +42,8 @@ router.get(
     failureRedirect: '/',
   }),
   (req, res) => {
-    res.redirect(req.session.returnTo || '/user');
+    logger.info(`Logged in user ${req.user.displayName} with ID ${req.user.user_id}`);
+    res.redirect(req.session.returnTo || '/');
   },
 );
 

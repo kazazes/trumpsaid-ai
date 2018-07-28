@@ -1,9 +1,93 @@
+interface IVideo {
+  id: ID! @unique
+  published: Boolean @default(value: "false")
+  advertisingEnabled: Boolean @default(value: "false")
+  views: Int @default(value: "0")
+  productionLink: VideoStorageLink!
+  transcription: [TranscriptionItem!]!
+  source: Source
+}
+
 type User {
   id: ID! @unique
   email: String
   emailVerified: Boolean @default(value: "false")
   auth0Id: String @unique
   role: Role @default(value: "USER")
-  name: String
+  displayName: String
   avatar: String
+  givenName: String
+  familyName: String
+}
+
+type VideoUpload implements IVideo {
+  submitedBy: User! @relation(name: "VideoSubmitter")
+  publishedBy: User! @relation(name: "VideoPublisher")
+  publishedVideo: Video!
+  status: VideoUploadStatus!
+  autoTranscription: [String!]!
+  transcription: [TranscriptionItem!]!
+  published: Boolean! @default(value: "false")
+  advertisingEnabled: Boolean! @default(value: "false")
+  views: Int @default(value: "0")
+  rawStorageLink: VideoStorageLink
+  title: String!
+  subtitle: String!
+  dateRecorded: Date!
+  tags: [Tag!]!
+  source: Source
+}
+
+type Tag {
+  id: ID! @unique
+  name: String!
+  videos: [Video!]!
+
+}
+
+type TranscriptionItem {
+  speaker: Speaker!
+  timestampStart: Int!
+  content: String!
+  sentiment: Float
+}
+
+type Source {
+  publication: Publication!
+  url: String!
+  title: String
+  videos: [Video!]!
+  priority: Int! @default(value: "5")
+}
+
+type Video implements IVideo {
+  id: ID! @unique
+  published: Boolean @default(value: "false")
+  advertisingEnabled: Boolean @default(value: "false")
+  views: Int @default(value: "0")
+}
+
+type Speaker {
+  name: String! @unique
+  avatarPath: String!
+  title: String!
+}
+
+type Date  {
+  month: Int!
+  day: Int!
+  year: Int!
+}
+
+type Publication {
+  avatarPath: String!
+  name: String!
+}
+
+type VideoStorageLink {
+  video: String!
+  webVersion: String!
+  fullVersion: String!
+  isPublic: Boolean @default(value: "false")
+  path: String!
 }

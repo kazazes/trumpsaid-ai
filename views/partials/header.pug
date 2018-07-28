@@ -1,40 +1,33 @@
-.navbar.navbar-default.navbar-fixed-top
-  .container
-    .navbar-header
-      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.navbar-brand(href='/')
-        i.fa.fa-cube
-        | Project name
-    .collapse.navbar-collapse
-      ul.nav.navbar-nav
-        li(class=(title == 'Home') ? 'active' : undefined)
-          a(href='/') Home
-        li(class=(title == 'API Examples') ? 'active' : undefined)
-          a(href='/api') API Examples
-        li(class=(title == 'Contact') ? 'active' : undefined)
-          a(href='/contact') Contact
-      ul.nav.navbar-nav.navbar-right
-        if !user
-          li(class=(title == 'Login') ? 'active' : undefined)
-            a(href='/login') Login
-          li(class=(title == 'Create Account') ? 'active' : undefined)
-            a(href='/signup') Create Account
+// Navbar
+nav.navbar.navbar-dark.primary-color
+  // Navbar brand
+  a.navbar-brand(href='/') 
+    img(src="/img/trump.svg", height="80px")
+  // Search form
+  form.form-inline.justify-content-center.flex-grow-1
+    .md-form.my-0.w-100.d-flex.justify-content-center
+      input.form-control.w-75(type='text', placeholder='Search', aria-label='Search')
+      i.fa.fa-search.text-white.ml-3.mt-2(aria-hidden='true')
+
+
+  if (!user.avatar)
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#basicExampleNav', aria-controls='basicExampleNav', aria-expanded='false', aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+  else
+    .avatar.ml-auto.white.mr-2(data-toggle='collapse', data-target='#basicExampleNav', aria-controls='basicExampleNav', aria-expanded='false', aria-label='Toggle navigation')
+      img.rounded-circle(src=user.avatar)
+  #basicExampleNav.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto.mt-3
+      li.nav-item.active
+        a.nav-link.pl-2(href='#')
+          | Home
+          span.sr-only (current)
+        if user.role === "ADMIN"
+          a.nav-link.pl-2(href='/admin')
+            | Admin
+        if user
+          a.nav-link.pl-2(href='/logout')
+            | Logout
         else
-          li.dropdown(class=(title == 'Account Management') ? 'active' : undefined)
-            a.dropdown-toggle(href='#', data-toggle='dropdown')
-              if user.profile.picture
-                img(src=user.profile.picture, alt=(user.profile.name || user.email || user.id))
-              else
-                img(src=user.gravatar(60), alt=(user.profile.name || user.email || user.id))
-              span= user.profile.name || user.email || user.id
-              i.caret
-            ul.dropdown-menu
-              li
-                a(href='/account') My Account
-              li.divider
-              li
-                a(href='/logout') Logout
+          a.nav-link.pl-2(href='/login')
+            | Login

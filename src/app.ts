@@ -28,16 +28,9 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(expressFlash());
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
-app.use((req, res, next) => {
-  res.locals.user = req.user;
-  next();
-});
-
 app.use(
   express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }),
 );
@@ -49,10 +42,21 @@ app.use(
       port: secrets.REDIS_PORT,
     }),
     secret: secrets.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      expires: false,
+    },
   }),
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 
 /**
  * Primary app routes.

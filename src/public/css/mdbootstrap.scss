@@ -1,0 +1,34 @@
+// Bootstrap
+@import "node_modules/mdbootstrap/scss/core/bootstrap/functions";
+@import "node_modules/mdbootstrap/scss/core/bootstrap/variables";
+
+// CORE
+@import "node_modules/mdbootstrap/scss/core/mixins";
+// Your custom variables
+@import "node_modules/mdbootstrap/scss/custom-variables";
+@import "node_modules/mdbootstrap/scss/core/colors";
+@import "node_modules/mdbootstrap/scss/core/variables";
+@import "node_modules/mdbootstrap/scss/core/global";
+@import "node_modules/mdbootstrap/scss/core/helpers";
+@import "node_modules/mdbootstrap/scss/core/typography";
+@import "node_modules/mdbootstrap/scss/core/masks";
+@import "node_modules/mdbootstrap/scss/core/waves";
+
+// FREE
+@import "node_modules/mdbootstrap/scss/free/animations-basic";
+@import "node_modules/mdbootstrap/scss/free/animations-extended";
+@import "node_modules/mdbootstrap/scss/free/buttons";
+@import "node_modules/mdbootstrap/scss/free/cards";
+@import "node_modules/mdbootstrap/scss/free/dropdowns";
+@import "node_modules/mdbootstrap/scss/free/input-group";
+@import "node_modules/mdbootstrap/scss/free/navbars";
+@import "node_modules/mdbootstrap/scss/free/pagination";
+@import "node_modules/mdbootstrap/scss/free/badges";
+@import "node_modules/mdbootstrap/scss/free/modals";
+@import "node_modules/mdbootstrap/scss/free/carousels";
+@import "node_modules/mdbootstrap/scss/free/forms";
+@import "node_modules/mdbootstrap/scss/free/msc";
+@import "node_modules/mdbootstrap/scss/free/footers";
+@import "node_modules/mdbootstrap/scss/free/list-group";
+@import "node_modules/mdbootstrap/scss/free/tables";
+@import "node_modules/mdbootstrap/scss/free/depreciated";
