@@ -8,6 +8,8 @@ import lusca from 'lusca';
 import passport from 'passport';
 import path from 'path';
 
+import graphServer from './graphql/apollo';
+
 import adminRouter from './routes/adminRouter';
 import authRouter from './routes/authRouter';
 import rootRouter from './routes/rootRouter';
@@ -65,5 +67,7 @@ app.use((req, res, next) => {
 app.use('/', authRouter);
 app.use('/', rootRouter);
 app.use('/admin', adminRouter);
+
+graphServer.applyMiddleware({ app });
 
 export default app;

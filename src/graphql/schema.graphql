@@ -1,0 +1,6 @@
+# import User from './generated/prisma.graphql'
+# import VideoUpload from './generated/prisma.graphql'
+
+type Query {
+  videoUploads: [VideoUpload!]
+}

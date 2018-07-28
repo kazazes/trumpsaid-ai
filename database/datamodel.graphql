@@ -1,9 +1,8 @@
 interface IVideo {
-  id: ID! @unique
   published: Boolean @default(value: "false")
   advertisingEnabled: Boolean @default(value: "false")
   views: Int @default(value: "0")
-  productionLink: VideoStorageLink!
+  productionLink: VideoStorageLink! @relation(name: "VideoStorageProductionRelation")
   transcription: [TranscriptionItem!]!
   source: Source
 }
@@ -21,6 +20,7 @@ type User {
 }
 
 type VideoUpload implements IVideo {
+  id: ID! @unique
   submitedBy: User! @relation(name: "VideoSubmitter")
   publishedBy: User! @relation(name: "VideoPublisher")
   publishedVideo: Video!
@@ -30,12 +30,13 @@ type VideoUpload implements IVideo {
   published: Boolean! @default(value: "false")
   advertisingEnabled: Boolean! @default(value: "false")
   views: Int @default(value: "0")
-  rawStorageLink: VideoStorageLink
+  rawStorageLink: VideoStorageLink @relation(name: "VideoStorageRawRelation")
   title: String!
   subtitle: String!
   dateRecorded: Date!
   tags: [Tag!]!
   source: Source
+  productionLink: VideoStorageLink! @relation(name: "VideoStorageProductionRelation")
 }
 
 type Tag {
