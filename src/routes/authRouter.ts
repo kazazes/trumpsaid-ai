@@ -23,7 +23,7 @@ router.get(
     domain: secrets.AUTH0_DOMAIN,
     redirectUri: secrets.AUTH0_CALLBACK_URL,
     audience: secrets.AUTH0_AUDIENCE,
-    responseType: 'token',
+    responseType: 'code',
     scope: 'openid profile',
   } as IAuth0PassportConfig),
   (req, res) => {

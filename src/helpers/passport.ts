@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { NextFunction, Request } from 'express';
 import passport from 'passport';
 import { Strategy } from 'passport-auth0';
 import { User } from '../graphql/generated/prisma';
@@ -17,6 +17,7 @@ interface IAuth0StrategyProfile {
   localUser: ILocalUser;
   id: string;
   name: IAuth0Name;
+  accessToken: string;
 }
 
 interface IAuth0Name {
@@ -40,6 +41,9 @@ const strategy = new Strategy(
     clientID: secrets.AUTH0_CLIENT_ID,
     clientSecret: secrets.AUTH0_SECRET,
     callbackURL: secrets.AUTH0_CALLBACK_URL,
+    audience: secrets.AUTH0_AUDIENCE,
+    responseType: 'code',
+    scope: 'openid profile',
   },
   async (accessToken: string, refreshToken: string, extraParams: any, profile: IAuth0StrategyProfile, done: any) => {
     let user = undefined;
@@ -53,7 +57,7 @@ const strategy = new Strategy(
               avatar: profile.picture,
               displayName: profile.displayName,
               givenName: profile.name.givenName,
-              familyName: profile.name.givenName,
+              familyName: profile.name.familyName,
             },
           },
           '{ id auth0Id avatar displayName givenName familyName role }');
@@ -69,32 +73,38 @@ const strategy = new Strategy(
               familyName: profile.name.familyName,
             }, where: { auth0Id: profile.user_id },
           });
-
         } else {
           throw new Error('Error fetching and updating user from DB');
         }
       }
 
+      profile.accessToken = accessToken;
       profile.localUser = user as ILocalUser;
       return done(null, profile);
     } catch (err) {
       logger.error(`Error finding or creating new user: ${err}`);
     }
-
   },
 );
 
 passport.use(strategy);
 
+interface ISerializedUser {
+  id: string;
+  accessToken: string;
+}
+
 passport.serializeUser((user: IAuth0StrategyProfile, done) => {
-  done(null, user.id);
+  const args: ISerializedUser = { id: user.id, accessToken: user.accessToken };
+  done(null, args);
 });
 
-passport.deserializeUser(async (id: string, done) => {
+passport.deserializeUser(async (user: ISerializedUser, done) => {
   try {
-    const user = await Prisma.query.user({ where: { auth0Id: id } }, ' { id auth0Id avatar displayName familyName givenName role } ');
-    done(null, user);
+    const graphUser: any = await Prisma.query.user({ where: { auth0Id: user.id } }, ' { id auth0Id avatar displayName familyName givenName role } ');
+    graphUser.accessToken = user.accessToken;
+    done(null, graphUser);
   } catch (err) {
-    logger.error(`Error deserializing user with ID: ${id}\n${err}`);
+    logger.error(`Error deserializing user with ID: ${user.id}\n${err}`);
   }
 });

@@ -1,5 +1,5 @@
 # source: http://localhost:4466/trump-said-wtf/development
-# timestamp: Sat Jul 28 2018 00:59:07 GMT-0700 (PDT)
+# timestamp: Sat Jul 28 2018 06:51:29 GMT-0700 (PDT)
 
 type AggregateDate {
   count: Int!
@@ -253,45 +253,48 @@ scalar Long
 
 type Mutation {
   createVideoUpload(data: VideoUploadCreateInput!): VideoUpload!
-  createVideoStorageLink(data: VideoStorageLinkCreateInput!): VideoStorageLink!
   createPublication(data: PublicationCreateInput!): Publication!
   createUser(data: UserCreateInput!): User!
   createTranscriptionItem(data: TranscriptionItemCreateInput!): TranscriptionItem!
   createSource(data: SourceCreateInput!): Source!
   createSpeaker(data: SpeakerCreateInput!): Speaker!
   createTag(data: TagCreateInput!): Tag!
+  createVideoStorageLink(data: VideoStorageLinkCreateInput!): VideoStorageLink!
   createDate(data: DateCreateInput!): Date!
   createVideo(data: VideoCreateInput!): Video!
+  updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   updateVideo(data: VideoUpdateInput!, where: VideoWhereUniqueInput!): Video
+  deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteUser(where: UserWhereUniqueInput!): User
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteVideo(where: VideoWhereUniqueInput!): Video
+  upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
   upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
   upsertVideo(where: VideoWhereUniqueInput!, create: VideoCreateInput!, update: VideoUpdateInput!): Video!
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
-  updateManyVideoStorageLinks(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereInput): BatchPayload!
   updateManyPublications(data: PublicationUpdateInput!, where: PublicationWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyTranscriptionItems(data: TranscriptionItemUpdateInput!, where: TranscriptionItemWhereInput): BatchPayload!
   updateManySources(data: SourceUpdateInput!, where: SourceWhereInput): BatchPayload!
   updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
   updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
+  updateManyVideoStorageLinks(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereInput): BatchPayload!
   updateManyDates(data: DateUpdateInput!, where: DateWhereInput): BatchPayload!
   updateManyVideos(data: VideoUpdateInput!, where: VideoWhereInput): BatchPayload!
   deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
-  deleteManyVideoStorageLinks(where: VideoStorageLinkWhereInput): BatchPayload!
   deleteManyPublications(where: PublicationWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyTranscriptionItems(where: TranscriptionItemWhereInput): BatchPayload!
   deleteManySources(where: SourceWhereInput): BatchPayload!
   deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
   deleteManyTags(where: TagWhereInput): BatchPayload!
+  deleteManyVideoStorageLinks(where: VideoStorageLinkWhereInput): BatchPayload!
   deleteManyDates(where: DateWhereInput): BatchPayload!
   deleteManyVideos(where: VideoWhereInput): BatchPayload!
 }
@@ -531,27 +534,28 @@ input PublicationWhereInput {
 
 type Query {
   videoUploads(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUpload]!
-  videoStorageLinks(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoStorageLink]!
   publications(where: PublicationWhereInput, orderBy: PublicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Publication]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   transcriptionItems(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TranscriptionItem]!
   sources(where: SourceWhereInput, orderBy: SourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Source]!
   speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
+  videoStorageLinks(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoStorageLink]!
   dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date]!
   videos(where: VideoWhereInput, orderBy: VideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Video]!
+  videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   user(where: UserWhereUniqueInput!): User
   speaker(where: SpeakerWhereUniqueInput!): Speaker
   tag(where: TagWhereUniqueInput!): Tag
   video(where: VideoWhereUniqueInput!): Video
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
-  videoStorageLinksConnection(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoStorageLinkConnection!
   publicationsConnection(where: PublicationWhereInput, orderBy: PublicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PublicationConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   transcriptionItemsConnection(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TranscriptionItemConnection!
   sourcesConnection(where: SourceWhereInput, orderBy: SourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SourceConnection!
   speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
   tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
+  videoStorageLinksConnection(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoStorageLinkConnection!
   datesConnection(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DateConnection!
   videosConnection(where: VideoWhereInput, orderBy: VideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConnection!
 
@@ -1076,13 +1080,13 @@ input SpeakerWhereUniqueInput {
 
 type Subscription {
   videoUpload(where: VideoUploadSubscriptionWhereInput): VideoUploadSubscriptionPayload
-  videoStorageLink(where: VideoStorageLinkSubscriptionWhereInput): VideoStorageLinkSubscriptionPayload
   publication(where: PublicationSubscriptionWhereInput): PublicationSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   transcriptionItem(where: TranscriptionItemSubscriptionWhereInput): TranscriptionItemSubscriptionPayload
   source(where: SourceSubscriptionWhereInput): SourceSubscriptionPayload
   speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
   tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
+  videoStorageLink(where: VideoStorageLinkSubscriptionWhereInput): VideoStorageLinkSubscriptionPayload
   date(where: DateSubscriptionWhereInput): DateSubscriptionPayload
   video(where: VideoSubscriptionWhereInput): VideoSubscriptionPayload
 }
@@ -2360,9 +2364,12 @@ input VideoStorageLinkWhereInput {
 
   """All values not ending with the given string."""
   path_not_ends_with: String
-  _MagicalBackRelation_VideoStorageLinkToVideoUpload_every: VideoUploadWhereInput
-  _MagicalBackRelation_VideoStorageLinkToVideoUpload_some: VideoUploadWhereInput
-  _MagicalBackRelation_VideoStorageLinkToVideoUpload_none: VideoUploadWhereInput
+  _MagicalBackRelation_VideoStorageRawRelation_every: VideoUploadWhereInput
+  _MagicalBackRelation_VideoStorageRawRelation_some: VideoUploadWhereInput
+  _MagicalBackRelation_VideoStorageRawRelation_none: VideoUploadWhereInput
+  _MagicalBackRelation_VideoStorageProductionRelation_every: VideoUploadWhereInput
+  _MagicalBackRelation_VideoStorageProductionRelation_some: VideoUploadWhereInput
+  _MagicalBackRelation_VideoStorageProductionRelation_none: VideoUploadWhereInput
 }
 
 type VideoSubscriptionPayload {
@@ -2438,7 +2445,8 @@ input VideoUpdateWithWhereUniqueNestedInput {
   data: VideoUpdateDataInput!
 }
 
-type VideoUpload {
+type VideoUpload implements Node {
+  id: ID!
   submitedBy(where: UserWhereInput): User!
   publishedBy(where: UserWhereInput): User!
   publishedVideo(where: VideoWhereInput): Video!
@@ -2454,6 +2462,7 @@ type VideoUpload {
   dateRecorded(where: DateWhereInput): Date!
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
   source(where: SourceWhereInput): Source
+  productionLink(where: VideoStorageLinkWhereInput): VideoStorageLink!
 }
 
 """A connection to a list of items."""
@@ -2486,6 +2495,7 @@ input VideoUploadCreateInput {
   dateRecorded: DateCreateOneInput!
   tags: TagCreateManyInput
   source: SourceCreateOneInput
+  productionLink: VideoStorageLinkCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -2498,6 +2508,8 @@ type VideoUploadEdge {
 }
 
 enum VideoUploadOrderByInput {
+  id_ASC
+  id_DESC
   status_ASC
   status_DESC
   published_ASC
@@ -2510,8 +2522,6 @@ enum VideoUploadOrderByInput {
   title_DESC
   subtitle_ASC
   subtitle_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2519,6 +2529,7 @@ enum VideoUploadOrderByInput {
 }
 
 type VideoUploadPreviousValues {
+  id: ID!
   status: VideoUploadStatus!
   autoTranscription: [String!]!
   published: Boolean!
@@ -2597,6 +2608,7 @@ input VideoUploadUpdateInput {
   dateRecorded: DateUpdateOneInput
   tags: TagUpdateManyInput
   source: SourceUpdateOneInput
+  productionLink: VideoStorageLinkUpdateOneInput
 }
 
 input VideoUploadWhereInput {
@@ -2608,6 +2620,46 @@ input VideoUploadWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [VideoUploadWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   status: VideoUploadStatus
 
   """All values that are not equal to given value."""
@@ -2740,6 +2792,11 @@ input VideoUploadWhereInput {
   tags_some: TagWhereInput
   tags_none: TagWhereInput
   source: SourceWhereInput
+  productionLink: VideoStorageLinkWhereInput
+}
+
+input VideoUploadWhereUniqueInput {
+  id: ID
 }
 
 input VideoUpsertNestedInput {
