@@ -8,16 +8,16 @@ html(lang='')
     meta(name='description', content='')
     meta(name='theme-color' content='#4DA5F4')
     meta(name='csrf-token', content=_csrf)
+    block extraHead
     link(rel='shortcut icon', href='/img/favicon.png')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/css/main.css')
-
   body
     include partials/header
 
     .container
       include partials/flash
-      block content
+    block content
 
     include partials/footer
 
@@ -25,3 +25,4 @@ html(lang='')
     script(src='/js/lib/bootstrap.min.js')
     script(src="/js/lib/mdb.min.js")
     script(src='/js/main.js')
+    block extraScript

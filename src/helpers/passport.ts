@@ -1,9 +1,14 @@
+import { Request } from 'express';
 import passport from 'passport';
 import { Strategy } from 'passport-auth0';
 import { User } from '../generated/prisma';
 import Prisma from '../prismaContext';
 import logger from '../util/logger';
 import secrets from '../util/secrets';
+
+export interface IRequestWithUser extends Request {
+  user: User;
+}
 
 interface IAuth0StrategyProfile {
   displayName: string;

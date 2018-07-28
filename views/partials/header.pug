@@ -1,33 +1,25 @@
-// Navbar
 nav.navbar.navbar-dark.primary-color
-  // Navbar brand
   a.navbar-brand(href='/') 
     img(src="/img/trump.svg", height="80px")
-  // Search form
-  form.form-inline.justify-content-center.flex-grow-1
-    .md-form.my-0.w-100.d-flex.justify-content-center
-      input.form-control.w-75(type='text', placeholder='Search', aria-label='Search')
-      i.fa.fa-search.text-white.ml-3.mt-2(aria-hidden='true')
-
-
-  if (!user.avatar)
-    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#basicExampleNav', aria-controls='basicExampleNav', aria-expanded='false', aria-label='Toggle navigation')
-      span.navbar-toggler-icon
-  else
-    .avatar.ml-auto.white.mr-2(data-toggle='collapse', data-target='#basicExampleNav', aria-controls='basicExampleNav', aria-expanded='false', aria-label='Toggle navigation')
-      img.rounded-circle(src=user.avatar)
-  #basicExampleNav.collapse.navbar-collapse
-    ul.navbar-nav.mr-auto.mt-3
-      li.nav-item.active
-        a.nav-link.pl-2(href='#')
-          | Home
-          span.sr-only (current)
-        if user.role === "ADMIN"
-          a.nav-link.pl-2(href='/admin')
-            | Admin
-        if user
-          a.nav-link.pl-2(href='/logout')
-            | Logout
-        else
-          a.nav-link.pl-2(href='/login')
-            | Login
+  if (!hideSearch)
+    form.form-inline.justify-content-center.flex-grow-1
+      .md-form.my-0.w-100.d-flex.justify-content-center
+        input.form-control.w-75(type='text', placeholder='Search', aria-label='Search')
+        i.fa.fa-search.text-white.ml-3.mt-2(aria-hidden='true')
+  .nav-item.dropdown
+    if (!user || !user.avatar)
+      a.nav-link.dropdown-toggle(type='button', data-toggle='dropdown', data-target='#basicExampleNav', aria-controls='basicExampleNav', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+    else
+      a.nav-link.dropdown-toggle.avatar.ml-auto.white.mr-2.p-0(data-toggle='collapse', data-target='#basicExampleNav', aria-controls='basicExampleNav')
+        img.rounded-circle(src=user.avatar)
+    #basicExampleNav.dropdown-menu.dropdown-menu-right.dropdown-secondary
+      if user && user.role === "ADMIN"
+        a.dropdown-item(href='/admin')
+          | Admin
+      if user
+        a.dropdown-item(href='/logout')
+          | Logout
+      else
+        a.dropdown-item(href='/login')
+          | Login

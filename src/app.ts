@@ -2,15 +2,16 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import express from 'express';
 import expressFlash from 'express-flash';
-import expressHealthcheck from 'express-healthcheck';
 import expressSession from 'express-session';
 import expressValidator from 'express-validator';
 import lusca from 'lusca';
 import passport from 'passport';
 import path from 'path';
+
+import adminRouter from './routes/adminRouter';
 import authRouter from './routes/authRouter';
 import rootRouter from './routes/rootRouter';
-import logger from './util/logger';
+
 import secrets from './util/secrets';
 
 const app = express();
@@ -63,5 +64,6 @@ app.use((req, res, next) => {
  */
 app.use('/', authRouter);
 app.use('/', rootRouter);
+app.use('/admin', adminRouter);
 
 export default app;
