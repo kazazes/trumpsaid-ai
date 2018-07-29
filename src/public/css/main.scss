@@ -1,6 +1,7 @@
-@import "themes/colors.scss";
-@import "lib/bootstrap/bootstrap";
-@import "./mdbootstrap.scss";
+@import "variables.scss";
+@import "colors.scss";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "mdb.scss";
 
 html {
   position: relative;

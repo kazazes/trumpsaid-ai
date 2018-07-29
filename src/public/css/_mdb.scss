@@ -1,0 +1,66 @@
+/*!
+ * Material Design for Bootstrap 4
+ * Version: MDB PRO 4.5.7
+ *
+ *
+ * Copyright: Material Design for Bootstrap
+ * https://mdbootstrap.com/
+ *
+ * Read the license: https://mdbootstrap.com/license/
+ *
+ *
+ * Documentation: https://mdbootstrap.com/
+ *
+ * Getting started: https://mdbootstrap.com/getting-started/
+ *
+ * Tutorials: https://mdbootstrap.com/bootstrap-tutorial/
+ *
+ * Templates: https://mdbootstrap.com/templates/
+ *
+ * Support: https://mdbootstrap.com/support/
+ *
+ * Contact: office@mdbootstrap.com
+ *
+ * Atribution: Animate CSS, Twitter Bootstrap, Materialize CSS, Normalize CSS, Waves JS, WOW JS, Toastr, Chart.js , Hammer.js
+ *
+ */
+
+@charset "UTF-8";
+
+// Bootstrap
+@import "~mdbootstrap/scss/core/bootstrap/functions";
+@import "~mdbootstrap/scss/core/bootstrap/variables";
+
+// CORE
+@import "~mdbootstrap/scss/core/mixins";
+// Your custom variables
+@import "~mdbootstrap/scss/custom-variables";
+@import "~mdbootstrap/scss/core/colors";
+@import "~mdbootstrap/scss/core/variables";
+@import "~mdbootstrap/scss/core/global";
+@import "~mdbootstrap/scss/core/helpers";
+@import "~mdbootstrap/scss/core/typography";
+@import "~mdbootstrap/scss/core/masks";
+@import "~mdbootstrap/scss/core/waves";
+
+// FREE
+@import "~mdbootstrap/scss/free/animations-basic";
+@import "~mdbootstrap/scss/free/animations-extended";
+@import "~mdbootstrap/scss/free/buttons";
+@import "~mdbootstrap/scss/free/cards";
+@import "~mdbootstrap/scss/free/dropdowns";
+@import "~mdbootstrap/scss/free/input-group";
+@import "~mdbootstrap/scss/free/navbars";
+@import "~mdbootstrap/scss/free/pagination";
+@import "~mdbootstrap/scss/free/badges";
+@import "~mdbootstrap/scss/free/modals";
+@import "~mdbootstrap/scss/free/carousels";
+@import "~mdbootstrap/scss/free/forms";
+@import "~mdbootstrap/scss/free/msc";
+@import "~mdbootstrap/scss/free/footers";
+@import "~mdbootstrap/scss/free/list-group";
+@import "~mdbootstrap/scss/free/tables";
+@import "~mdbootstrap/scss/free/depreciated";
+
+// Free addons
+// @import "~mdbootstrap/scss/addons/datatables";

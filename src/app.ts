@@ -15,6 +15,7 @@ import authRouter from './routes/authRouter';
 import rootRouter from './routes/rootRouter';
 
 import checkJWT from './helpers/checkJWT';
+import logger from './util/logger';
 import secrets from './util/secrets';
 
 const app = express();
@@ -26,7 +27,7 @@ const RedisStore = require('connect-redis')(expressSession);
 // Express configuration
 app.set('port', process.env.PORT || 3000);
 app.set('hostname', process.env.HOST || '127.0.0.1');
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', './views');
 app.set('view engine', 'pug');
 app.use(compression());
 app.use(bodyParser.json());
@@ -35,8 +36,12 @@ app.use(expressValidator());
 app.use(expressFlash());
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
+
+const staticPath = path.join('./dist/public');
+logger.info(`Serving ${staticPath} as static`);
+
 app.use(
-  express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }),
+  express.static(staticPath, { maxAge: 31557600000 }),
 );
 
 app.use(

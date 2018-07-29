@@ -6,6 +6,9 @@
     "esModuleInterop": true,
     "noImplicitAny": true,
     "sourceMap": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "outDir": "dist",
     "rootDir": "src",
     "baseUrl": ".",
@@ -21,6 +24,6 @@
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/**/*"
   ]
 }
