@@ -14,6 +14,7 @@ import adminRouter from './routes/adminRouter';
 import authRouter from './routes/authRouter';
 import rootRouter from './routes/rootRouter';
 
+import checkJWT from './helpers/checkJWT';
 import secrets from './util/secrets';
 
 const app = express();
@@ -66,7 +67,8 @@ app.use((req, res, next) => {
  */
 app.use('/', authRouter);
 app.use('/', rootRouter);
-app.use('/admin', adminRouter);
+app.use('/admin', checkJWT, adminRouter);
+app.use('/graphql', checkJWT);
 
 graphServer.applyMiddleware({ app });
 

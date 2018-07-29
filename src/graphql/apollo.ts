@@ -1,25 +1,34 @@
-import { gql } from 'apollo-server-express';
-import { Request } from 'express';
-import fs from 'fs';
 import { importSchema } from 'graphql-import';
-import path from 'path';
-import { Prisma } from 'prisma-binding';
-import context from '../prismaContext';
+import { IPassportUser } from '../helpers/passport';
+import prismaContext from '../prismaContext';
+import { Prisma } from './generated/prisma';
 import resolvers from './resolvers';
 
 const { ApolloServer } = require('apollo-server-express');
 
 const typeDefs = importSchema('./src/graphql/schema.graphql');
 
+interface IExpressContext {
+  req: Express.Request;
+  res: Express.Response;
+}
+
+export interface IApolloContext {
+  user: IPassportUser;
+  db: Prisma;
+}
+
 const apolloConfig = {
   typeDefs,
   resolvers,
-  context: (req: any) => ({
-    ...req,
-    db: context,
-  }),
+  cors: false,
+  context: (ctx: IExpressContext) => ({
+    user: ctx.req.user as IPassportUser,
+    db: prismaContext,
+  } as IApolloContext),
 };
 
 const server = new ApolloServer(apolloConfig);
+server.playgroundOptions.settings['request.credentials'] = 'include';
 
 export default server;

@@ -26,7 +26,7 @@ router.get(
     responseType: 'code',
     scope: 'openid profile',
   } as IAuth0PassportConfig),
-  (req, res) => {
+  (_, res) => {
     res.redirect('/');
   });
 

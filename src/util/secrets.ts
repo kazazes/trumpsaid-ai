@@ -12,6 +12,16 @@ if (fs.existsSync('.env')) {
   dotenv.config({ path: '.env.example' });
 }
 interface IRequiredSecrets {
+  SESSION_SECRET: string;
+  REDIS_HOST: string;
+  REDIS_PORT: string;
+  AUTH0_DOMAIN: string;
+  AUTH0_CLIENT_ID: string;
+  AUTH0_SECRET: string;
+  AUTH0_CALLBACK_URL: string;
+  PRISMA_ENDPOINT: string;
+  PRISMA_SECRET: string;
+  AUTH0_AUDIENCE: string;
   [key: string]: string;
 }
 

@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "moduleResolution": "node",
     "module": "commonjs",
     "esModuleInterop": true,
     "noImplicitAny": true,
-    // Apollo work around
-    "skipLibCheck": true,
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",

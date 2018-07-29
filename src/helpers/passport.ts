@@ -1,4 +1,4 @@
-import { NextFunction, Request } from 'express';
+import { Request } from 'express';
 import passport from 'passport';
 import { Strategy } from 'passport-auth0';
 import { User } from '../graphql/generated/prisma';
@@ -42,6 +42,7 @@ const strategy = new Strategy(
     clientSecret: secrets.AUTH0_SECRET,
     callbackURL: secrets.AUTH0_CALLBACK_URL,
     audience: secrets.AUTH0_AUDIENCE,
+    issuer: secrets.AUTH0_DOMAIN,
     responseType: 'code',
     scope: 'openid profile',
   },
@@ -99,9 +100,14 @@ passport.serializeUser((user: IAuth0StrategyProfile, done) => {
   done(null, args);
 });
 
+export interface IPassportUser extends User {
+  accessToken?: string;
+}
+
 passport.deserializeUser(async (user: ISerializedUser, done) => {
   try {
-    const graphUser: any = await Prisma.query.user({ where: { auth0Id: user.id } }, ' { id auth0Id avatar displayName familyName givenName role } ');
+    const graphUser: IPassportUser =
+      await Prisma.query.user({ where: { auth0Id: user.id } }, ' { id auth0Id avatar displayName familyName givenName role } ');
     graphUser.accessToken = user.accessToken;
     done(null, graphUser);
   } catch (err) {

@@ -8,3 +8,5 @@ const isAdmin = (req: Express.Request, res: Express.Response, next: NextFunction
     return next();
   }
 };
+
+export default router;

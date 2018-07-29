@@ -3,4 +3,5 @@
 
 type Query {
   videoUploads: [VideoUpload!]
+  me: User
 }

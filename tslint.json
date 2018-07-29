@@ -1,7 +1,8 @@
 {
     "linterOptions": {
         "exclude": [
-            "src/graphql/generated/**"
+            "src/graphql/generated/**",
+            "node_modules/**"
         ]
     },
     "rules": {
