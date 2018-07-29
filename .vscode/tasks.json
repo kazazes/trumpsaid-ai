@@ -4,9 +4,10 @@
     {
       "identifier": "watch",
       "type": "npm",
-      "script": "build-watch",
+      "script": "build",
       "problemMatcher": [
-        "$tsc-watch"
+        "$tsc",
+        "$node-sass",
       ],
       "isBackground": true,
       "group": {
