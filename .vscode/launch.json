@@ -7,7 +7,20 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch GraphQL Server",
+      "name": "Launch via NPM",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "debug"
+      ],
+      "port": 9229,
+      "sourceMaps": true,
+      "outputCapture": "std"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Server",
       "program": "${workspaceFolder}/dist/server.js",
       "restart": true,
       "autoAttachChildProcesses": true,

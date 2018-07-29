@@ -1,13 +1,26 @@
-/*!
- * CoreUI - Open Source Bootstrap Admin Template
- * @version v1.0.10
- * @link http://coreui.io
- * Copyright (c) 2018 creativeLabs Łukasz Holeczek
- * @license MIT
- */
+// If you want to override variables do it here
+@import "variables";
+// Import styles with default layout.
+// If you are going to use dark layout please comment next line
+@import "~@coreui/coreui-pro/scss/coreui";
+// Import styles with dark layout
+// If you want to use dark layout uncomment next line
+// @import "~@coreui/coreui-pro/scss/themes/dark/coreui-dark";
+// CoreUI Icons Set
+@import '~@coreui/icons/css/coreui-icons.min.css';
+/* Import Font Awesome Icons Set */
 
-// Import core styles
-@import "themes/colors.scss";
-@import "lib/bootstrap/bootstrap";
-@import "./mdbootstrap.scss";
-@import "lib/core/core";
+$fa-font-path: '~font-awesome/fonts/';
+@import '~font-awesome/scss/font-awesome.scss';
+/* Import Simple Line Icons Set */
+
+$simple-line-font-path: '~simple-line-icons/fonts/';
+@import '~simple-line-icons/scss/simple-line-icons.scss';
+/* Import Flag Icons Set */
+
+@import '~flag-icon-css/sass/flag-icon.scss';
+/* Import Bootstrap Vue Styles */
+
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+// ie fixes
+@import "coreui/ie-fix";

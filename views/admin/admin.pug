@@ -1,38 +1,9 @@
-extends ../layout
+extends ../vue
 
 block extraHead
-  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css")
   link(rel="stylesheet", href="/css/admin.css")
 
 block content
-  .app.pace-done
-    .app-body
-          .sidebar
-            nav.sidebar-nav
-              ul.nav
-                li.nav-item
-                  a.nav-link(href='/admin')
-                    i.icon-speedometer
-                    |  Dashboard 
-                li.nav-title
-                  | Content
-                li.nav-item.nav-dropdown
-                  a.nav-link.nav-dropdown-toggle(href='#')
-                    i.icon-puzzle
-                    |  Videos
-                  ul.nav-dropdown-items
-                    li.nav-item
-                      a.nav-link(href='base/breadcrumb.html')
-                        i.icon-puzzle
-                        |  Uploads
-            button.sidebar-minimizer.brand-minimizer(type='button')
-          main.main
-            ol.breadcrumb
-              li.breadcrumb-item
-                a(href='#') Admin
-              li.breadcrumb-item.active Dashboard
-            .container-fluid
-              #ui-view
-                block adminContent
+  #app
 block extraScript
-
+  script(src="/js/admin.bundle.js")

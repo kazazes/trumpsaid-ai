@@ -5,6 +5,7 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "noImplicitAny": true,
+    "importHelpers": true,
     "sourceMap": true,
     "typeRoots": [
       "node_modules/@types"
@@ -14,7 +15,7 @@
     "baseUrl": ".",
     "lib": [
       "esnext",
-      "dom"
+      "dom",
     ],
     "paths": {
       "*": [

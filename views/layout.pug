@@ -8,10 +8,9 @@ html(lang='')
     meta(name='description', content='')
     meta(name='theme-color' content='#4DA5F4')
     meta(name='csrf-token', content=_csrf)
-    block extraHead
     link(rel='shortcut icon', href='/img/favicon.png')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/css/main.css')
+    block extraHead
   body
     include partials/header
 
@@ -21,5 +20,8 @@ html(lang='')
 
     include partials/footer
 
-    script(src='/js/bundle.js')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.7/js/mdb.min.js")
+    
     block extraScript

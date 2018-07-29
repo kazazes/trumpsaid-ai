@@ -1,13 +1,18 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   mode: "development",
-  devtool: 'cheap-module-eval-source-map',
-  entry: ['./src/public/js/main.ts', './src/public/css/main.scss'],
+  entry: {
+    main: './src/public/js/main.js',
+    main: './src/public/css/main.scss',
+    admin: './src/public/css/admin.scss',
+    admin: './src/vue/main.js'
+  },
   output: {
     path: __dirname + '/dist/public/',
-    filename: 'js/bundle.js'
+    filename: 'js/[name].bundle.js'
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -19,11 +24,15 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: './src/public/img', to: 'img' },
       { from: './src/public/font', to: 'font' }
-    ])
+    ]),
+    new VueLoaderPlugin()
   ],
   resolve: {
     // Add '.ts' and '.tsx' as a resolvable extension.
-    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.scss', '.pug', '.jpg', '.png', '.svg'],
+    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.scss', '.pug', '.jpg', '.png', '.svg', '.vue'],
+    alias: {
+      vue: 'vue/dist/vue.js'
+    }
   },
   module: {
     rules: [
@@ -32,7 +41,11 @@ module.exports = {
         loader: 'ts-loader',
       },
       {
-        test: /\.scss$/,
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
+      {
+        test: /\.s?css$/,
         use: [
           MiniCssExtractPlugin.loader,
           "css-loader", // translates CSS into CommonJS
@@ -40,12 +53,12 @@ module.exports = {
         ]
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file-loader?name=public/fonts/[name].[ext]'
+        test: /\.(eot|ttf|woff|woff2)$/,
+        loader: 'file-loader?name=/fonts/[name].[ext]'
       },
       {
         test: /\.(jpg|png|svg)$/,
-        loader: 'file-loader?name=public/img/[name].[ext]'
+        loader: 'file-loader?name=/img/[name].[ext]'
       }
     ],
   },

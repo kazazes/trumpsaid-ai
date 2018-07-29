@@ -9,7 +9,7 @@ const checkJwt = jwt({
     jwksRequestsPerMinute: 5,
     jwksUri: `https://${secrets.AUTH0_DOMAIN}/.well-known/jwks.json`,
   }),
-  getToken: (req) => { return req.user.accessToken; },
+  getToken: (req) => { if (req.user && req.user.accessToken) { return req.user.accessToken; } },
   requestProperty: 'auth',
   audience: secrets.AUTH0_AUDIENCE,
   issuer: 'https://sibyl.auth0.com/',

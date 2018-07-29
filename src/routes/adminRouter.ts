@@ -13,9 +13,13 @@ const isAdmin = (req: IRequestWithUser, res: Response, next: NextFunction) => {
   }
 };
 
-router.all('*', checkJwt, isAdmin);
+interface IVueResponse extends Response {
+  renderVue: any;
+}
 
-router.get('/', (req, res, next) => {
+router.all('*', isAdmin, checkJwt);
+
+router.get('/', (req, res: IVueResponse, next) => {
   res.render('admin/admin', { title: 'Admin', hideSearch: true });
 });
 

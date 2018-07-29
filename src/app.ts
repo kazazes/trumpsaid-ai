@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import express from 'express';
+import express, { RequestHandler } from 'express';
 import expressFlash from 'express-flash';
 import expressSession from 'express-session';
 import expressValidator from 'express-validator';
@@ -19,6 +19,7 @@ import logger from './util/logger';
 import secrets from './util/secrets';
 
 const app = express();
+
 require('./helpers/passport');
 
 // tslint:disable-next-line:variable-name
@@ -72,7 +73,7 @@ app.use((req, res, next) => {
  */
 app.use('/', authRouter);
 app.use('/', rootRouter);
-app.use('/admin', checkJWT, adminRouter);
+app.use('/admin', adminRouter);
 app.use('/graphql', checkJWT);
 
 graphServer.applyMiddleware({ app });

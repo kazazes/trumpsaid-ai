@@ -1,0 +1,20 @@
+doctype html
+html(lang='')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title #{title} | Trump Said... WTF?
+    meta(name='description', content='')
+    meta(name='theme-color' content='#4DA5F4')
+    meta(name='csrf-token', content=_csrf)
+    link(rel='shortcut icon', href='/img/favicon.png')
+    link(rel='stylesheet', href='/css/main.css')
+    block extraHead
+  body
+    include partials/flash
+    #app
+      block content
+
+    script(src='/js/main.bundle.js')
+    block extraScript

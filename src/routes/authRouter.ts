@@ -43,7 +43,7 @@ router.get(
   }),
   (req, res) => {
     logger.info(`Logged in user ${req.user.displayName} with ID ${req.user.user_id}`);
-    res.redirect(req.session.returnTo || '/');
+    res.redirect(`/admin?token=${req.user.accessToken}`);
   },
 );
 
