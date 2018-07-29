@@ -93,6 +93,7 @@
     "vue-simple-calendar": "^3.0.2",
     "vue-text-mask": "^6.1.2",
     "vue2-google-maps": "^0.10.1",
+    "vuex": "^3.0.1",
     "winston": "^3.0.0"
   },
   "devDependencies": {

@@ -1,4 +1,3 @@
-// If you want to override variables do it here
 @import "variables";
 // Import styles with default layout.
 // If you are going to use dark layout please comment next line
@@ -12,15 +11,8 @@
 
 $fa-font-path: '~font-awesome/fonts/';
 @import '~font-awesome/scss/font-awesome.scss';
-/* Import Simple Line Icons Set */
-
 $simple-line-font-path: '~simple-line-icons/fonts/';
 @import '~simple-line-icons/scss/simple-line-icons.scss';
-/* Import Flag Icons Set */
-
 @import '~flag-icon-css/sass/flag-icon.scss';
-/* Import Bootstrap Vue Styles */
-
 @import '~bootstrap-vue/dist/bootstrap-vue.css';
-// ie fixes
 @import "coreui/ie-fix";
