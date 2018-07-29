@@ -1,7 +1,7 @@
 import { importSchema } from 'graphql-import';
 import { IPassportUser } from '../helpers/passport';
-import prismaContext from '../prismaContext';
 import { Prisma } from './generated/prisma';
+import prismaContext from './prismaContext';
 import resolvers from './resolvers';
 
 const { ApolloServer } = require('apollo-server-express');

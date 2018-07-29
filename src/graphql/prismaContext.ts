@@ -1,6 +1,6 @@
-import { PrismaOptions } from '../node_modules/prisma-binding/dist/types';
-import { Prisma } from './graphql/generated/prisma';
-import secrets from './util/secrets';
+import { PrismaOptions } from 'prisma-binding/dist/types';
+import secrets from '../util/secrets';
+import { Prisma } from './generated/prisma';
 
 const prismaOptions: PrismaOptions = {
   typeDefs: 'src/graphql/generated/prisma.graphql',

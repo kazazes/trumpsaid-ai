@@ -1,4 +1,4 @@
-import prismaContext from '../../../prismaContext';
+import prismaContext from '../../prismaContext';
 
 export default {
   videoUploads: () => {

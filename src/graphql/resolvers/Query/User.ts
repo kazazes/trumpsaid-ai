@@ -1,5 +1,5 @@
-import prismaContext from '../../../prismaContext';
 import { IApolloContext } from '../../apollo';
+import prismaContext from '../../prismaContext';
 
 export default {
   me: (obj: any, args: any, ctx: IApolloContext, info: any) => {
