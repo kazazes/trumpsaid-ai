@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import express, { RequestHandler } from 'express';
+import express from 'express';
 import expressFlash from 'express-flash';
 import expressSession from 'express-session';
 import expressValidator from 'express-validator';
@@ -40,7 +40,6 @@ app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 
 const staticPath = path.join('./dist/public');
-logger.info(`Serving ${staticPath} as static`);
 
 app.use(
   express.static(staticPath, { maxAge: 31557600000 }),
