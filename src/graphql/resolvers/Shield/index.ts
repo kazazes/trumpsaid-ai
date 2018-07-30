@@ -33,7 +33,6 @@ const permissions = shield({
   Mutation: {
     createVideoUpload: rules.canCreateUpload,
   },
-  User: and(rules.canListAllUploads, rules.canCreateUpload),
 });
 
 export default permissions;
