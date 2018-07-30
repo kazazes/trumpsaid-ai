@@ -1,6 +1,6 @@
 import redis from 'redis';
 import { exit } from 'shelljs';
-import logger from './logger';
+import logger from '../util/logger';
 import secrets from './secrets';
 
 export const testServerConnections = () => {
@@ -19,8 +19,7 @@ export const testServerConnections = () => {
 export const testRedisConnection = () => {
   return new Promise((resolve, reject) => {
     const start = new Date().getMilliseconds();
-    const redisTimeout = 5000;
-    const timeout = setTimeout(() => reject(new Error(`Redis connection timed out ${secrets.REDIS_HOST}:${secrets.REDIS_PORT}`)), redisTimeout);
+    const timeout = setTimeout(() => reject(new Error(`Redis connection timed out ${secrets.REDIS_HOST}:${secrets.REDIS_PORT}`)), 5000);
     const client = redis.createClient(Number(secrets.REDIS_PORT), secrets.REDIS_HOST, {});
     client.ping(() => {
       clearTimeout(timeout);
