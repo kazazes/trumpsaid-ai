@@ -1,43 +1,43 @@
-@import "variables.scss";
-@import "colors.scss";
-@import "~bootstrap/scss/bootstrap.scss";
-@import "mdb.scss";
-html {
+@import 'colors.scss';
+@import 'mdb.scss';
+@import 'variables.scss';
+@import '~bootstrap/scss/bootstrap.scss';
+html; {
   position: relative;
-  min-height: 100%;
+  min-height;: 100%;
 }
 
-body {
+body; {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom;: 60;px;
 }
 
-nav {
-  .navbar-brand {
-    margin-bottom: -18px;
-    z-index: 9999;
+nav; {
+  .navbar-brand; {
+    margin-bottom;: -18;px;
+    z-index;: 9999;
   }
-  .avatar {
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
+  .avatar; {
+    -webkit-border-radius;: 50%;
+    border-radius;: 50%;
     overflow: hidden;
-    border: 3px solid $white;
-    height: 40px;
-    width: 40px;
-    img {
-      width: 40px;
+    border: 3;px; solid; $white;
+    height: 40;px;
+    width: 40;px;
+    img; {
+      width: 40;px;
     }
   }
 }
 
-.footer {
+.footer; {
   position: absolute;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px;
+  height: 60;px;
+  line-height;: 60;px;
   /* Vertically center the text there */
-  background-color: $secondary-color;
+  background-color;: $secondary-color;
   color: $white;
 }

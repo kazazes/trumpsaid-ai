@@ -25,42 +25,42 @@
  *
  */
 
-@charset "UTF-8";
+@charset 'UTF-8';
 
 // Bootstrap
-@import "~mdbootstrap/scss/core/bootstrap/functions";
-@import "~mdbootstrap/scss/core/bootstrap/variables";
+@import '~mdbootstrap/scss/core/bootstrap/functions';
+@import '~mdbootstrap/scss/core/bootstrap/variables';
 
 // CORE
-@import "~mdbootstrap/scss/core/mixins";
+@import '~mdbootstrap/scss/core/colors';
+@import '~mdbootstrap/scss/core/global';
+@import '~mdbootstrap/scss/core/helpers';
+@import '~mdbootstrap/scss/core/masks';
+@import '~mdbootstrap/scss/core/mixins';
+@import '~mdbootstrap/scss/core/typography';
+@import '~mdbootstrap/scss/core/variables';
+@import '~mdbootstrap/scss/core/waves';
 // Your custom variables
-@import "~mdbootstrap/scss/custom-variables";
-@import "~mdbootstrap/scss/core/colors";
-@import "~mdbootstrap/scss/core/variables";
-@import "~mdbootstrap/scss/core/global";
-@import "~mdbootstrap/scss/core/helpers";
-@import "~mdbootstrap/scss/core/typography";
-@import "~mdbootstrap/scss/core/masks";
-@import "~mdbootstrap/scss/core/waves";
+@import '~mdbootstrap/scss/custom-variables';
 
 // FREE
-@import "~mdbootstrap/scss/free/animations-basic";
-@import "~mdbootstrap/scss/free/animations-extended";
-@import "~mdbootstrap/scss/free/buttons";
-@import "~mdbootstrap/scss/free/cards";
-@import "~mdbootstrap/scss/free/dropdowns";
-@import "~mdbootstrap/scss/free/input-group";
-@import "~mdbootstrap/scss/free/navbars";
-@import "~mdbootstrap/scss/free/pagination";
-@import "~mdbootstrap/scss/free/badges";
-@import "~mdbootstrap/scss/free/modals";
-@import "~mdbootstrap/scss/free/carousels";
-@import "~mdbootstrap/scss/free/forms";
-@import "~mdbootstrap/scss/free/msc";
-@import "~mdbootstrap/scss/free/footers";
-@import "~mdbootstrap/scss/free/list-group";
-@import "~mdbootstrap/scss/free/tables";
-@import "~mdbootstrap/scss/free/depreciated";
+@import '~mdbootstrap/scss/free/animations-basic';
+@import '~mdbootstrap/scss/free/animations-extended';
+@import '~mdbootstrap/scss/free/badges';
+@import '~mdbootstrap/scss/free/buttons';
+@import '~mdbootstrap/scss/free/cards';
+@import '~mdbootstrap/scss/free/carousels';
+@import '~mdbootstrap/scss/free/depreciated';
+@import '~mdbootstrap/scss/free/dropdowns';
+@import '~mdbootstrap/scss/free/footers';
+@import '~mdbootstrap/scss/free/forms';
+@import '~mdbootstrap/scss/free/input-group';
+@import '~mdbootstrap/scss/free/list-group';
+@import '~mdbootstrap/scss/free/modals';
+@import '~mdbootstrap/scss/free/msc';
+@import '~mdbootstrap/scss/free/navbars';
+@import '~mdbootstrap/scss/free/pagination';
+@import '~mdbootstrap/scss/free/tables';
 
 // Free addons
 // @import "~mdbootstrap/scss/addons/datatables";

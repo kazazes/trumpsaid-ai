@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import express, { RequestHandler } from 'express';
+import express from 'express';
 import expressFlash from 'express-flash';
 import expressSession from 'express-session';
 import expressValidator from 'express-validator';
@@ -25,8 +25,9 @@ require('./helpers/passport');
 // tslint:disable-next-line:variable-name
 const RedisStore = require('connect-redis')(expressSession);
 
+const defaultPort = 3000;
 // Express configuration
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || defaultPort);
 app.set('hostname', process.env.HOST || '127.0.0.1');
 app.set('views', './views');
 app.set('view engine', 'pug');
