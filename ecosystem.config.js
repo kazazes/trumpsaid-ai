@@ -3,7 +3,6 @@ module.exports = {
     {
       name: "trump-said-wtf-web",
       script: "npm -- start",
-      interpreter: "node@8.11.3",
       env: {
         NODE_ENV: "development"
       },
