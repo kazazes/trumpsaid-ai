@@ -14,10 +14,9 @@ nav.navbar.navbar-dark.primary-color
       a.nav-link.dropdown-toggle.avatar.ml-auto.white.mr-2.p-0(data-toggle='collapse', data-target='#basicExampleNav', aria-controls='basicExampleNav')
         img.rounded-circle(src=user.avatar)
     #basicExampleNav.dropdown-menu.dropdown-menu-right.dropdown-secondary
-      if user && user.role === "ADMIN"
+      if user
         a.dropdown-item(href='/admin')
           | Admin
-      if user
         a.dropdown-item(href='/logout')
           | Logout
       else
