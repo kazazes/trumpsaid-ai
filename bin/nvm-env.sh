@@ -3,4 +3,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 nvm install lts/carbon
-nvm use lts/carbon
+nvm aliase default lts/carbon
+nvm use default
