@@ -18,7 +18,7 @@ module.exports = {
       host: "10.142.0.5",
       key: "~/.ssh/google_compute_engine",
       ref: "origin/master",
-      repo: "git@github.com:trumpsaid-wtf/web-app.git",
+      repo: "https://github.com/trumpsaid-wtf/web-app.git",
       path: "/var/www/trumpsaid.wtf",
       cwd: "/var/www/trumpsaid.wtf/source/",
       "pre-deploy": "bin/nvm-env.sh",
