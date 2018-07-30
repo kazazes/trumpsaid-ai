@@ -26,6 +26,7 @@ require('./helpers/passport');
 const RedisStore = require('connect-redis')(expressSession);
 
 // Express configuration
+// tslint:disable-next-line:no-magic-numbers
 app.set('port', process.env.PORT || 3000);
 app.set('hostname', process.env.HOST || '127.0.0.1');
 app.set('views', './views');
