@@ -12,7 +12,9 @@
       "runtimeArgs": ["run", "debug"],
       "port": 9229,
       "sourceMaps": true,
-      "outputCapture": "std"
+      "outputCapture": "std",
+      "protocol": "inspector",
+      "restart": true
     },
     {
       "type": "node",

@@ -9,7 +9,7 @@
     "start": "npm run serve",
     "build": "rimraf ./dist && webpack --progress && npm run build-ts && npm run tslint",
     "serve": "node dist/server.js",
-    "debug": "nodemon --inspect dist/server.js",
+    "debug": "node --inspect dist/server.js",
     "watch-node": "nodemon --inspect dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Webpack,TypeScript\" -c \"yellow.bold,cyan.bold,green.bold\" \"webpack --verbose --watch\" \"npm run watch-ts\"",
     "test": "jest --forceExit --coverage --verbose",
