@@ -1,5 +1,13 @@
 # source: http://localhost:4466/trump-said-wtf/development
-# timestamp: Sat Jul 28 2018 06:51:29 GMT-0700 (PDT)
+# timestamp: Sun Jul 29 2018 20:55:29 GMT-0700 (PDT)
+
+enum AdminRole {
+  CREATE_UPLOAD
+  LIST_UPLOADS
+  LIST_ALL_UPLOADS
+  ADVANCE_UPLOADS
+  PUBLISH_UPLOAD
+}
 
 type AggregateDate {
   count: Int!
@@ -155,6 +163,7 @@ input DateUpdateInput {
 
 input DateUpdateOneInput {
   create: DateCreateInput
+  disconnect: Boolean
   delete: Boolean
   update: DateUpdateDataInput
   upsert: DateUpsertNestedInput
@@ -1522,13 +1531,13 @@ input TranscriptionItemWhereInput {
 type User implements Node {
   id: ID!
   email: String
-  emailVerified: Boolean
   auth0Id: String
   role: Role
   displayName: String
   avatar: String
   givenName: String
   familyName: String
+  adminRoles: [AdminRole!]!
 }
 
 """A connection to a list of items."""
@@ -1541,15 +1550,19 @@ type UserConnection {
   aggregate: AggregateUser!
 }
 
+input UserCreateadminRolesInput {
+  set: [AdminRole!]
+}
+
 input UserCreateInput {
   email: String
-  emailVerified: Boolean
   auth0Id: String
   role: Role
   displayName: String
   avatar: String
   givenName: String
   familyName: String
+  adminRoles: UserCreateadminRolesInput
 }
 
 input UserCreateOneInput {
@@ -1571,8 +1584,6 @@ enum UserOrderByInput {
   id_DESC
   email_ASC
   email_DESC
-  emailVerified_ASC
-  emailVerified_DESC
   auth0Id_ASC
   auth0Id_DESC
   role_ASC
@@ -1594,13 +1605,13 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   email: String
-  emailVerified: Boolean
   auth0Id: String
   role: Role
   displayName: String
   avatar: String
   givenName: String
   familyName: String
+  adminRoles: [AdminRole!]!
 }
 
 type UserSubscriptionPayload {
@@ -1642,26 +1653,30 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateadminRolesInput {
+  set: [AdminRole!]
+}
+
 input UserUpdateDataInput {
   email: String
-  emailVerified: Boolean
   auth0Id: String
   role: Role
   displayName: String
   avatar: String
   givenName: String
   familyName: String
+  adminRoles: UserUpdateadminRolesInput
 }
 
 input UserUpdateInput {
   email: String
-  emailVerified: Boolean
   auth0Id: String
   role: Role
   displayName: String
   avatar: String
   givenName: String
   familyName: String
+  adminRoles: UserUpdateadminRolesInput
 }
 
 input UserUpdateOneInput {
@@ -1766,10 +1781,6 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
-  emailVerified: Boolean
-
-  """All values that are not equal to given value."""
-  emailVerified_not: Boolean
   auth0Id: String
 
   """All values that are not equal to given value."""
@@ -2435,6 +2446,7 @@ input VideoUpdateManyInput {
 input VideoUpdateOneInput {
   create: VideoCreateInput
   connect: VideoWhereUniqueInput
+  disconnect: Boolean
   delete: Boolean
   update: VideoUpdateDataInput
   upsert: VideoUpsertNestedInput
@@ -2448,21 +2460,22 @@ input VideoUpdateWithWhereUniqueNestedInput {
 type VideoUpload implements Node {
   id: ID!
   submitedBy(where: UserWhereInput): User!
-  publishedBy(where: UserWhereInput): User!
-  publishedVideo(where: VideoWhereInput): Video!
+  publishedBy(where: UserWhereInput): User
+  publishedVideo(where: VideoWhereInput): Video
+  submittedUrl: String!
   status: VideoUploadStatus!
   autoTranscription: [String!]!
   transcription(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TranscriptionItem!]
   published: Boolean!
   advertisingEnabled: Boolean!
-  views: Int
+  views: Int!
   rawStorageLink(where: VideoStorageLinkWhereInput): VideoStorageLink
-  title: String!
-  subtitle: String!
-  dateRecorded(where: DateWhereInput): Date!
+  title: String
+  subtitle: String
+  dateRecorded(where: DateWhereInput): Date
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
   source(where: SourceWhereInput): Source
-  productionLink(where: VideoStorageLinkWhereInput): VideoStorageLink!
+  productionLink(where: VideoStorageLinkWhereInput): VideoStorageLink
 }
 
 """A connection to a list of items."""
@@ -2480,22 +2493,23 @@ input VideoUploadCreateautoTranscriptionInput {
 }
 
 input VideoUploadCreateInput {
+  submittedUrl: String!
   status: VideoUploadStatus!
   published: Boolean
   advertisingEnabled: Boolean
   views: Int
-  title: String!
-  subtitle: String!
+  title: String
+  subtitle: String
   autoTranscription: VideoUploadCreateautoTranscriptionInput
   submitedBy: UserCreateOneInput!
-  publishedBy: UserCreateOneInput!
-  publishedVideo: VideoCreateOneInput!
+  publishedBy: UserCreateOneInput
+  publishedVideo: VideoCreateOneInput
   transcription: TranscriptionItemCreateManyInput
   rawStorageLink: VideoStorageLinkCreateOneInput
-  dateRecorded: DateCreateOneInput!
+  dateRecorded: DateCreateOneInput
   tags: TagCreateManyInput
   source: SourceCreateOneInput
-  productionLink: VideoStorageLinkCreateOneInput!
+  productionLink: VideoStorageLinkCreateOneInput
 }
 
 """An edge in a connection."""
@@ -2510,6 +2524,8 @@ type VideoUploadEdge {
 enum VideoUploadOrderByInput {
   id_ASC
   id_DESC
+  submittedUrl_ASC
+  submittedUrl_DESC
   status_ASC
   status_DESC
   published_ASC
@@ -2530,23 +2546,23 @@ enum VideoUploadOrderByInput {
 
 type VideoUploadPreviousValues {
   id: ID!
+  submittedUrl: String!
   status: VideoUploadStatus!
   autoTranscription: [String!]!
   published: Boolean!
   advertisingEnabled: Boolean!
-  views: Int
-  title: String!
-  subtitle: String!
+  views: Int!
+  title: String
+  subtitle: String
 }
 
 enum VideoUploadStatus {
   DOWNLOADING
   AWAITING_PROCESSING
-  REJECTED
   RENDERING
   READY_TO_PUBLISH
-  FAILED
   GENERATING_THUMBNAILS
+  NEEDS_METADATA
 }
 
 type VideoUploadSubscriptionPayload {
@@ -2593,6 +2609,7 @@ input VideoUploadUpdateautoTranscriptionInput {
 }
 
 input VideoUploadUpdateInput {
+  submittedUrl: String
   status: VideoUploadStatus
   published: Boolean
   advertisingEnabled: Boolean
@@ -2660,6 +2677,46 @@ input VideoUploadWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  submittedUrl: String
+
+  """All values that are not equal to given value."""
+  submittedUrl_not: String
+
+  """All values that are contained in given list."""
+  submittedUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  submittedUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  submittedUrl_lt: String
+
+  """All values less than or equal the given value."""
+  submittedUrl_lte: String
+
+  """All values greater than the given value."""
+  submittedUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  submittedUrl_gte: String
+
+  """All values containing the given string."""
+  submittedUrl_contains: String
+
+  """All values not containing the given string."""
+  submittedUrl_not_contains: String
+
+  """All values starting with the given string."""
+  submittedUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  submittedUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  submittedUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  submittedUrl_not_ends_with: String
   status: VideoUploadStatus
 
   """All values that are not equal to given value."""

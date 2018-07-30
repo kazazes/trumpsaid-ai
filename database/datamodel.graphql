@@ -2,7 +2,8 @@ interface IVideo {
   published: Boolean @default(value: "false")
   advertisingEnabled: Boolean @default(value: "false")
   views: Int @default(value: "0")
-  productionLink: VideoStorageLink! @relation(name: "VideoStorageProductionRelation")
+  productionLink: VideoStorageLink!
+    @relation(name: "VideoStorageProductionRelation")
   transcription: [TranscriptionItem!]!
   source: Source
 }
@@ -10,40 +11,41 @@ interface IVideo {
 type User {
   id: ID! @unique
   email: String
-  emailVerified: Boolean @default(value: "false")
   auth0Id: String @unique
   role: Role @default(value: "USER")
   displayName: String
   avatar: String
   givenName: String
   familyName: String
+  adminRoles: [AdminRole] @default(value: [])
 }
 
 type VideoUpload implements IVideo {
   id: ID! @unique
   submitedBy: User! @relation(name: "VideoSubmitter")
-  publishedBy: User! @relation(name: "VideoPublisher")
-  publishedVideo: Video!
+  publishedBy: User @relation(name: "VideoPublisher")
+  publishedVideo: Video
+  submittedUrl: String! @unique
   status: VideoUploadStatus!
   autoTranscription: [String!]!
   transcription: [TranscriptionItem!]!
   published: Boolean! @default(value: "false")
   advertisingEnabled: Boolean! @default(value: "false")
-  views: Int @default(value: "0")
+  views: Int! @default(value: "0")
   rawStorageLink: VideoStorageLink @relation(name: "VideoStorageRawRelation")
-  title: String!
-  subtitle: String!
-  dateRecorded: Date!
+  title: String
+  subtitle: String
+  dateRecorded: Date
   tags: [Tag!]!
   source: Source
-  productionLink: VideoStorageLink! @relation(name: "VideoStorageProductionRelation")
+  productionLink: VideoStorageLink
+    @relation(name: "VideoStorageProductionRelation")
 }
 
 type Tag {
   id: ID! @unique
   name: String!
   videos: [Video!]!
-
 }
 
 type TranscriptionItem {
@@ -74,7 +76,7 @@ type Speaker {
   title: String!
 }
 
-type Date  {
+type Date {
   month: Int!
   day: Int!
   year: Int!

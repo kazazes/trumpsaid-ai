@@ -1,7 +1,11 @@
-# import User from './generated/prisma.graphql'
-# import VideoUpload from './generated/prisma.graphql'
+#import User from './generated/prisma.graphql';
+# import VideoUpload from './generated/prisma.graphql';
 
 type Query {
   videoUploads: [VideoUpload!]
   me: User
+}
+
+type Mutation {
+  createVideoUpload(url: String): VideoUpload
 }

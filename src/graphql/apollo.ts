@@ -1,12 +1,19 @@
 import { importSchema } from 'graphql-import';
+import { applyMiddleware } from 'graphql-middleware';
 import { IPassportUser } from '../helpers/passport';
 import { Prisma } from './generated/prisma';
 import prismaContext from './prismaContext';
 import resolvers from './resolvers';
+import shield from './resolvers/Shield';
 
-const { ApolloServer } = require('apollo-server-express');
+import { Config } from 'apollo-server-core';
+import { ApolloServer } from 'apollo-server-express';
+import { makeExecutableSchema } from 'graphql-tools';
 
 const typeDefs = importSchema('./src/graphql/schema.graphql');
+
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+const protectedSchema = applyMiddleware(schema, shield);
 
 interface IExpressContext {
   req: Express.Request;
@@ -18,17 +25,15 @@ export interface IApolloContext {
   db: Prisma;
 }
 
-const apolloConfig = {
-  typeDefs,
-  resolvers,
-  cors: false,
-  context: (ctx: IExpressContext) => ({
-    user: ctx.req.user as IPassportUser,
-    db: prismaContext,
-  } as IApolloContext),
+const apolloConfig: Config = {
+  schema: protectedSchema,
+  context: (ctx: IExpressContext) =>
+    ({
+      user: ctx.req.user as IPassportUser,
+      db: prismaContext,
+    } as IApolloContext),
 };
 
 const server = new ApolloServer(apolloConfig);
-server.playgroundOptions.settings['request.credentials'] = 'include';
 
 export default server;

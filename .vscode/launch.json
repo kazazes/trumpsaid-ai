@@ -9,10 +9,7 @@
       "request": "launch",
       "name": "Launch via NPM",
       "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run",
-        "debug"
-      ],
+      "runtimeArgs": ["run", "debug"],
       "port": 9229,
       "sourceMaps": true,
       "outputCapture": "std"
@@ -21,11 +18,10 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Server",
+      "preLaunchTask": "",
       "program": "${workspaceFolder}/dist/server.js",
       "restart": true,
-      "autoAttachChildProcesses": true,
       "sourceMaps": true,
-      "smartStep": true,
       "outputCapture": "std"
     }
   ]
