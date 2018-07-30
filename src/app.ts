@@ -4,7 +4,9 @@ import express from 'express';
 import expressFlash from 'express-flash';
 import expressSession from 'express-session';
 import expressValidator from 'express-validator';
+import { Options } from 'graphql-binding';
 import lusca from 'lusca';
+import morgan, { Options as MorganOptions } from 'morgan';
 import passport from 'passport';
 import path from 'path';
 
@@ -67,6 +69,9 @@ app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
+
+const morganFormat: string = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
+app.use(morgan(morganFormat, { stream: { write: message => logger.info(message) } }));
 
 /**
  * Primary app routes.
