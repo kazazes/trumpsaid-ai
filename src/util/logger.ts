@@ -20,8 +20,8 @@ const alignedWithColorsAndTime = winston.format.combine(
 const logger = winston.createLogger({
   transports: [
     new winston.transports.Console({
-      level: process.env.NODE_ENV === 'production' ? 'error' : 'debug',
-      format: process.env.NODE_ENV === 'production' ? winston.format.json() : alignedWithColorsAndTime,
+      level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+      format: alignedWithColorsAndTime,
     }),
   ],
 });
