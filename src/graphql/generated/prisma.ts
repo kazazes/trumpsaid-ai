@@ -134,6 +134,7 @@ const typeDefs = `enum AdminRole {
   LIST_ALL_UPLOADS
   ADVANCE_UPLOADS
   PUBLISH_UPLOAD
+  DELETE_UPLOADS
 }
 
 type AggregateDate {
@@ -3236,7 +3237,8 @@ export type AdminRole =   'CREATE_UPLOAD' |
   'LIST_UPLOADS' |
   'LIST_ALL_UPLOADS' |
   'ADVANCE_UPLOADS' |
-  'PUBLISH_UPLOAD'
+  'PUBLISH_UPLOAD' |
+  'DELETE_UPLOADS'
 
 export type TranscriptionItemOrderByInput =   'timestampStart_ASC' |
   'timestampStart_DESC' |

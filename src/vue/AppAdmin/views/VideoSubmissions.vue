@@ -8,16 +8,19 @@
       </b-row>
       <b-row>
         <b-col>
-          <b-card header="Pending">
+          <b-card>
             <b-table hover small responsive="sm" :items="videoUploads" :fields="fields" :current-page="currentPage" :per-page="perPage">
               <template slot="name" slot-scope="data">
                 {{ data.item.submitedBy.displayName }}
               </template>
               <template slot="submitedUrl" slot-scope="data">
-                <a :href="data.item.submitedUrl"><i class="icon-share-alt icons"></i></a>
+                <a :href="data.item.submitedUrl">{{ data.item.submitedUrl}}<i class="icon-share-alt icons pull-right"></i></a>
               </template>
               <template slot="status" slot-scope="data">
                 <b-badge :variant="getBadge(data.item.status)">{{getStatusString(data.item.status)}}</b-badge>
+              </template>
+              <template slot="delete" slot-scope="data">
+                <b-btn class="btn-danger btn-sm" @click="deleteUpload(data.item.id)"><i class="icon-trash icons bg-danger"></i></b-btn>
               </template>
             </b-table>
           </b-card>
@@ -50,8 +53,9 @@ export default {
       videoUploads: [] as [IVideoUpload],
       fields: [
         { key: "name", label: "Submited By" },
-        { key: "submitedUrl" },
-        { key: "status" }
+        { key: "submitedUrl", label: "Link" },
+        { key: "status" },
+        { key: "delete" }
       ],
       currentPage: 1,
       perPage: 10,
@@ -78,26 +82,52 @@ export default {
     },
     getRowCount(items: [IVideoUpload]) {
       return items.length;
+    },
+    async deleteUpload(itemId: string) {
+      if (window.confirm("Are you you want to delete this video?")) {
+        const result = await this.$apollo.mutate({
+          mutation: gql`
+            mutation($id: ID!) {
+              deleteVideoUpload(id: $id) {
+                id
+              }
+            }
+          `,
+          variables: {
+            id: itemId
+          }
+        });
+
+        this.$apollo.queries.videoUploads.refresh();
+
+        this.$notify({
+          type: "danger",
+          title: "Video deleted"
+        });
+      }
     }
   },
   apollo: {
-    videoUploads: gql`
-      query {
-        videoUploads {
-          id
-          submitedUrl
-          submitedBy {
-            displayName
+    videoUploads: {
+      query: gql`
+        query {
+          videoUploads {
             id
-            avatar
-          }
-          status
-          rawStorageLink {
-            fullVersion
+            submitedUrl
+            submitedBy {
+              displayName
+              id
+              avatar
+            }
+            status
+            rawStorageLink {
+              fullVersion
+            }
           }
         }
-      }
-    `
+      `,
+      pollInterval: 2000
+    }
   }
 };
 </script>

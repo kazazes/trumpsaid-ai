@@ -13,4 +13,9 @@ export default {
       return hasRole('CREATE_UPLOAD', ctx);
     },
   ),
+  canDeleteUpload: rule()(
+    async (parent, args, ctx: IApolloContext, info) => {
+      return hasRole('DELETE_UPLOADS', ctx);
+    },
+  ),
 };

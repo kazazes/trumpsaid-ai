@@ -37,13 +37,15 @@
       </main>
     </div>
     <TheFooter>
-      <!--footer-->
+      <span class="mx-auto">
+        &copy; Trump Said... WTF? {{ year }}
+      </span>
     </TheFooter>
   </div>
 </template>
 
 <script>
-import nav from "../_nav.js";
+import nav from "../_nav";
 import {
   Header as AppHeader,
   SidebarToggler,
@@ -91,6 +93,9 @@ export default {
   computed: {
     name() {
       return this.$route.name;
+    },
+    year() {
+      return new Date().getFullYear();
     },
     list() {
       return this.$route.matched.filter(

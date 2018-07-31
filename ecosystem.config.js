@@ -23,7 +23,7 @@ module.exports = {
       cwd: "/var/www/trumpsaid.wtf/source/",
       "pre-deploy": "bin/nvm-env.sh",
       "post-deploy":
-        "npm install && npm run build && pm2 reload ecosystem.config.js --update-env --env production"
+        "npm install && npm run build-prod && pm2 reload ecosystem.config.js --update-env --env production"
     }
   }
 };

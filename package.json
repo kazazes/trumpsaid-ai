@@ -8,10 +8,11 @@
   "scripts": {
     "start": "npm run serve",
     "build": "rimraf ./dist && webpack --progress && npm run build-ts && npm run tslint",
+    "build-prod": "rimraf ./dist && webpack --mode=production && npm run build-ts && npm run tslint",
     "serve": "node dist/server.js",
     "debug": "node --inspect dist/server.js",
     "watch-node": "nodemon --inspect dist/server.js --ignore dist/public",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"Webpack,TypeScript\" -c \"yellow.bold,cyan.bold,green.bold\" \"webpack --verbose --watch\" \"npm run watch-ts\"",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"Webpack,TypeScript\" -c \"yellow.bold,cyan.bold,green.bold\" \"webpack --progress --watch\" \"npm run watch-ts\"",
     "test": "jest --forceExit --coverage --verbose",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",

@@ -1,5 +1,5 @@
 <template>
-<b-modal centered id="submitVideoModal" title="Video Submission" @ok="onSubmit" ref="submitVideoModal">
+<b-modal centered id="submitVideoModal" title="Video Submission" @ok="onSubmit" ref="submitVideoModal" :busy="buttonsDisabled">
   <div>
     <b-form>
       <b-form-group id="videoUrlGroup"
@@ -23,11 +23,13 @@ export default {
   name: "VideoSubmitModal",
   data: function() {
     return {
-      videoUrl: ""
+      videoUrl: "",
+      buttonsDisabled: false
     };
   },
   methods: {
     onSubmit: async function(bvEvt: Event) {
+      this.buttonsDisabled = true;
       bvEvt.preventDefault();
       try {
         const result = await this.$apollo.mutate({
@@ -49,9 +51,10 @@ export default {
           title: "Video submited",
           text: "Processing will begin shortly"
         });
-
+        this.buttonsDisabled = false;
         this.$refs.submitVideoModal.hide();
       } catch (err) {
+        this.buttonsDisabled = false;
         this.$notify({
           type: "error",
           title: "Error submiting video",

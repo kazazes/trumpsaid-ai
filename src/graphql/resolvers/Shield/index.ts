@@ -32,6 +32,7 @@ const permissions = shield({
   },
   Mutation: {
     createVideoUpload: rules.canCreateUpload,
+    deleteVideoUpload: rules.canDeleteUpload,
   },
 });
 

@@ -1,12 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-// Containers
 // tslint:disable:variable-name
 const DefaultContainer = () => import('../containers/DefaultContainer.vue');
 
 // Views
-const Dashboard = () => import('../views/Dashboard.vue');
 const VideoSubmissions = () => import('../views/VideoSubmissions.vue');
 
 Vue.use(Router);
@@ -18,16 +16,9 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard',
+      redirect: '/videos',
       name: 'Home',
       component: DefaultContainer,
-      children: [
-        {
-          path: 'dashboard',
-          name: 'Dashboard',
-          component: Dashboard,
-        },
-      ],
     },
     {
       path: '/videos',

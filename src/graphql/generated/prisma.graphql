@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Mon Jul 30 2018 17:57:14 GMT-0700 (PDT)
+# timestamp: Tue Jul 31 2018 00:29:39 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -7,6 +7,7 @@ enum AdminRole {
   LIST_ALL_UPLOADS
   ADVANCE_UPLOADS
   PUBLISH_UPLOAD
+  DELETE_UPLOADS
 }
 
 type AggregateDate {

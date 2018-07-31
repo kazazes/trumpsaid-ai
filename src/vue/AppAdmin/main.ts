@@ -5,11 +5,14 @@ import AdminApp from './AdminApp.vue';
 import './polyfill';
 import router from './router/index';
 
+import VueApollo from 'vue-apollo';
+import Notifications from 'vue-notification';
+// tslint:disable-next-line:variable-name
+const VueTimers = require('vue-timers');
+
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
-import VueApollo from 'vue-apollo';
-import Notifications from 'vue-notification';
 
 const httpLink = new HttpLink({
   uri: '/graphql',
@@ -30,15 +33,7 @@ Vue.use(Notifications);
 Vue.use(VueApollo);
 Vue.use(BootstrapVue);
 Vue.use(Vuex);
-
-const store = new Vuex.Store({
-  state: {
-    me: {
-      avatar: '#',
-      displayName: 'Donald Trump',
-    },
-  },
-});
+Vue.use(VueTimers);
 
 /* eslint-disable no-new */
 new Vue({

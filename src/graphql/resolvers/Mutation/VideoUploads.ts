@@ -6,7 +6,7 @@ import { VideoUploadCreateInput } from '../../generated/prisma';
 export default {
   createVideoUpload: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
     if (!isURL(args.url, { require_protocol: true })) {
-      return new ApolloError('The submited URL was invalid. Include the protocol.');
+      return new ApolloError('The submited URL was invalid.');
     }
 
     const data: VideoUploadCreateInput = {
@@ -18,5 +18,8 @@ export default {
     const upload = await ctx.db.mutation.createVideoUpload({ data }, info);
 
     return upload;
+  },
+  deleteVideoUpload: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
+    return ctx.db.mutation.deleteVideoUpload({ where: { id: args.id } });
   },
 };
