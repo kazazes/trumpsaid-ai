@@ -17,7 +17,7 @@
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "serve-pm2": "pm2 start dist/server.js -n ts -a"
+    "post-deploy": "export NODE_ENV=production && npm install && npm run build-prod && pm2 reload ecosystem.config.js --update-env --env production"
   },
   "dependencies": {
     "@coreui/coreui-pro": "^2.0.6",
