@@ -1,4 +1,4 @@
-<h2 align="center"><strong>🚀 Web server powering <a href="https://djt.wtf/">djt.wtf 👺</a></strong></h2>
+<h2 align="center"><strong>🚀 Web server powering <a href="https://djt.wtf/">trumpsaid.wtf</a> 👺</strong></h2>
 
 ## Getting started
 
