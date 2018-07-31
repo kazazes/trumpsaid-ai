@@ -16,7 +16,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/videos',
+      redirect: '/videos/submissions',
       name: 'Home',
       component: DefaultContainer,
     },
