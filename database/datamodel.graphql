@@ -22,10 +22,12 @@ type User {
 
 type VideoUpload implements IVideo {
   id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
   submitedBy: User! @relation(name: "VideoSubmitter")
   publishedBy: User @relation(name: "VideoPublisher")
   publishedVideo: Video
-  submittedUrl: String! @unique
+  submitedUrl: String! @unique
   status: VideoUploadStatus!
   autoTranscription: [String!]!
   transcription: [TranscriptionItem!]!

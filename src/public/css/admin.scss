@@ -6,13 +6,13 @@
 // If you want to use dark layout uncomment next line
 // @import "~@coreui/coreui-pro/scss/themes/dark/coreui-dark";
 // CoreUI Icons Set
-@import '~@coreui/icons/css/coreui-icons.min.css';
+@import "~@coreui/icons/css/coreui-icons.min.css";
 /* Import Font Awesome Icons Set */
 
-$fa-font-path: '~font-awesome/fonts/';
-@import '~font-awesome/scss/font-awesome.scss';
-$simple-line-font-path: '~simple-line-icons/fonts/';
-@import '~simple-line-icons/scss/simple-line-icons.scss';
-@import '~flag-icon-css/sass/flag-icon.scss';
-@import '~bootstrap-vue/dist/bootstrap-vue.css';
+$fa-font-path: "~font-awesome/fonts/";
+@import "~font-awesome/scss/font-awesome.scss";
+$simple-line-font-path: "~simple-line-icons/fonts/";
+@import "~simple-line-icons/scss/simple-line-icons.scss";
+@import "~flag-icon-css/sass/flag-icon.scss";
+@import "~bootstrap-vue/dist/bootstrap-vue.css";
 @import "coreui/ie-fix";

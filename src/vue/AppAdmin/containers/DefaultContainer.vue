@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    <notifications :duration=5000 />
     <AppHeader fixed>
       <SidebarToggler class="d-lg-none" display="md" mobile />
       <b-link class="navbar-brand" to="#">
@@ -42,15 +43,28 @@
 </template>
 
 <script>
-import nav from '../_nav.js'
-import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFooter, SidebarForm, SidebarHeader, SidebarMinimizer, SidebarNav, Aside as AppAside, AsideToggler, Footer as TheFooter, Breadcrumb } from '@coreui/vue'
-import DefaultHeaderDropdownNotif from './DefaultHeaderDropdownNotif'
-import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt'
-import DefaultHeaderDropdownMssgs from './DefaultHeaderDropdownMssgs'
-import DefaultHeaderDropdownTasks from './DefaultHeaderDropdownTasks'
+import nav from "../_nav.js";
+import {
+  Header as AppHeader,
+  SidebarToggler,
+  Sidebar as AppSidebar,
+  SidebarFooter,
+  SidebarForm,
+  SidebarHeader,
+  SidebarMinimizer,
+  SidebarNav,
+  Aside as AppAside,
+  AsideToggler,
+  Footer as TheFooter,
+  Breadcrumb
+} from "@coreui/vue";
+import DefaultHeaderDropdownNotif from "./DefaultHeaderDropdownNotif";
+import DefaultHeaderDropdownAccnt from "./DefaultHeaderDropdownAccnt";
+import DefaultHeaderDropdownMssgs from "./DefaultHeaderDropdownMssgs";
+import DefaultHeaderDropdownTasks from "./DefaultHeaderDropdownTasks";
 
 export default {
-  name: 'DefaultContainer',
+  name: "DefaultContainer",
   components: {
     AsideToggler,
     AppHeader,
@@ -69,18 +83,20 @@ export default {
     SidebarNav,
     SidebarMinimizer
   },
-  data () {
+  data() {
     return {
       nav: nav.items
-    }
+    };
   },
   computed: {
-    name () {
-      return this.$route.name
+    name() {
+      return this.$route.name;
     },
-    list () {
-      return this.$route.matched.filter((route) => route.name || route.meta.label )
+    list() {
+      return this.$route.matched.filter(
+        route => route.name || route.meta.label
+      );
     }
   }
-}
+};
 </script>

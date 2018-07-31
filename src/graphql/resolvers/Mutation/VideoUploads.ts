@@ -1,19 +1,21 @@
+import { ApolloError } from 'apollo-server-core';
+import { isURL } from 'validator';
 import { IApolloContext } from '../../apollo';
 import { VideoUploadCreateInput } from '../../generated/prisma';
 
 export default {
   createVideoUpload: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
+    if (!isURL(args.url, { require_protocol: true })) {
+      return new ApolloError('The submited URL was invalid. Include the protocol.');
+    }
+
     const data: VideoUploadCreateInput = {
       submitedBy: { connect: { id: ctx.user.id } },
       status: 'AWAITING_PROCESSING',
-      submittedUrl: args.url,
+      submitedUrl: args.url,
     };
-    const upload = await ctx.db.mutation.createVideoUpload(
-      {
-        data,
-      },
-      ' { id status submittedUrl submitedBy { id displayName } }',
-    );
+
+    const upload = await ctx.db.mutation.createVideoUpload({ data }, info);
 
     return upload;
   },

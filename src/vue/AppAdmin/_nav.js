@@ -1,39 +1,32 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
+      name: "Dashboard",
+      url: "/dashboard",
+      icon: "icon-speedometer",
       badge: {
-        variant: 'primary',
-        text: 'NEW'
+        variant: "primary",
+        text: "NEW"
       }
     },
     {
       title: true,
-      name: 'Media',
-      class: '',
+      name: "Video",
+      class: "",
       wrapper: {
-        element: '',
+        element: "",
         attributes: {}
       }
     },
     {
-      name: 'Video',
-      url: '/video',
-      icon: 'icon-puzzle',
-      children: [
-        {
-          name: 'Manage',
-          url: '/base/breadcrumbs',
-          icon: 'icon-puzzle'
-        },
-        {
-          name: 'Create New',
-          url: '/base/cards',
-          icon: 'icon-puzzle'
-        }
-      ]
+      name: "Submissions",
+      url: "/videos/submissions",
+      icon: "icon-drawer"
+    },
+    {
+      name: "Published",
+      url: "/videos/published",
+      icon: "icon-grid"
     }
   ]
-}
+};

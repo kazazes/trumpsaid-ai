@@ -18,24 +18,24 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
+import gql from "graphql-tag";
 
-import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue'
+import { HeaderDropdown as AppHeaderDropdown } from "@coreui/vue";
 export default {
-  name: 'DefaultHeaderDropdownAccnt',
+  name: "DefaultHeaderDropdownAccnt",
   components: {
     AppHeaderDropdown
   },
   data: () => {
-    return { 
-      itemsCount: 42,
-      me: { avatar: '', displayName: 'Donald Trump'} 
-    }
+    return {
+      me: { avatar: "", displayName: "Donald Trump" }
+    };
   },
 
   apollo: {
-      me: {
-        query: gql`{
+    me: {
+      query: gql`
+        {
           me {
             id
             givenName
@@ -44,17 +44,11 @@ export default {
             role
             auth0Id
             avatar
+            adminRoles
           }
-        }`,
-        result({ data, loading, networkStatus }) {
-
-        },
-
-        error(err) {
-          // handle your error
-          console.error(err);
         }
-      }
+      `
     }
-}
+  }
+};
 </script>
