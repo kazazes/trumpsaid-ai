@@ -8,7 +8,7 @@
   "scripts": {
     "start": "npm run serve",
     "build": "rimraf ./dist && webpack --progress && npm run build-ts && npm run tslint",
-    "build-prod": "rimraf ./dist && webpack --mode=production && npm run build-ts && npm run tslint",
+    "build-prod": "rimraf ./dist && webpack --progress --mode=production && npm run build-ts && npm run tslint",
     "serve": "node dist/server.js",
     "debug": "node --inspect dist/server.js",
     "watch-node": "nodemon --inspect dist/server.js --ignore dist/public",
