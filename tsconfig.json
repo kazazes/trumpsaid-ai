@@ -6,15 +6,22 @@
     "esModuleInterop": true,
     "noImplicitAny": true,
     "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": ["node_modules/@types", "src/types"],
     "outDir": "dist",
     "rootDir": "src",
-    "baseUrl": ".",
     "lib": ["esnext", "dom"],
+    "baseUrl": "./",
     "paths": {
       "*": ["node_modules/*", "src/types/*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "ts-vue-plugin"
+      }
+    ]
   },
-  "include": ["src/**/**/*"]
+  "include": ["src/**/**/*"],
+  "exclude": ["node_modules", "src/vue"]
 }
