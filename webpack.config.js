@@ -21,7 +21,8 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: "./src/public/img", to: "img" },
-      { from: "./src/public/font", to: "font" }
+      { from: "./src/public/font", to: "font" },
+      { from: "./src/public/root" }
     ]),
     new VueLoaderPlugin()
   ],
