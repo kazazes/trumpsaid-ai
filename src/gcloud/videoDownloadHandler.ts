@@ -1,21 +1,10 @@
-import Storage, { Bucket } from '@google-cloud/storage';
 import stringToStream from 'string-to-stream';
 import youtubedl from 'youtube-dl';
 import { VideoUpload } from '../graphql/generated/prisma';
 import prisma from '../graphql/prismaContext';
 import logger from '../util/logger';
-import secrets from '../util/secrets';
-import pubSubController from './pubSubController';
-
-const processingBucketName = 'ts-video-processing';
-
-const storage = Storage({
-  projectId: secrets.GOOGLE_PROJECT_ID,
-});
-
-const processingBucket = storage.bucket(processingBucketName);
-const delimiter = '/';
-
+import { createFileInProcessing, deleteFolderInProcessing, delimiter, processingBucket } from './storageController';
+import pubSubController from './VideoDownloadPubSubController';
 export const downloadVideoHandler = async (message: any) => {
   message.ack();
   const start = new Date().getMilliseconds();
@@ -37,22 +26,25 @@ export const downloadVideoHandler = async (message: any) => {
   const path = delimiter + storagePrefix + delimiter;
 
   const video = youtubedl(videoUploadPayload.submitedUrl, [], {});
-  await deletePrefix(processingBucket, path);
+  await deleteFolderInProcessing(path);
 
   let meta: any;
 
   video.on('info', (info) => {
     meta = info;
-    const videoFile = createFile(processingBucket, path, info._filename);
-    const metaFile = createFile(processingBucket, path, 'info.json');
+    const videoFile = createFileInProcessing(path, info._filename);
+    const metaFile = createFileInProcessing(path, 'info.json');
 
     const metaFileStream = metaFile.createWriteStream({ contentType: 'application/json' });
     const videoFileStream = videoFile.createWriteStream();
 
-    // tslint:disable-next-line:no-magic-numbers
-    stringToStream(JSON.stringify(info, null, 2)).pipe(metaFileStream);
-
-    video.pipe(videoFileStream);
+    try {
+      // tslint:disable-next-line:no-magic-numbers
+      stringToStream(JSON.stringify(info, null, 2)).pipe(metaFileStream);
+      video.pipe(videoFileStream);
+    } catch (e) {
+      logger.error('Error uploading file: ' + JSON.stringify(e));
+    }
 
     logger.debug(`Download started for
       \tVideo: ${videoUploadPayload.submitedUrl}
@@ -64,7 +56,7 @@ export const downloadVideoHandler = async (message: any) => {
     // tslint:disable-next-line:no-magic-numbers
     const duration = (new Date().getMilliseconds() - start) / 10;
     const fullPath = `${videoUploadPayload.id}/${ meta._filename }`;
-    logger.info(`Downloaded upload ${meta._filename} to ${processingBucket.name }/${fullPath} in ${duration} seconds`);
+    logger.info(`Downloaded upload ${meta._filename} to ${processingBucket.name}/${fullPath} in ${duration} seconds`);
 
     const storageLink = await prisma.mutation.createVideoStorageLink(
       { data: { path: fullPath, videoID: videoUploadPayload.id, bucket: processingBucket.name, version: 'RAW' } }, ' { id }');
@@ -102,17 +94,4 @@ export const downloadVideoHandler = async (message: any) => {
         throw err;
       });
   });
-};
-
-const deletePrefix = async (bucket: Bucket, prefix: string) => {
-  const err = await bucket.deleteFiles({
-    prefix,
-  });
-
-  logger.info(`Deleted files at ${bucket.name}${prefix}`);
-
-};
-
-const createFile = (bucket: Bucket, path: string, filename: string) => {
-  return bucket.file(path + filename);
 };

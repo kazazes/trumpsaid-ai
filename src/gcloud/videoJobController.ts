@@ -1,6 +1,6 @@
 import { VideoUpload } from '../graphql/generated/prisma';
 import logger from '../util/logger';
-import pubSubController from './pubSubController';
+import pubSubController from './VideoDownloadPubSubController';
 
 export const publishDownloadJob = async(upload: VideoUpload) => {
   const dataBuffer = Buffer.from(JSON.stringify(upload));

@@ -54,7 +54,6 @@ app.use(
       port: secrets.REDIS_PORT,
     }),
     secret: secrets.SESSION_SECRET,
-    resave: true,
     saveUninitialized: true,
     cookie: {
       expires: false,

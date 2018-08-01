@@ -1,6 +1,6 @@
 import { ApolloError } from 'apollo-server-core';
 import { isURL } from 'validator';
-import { publishDownloadJob } from '../../../pubsub/videoJobController';
+import { publishDownloadJob } from '../../../gcloud/videoJobController';
 import { IApolloContext } from '../../apollo';
 import { VideoUploadCreateInput } from '../../generated/prisma';
 
