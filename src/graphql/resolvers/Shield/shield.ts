@@ -32,8 +32,8 @@ const permissions = shield({
   },
   Mutation: {
     createVideoUpload: rules.canCreateUpload,
+    startProcessingPipeline: rules.canProcessUpload,
   },
-  User: and(rules.canListAllUploads, rules.canCreateUpload),
 });
 
 export default permissions;

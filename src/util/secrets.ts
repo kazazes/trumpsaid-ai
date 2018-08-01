@@ -22,6 +22,7 @@ interface IRequiredSecrets {
   PRISMA_ENDPOINT: string;
   PRISMA_SECRET: string;
   AUTH0_AUDIENCE: string;
+  GOOGLE_PROJECT_ID: string;
   [key: string]: string;
 }
 
@@ -36,6 +37,7 @@ const requiredSecrets: IRequiredSecrets = {
   PRISMA_ENDPOINT: '',
   PRISMA_SECRET: '',
   AUTH0_AUDIENCE: '',
+  GOOGLE_PROJECT_ID: '',
 };
 
 Object.keys(requiredSecrets).map((key) => {

@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Tue Jul 31 2018 00:29:39 GMT-0700 (PDT)
+# timestamp: Tue Jul 31 2018 22:13:03 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -278,16 +278,19 @@ type Mutation {
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  updateVideoStorageLink(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   updateVideo(data: VideoUpdateInput!, where: VideoWhereUniqueInput!): Video
   deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteUser(where: UserWhereUniqueInput!): User
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
   deleteTag(where: TagWhereUniqueInput!): Tag
+  deleteVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   deleteVideo(where: VideoWhereUniqueInput!): Video
   upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
   upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  upsertVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!, create: VideoStorageLinkCreateInput!, update: VideoStorageLinkUpdateInput!): VideoStorageLink!
   upsertVideo(where: VideoWhereUniqueInput!, create: VideoCreateInput!, update: VideoUpdateInput!): Video!
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
   updateManyPublications(data: PublicationUpdateInput!, where: PublicationWhereInput): BatchPayload!
@@ -559,6 +562,7 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   speaker(where: SpeakerWhereUniqueInput!): Speaker
   tag(where: TagWhereUniqueInput!): Tag
+  videoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   video(where: VideoWhereUniqueInput!): Video
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
   publicationsConnection(where: PublicationWhereInput, orderBy: PublicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PublicationConnection!
@@ -2071,12 +2075,12 @@ type VideoPreviousValues {
   views: Int
 }
 
-type VideoStorageLink {
-  video: String!
-  webVersion: String!
-  fullVersion: String!
-  isPublic: Boolean
+type VideoStorageLink implements Node {
+  id: ID!
+  videoID: ID!
   path: String!
+  bucket: String!
+  version: VideoVersion!
 }
 
 """A connection to a list of items."""
@@ -2090,15 +2094,15 @@ type VideoStorageLinkConnection {
 }
 
 input VideoStorageLinkCreateInput {
-  video: String!
-  webVersion: String!
-  fullVersion: String!
-  isPublic: Boolean
+  videoID: ID!
   path: String!
+  bucket: String!
+  version: VideoVersion!
 }
 
 input VideoStorageLinkCreateOneInput {
   create: VideoStorageLinkCreateInput
+  connect: VideoStorageLinkWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -2111,18 +2115,16 @@ type VideoStorageLinkEdge {
 }
 
 enum VideoStorageLinkOrderByInput {
-  video_ASC
-  video_DESC
-  webVersion_ASC
-  webVersion_DESC
-  fullVersion_ASC
-  fullVersion_DESC
-  isPublic_ASC
-  isPublic_DESC
-  path_ASC
-  path_DESC
   id_ASC
   id_DESC
+  videoID_ASC
+  videoID_DESC
+  path_ASC
+  path_DESC
+  bucket_ASC
+  bucket_DESC
+  version_ASC
+  version_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2130,11 +2132,11 @@ enum VideoStorageLinkOrderByInput {
 }
 
 type VideoStorageLinkPreviousValues {
-  video: String!
-  webVersion: String!
-  fullVersion: String!
-  isPublic: Boolean
+  id: ID!
+  videoID: ID!
   path: String!
+  bucket: String!
+  version: VideoVersion!
 }
 
 type VideoStorageLinkSubscriptionPayload {
@@ -2177,23 +2179,22 @@ input VideoStorageLinkSubscriptionWhereInput {
 }
 
 input VideoStorageLinkUpdateDataInput {
-  video: String
-  webVersion: String
-  fullVersion: String
-  isPublic: Boolean
+  videoID: ID
   path: String
+  bucket: String
+  version: VideoVersion
 }
 
 input VideoStorageLinkUpdateInput {
-  video: String
-  webVersion: String
-  fullVersion: String
-  isPublic: Boolean
+  videoID: ID
   path: String
+  bucket: String
+  version: VideoVersion
 }
 
 input VideoStorageLinkUpdateOneInput {
   create: VideoStorageLinkCreateInput
+  connect: VideoStorageLinkWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
   update: VideoStorageLinkUpdateDataInput
@@ -2214,130 +2215,86 @@ input VideoStorageLinkWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [VideoStorageLinkWhereInput!]
-  video: String
+  id: ID
 
   """All values that are not equal to given value."""
-  video_not: String
+  id_not: ID
 
   """All values that are contained in given list."""
-  video_in: [String!]
+  id_in: [ID!]
 
   """All values that are not contained in given list."""
-  video_not_in: [String!]
+  id_not_in: [ID!]
 
   """All values less than the given value."""
-  video_lt: String
+  id_lt: ID
 
   """All values less than or equal the given value."""
-  video_lte: String
+  id_lte: ID
 
   """All values greater than the given value."""
-  video_gt: String
+  id_gt: ID
 
   """All values greater than or equal the given value."""
-  video_gte: String
+  id_gte: ID
 
   """All values containing the given string."""
-  video_contains: String
+  id_contains: ID
 
   """All values not containing the given string."""
-  video_not_contains: String
+  id_not_contains: ID
 
   """All values starting with the given string."""
-  video_starts_with: String
+  id_starts_with: ID
 
   """All values not starting with the given string."""
-  video_not_starts_with: String
+  id_not_starts_with: ID
 
   """All values ending with the given string."""
-  video_ends_with: String
+  id_ends_with: ID
 
   """All values not ending with the given string."""
-  video_not_ends_with: String
-  webVersion: String
+  id_not_ends_with: ID
+  videoID: ID
 
   """All values that are not equal to given value."""
-  webVersion_not: String
+  videoID_not: ID
 
   """All values that are contained in given list."""
-  webVersion_in: [String!]
+  videoID_in: [ID!]
 
   """All values that are not contained in given list."""
-  webVersion_not_in: [String!]
+  videoID_not_in: [ID!]
 
   """All values less than the given value."""
-  webVersion_lt: String
+  videoID_lt: ID
 
   """All values less than or equal the given value."""
-  webVersion_lte: String
+  videoID_lte: ID
 
   """All values greater than the given value."""
-  webVersion_gt: String
+  videoID_gt: ID
 
   """All values greater than or equal the given value."""
-  webVersion_gte: String
+  videoID_gte: ID
 
   """All values containing the given string."""
-  webVersion_contains: String
+  videoID_contains: ID
 
   """All values not containing the given string."""
-  webVersion_not_contains: String
+  videoID_not_contains: ID
 
   """All values starting with the given string."""
-  webVersion_starts_with: String
+  videoID_starts_with: ID
 
   """All values not starting with the given string."""
-  webVersion_not_starts_with: String
+  videoID_not_starts_with: ID
 
   """All values ending with the given string."""
-  webVersion_ends_with: String
+  videoID_ends_with: ID
 
   """All values not ending with the given string."""
-  webVersion_not_ends_with: String
-  fullVersion: String
-
-  """All values that are not equal to given value."""
-  fullVersion_not: String
-
-  """All values that are contained in given list."""
-  fullVersion_in: [String!]
-
-  """All values that are not contained in given list."""
-  fullVersion_not_in: [String!]
-
-  """All values less than the given value."""
-  fullVersion_lt: String
-
-  """All values less than or equal the given value."""
-  fullVersion_lte: String
-
-  """All values greater than the given value."""
-  fullVersion_gt: String
-
-  """All values greater than or equal the given value."""
-  fullVersion_gte: String
-
-  """All values containing the given string."""
-  fullVersion_contains: String
-
-  """All values not containing the given string."""
-  fullVersion_not_contains: String
-
-  """All values starting with the given string."""
-  fullVersion_starts_with: String
-
-  """All values not starting with the given string."""
-  fullVersion_not_starts_with: String
-
-  """All values ending with the given string."""
-  fullVersion_ends_with: String
-
-  """All values not ending with the given string."""
-  fullVersion_not_ends_with: String
-  isPublic: Boolean
-
-  """All values that are not equal to given value."""
-  isPublic_not: Boolean
+  videoID_not_ends_with: ID
   path: String
 
   """All values that are not equal to given value."""
@@ -2378,12 +2335,66 @@ input VideoStorageLinkWhereInput {
 
   """All values not ending with the given string."""
   path_not_ends_with: String
+  bucket: String
+
+  """All values that are not equal to given value."""
+  bucket_not: String
+
+  """All values that are contained in given list."""
+  bucket_in: [String!]
+
+  """All values that are not contained in given list."""
+  bucket_not_in: [String!]
+
+  """All values less than the given value."""
+  bucket_lt: String
+
+  """All values less than or equal the given value."""
+  bucket_lte: String
+
+  """All values greater than the given value."""
+  bucket_gt: String
+
+  """All values greater than or equal the given value."""
+  bucket_gte: String
+
+  """All values containing the given string."""
+  bucket_contains: String
+
+  """All values not containing the given string."""
+  bucket_not_contains: String
+
+  """All values starting with the given string."""
+  bucket_starts_with: String
+
+  """All values not starting with the given string."""
+  bucket_not_starts_with: String
+
+  """All values ending with the given string."""
+  bucket_ends_with: String
+
+  """All values not ending with the given string."""
+  bucket_not_ends_with: String
+  version: VideoVersion
+
+  """All values that are not equal to given value."""
+  version_not: VideoVersion
+
+  """All values that are contained in given list."""
+  version_in: [VideoVersion!]
+
+  """All values that are not contained in given list."""
+  version_not_in: [VideoVersion!]
   _MagicalBackRelation_VideoStorageRawRelation_every: VideoUploadWhereInput
   _MagicalBackRelation_VideoStorageRawRelation_some: VideoUploadWhereInput
   _MagicalBackRelation_VideoStorageRawRelation_none: VideoUploadWhereInput
   _MagicalBackRelation_VideoStorageProductionRelation_every: VideoUploadWhereInput
   _MagicalBackRelation_VideoStorageProductionRelation_some: VideoUploadWhereInput
   _MagicalBackRelation_VideoStorageProductionRelation_none: VideoUploadWhereInput
+}
+
+input VideoStorageLinkWhereUniqueInput {
+  id: ID
 }
 
 type VideoSubscriptionPayload {
@@ -2469,6 +2480,7 @@ type VideoUpload implements Node {
   publishedVideo(where: VideoWhereInput): Video
   submitedUrl: String!
   status: VideoUploadStatus!
+  state: VideoUploadState!
   autoTranscription: [String!]!
   transcription(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TranscriptionItem!]
   published: Boolean!
@@ -2500,6 +2512,7 @@ input VideoUploadCreateautoTranscriptionInput {
 input VideoUploadCreateInput {
   submitedUrl: String!
   status: VideoUploadStatus!
+  state: VideoUploadState
   published: Boolean
   advertisingEnabled: Boolean
   views: Int
@@ -2537,6 +2550,8 @@ enum VideoUploadOrderByInput {
   submitedUrl_DESC
   status_ASC
   status_DESC
+  state_ASC
+  state_DESC
   published_ASC
   published_DESC
   advertisingEnabled_ASC
@@ -2555,6 +2570,7 @@ type VideoUploadPreviousValues {
   updatedAt: DateTime!
   submitedUrl: String!
   status: VideoUploadStatus!
+  state: VideoUploadState!
   autoTranscription: [String!]!
   published: Boolean!
   advertisingEnabled: Boolean!
@@ -2563,9 +2579,17 @@ type VideoUploadPreviousValues {
   subtitle: String
 }
 
+enum VideoUploadState {
+  PENDING
+  PROCESSING
+  REJECTED
+  FAILED
+  PUBLISHED
+}
+
 enum VideoUploadStatus {
-  DOWNLOADING
   AWAITING_PROCESSING
+  DOWNLOADING
   RENDERING
   READY_TO_PUBLISH
   GENERATING_THUMBNAILS
@@ -2618,6 +2642,7 @@ input VideoUploadUpdateautoTranscriptionInput {
 input VideoUploadUpdateInput {
   submitedUrl: String
   status: VideoUploadStatus
+  state: VideoUploadState
   published: Boolean
   advertisingEnabled: Boolean
   views: Int
@@ -2778,6 +2803,16 @@ input VideoUploadWhereInput {
 
   """All values that are not contained in given list."""
   status_not_in: [VideoUploadStatus!]
+  state: VideoUploadState
+
+  """All values that are not equal to given value."""
+  state_not: VideoUploadState
+
+  """All values that are contained in given list."""
+  state_in: [VideoUploadState!]
+
+  """All values that are not contained in given list."""
+  state_not_in: [VideoUploadState!]
   published: Boolean
 
   """All values that are not equal to given value."""
@@ -2917,6 +2952,10 @@ input VideoUpsertWithWhereUniqueNestedInput {
   where: VideoWhereUniqueInput!
   update: VideoUpdateDataInput!
   create: VideoCreateInput!
+}
+
+enum VideoVersion {
+  RAW
 }
 
 input VideoWhereInput {

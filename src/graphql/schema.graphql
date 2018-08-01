@@ -9,4 +9,5 @@ type Query {
 type Mutation {
   createVideoUpload(url: String): VideoUpload
   deleteVideoUpload(id: ID): VideoUpload
+  startProcessingPipeline(id: ID): VideoUpload
 }

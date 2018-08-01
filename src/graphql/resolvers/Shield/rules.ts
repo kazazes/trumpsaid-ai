@@ -18,4 +18,9 @@ export default {
       return hasRole('DELETE_UPLOADS', ctx);
     },
   ),
+  canProcessUpload: rule()(
+    async (parent, args, ctx: IApolloContext, info) => {
+      return hasRole('ADVANCE_UPLOADS', ctx);
+    },
+  ),
 };

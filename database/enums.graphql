@@ -4,8 +4,8 @@ enum Role {
 }
 
 enum VideoUploadStatus {
-  DOWNLOADING
   AWAITING_PROCESSING
+  DOWNLOADING
   RENDERING
   READY_TO_PUBLISH
   GENERATING_THUMBNAILS
@@ -13,6 +13,7 @@ enum VideoUploadStatus {
 }
 
 enum VideoUploadState {
+  PENDING
   PROCESSING
   REJECTED
   FAILED
@@ -26,4 +27,8 @@ enum AdminRole {
   ADVANCE_UPLOADS
   PUBLISH_UPLOAD
   DELETE_UPLOADS
+}
+
+enum VideoVersion {
+  RAW
 }

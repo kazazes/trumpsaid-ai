@@ -29,6 +29,7 @@ type VideoUpload implements IVideo {
   publishedVideo: Video
   submitedUrl: String! @unique
   status: VideoUploadStatus!
+  state: VideoUploadState! @default(value: "PENDING")
   autoTranscription: [String!]!
   transcription: [TranscriptionItem!]!
   published: Boolean! @default(value: "false")
@@ -90,9 +91,9 @@ type Publication {
 }
 
 type VideoStorageLink {
-  video: String!
-  webVersion: String!
-  fullVersion: String!
-  isPublic: Boolean @default(value: "false")
+  id: ID! @unique
+  videoID: ID!
   path: String!
+  bucket: String!
+  version: VideoVersion!
 }
