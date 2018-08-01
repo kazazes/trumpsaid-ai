@@ -6,7 +6,6 @@ import logger from '../util/logger';
 import { createFileInProcessing, deleteFolderInProcessing, delimiter, processingBucket } from './storageController';
 import pubSubController from './VideoDownloadPubSubController';
 export const downloadVideoHandler = async (message: any) => {
-  message.ack();
   const start = new Date().getMilliseconds();
   const videoUploadPayload = JSON.parse(
     Buffer.from(message.data, 'base64').toString(),
@@ -14,7 +13,18 @@ export const downloadVideoHandler = async (message: any) => {
   logger.info(`Payload:
     ${JSON.stringify(videoUploadPayload)}
   `);
+
+  const exists = await prisma.exists.VideoUpload({ id: videoUploadPayload.id })
+    .catch((e) => {
+      return message.nack();
+    });
+  if (!exists) {
+    logger.debug('Passing on video job, cannot find original');
+    return message.nack();
+  }
+
   logger.debug(`Attempting to download ${videoUploadPayload.submitedUrl}`);
+  message.ack();
 
   prisma.mutation.updateVideoUpload({ where: { id: videoUploadPayload.id }, data: { state: 'PROCESSING', status: 'DOWNLOADING' } })
     .catch((err) => {
@@ -32,13 +42,13 @@ export const downloadVideoHandler = async (message: any) => {
 
   video.on('info', (info) => {
     meta = info;
-    const videoFile = createFileInProcessing(path, info._filename);
-    const metaFile = createFileInProcessing(path, 'info.json');
-
-    const metaFileStream = metaFile.createWriteStream({ contentType: 'application/json' });
-    const videoFileStream = videoFile.createWriteStream();
-
     try {
+      const videoFile = createFileInProcessing(path, info._filename);
+      const metaFile = createFileInProcessing(path, 'info.json');
+
+      const metaFileStream = metaFile.createWriteStream({ contentType: 'application/json' });
+      const videoFileStream = videoFile.createWriteStream();
+
       // tslint:disable-next-line:no-magic-numbers
       stringToStream(JSON.stringify(info, null, 2)).pipe(metaFileStream);
       video.pipe(videoFileStream);
