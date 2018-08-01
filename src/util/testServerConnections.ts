@@ -1,7 +1,7 @@
 import redis from 'redis';
 import { exit } from 'shelljs';
-import logger from '../util/logger';
-import prisma, { prismaEndpoint } from './../graphql/prismaContext';
+import prisma, { prismaEndpoint } from '../graphql/prismaContext';
+import logger from './logger';
 import secrets from './secrets';
 
 const connectionTimeout = 5000;

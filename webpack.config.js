@@ -1,6 +1,9 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
+
+const isProduction = process.env.NODE_ENV === "production";
 
 module.exports = {
   mode: "development",
@@ -24,7 +27,8 @@ module.exports = {
       { from: "./src/public/font", to: "font" },
       { from: "./src/public/root" }
     ]),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new DuplicatePackageCheckerPlugin()
   ],
   resolve: {
     extensions: [

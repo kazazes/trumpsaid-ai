@@ -29,7 +29,7 @@
         "ignore-pattern": "//"
       }
     ],
-    "prefer-template": true,
+    "prefer-template": [true, "allow-single-concat"],
     "radix": false,
     "no-console": true
   },

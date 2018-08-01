@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { NextFunction } from '../../node_modules/@types/express-serve-static-core';
+import { NextFunction } from 'express-serve-static-core';
 
 const router = Router;
 
