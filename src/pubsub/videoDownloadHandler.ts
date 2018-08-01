@@ -27,7 +27,11 @@ export const downloadVideoHandler = async (message: any) => {
   `);
   logger.debug(`Attempting to download ${videoUploadPayload.submitedUrl}`);
 
-  prisma.mutation.updateVideoUpload({ where: { id: videoUploadPayload.id }, data: { state: 'PROCESSING', status: 'DOWNLOADING' } });
+  prisma.mutation.updateVideoUpload({ where: { id: videoUploadPayload.id }, data: { state: 'PROCESSING', status: 'DOWNLOADING' } })
+    .catch((err) => {
+      logger.error(err);
+      throw err;
+    });
 
   const storagePrefix = videoUploadPayload.id;
   const path = delimiter + storagePrefix + delimiter;
@@ -37,10 +41,10 @@ export const downloadVideoHandler = async (message: any) => {
 
   let meta: any;
 
-  video.on('info', async (info) => {
+  video.on('info', (info) => {
     meta = info;
-    const videoFile = await createFile(processingBucket, path, info._filename);
-    const metaFile = await createFile(processingBucket, path, 'info.json');
+    const videoFile = createFile(processingBucket, path, info._filename);
+    const metaFile = createFile(processingBucket, path, 'info.json');
 
     const metaFileStream = metaFile.createWriteStream({ contentType: 'application/json' });
     const videoFileStream = videoFile.createWriteStream();
@@ -64,7 +68,7 @@ export const downloadVideoHandler = async (message: any) => {
 
     const storageLink = await prisma.mutation.createVideoStorageLink(
       { data: { path: fullPath, videoID: videoUploadPayload.id, bucket: processingBucket.name, version: 'RAW' } }, ' { id }');
-    prisma.mutation.updateVideoUpload({
+    return prisma.mutation.updateVideoUpload({
       where: { id: videoUploadPayload.id },
       data: {
         rawStorageLink: { connect: storageLink },
@@ -75,7 +79,11 @@ export const downloadVideoHandler = async (message: any) => {
   });
 
   video.on('error', (err) => {
-    prisma.mutation.updateVideoUpload({ where: { id: videoUploadPayload.id }, data: { state: 'FAILED', status: 'DOWNLOADING' } });
+    prisma.mutation.updateVideoUpload({ where: { id: videoUploadPayload.id }, data: { state: 'FAILED', status: 'DOWNLOADING' } })
+      .catch((err) => {
+        logger.error(err);
+        throw err;
+      });
 
     const message = { err, trigger: videoUploadPayload };
     const dataBuffer = Buffer.from(JSON.stringify(message));
@@ -88,6 +96,10 @@ export const downloadVideoHandler = async (message: any) => {
           `Failed to download, published err to ${pubSubController.responseTopic} as ${messageId}`,
         );
         logger.error(err);
+      })
+      .catch((err) => {
+        logger.error(err);
+        throw err;
       });
   });
 };
