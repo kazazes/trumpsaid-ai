@@ -70,7 +70,9 @@ app.use((req, res, next) => {
 });
 
 const morganFormat: string = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
-app.use(morgan(morganFormat, { stream: { write: message => logger.info(message) } }));
+app.use(morgan(
+  morganFormat,
+  { stream: { write: message => logger.info(message.substring(0, message.lastIndexOf('\n'))) } }));
 
 /**
  * Primary app routes.
