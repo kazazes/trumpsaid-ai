@@ -1,6 +1,6 @@
 import { ApolloError } from 'apollo-server-core';
 import { isURL } from 'validator';
-import { publishDownloadJob } from '../../../gcloud/videoJobController';
+import { publishDownloadJob, publishRenderJob } from '../../../gcloud/videoJobPublisher';
 import { IApolloContext } from '../../apollo';
 import { VideoUploadCreateInput } from '../../generated/prisma';
 
@@ -24,10 +24,16 @@ export default {
     return ctx.db.mutation.deleteVideoUpload({ where: { id: args.id } });
   },
   startProcessingPipeline: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
-    let upload = await ctx.db.query.videoUpload({ where: { id: args.id } });
+    let upload = await ctx.db.query.videoUpload(
+      { where: { id: args.id } },
+      `{ id submitedUrl submitedBy { displayName avatar } status state rawStorageLink { videoID path bucket } }`);
 
-    if (upload.state === 'PENDING') {
+    if (upload.state === 'PENDING' && upload.status === 'AWAITING_PROCESSING') {
       await publishDownloadJob(upload);
+      upload = await ctx.db.mutation.updateVideoUpload(
+        { where: { id: args.id }, data: { state: 'PROCESSING' } }, ' { id status state submitedUrl } ');
+    } else if (upload.state === 'PENDING' && upload.status === 'READY_TO_RENDER') {
+      await publishRenderJob(upload);
       upload = await ctx.db.mutation.updateVideoUpload(
         { where: { id: args.id }, data: { state: 'PROCESSING' } }, ' { id status state submitedUrl } ');
     }

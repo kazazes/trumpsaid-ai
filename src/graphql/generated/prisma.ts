@@ -2519,9 +2519,12 @@ input VideoStorageLinkWhereInput {
   _MagicalBackRelation_VideoStorageRawRelation_every: VideoUploadWhereInput
   _MagicalBackRelation_VideoStorageRawRelation_some: VideoUploadWhereInput
   _MagicalBackRelation_VideoStorageRawRelation_none: VideoUploadWhereInput
-  _MagicalBackRelation_VideoStorageProductionRelation_every: VideoUploadWhereInput
-  _MagicalBackRelation_VideoStorageProductionRelation_some: VideoUploadWhereInput
-  _MagicalBackRelation_VideoStorageProductionRelation_none: VideoUploadWhereInput
+  _MagicalBackRelation_VideoWebmLinkRelation_every: VideoUploadWhereInput
+  _MagicalBackRelation_VideoWebmLinkRelation_some: VideoUploadWhereInput
+  _MagicalBackRelation_VideoWebmLinkRelation_none: VideoUploadWhereInput
+  _MagicalBackRelation_VideoMp4LinkRelation_every: VideoUploadWhereInput
+  _MagicalBackRelation_VideoMp4LinkRelation_some: VideoUploadWhereInput
+  _MagicalBackRelation_VideoMp4LinkRelation_none: VideoUploadWhereInput
 }
 
 input VideoStorageLinkWhereUniqueInput {
@@ -2618,12 +2621,13 @@ type VideoUpload implements Node {
   advertisingEnabled: Boolean!
   views: Int!
   rawStorageLink(where: VideoStorageLinkWhereInput): VideoStorageLink
+  webmLink(where: VideoStorageLinkWhereInput): VideoStorageLink
+  mp4Link(where: VideoStorageLinkWhereInput): VideoStorageLink
   title: String
   subtitle: String
   dateRecorded(where: DateWhereInput): Date
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
   source(where: SourceWhereInput): Source
-  productionLink(where: VideoStorageLinkWhereInput): VideoStorageLink
 }
 
 """A connection to a list of items."""
@@ -2655,10 +2659,11 @@ input VideoUploadCreateInput {
   publishedVideo: VideoCreateOneInput
   transcription: TranscriptionItemCreateManyInput
   rawStorageLink: VideoStorageLinkCreateOneInput
+  webmLink: VideoStorageLinkCreateOneInput
+  mp4Link: VideoStorageLinkCreateOneInput
   dateRecorded: DateCreateOneInput
   tags: TagCreateManyInput
   source: SourceCreateOneInput
-  productionLink: VideoStorageLinkCreateOneInput
 }
 
 """An edge in a connection."""
@@ -2721,10 +2726,12 @@ enum VideoUploadState {
 enum VideoUploadStatus {
   AWAITING_PROCESSING
   DOWNLOADING
+  READY_TO_RENDER
   RENDERING
-  READY_TO_PUBLISH
+  NEEDS_THUMBNAILS
   GENERATING_THUMBNAILS
   NEEDS_METADATA
+  READY_TO_PUBLISH
 }
 
 type VideoUploadSubscriptionPayload {
@@ -2785,10 +2792,11 @@ input VideoUploadUpdateInput {
   publishedVideo: VideoUpdateOneInput
   transcription: TranscriptionItemUpdateManyInput
   rawStorageLink: VideoStorageLinkUpdateOneInput
+  webmLink: VideoStorageLinkUpdateOneInput
+  mp4Link: VideoStorageLinkUpdateOneInput
   dateRecorded: DateUpdateOneInput
   tags: TagUpdateManyInput
   source: SourceUpdateOneInput
-  productionLink: VideoStorageLinkUpdateOneInput
 }
 
 input VideoUploadWhereInput {
@@ -3061,12 +3069,13 @@ input VideoUploadWhereInput {
   transcription_some: TranscriptionItemWhereInput
   transcription_none: TranscriptionItemWhereInput
   rawStorageLink: VideoStorageLinkWhereInput
+  webmLink: VideoStorageLinkWhereInput
+  mp4Link: VideoStorageLinkWhereInput
   dateRecorded: DateWhereInput
   tags_every: TagWhereInput
   tags_some: TagWhereInput
   tags_none: TagWhereInput
   source: SourceWhereInput
-  productionLink: VideoStorageLinkWhereInput
 }
 
 input VideoUploadWhereUniqueInput {
@@ -3087,6 +3096,8 @@ input VideoUpsertWithWhereUniqueNestedInput {
 
 enum VideoVersion {
   RAW
+  WEBM
+  MP4
 }
 
 input VideoWhereInput {
@@ -3193,7 +3204,9 @@ export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({typeDe
 export type Role =   'USER' |
   'ADMIN'
 
-export type VideoVersion =   'RAW'
+export type VideoVersion =   'RAW' |
+  'WEBM' |
+  'MP4'
 
 export type UserOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3354,10 +3367,12 @@ export type VideoStorageLinkOrderByInput =   'id_ASC' |
 
 export type VideoUploadStatus =   'AWAITING_PROCESSING' |
   'DOWNLOADING' |
+  'READY_TO_RENDER' |
   'RENDERING' |
-  'READY_TO_PUBLISH' |
+  'NEEDS_THUMBNAILS' |
   'GENERATING_THUMBNAILS' |
-  'NEEDS_METADATA'
+  'NEEDS_METADATA' |
+  'READY_TO_PUBLISH'
 
 export type MutationType =   'CREATED' |
   'UPDATED' |
@@ -3473,12 +3488,13 @@ export interface VideoUploadWhereInput {
   transcription_some?: TranscriptionItemWhereInput
   transcription_none?: TranscriptionItemWhereInput
   rawStorageLink?: VideoStorageLinkWhereInput
+  webmLink?: VideoStorageLinkWhereInput
+  mp4Link?: VideoStorageLinkWhereInput
   dateRecorded?: DateWhereInput
   tags_every?: TagWhereInput
   tags_some?: TagWhereInput
   tags_none?: TagWhereInput
   source?: SourceWhereInput
-  productionLink?: VideoStorageLinkWhereInput
 }
 
 export interface VideoCreateManyInput {
@@ -3553,9 +3569,12 @@ export interface VideoStorageLinkWhereInput {
   _MagicalBackRelation_VideoStorageRawRelation_every?: VideoUploadWhereInput
   _MagicalBackRelation_VideoStorageRawRelation_some?: VideoUploadWhereInput
   _MagicalBackRelation_VideoStorageRawRelation_none?: VideoUploadWhereInput
-  _MagicalBackRelation_VideoStorageProductionRelation_every?: VideoUploadWhereInput
-  _MagicalBackRelation_VideoStorageProductionRelation_some?: VideoUploadWhereInput
-  _MagicalBackRelation_VideoStorageProductionRelation_none?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoWebmLinkRelation_every?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoWebmLinkRelation_some?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoWebmLinkRelation_none?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoMp4LinkRelation_every?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoMp4LinkRelation_some?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoMp4LinkRelation_none?: VideoUploadWhereInput
 }
 
 export interface SourceCreateOneInput {
@@ -3934,10 +3953,11 @@ export interface VideoUploadCreateInput {
   publishedVideo?: VideoCreateOneInput
   transcription?: TranscriptionItemCreateManyInput
   rawStorageLink?: VideoStorageLinkCreateOneInput
+  webmLink?: VideoStorageLinkCreateOneInput
+  mp4Link?: VideoStorageLinkCreateOneInput
   dateRecorded?: DateCreateOneInput
   tags?: TagCreateManyInput
   source?: SourceCreateOneInput
-  productionLink?: VideoStorageLinkCreateOneInput
 }
 
 export interface TranscriptionItemUpdateInput {
@@ -4469,10 +4489,11 @@ export interface VideoUploadUpdateInput {
   publishedVideo?: VideoUpdateOneInput
   transcription?: TranscriptionItemUpdateManyInput
   rawStorageLink?: VideoStorageLinkUpdateOneInput
+  webmLink?: VideoStorageLinkUpdateOneInput
+  mp4Link?: VideoStorageLinkUpdateOneInput
   dateRecorded?: DateUpdateOneInput
   tags?: TagUpdateManyInput
   source?: SourceUpdateOneInput
-  productionLink?: VideoStorageLinkUpdateOneInput
 }
 
 export interface DateUpdateInput {
@@ -4567,12 +4588,13 @@ export interface VideoUpload extends Node {
   advertisingEnabled: Boolean
   views: Int
   rawStorageLink?: VideoStorageLink
+  webmLink?: VideoStorageLink
+  mp4Link?: VideoStorageLink
   title?: String
   subtitle?: String
   dateRecorded?: Date
   tags?: Tag[]
   source?: Source
-  productionLink?: VideoStorageLink
 }
 
 export interface VideoStorageLinkPreviousValues {

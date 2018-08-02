@@ -6,10 +6,12 @@ enum Role {
 enum VideoUploadStatus {
   AWAITING_PROCESSING
   DOWNLOADING
+  READY_TO_RENDER
   RENDERING
-  READY_TO_PUBLISH
+  NEEDS_THUMBNAILS
   GENERATING_THUMBNAILS
   NEEDS_METADATA
+  READY_TO_PUBLISH
 }
 
 enum VideoUploadState {
@@ -31,4 +33,6 @@ enum AdminRole {
 
 enum VideoVersion {
   RAW
+  WEBM
+  MP4
 }

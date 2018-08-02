@@ -89,6 +89,8 @@ export default {
           return "Needs Processing";
         case "DOWNLOADING":
           return "Downloading";
+        case "READY_TO_RENDER":
+          return "Ready to render";
         case "GENERATING_THUMBNAILS":
           return "Generating thumbnails";
         default:
@@ -117,6 +119,17 @@ export default {
             return "Download rejected";
           case "FAILED":
             return "Download failed";
+          default:
+            break;
+        }
+      } else if (status === "READY_TO_RENDER") {
+        switch (state) {
+          case "PENDING":
+            return "Render";
+          case "PROCESSING":
+            return "Rendering";
+          case "FAILED":
+            return "Failed rendering";
           default:
             break;
         }
