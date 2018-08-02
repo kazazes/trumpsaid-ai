@@ -1,0 +1,40 @@
+TS-WTF:
+  Web Server:
+    Prisma:
+      ☐ Add (abstract) remote storage class @20m @today 
+      ☐ People schema @20m
+      ☐ Transcript schema @50m
+      ☐ News schema @30m
+      ☐ Final video model @40m
+    Backend:
+      ☐ Thumbnail generation @today @1h
+      ☐ Transcript generation @2.5h
+      ☐ Vision AI @4h
+      ☐ Transcript NLP @10h
+    API:
+      ☐ Default privilege level @30m
+      ☐ Service worker decoupling @3d
+    Frontend:
+      Admin:
+        ☐ Editors @15h
+      ☐ Design @4h
+      ☐ Vue search page @8h
+      ☐ Static video pages @3h
+        ☐ P2P distribution 
+          ☐ Web seed solution @5h
+          ☐ Video-player support @2h
+          ☐ Torrent/download links @1h
+        ☐ CDN/Cache layer @4h
+  Infrastructure:
+    ☐ ELK @1h
+    ☐ ELK/Prisma integration @3h
+    ☐ ELK/Vue integration @3h
+    ☐ Nginx serve static & deploy @2h
+
+
+Archive:
+  ☐ Press Cmd/Ctrl+Enter to add a new todo
+  ☐ Press Alt+S to mark a todo as started @started(17-11-03 10:42)
+  ✔ Press Alt+D to mark a todo as done
+  ☐ You can add tags using the @ symbol, like this @tag
+  ☐ There are some special, customizable tags: @critical @high @low @today

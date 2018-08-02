@@ -1,5 +1,5 @@
 *credentials.json
-
+.prettierignore
 
 # Created by https://www.gitignore.io/api/node,macos,visualstudiocode
 
@@ -116,4 +116,3 @@ typings/
 dist/
 
 # End of https://www.gitignore.io/api/node,macos,visualstudiocode
-.prettierignore
