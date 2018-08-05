@@ -39,7 +39,10 @@ export const testRedisConnection = () => {
 export const testPrismaConnection = () => {
   return new Promise((resolve, reject) => {
     const start = new Date().getMilliseconds();
-    const timeout = setTimeout(() => reject(new Error(`Prisma connection timed out to ${prismaEndpoint}`)), connectionTimeout);
+    const timeout = setTimeout(() => {
+      logger.error(`Prisma connection timed out to ${prismaEndpoint}`);
+      reject(new Error(`Prisma connection timed out to ${prismaEndpoint}`));
+    },                         connectionTimeout);
     prisma.query.users({ where: {} }, ' { id } ')
       .then((users) => {
         clearTimeout(timeout);
