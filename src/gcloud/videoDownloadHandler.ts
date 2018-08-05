@@ -86,13 +86,26 @@ export const downloadVideoHandler = async (message: any) => {
     try {
       const storageLink = await prisma.mutation.createVideoStorageLink(
         { data: { path: fullPath, videoID: videoUploadPayload.id, bucket: processingBucket.name, version: 'RAW' } }, ' { id }');
-      return prisma.mutation.updateVideoUpload({
+      const updated = await prisma.mutation.updateVideoUpload({
         where: { id: videoUploadPayload.id },
         data: {
           rawStorageLink: { connect: storageLink },
           state: 'PENDING',
           status: 'READY_TO_RENDER',
         },
+      });
+      pubSubController
+      .responseTopic
+      .publisher()
+      .publish(Buffer.from(JSON.stringify(updated)))
+      .then((messageId) => {
+        logger.debug(
+          `Published download success to ${JSON.stringify(pubSubController.responseTopic)} as ${messageId}`,
+        );
+      })
+      .catch((err) => {
+        logger.error(err);
+        throw err;
       });
     } catch (e) {
       logger.error('Error finishing download: ' + e);

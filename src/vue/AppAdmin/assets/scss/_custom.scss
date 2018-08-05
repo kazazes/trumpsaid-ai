@@ -1,3 +1,16 @@
 .navbar-brand img {
   margin-bottom: -10px;
 }
+
+.cardless {
+  background-color: #fff;
+  padding: 0;
+}
+
+.table-hover {
+  tr {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

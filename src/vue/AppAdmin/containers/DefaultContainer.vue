@@ -5,7 +5,7 @@
       <SidebarToggler class="d-lg-none" display="md" mobile />
       <b-link class="navbar-brand" to="#">
         <img class="navbar-brand-full mh-100" src="/img/trump.svg" alt="Trump Said... WTF?">
-        <img class="navbar-brand-minimized" src="img/trump.svg" width="30">
+        <img class="navbar-brand-minimized" src="/img/trump.svg" width="30">
       </b-link>
       <SidebarToggler class="d-md-down-none" display="lg" />
       <b-navbar-nav class="ml-auto">

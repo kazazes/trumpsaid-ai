@@ -5,6 +5,9 @@ import Router from 'vue-router';
 const DefaultContainer = () => import('../containers/DefaultContainer.vue');
 
 // Views
+const Videos = () => import('../views/Videos.vue');
+const VideoSubmission = () => import('../views/VideoSubmission.vue');
+const VideoSubmissionsTable = () => import('../views/VideoSubmissionsTable.vue');
 const VideoSubmissions = () => import('../views/VideoSubmissions.vue');
 
 Vue.use(Router);
@@ -19,16 +22,30 @@ export default new Router({
       redirect: '/videos/submissions',
       name: 'Home',
       component: DefaultContainer,
-    },
-    {
-      path: '/videos',
-      name: 'Videos',
-      component: DefaultContainer,
       children: [
         {
-          path: 'submissions',
-          name: 'Submissions',
-          component: VideoSubmissions,
+          path: '/videos',
+          name: 'Videos',
+          component: Videos,
+          children: [
+            {
+              path: 'submissions',
+              name: 'Submissions',
+              component: VideoSubmissions,
+              redirect: '/videos/submissions/all',
+              children: [
+                {
+                  path: 'all',
+                  name: 'All Submissions',
+                  component: VideoSubmissionsTable,
+                },
+                {
+                  path: ':submissionId',
+                  name: 'Details',
+                  component: VideoSubmission,
+                }],
+            },
+          ],
         },
       ],
     },

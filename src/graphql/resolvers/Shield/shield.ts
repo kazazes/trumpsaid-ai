@@ -29,6 +29,7 @@ export const hasRole = async (role: AdminRole, ctx: IApolloContext) => {
 const permissions = shield({
   Query: {
     videoUploads: rules.canListAllUploads,
+    videoUpload: rules.canProcessUpload,
   },
   Mutation: {
     createVideoUpload: rules.canCreateUpload,

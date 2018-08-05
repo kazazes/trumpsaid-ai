@@ -18,6 +18,7 @@
 </template>
 <script lang="ts">
 import gql from "graphql-tag";
+import router from "../../../routes/adminRouter";
 
 export default {
   name: "VideoSubmitModal",
@@ -49,10 +50,14 @@ export default {
         this.$notify({
           type: "success",
           title: "Video submited",
-          text: "Processing will begin shortly"
+          text: "Video submited succesfully."
         });
+
         this.buttonsDisabled = false;
         this.$refs.submitVideoModal.hide();
+        this.$router.push({
+          path: `/videos/submissions/${result.data.createVideoUpload.id}`
+        });
       } catch (err) {
         this.buttonsDisabled = false;
         this.$notify({

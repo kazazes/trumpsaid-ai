@@ -8,6 +8,17 @@ interface IVideo {
   source: Source
 }
 
+type VideoMetadata {
+  title: String
+  subtitle: String
+  transcript: [TranscriptionItem!]!
+  advertisingEnabled: Boolean! @default(value: "false")
+  tags: [Tag!]!
+  sources: [Source!]!
+  dateRecorded: Date
+  views: Int! @default(value: "0")
+}
+
 type User {
   id: ID! @unique
   email: String
@@ -31,18 +42,11 @@ type VideoUpload implements IVideo {
   status: VideoUploadStatus!
   state: VideoUploadState! @default(value: "PENDING")
   autoTranscription: [String!]!
-  transcription: [TranscriptionItem!]!
   published: Boolean! @default(value: "false")
-  advertisingEnabled: Boolean! @default(value: "false")
-  views: Int! @default(value: "0")
   rawStorageLink: VideoStorageLink @relation(name: "VideoStorageRawRelation")
   webmLink: VideoStorageLink @relation(name: "VideoWebmLinkRelation")
   mp4Link: VideoStorageLink @relation(name: "VideoMp4LinkRelation")
-  title: String
-  subtitle: String
-  dateRecorded: Date
-  tags: [Tag!]!
-  source: Source
+  metadata: VideoMetadata @relation(name: "VideoUploadMetadataRelation")
 }
 
 type Tag {

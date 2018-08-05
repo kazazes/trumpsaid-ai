@@ -5,108 +5,115 @@ import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 
 export interface Query {
     videoUploads: <T = VideoUpload[]>(args: { where?: VideoUploadWhereInput, orderBy?: VideoUploadOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    publications: <T = Publication[]>(args: { where?: PublicationWhereInput, orderBy?: PublicationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    transcriptionItems: <T = TranscriptionItem[]>(args: { where?: TranscriptionItemWhereInput, orderBy?: TranscriptionItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     sources: <T = Source[]>(args: { where?: SourceWhereInput, orderBy?: SourceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    speakers: <T = Speaker[]>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    tags: <T = Tag[]>(args: { where?: TagWhereInput, orderBy?: TagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    videoStorageLinks: <T = VideoStorageLink[]>(args: { where?: VideoStorageLinkWhereInput, orderBy?: VideoStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    publications: <T = Publication[]>(args: { where?: PublicationWhereInput, orderBy?: PublicationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     dates: <T = Date[]>(args: { where?: DateWhereInput, orderBy?: DateOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    speakers: <T = Speaker[]>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    transcriptionItems: <T = TranscriptionItem[]>(args: { where?: TranscriptionItemWhereInput, orderBy?: TranscriptionItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoStorageLinks: <T = VideoStorageLink[]>(args: { where?: VideoStorageLinkWhereInput, orderBy?: VideoStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoMetadatas: <T = VideoMetadata[]>(args: { where?: VideoMetadataWhereInput, orderBy?: VideoMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    tags: <T = Tag[]>(args: { where?: TagWhereInput, orderBy?: TagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videos: <T = Video[]>(args: { where?: VideoWhereInput, orderBy?: VideoOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUpload: <T = VideoUpload | null>(args: { where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     speaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    tag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoStorageLink: <T = VideoStorageLink | null>(args: { where: VideoStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    tag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     video: <T = Video | null>(args: { where: VideoWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadsConnection: <T = VideoUploadConnection>(args: { where?: VideoUploadWhereInput, orderBy?: VideoUploadOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    publicationsConnection: <T = PublicationConnection>(args: { where?: PublicationWhereInput, orderBy?: PublicationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    transcriptionItemsConnection: <T = TranscriptionItemConnection>(args: { where?: TranscriptionItemWhereInput, orderBy?: TranscriptionItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     sourcesConnection: <T = SourceConnection>(args: { where?: SourceWhereInput, orderBy?: SourceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    speakersConnection: <T = SpeakerConnection>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    tagsConnection: <T = TagConnection>(args: { where?: TagWhereInput, orderBy?: TagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    videoStorageLinksConnection: <T = VideoStorageLinkConnection>(args: { where?: VideoStorageLinkWhereInput, orderBy?: VideoStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    publicationsConnection: <T = PublicationConnection>(args: { where?: PublicationWhereInput, orderBy?: PublicationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     datesConnection: <T = DateConnection>(args: { where?: DateWhereInput, orderBy?: DateOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    speakersConnection: <T = SpeakerConnection>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    transcriptionItemsConnection: <T = TranscriptionItemConnection>(args: { where?: TranscriptionItemWhereInput, orderBy?: TranscriptionItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoStorageLinksConnection: <T = VideoStorageLinkConnection>(args: { where?: VideoStorageLinkWhereInput, orderBy?: VideoStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoMetadatasConnection: <T = VideoMetadataConnection>(args: { where?: VideoMetadataWhereInput, orderBy?: VideoMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    tagsConnection: <T = TagConnection>(args: { where?: TagWhereInput, orderBy?: TagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videosConnection: <T = VideoConnection>(args: { where?: VideoWhereInput, orderBy?: VideoOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Mutation {
     createVideoUpload: <T = VideoUpload>(args: { data: VideoUploadCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createPublication: <T = Publication>(args: { data: PublicationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createTranscriptionItem: <T = TranscriptionItem>(args: { data: TranscriptionItemCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createSource: <T = Source>(args: { data: SourceCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createSpeaker: <T = Speaker>(args: { data: SpeakerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createTag: <T = Tag>(args: { data: TagCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createVideoStorageLink: <T = VideoStorageLink>(args: { data: VideoStorageLinkCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createPublication: <T = Publication>(args: { data: PublicationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createDate: <T = Date>(args: { data: DateCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createSpeaker: <T = Speaker>(args: { data: SpeakerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createTranscriptionItem: <T = TranscriptionItem>(args: { data: TranscriptionItemCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createVideoStorageLink: <T = VideoStorageLink>(args: { data: VideoStorageLinkCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createVideoMetadata: <T = VideoMetadata>(args: { data: VideoMetadataCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createTag: <T = Tag>(args: { data: TagCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideo: <T = Video>(args: { data: VideoCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUpload: <T = VideoUpload | null>(args: { data: VideoUploadUpdateInput, where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateSpeaker: <T = Speaker | null>(args: { data: SpeakerUpdateInput, where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateTag: <T = Tag | null>(args: { data: TagUpdateInput, where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoStorageLink: <T = VideoStorageLink | null>(args: { data: VideoStorageLinkUpdateInput, where: VideoStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateTag: <T = Tag | null>(args: { data: TagUpdateInput, where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideo: <T = Video | null>(args: { data: VideoUpdateInput, where: VideoWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUpload: <T = VideoUpload | null>(args: { where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteSpeaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteTag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoStorageLink: <T = VideoStorageLink | null>(args: { where: VideoStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteTag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideo: <T = Video | null>(args: { where: VideoWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUpload: <T = VideoUpload>(args: { where: VideoUploadWhereUniqueInput, create: VideoUploadCreateInput, update: VideoUploadUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertSpeaker: <T = Speaker>(args: { where: SpeakerWhereUniqueInput, create: SpeakerCreateInput, update: SpeakerUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertTag: <T = Tag>(args: { where: TagWhereUniqueInput, create: TagCreateInput, update: TagUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoStorageLink: <T = VideoStorageLink>(args: { where: VideoStorageLinkWhereUniqueInput, create: VideoStorageLinkCreateInput, update: VideoStorageLinkUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertTag: <T = Tag>(args: { where: TagWhereUniqueInput, create: TagCreateInput, update: TagUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideo: <T = Video>(args: { where: VideoWhereUniqueInput, create: VideoCreateInput, update: VideoUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploads: <T = BatchPayload>(args: { data: VideoUploadUpdateInput, where?: VideoUploadWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyPublications: <T = BatchPayload>(args: { data: PublicationUpdateInput, where?: PublicationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyTranscriptionItems: <T = BatchPayload>(args: { data: TranscriptionItemUpdateInput, where?: TranscriptionItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManySources: <T = BatchPayload>(args: { data: SourceUpdateInput, where?: SourceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManySpeakers: <T = BatchPayload>(args: { data: SpeakerUpdateInput, where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyTags: <T = BatchPayload>(args: { data: TagUpdateInput, where?: TagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyVideoStorageLinks: <T = BatchPayload>(args: { data: VideoStorageLinkUpdateInput, where?: VideoStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyPublications: <T = BatchPayload>(args: { data: PublicationUpdateInput, where?: PublicationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyDates: <T = BatchPayload>(args: { data: DateUpdateInput, where?: DateWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManySpeakers: <T = BatchPayload>(args: { data: SpeakerUpdateInput, where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyTranscriptionItems: <T = BatchPayload>(args: { data: TranscriptionItemUpdateInput, where?: TranscriptionItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyVideoStorageLinks: <T = BatchPayload>(args: { data: VideoStorageLinkUpdateInput, where?: VideoStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyVideoMetadatas: <T = BatchPayload>(args: { data: VideoMetadataUpdateInput, where?: VideoMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyTags: <T = BatchPayload>(args: { data: TagUpdateInput, where?: TagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideos: <T = BatchPayload>(args: { data: VideoUpdateInput, where?: VideoWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploads: <T = BatchPayload>(args: { where?: VideoUploadWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyPublications: <T = BatchPayload>(args: { where?: PublicationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyTranscriptionItems: <T = BatchPayload>(args: { where?: TranscriptionItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManySources: <T = BatchPayload>(args: { where?: SourceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManySpeakers: <T = BatchPayload>(args: { where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyTags: <T = BatchPayload>(args: { where?: TagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyVideoStorageLinks: <T = BatchPayload>(args: { where?: VideoStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyPublications: <T = BatchPayload>(args: { where?: PublicationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyDates: <T = BatchPayload>(args: { where?: DateWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManySpeakers: <T = BatchPayload>(args: { where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyTranscriptionItems: <T = BatchPayload>(args: { where?: TranscriptionItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyVideoStorageLinks: <T = BatchPayload>(args: { where?: VideoStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyVideoMetadatas: <T = BatchPayload>(args: { where?: VideoMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyTags: <T = BatchPayload>(args: { where?: TagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideos: <T = BatchPayload>(args: { where?: VideoWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {
     videoUpload: <T = VideoUploadSubscriptionPayload | null>(args: { where?: VideoUploadSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    publication: <T = PublicationSubscriptionPayload | null>(args: { where?: PublicationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    transcriptionItem: <T = TranscriptionItemSubscriptionPayload | null>(args: { where?: TranscriptionItemSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     source: <T = SourceSubscriptionPayload | null>(args: { where?: SourceSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    speaker: <T = SpeakerSubscriptionPayload | null>(args: { where?: SpeakerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    tag: <T = TagSubscriptionPayload | null>(args: { where?: TagSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    videoStorageLink: <T = VideoStorageLinkSubscriptionPayload | null>(args: { where?: VideoStorageLinkSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    publication: <T = PublicationSubscriptionPayload | null>(args: { where?: PublicationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     date: <T = DateSubscriptionPayload | null>(args: { where?: DateSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    speaker: <T = SpeakerSubscriptionPayload | null>(args: { where?: SpeakerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    transcriptionItem: <T = TranscriptionItemSubscriptionPayload | null>(args: { where?: TranscriptionItemSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    videoStorageLink: <T = VideoStorageLinkSubscriptionPayload | null>(args: { where?: VideoStorageLinkSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    videoMetadata: <T = VideoMetadataSubscriptionPayload | null>(args: { where?: VideoMetadataSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    tag: <T = TagSubscriptionPayload | null>(args: { where?: TagSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     video: <T = VideoSubscriptionPayload | null>(args: { where?: VideoSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
 
 export interface Exists {
   VideoUpload: (where?: VideoUploadWhereInput) => Promise<boolean>
-  Publication: (where?: PublicationWhereInput) => Promise<boolean>
-  User: (where?: UserWhereInput) => Promise<boolean>
-  TranscriptionItem: (where?: TranscriptionItemWhereInput) => Promise<boolean>
   Source: (where?: SourceWhereInput) => Promise<boolean>
-  Speaker: (where?: SpeakerWhereInput) => Promise<boolean>
-  Tag: (where?: TagWhereInput) => Promise<boolean>
-  VideoStorageLink: (where?: VideoStorageLinkWhereInput) => Promise<boolean>
+  Publication: (where?: PublicationWhereInput) => Promise<boolean>
   Date: (where?: DateWhereInput) => Promise<boolean>
+  User: (where?: UserWhereInput) => Promise<boolean>
+  Speaker: (where?: SpeakerWhereInput) => Promise<boolean>
+  TranscriptionItem: (where?: TranscriptionItemWhereInput) => Promise<boolean>
+  VideoStorageLink: (where?: VideoStorageLinkWhereInput) => Promise<boolean>
+  VideoMetadata: (where?: VideoMetadataWhereInput) => Promise<boolean>
+  Tag: (where?: TagWhereInput) => Promise<boolean>
   Video: (where?: VideoWhereInput) => Promise<boolean>
 }
 
@@ -170,6 +177,10 @@ type AggregateUser {
 }
 
 type AggregateVideo {
+  count: Int!
+}
+
+type AggregateVideoMetadata {
   count: Int!
 }
 
@@ -383,9 +394,9 @@ input DateWhereInput {
 
   """All values greater than or equal the given value."""
   year_gte: Int
-  _MagicalBackRelation_DateToVideoUpload_every: VideoUploadWhereInput
-  _MagicalBackRelation_DateToVideoUpload_some: VideoUploadWhereInput
-  _MagicalBackRelation_DateToVideoUpload_none: VideoUploadWhereInput
+  _MagicalBackRelation_DateToVideoMetadata_every: VideoMetadataWhereInput
+  _MagicalBackRelation_DateToVideoMetadata_some: VideoMetadataWhereInput
+  _MagicalBackRelation_DateToVideoMetadata_none: VideoMetadataWhereInput
 }
 
 """
@@ -396,52 +407,55 @@ scalar Long
 
 type Mutation {
   createVideoUpload(data: VideoUploadCreateInput!): VideoUpload!
-  createPublication(data: PublicationCreateInput!): Publication!
-  createUser(data: UserCreateInput!): User!
-  createTranscriptionItem(data: TranscriptionItemCreateInput!): TranscriptionItem!
   createSource(data: SourceCreateInput!): Source!
-  createSpeaker(data: SpeakerCreateInput!): Speaker!
-  createTag(data: TagCreateInput!): Tag!
-  createVideoStorageLink(data: VideoStorageLinkCreateInput!): VideoStorageLink!
+  createPublication(data: PublicationCreateInput!): Publication!
   createDate(data: DateCreateInput!): Date!
+  createUser(data: UserCreateInput!): User!
+  createSpeaker(data: SpeakerCreateInput!): Speaker!
+  createTranscriptionItem(data: TranscriptionItemCreateInput!): TranscriptionItem!
+  createVideoStorageLink(data: VideoStorageLinkCreateInput!): VideoStorageLink!
+  createVideoMetadata(data: VideoMetadataCreateInput!): VideoMetadata!
+  createTag(data: TagCreateInput!): Tag!
   createVideo(data: VideoCreateInput!): Video!
   updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
-  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   updateVideoStorageLink(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   updateVideo(data: VideoUpdateInput!, where: VideoWhereUniqueInput!): Video
   deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteUser(where: UserWhereUniqueInput!): User
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
-  deleteTag(where: TagWhereUniqueInput!): Tag
   deleteVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
+  deleteTag(where: TagWhereUniqueInput!): Tag
   deleteVideo(where: VideoWhereUniqueInput!): Video
   upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
-  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
   upsertVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!, create: VideoStorageLinkCreateInput!, update: VideoStorageLinkUpdateInput!): VideoStorageLink!
+  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
   upsertVideo(where: VideoWhereUniqueInput!, create: VideoCreateInput!, update: VideoUpdateInput!): Video!
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
-  updateManyPublications(data: PublicationUpdateInput!, where: PublicationWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  updateManyTranscriptionItems(data: TranscriptionItemUpdateInput!, where: TranscriptionItemWhereInput): BatchPayload!
   updateManySources(data: SourceUpdateInput!, where: SourceWhereInput): BatchPayload!
-  updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
-  updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
-  updateManyVideoStorageLinks(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereInput): BatchPayload!
+  updateManyPublications(data: PublicationUpdateInput!, where: PublicationWhereInput): BatchPayload!
   updateManyDates(data: DateUpdateInput!, where: DateWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
+  updateManyTranscriptionItems(data: TranscriptionItemUpdateInput!, where: TranscriptionItemWhereInput): BatchPayload!
+  updateManyVideoStorageLinks(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereInput): BatchPayload!
+  updateManyVideoMetadatas(data: VideoMetadataUpdateInput!, where: VideoMetadataWhereInput): BatchPayload!
+  updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
   updateManyVideos(data: VideoUpdateInput!, where: VideoWhereInput): BatchPayload!
   deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
-  deleteManyPublications(where: PublicationWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyTranscriptionItems(where: TranscriptionItemWhereInput): BatchPayload!
   deleteManySources(where: SourceWhereInput): BatchPayload!
-  deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
-  deleteManyTags(where: TagWhereInput): BatchPayload!
-  deleteManyVideoStorageLinks(where: VideoStorageLinkWhereInput): BatchPayload!
+  deleteManyPublications(where: PublicationWhereInput): BatchPayload!
   deleteManyDates(where: DateWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
+  deleteManyTranscriptionItems(where: TranscriptionItemWhereInput): BatchPayload!
+  deleteManyVideoStorageLinks(where: VideoStorageLinkWhereInput): BatchPayload!
+  deleteManyVideoMetadatas(where: VideoMetadataWhereInput): BatchPayload!
+  deleteManyTags(where: TagWhereInput): BatchPayload!
   deleteManyVideos(where: VideoWhereInput): BatchPayload!
 }
 
@@ -680,30 +694,32 @@ input PublicationWhereInput {
 
 type Query {
   videoUploads(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUpload]!
-  publications(where: PublicationWhereInput, orderBy: PublicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Publication]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  transcriptionItems(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TranscriptionItem]!
   sources(where: SourceWhereInput, orderBy: SourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Source]!
-  speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
-  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
-  videoStorageLinks(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoStorageLink]!
+  publications(where: PublicationWhereInput, orderBy: PublicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Publication]!
   dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
+  transcriptionItems(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TranscriptionItem]!
+  videoStorageLinks(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoStorageLink]!
+  videoMetadatas(where: VideoMetadataWhereInput, orderBy: VideoMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoMetadata]!
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
   videos(where: VideoWhereInput, orderBy: VideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Video]!
   videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   user(where: UserWhereUniqueInput!): User
   speaker(where: SpeakerWhereUniqueInput!): Speaker
-  tag(where: TagWhereUniqueInput!): Tag
   videoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
+  tag(where: TagWhereUniqueInput!): Tag
   video(where: VideoWhereUniqueInput!): Video
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
-  publicationsConnection(where: PublicationWhereInput, orderBy: PublicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PublicationConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  transcriptionItemsConnection(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TranscriptionItemConnection!
   sourcesConnection(where: SourceWhereInput, orderBy: SourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SourceConnection!
-  speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
-  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
-  videoStorageLinksConnection(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoStorageLinkConnection!
+  publicationsConnection(where: PublicationWhereInput, orderBy: PublicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PublicationConnection!
   datesConnection(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DateConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
+  transcriptionItemsConnection(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TranscriptionItemConnection!
+  videoStorageLinksConnection(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoStorageLinkConnection!
+  videoMetadatasConnection(where: VideoMetadataWhereInput, orderBy: VideoMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoMetadataConnection!
+  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
   videosConnection(where: VideoWhereInput, orderBy: VideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConnection!
 
   """Fetches an object given its ID"""
@@ -744,8 +760,8 @@ input SourceCreateInput {
   videos: VideoCreateManyInput
 }
 
-input SourceCreateOneInput {
-  create: SourceCreateInput
+input SourceCreateManyInput {
+  create: [SourceCreateInput!]
 }
 
 """An edge in a connection."""
@@ -817,14 +833,6 @@ input SourceSubscriptionWhereInput {
   node: SourceWhereInput
 }
 
-input SourceUpdateDataInput {
-  url: String
-  title: String
-  priority: Int
-  publication: PublicationUpdateOneInput
-  videos: VideoUpdateManyInput
-}
-
 input SourceUpdateInput {
   url: String
   title: String
@@ -833,17 +841,8 @@ input SourceUpdateInput {
   videos: VideoUpdateManyInput
 }
 
-input SourceUpdateOneInput {
-  create: SourceCreateInput
-  disconnect: Boolean
-  delete: Boolean
-  update: SourceUpdateDataInput
-  upsert: SourceUpsertNestedInput
-}
-
-input SourceUpsertNestedInput {
-  update: SourceUpdateDataInput!
-  create: SourceCreateInput!
+input SourceUpdateManyInput {
+  create: [SourceCreateInput!]
 }
 
 input SourceWhereInput {
@@ -961,9 +960,9 @@ input SourceWhereInput {
   videos_every: VideoWhereInput
   videos_some: VideoWhereInput
   videos_none: VideoWhereInput
-  _MagicalBackRelation_SourceToVideoUpload_every: VideoUploadWhereInput
-  _MagicalBackRelation_SourceToVideoUpload_some: VideoUploadWhereInput
-  _MagicalBackRelation_SourceToVideoUpload_none: VideoUploadWhereInput
+  _MagicalBackRelation_SourceToVideoMetadata_every: VideoMetadataWhereInput
+  _MagicalBackRelation_SourceToVideoMetadata_some: VideoMetadataWhereInput
+  _MagicalBackRelation_SourceToVideoMetadata_none: VideoMetadataWhereInput
 }
 
 type Speaker {
@@ -1227,14 +1226,15 @@ input SpeakerWhereUniqueInput {
 
 type Subscription {
   videoUpload(where: VideoUploadSubscriptionWhereInput): VideoUploadSubscriptionPayload
-  publication(where: PublicationSubscriptionWhereInput): PublicationSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  transcriptionItem(where: TranscriptionItemSubscriptionWhereInput): TranscriptionItemSubscriptionPayload
   source(where: SourceSubscriptionWhereInput): SourceSubscriptionPayload
-  speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
-  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
-  videoStorageLink(where: VideoStorageLinkSubscriptionWhereInput): VideoStorageLinkSubscriptionPayload
+  publication(where: PublicationSubscriptionWhereInput): PublicationSubscriptionPayload
   date(where: DateSubscriptionWhereInput): DateSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
+  transcriptionItem(where: TranscriptionItemSubscriptionWhereInput): TranscriptionItemSubscriptionPayload
+  videoStorageLink(where: VideoStorageLinkSubscriptionWhereInput): VideoStorageLinkSubscriptionPayload
+  videoMetadata(where: VideoMetadataSubscriptionWhereInput): VideoMetadataSubscriptionPayload
+  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
   video(where: VideoSubscriptionWhereInput): VideoSubscriptionPayload
 }
 
@@ -1450,9 +1450,9 @@ input TagWhereInput {
   videos_every: VideoWhereInput
   videos_some: VideoWhereInput
   videos_none: VideoWhereInput
-  _MagicalBackRelation_TagToVideoUpload_every: VideoUploadWhereInput
-  _MagicalBackRelation_TagToVideoUpload_some: VideoUploadWhereInput
-  _MagicalBackRelation_TagToVideoUpload_none: VideoUploadWhereInput
+  _MagicalBackRelation_TagToVideoMetadata_every: VideoMetadataWhereInput
+  _MagicalBackRelation_TagToVideoMetadata_some: VideoMetadataWhereInput
+  _MagicalBackRelation_TagToVideoMetadata_none: VideoMetadataWhereInput
 }
 
 input TagWhereUniqueInput {
@@ -1661,9 +1661,9 @@ input TranscriptionItemWhereInput {
   """All values greater than or equal the given value."""
   sentiment_gte: Float
   speaker: SpeakerWhereInput
-  _MagicalBackRelation_TranscriptionItemToVideoUpload_every: VideoUploadWhereInput
-  _MagicalBackRelation_TranscriptionItemToVideoUpload_some: VideoUploadWhereInput
-  _MagicalBackRelation_TranscriptionItemToVideoUpload_none: VideoUploadWhereInput
+  _MagicalBackRelation_TranscriptionItemToVideoMetadata_every: VideoMetadataWhereInput
+  _MagicalBackRelation_TranscriptionItemToVideoMetadata_some: VideoMetadataWhereInput
+  _MagicalBackRelation_TranscriptionItemToVideoMetadata_none: VideoMetadataWhereInput
 }
 
 type User implements Node {
@@ -2184,6 +2184,279 @@ type VideoEdge {
   cursor: String!
 }
 
+type VideoMetadata {
+  title: String
+  subtitle: String
+  transcript(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TranscriptionItem!]
+  advertisingEnabled: Boolean!
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
+  sources(where: SourceWhereInput, orderBy: SourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Source!]
+  dateRecorded(where: DateWhereInput): Date
+  views: Int!
+}
+
+"""A connection to a list of items."""
+type VideoMetadataConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [VideoMetadataEdge]!
+  aggregate: AggregateVideoMetadata!
+}
+
+input VideoMetadataCreateInput {
+  title: String
+  subtitle: String
+  advertisingEnabled: Boolean
+  views: Int
+  transcript: TranscriptionItemCreateManyInput
+  tags: TagCreateManyInput
+  sources: SourceCreateManyInput
+  dateRecorded: DateCreateOneInput
+}
+
+input VideoMetadataCreateOneInput {
+  create: VideoMetadataCreateInput
+}
+
+"""An edge in a connection."""
+type VideoMetadataEdge {
+  """The item at the end of the edge."""
+  node: VideoMetadata!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum VideoMetadataOrderByInput {
+  title_ASC
+  title_DESC
+  subtitle_ASC
+  subtitle_DESC
+  advertisingEnabled_ASC
+  advertisingEnabled_DESC
+  views_ASC
+  views_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type VideoMetadataPreviousValues {
+  title: String
+  subtitle: String
+  advertisingEnabled: Boolean!
+  views: Int!
+}
+
+type VideoMetadataSubscriptionPayload {
+  mutation: MutationType!
+  node: VideoMetadata
+  updatedFields: [String!]
+  previousValues: VideoMetadataPreviousValues
+}
+
+input VideoMetadataSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VideoMetadataSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VideoMetadataSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VideoMetadataSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: VideoMetadataWhereInput
+}
+
+input VideoMetadataUpdateDataInput {
+  title: String
+  subtitle: String
+  advertisingEnabled: Boolean
+  views: Int
+  transcript: TranscriptionItemUpdateManyInput
+  tags: TagUpdateManyInput
+  sources: SourceUpdateManyInput
+  dateRecorded: DateUpdateOneInput
+}
+
+input VideoMetadataUpdateInput {
+  title: String
+  subtitle: String
+  advertisingEnabled: Boolean
+  views: Int
+  transcript: TranscriptionItemUpdateManyInput
+  tags: TagUpdateManyInput
+  sources: SourceUpdateManyInput
+  dateRecorded: DateUpdateOneInput
+}
+
+input VideoMetadataUpdateOneInput {
+  create: VideoMetadataCreateInput
+  disconnect: Boolean
+  delete: Boolean
+  update: VideoMetadataUpdateDataInput
+  upsert: VideoMetadataUpsertNestedInput
+}
+
+input VideoMetadataUpsertNestedInput {
+  update: VideoMetadataUpdateDataInput!
+  create: VideoMetadataCreateInput!
+}
+
+input VideoMetadataWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VideoMetadataWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VideoMetadataWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VideoMetadataWhereInput!]
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  subtitle: String
+
+  """All values that are not equal to given value."""
+  subtitle_not: String
+
+  """All values that are contained in given list."""
+  subtitle_in: [String!]
+
+  """All values that are not contained in given list."""
+  subtitle_not_in: [String!]
+
+  """All values less than the given value."""
+  subtitle_lt: String
+
+  """All values less than or equal the given value."""
+  subtitle_lte: String
+
+  """All values greater than the given value."""
+  subtitle_gt: String
+
+  """All values greater than or equal the given value."""
+  subtitle_gte: String
+
+  """All values containing the given string."""
+  subtitle_contains: String
+
+  """All values not containing the given string."""
+  subtitle_not_contains: String
+
+  """All values starting with the given string."""
+  subtitle_starts_with: String
+
+  """All values not starting with the given string."""
+  subtitle_not_starts_with: String
+
+  """All values ending with the given string."""
+  subtitle_ends_with: String
+
+  """All values not ending with the given string."""
+  subtitle_not_ends_with: String
+  advertisingEnabled: Boolean
+
+  """All values that are not equal to given value."""
+  advertisingEnabled_not: Boolean
+  views: Int
+
+  """All values that are not equal to given value."""
+  views_not: Int
+
+  """All values that are contained in given list."""
+  views_in: [Int!]
+
+  """All values that are not contained in given list."""
+  views_not_in: [Int!]
+
+  """All values less than the given value."""
+  views_lt: Int
+
+  """All values less than or equal the given value."""
+  views_lte: Int
+
+  """All values greater than the given value."""
+  views_gt: Int
+
+  """All values greater than or equal the given value."""
+  views_gte: Int
+  transcript_every: TranscriptionItemWhereInput
+  transcript_some: TranscriptionItemWhereInput
+  transcript_none: TranscriptionItemWhereInput
+  tags_every: TagWhereInput
+  tags_some: TagWhereInput
+  tags_none: TagWhereInput
+  sources_every: SourceWhereInput
+  sources_some: SourceWhereInput
+  sources_none: SourceWhereInput
+  dateRecorded: DateWhereInput
+  _MagicalBackRelation_VideoUploadMetadataRelation_every: VideoUploadWhereInput
+  _MagicalBackRelation_VideoUploadMetadataRelation_some: VideoUploadWhereInput
+  _MagicalBackRelation_VideoUploadMetadataRelation_none: VideoUploadWhereInput
+}
+
 enum VideoOrderByInput {
   id_ASC
   id_DESC
@@ -2616,18 +2889,11 @@ type VideoUpload implements Node {
   status: VideoUploadStatus!
   state: VideoUploadState!
   autoTranscription: [String!]!
-  transcription(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TranscriptionItem!]
   published: Boolean!
-  advertisingEnabled: Boolean!
-  views: Int!
   rawStorageLink(where: VideoStorageLinkWhereInput): VideoStorageLink
   webmLink(where: VideoStorageLinkWhereInput): VideoStorageLink
   mp4Link(where: VideoStorageLinkWhereInput): VideoStorageLink
-  title: String
-  subtitle: String
-  dateRecorded(where: DateWhereInput): Date
-  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
-  source(where: SourceWhereInput): Source
+  metadata(where: VideoMetadataWhereInput): VideoMetadata
 }
 
 """A connection to a list of items."""
@@ -2649,21 +2915,14 @@ input VideoUploadCreateInput {
   status: VideoUploadStatus!
   state: VideoUploadState
   published: Boolean
-  advertisingEnabled: Boolean
-  views: Int
-  title: String
-  subtitle: String
   autoTranscription: VideoUploadCreateautoTranscriptionInput
   submitedBy: UserCreateOneInput!
   publishedBy: UserCreateOneInput
   publishedVideo: VideoCreateOneInput
-  transcription: TranscriptionItemCreateManyInput
   rawStorageLink: VideoStorageLinkCreateOneInput
   webmLink: VideoStorageLinkCreateOneInput
   mp4Link: VideoStorageLinkCreateOneInput
-  dateRecorded: DateCreateOneInput
-  tags: TagCreateManyInput
-  source: SourceCreateOneInput
+  metadata: VideoMetadataCreateOneInput
 }
 
 """An edge in a connection."""
@@ -2690,14 +2949,6 @@ enum VideoUploadOrderByInput {
   state_DESC
   published_ASC
   published_DESC
-  advertisingEnabled_ASC
-  advertisingEnabled_DESC
-  views_ASC
-  views_DESC
-  title_ASC
-  title_DESC
-  subtitle_ASC
-  subtitle_DESC
 }
 
 type VideoUploadPreviousValues {
@@ -2709,10 +2960,6 @@ type VideoUploadPreviousValues {
   state: VideoUploadState!
   autoTranscription: [String!]!
   published: Boolean!
-  advertisingEnabled: Boolean!
-  views: Int!
-  title: String
-  subtitle: String
 }
 
 enum VideoUploadState {
@@ -2782,21 +3029,14 @@ input VideoUploadUpdateInput {
   status: VideoUploadStatus
   state: VideoUploadState
   published: Boolean
-  advertisingEnabled: Boolean
-  views: Int
-  title: String
-  subtitle: String
   autoTranscription: VideoUploadUpdateautoTranscriptionInput
   submitedBy: UserUpdateOneInput
   publishedBy: UserUpdateOneInput
   publishedVideo: VideoUpdateOneInput
-  transcription: TranscriptionItemUpdateManyInput
   rawStorageLink: VideoStorageLinkUpdateOneInput
   webmLink: VideoStorageLinkUpdateOneInput
   mp4Link: VideoStorageLinkUpdateOneInput
-  dateRecorded: DateUpdateOneInput
-  tags: TagUpdateManyInput
-  source: SourceUpdateOneInput
+  metadata: VideoMetadataUpdateOneInput
 }
 
 input VideoUploadWhereInput {
@@ -2956,126 +3196,13 @@ input VideoUploadWhereInput {
 
   """All values that are not equal to given value."""
   published_not: Boolean
-  advertisingEnabled: Boolean
-
-  """All values that are not equal to given value."""
-  advertisingEnabled_not: Boolean
-  views: Int
-
-  """All values that are not equal to given value."""
-  views_not: Int
-
-  """All values that are contained in given list."""
-  views_in: [Int!]
-
-  """All values that are not contained in given list."""
-  views_not_in: [Int!]
-
-  """All values less than the given value."""
-  views_lt: Int
-
-  """All values less than or equal the given value."""
-  views_lte: Int
-
-  """All values greater than the given value."""
-  views_gt: Int
-
-  """All values greater than or equal the given value."""
-  views_gte: Int
-  title: String
-
-  """All values that are not equal to given value."""
-  title_not: String
-
-  """All values that are contained in given list."""
-  title_in: [String!]
-
-  """All values that are not contained in given list."""
-  title_not_in: [String!]
-
-  """All values less than the given value."""
-  title_lt: String
-
-  """All values less than or equal the given value."""
-  title_lte: String
-
-  """All values greater than the given value."""
-  title_gt: String
-
-  """All values greater than or equal the given value."""
-  title_gte: String
-
-  """All values containing the given string."""
-  title_contains: String
-
-  """All values not containing the given string."""
-  title_not_contains: String
-
-  """All values starting with the given string."""
-  title_starts_with: String
-
-  """All values not starting with the given string."""
-  title_not_starts_with: String
-
-  """All values ending with the given string."""
-  title_ends_with: String
-
-  """All values not ending with the given string."""
-  title_not_ends_with: String
-  subtitle: String
-
-  """All values that are not equal to given value."""
-  subtitle_not: String
-
-  """All values that are contained in given list."""
-  subtitle_in: [String!]
-
-  """All values that are not contained in given list."""
-  subtitle_not_in: [String!]
-
-  """All values less than the given value."""
-  subtitle_lt: String
-
-  """All values less than or equal the given value."""
-  subtitle_lte: String
-
-  """All values greater than the given value."""
-  subtitle_gt: String
-
-  """All values greater than or equal the given value."""
-  subtitle_gte: String
-
-  """All values containing the given string."""
-  subtitle_contains: String
-
-  """All values not containing the given string."""
-  subtitle_not_contains: String
-
-  """All values starting with the given string."""
-  subtitle_starts_with: String
-
-  """All values not starting with the given string."""
-  subtitle_not_starts_with: String
-
-  """All values ending with the given string."""
-  subtitle_ends_with: String
-
-  """All values not ending with the given string."""
-  subtitle_not_ends_with: String
   submitedBy: UserWhereInput
   publishedBy: UserWhereInput
   publishedVideo: VideoWhereInput
-  transcription_every: TranscriptionItemWhereInput
-  transcription_some: TranscriptionItemWhereInput
-  transcription_none: TranscriptionItemWhereInput
   rawStorageLink: VideoStorageLinkWhereInput
   webmLink: VideoStorageLinkWhereInput
   mp4Link: VideoStorageLinkWhereInput
-  dateRecorded: DateWhereInput
-  tags_every: TagWhereInput
-  tags_some: TagWhereInput
-  tags_none: TagWhereInput
-  source: SourceWhereInput
+  metadata: VideoMetadataWhereInput
 }
 
 input VideoUploadWhereUniqueInput {
@@ -3201,34 +3328,6 @@ export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({typeDe
  * Types
 */
 
-export type Role =   'USER' |
-  'ADMIN'
-
-export type VideoVersion =   'RAW' |
-  'WEBM' |
-  'MP4'
-
-export type UserOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'email_ASC' |
-  'email_DESC' |
-  'auth0Id_ASC' |
-  'auth0Id_DESC' |
-  'role_ASC' |
-  'role_DESC' |
-  'displayName_ASC' |
-  'displayName_DESC' |
-  'avatar_ASC' |
-  'avatar_DESC' |
-  'givenName_ASC' |
-  'givenName_DESC' |
-  'familyName_ASC' |
-  'familyName_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
 export type DateOrderByInput =   'month_ASC' |
   'month_DESC' |
   'day_ASC' |
@@ -3242,10 +3341,42 @@ export type DateOrderByInput =   'month_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type VideoVersion =   'RAW' |
+  'WEBM' |
+  'MP4'
+
 export type PublicationOrderByInput =   'avatarPath_ASC' |
   'avatarPath_DESC' |
   'name_ASC' |
   'name_DESC' |
+  'id_ASC' |
+  'id_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type VideoMetadataOrderByInput =   'title_ASC' |
+  'title_DESC' |
+  'subtitle_ASC' |
+  'subtitle_DESC' |
+  'advertisingEnabled_ASC' |
+  'advertisingEnabled_DESC' |
+  'views_ASC' |
+  'views_DESC' |
+  'id_ASC' |
+  'id_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type SourceOrderByInput =   'url_ASC' |
+  'url_DESC' |
+  'title_ASC' |
+  'title_DESC' |
+  'priority_ASC' |
+  'priority_DESC' |
   'id_ASC' |
   'id_DESC' |
   'updatedAt_ASC' |
@@ -3298,15 +3429,7 @@ export type VideoUploadOrderByInput =   'id_ASC' |
   'state_ASC' |
   'state_DESC' |
   'published_ASC' |
-  'published_DESC' |
-  'advertisingEnabled_ASC' |
-  'advertisingEnabled_DESC' |
-  'views_ASC' |
-  'views_DESC' |
-  'title_ASC' |
-  'title_DESC' |
-  'subtitle_ASC' |
-  'subtitle_DESC'
+  'published_DESC'
 
 export type AdminRole =   'CREATE_UPLOAD' |
   'LIST_UPLOADS' |
@@ -3337,18 +3460,8 @@ export type TagOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type SourceOrderByInput =   'url_ASC' |
-  'url_DESC' |
-  'title_ASC' |
-  'title_DESC' |
-  'priority_ASC' |
-  'priority_DESC' |
-  'id_ASC' |
-  'id_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
+export type Role =   'USER' |
+  'ADMIN'
 
 export type VideoStorageLinkOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3378,11 +3491,29 @@ export type MutationType =   'CREATED' |
   'UPDATED' |
   'DELETED'
 
-export interface TranscriptionItemCreateInput {
-  timestampStart: Int
-  content: String
-  sentiment?: Float
-  speaker: SpeakerCreateOneInput
+export type UserOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'email_ASC' |
+  'email_DESC' |
+  'auth0Id_ASC' |
+  'auth0Id_DESC' |
+  'role_ASC' |
+  'role_DESC' |
+  'displayName_ASC' |
+  'displayName_DESC' |
+  'avatar_ASC' |
+  'avatar_DESC' |
+  'givenName_ASC' |
+  'givenName_DESC' |
+  'familyName_ASC' |
+  'familyName_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export interface VideoMetadataCreateOneInput {
+  create?: VideoMetadataCreateInput
 }
 
 export interface VideoUploadWhereInput {
@@ -3443,63 +3574,17 @@ export interface VideoUploadWhereInput {
   state_not_in?: VideoUploadState[] | VideoUploadState
   published?: Boolean
   published_not?: Boolean
-  advertisingEnabled?: Boolean
-  advertisingEnabled_not?: Boolean
-  views?: Int
-  views_not?: Int
-  views_in?: Int[] | Int
-  views_not_in?: Int[] | Int
-  views_lt?: Int
-  views_lte?: Int
-  views_gt?: Int
-  views_gte?: Int
-  title?: String
-  title_not?: String
-  title_in?: String[] | String
-  title_not_in?: String[] | String
-  title_lt?: String
-  title_lte?: String
-  title_gt?: String
-  title_gte?: String
-  title_contains?: String
-  title_not_contains?: String
-  title_starts_with?: String
-  title_not_starts_with?: String
-  title_ends_with?: String
-  title_not_ends_with?: String
-  subtitle?: String
-  subtitle_not?: String
-  subtitle_in?: String[] | String
-  subtitle_not_in?: String[] | String
-  subtitle_lt?: String
-  subtitle_lte?: String
-  subtitle_gt?: String
-  subtitle_gte?: String
-  subtitle_contains?: String
-  subtitle_not_contains?: String
-  subtitle_starts_with?: String
-  subtitle_not_starts_with?: String
-  subtitle_ends_with?: String
-  subtitle_not_ends_with?: String
   submitedBy?: UserWhereInput
   publishedBy?: UserWhereInput
   publishedVideo?: VideoWhereInput
-  transcription_every?: TranscriptionItemWhereInput
-  transcription_some?: TranscriptionItemWhereInput
-  transcription_none?: TranscriptionItemWhereInput
   rawStorageLink?: VideoStorageLinkWhereInput
   webmLink?: VideoStorageLinkWhereInput
   mp4Link?: VideoStorageLinkWhereInput
-  dateRecorded?: DateWhereInput
-  tags_every?: TagWhereInput
-  tags_some?: TagWhereInput
-  tags_none?: TagWhereInput
-  source?: SourceWhereInput
+  metadata?: VideoMetadataWhereInput
 }
 
-export interface VideoCreateManyInput {
-  create?: VideoCreateInput[] | VideoCreateInput
-  connect?: VideoWhereUniqueInput[] | VideoWhereUniqueInput
+export interface SourceCreateManyInput {
+  create?: SourceCreateInput[] | SourceCreateInput
 }
 
 export interface VideoStorageLinkWhereInput {
@@ -3577,140 +3662,12 @@ export interface VideoStorageLinkWhereInput {
   _MagicalBackRelation_VideoMp4LinkRelation_none?: VideoUploadWhereInput
 }
 
-export interface SourceCreateOneInput {
-  create?: SourceCreateInput
-}
-
-export interface SpeakerWhereInput {
-  AND?: SpeakerWhereInput[] | SpeakerWhereInput
-  OR?: SpeakerWhereInput[] | SpeakerWhereInput
-  NOT?: SpeakerWhereInput[] | SpeakerWhereInput
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  avatarPath?: String
-  avatarPath_not?: String
-  avatarPath_in?: String[] | String
-  avatarPath_not_in?: String[] | String
-  avatarPath_lt?: String
-  avatarPath_lte?: String
-  avatarPath_gt?: String
-  avatarPath_gte?: String
-  avatarPath_contains?: String
-  avatarPath_not_contains?: String
-  avatarPath_starts_with?: String
-  avatarPath_not_starts_with?: String
-  avatarPath_ends_with?: String
-  avatarPath_not_ends_with?: String
-  title?: String
-  title_not?: String
-  title_in?: String[] | String
-  title_not_in?: String[] | String
-  title_lt?: String
-  title_lte?: String
-  title_gt?: String
-  title_gte?: String
-  title_contains?: String
-  title_not_contains?: String
-  title_starts_with?: String
-  title_not_starts_with?: String
-  title_ends_with?: String
-  title_not_ends_with?: String
-  _MagicalBackRelation_SpeakerToTranscriptionItem_every?: TranscriptionItemWhereInput
-  _MagicalBackRelation_SpeakerToTranscriptionItem_some?: TranscriptionItemWhereInput
-  _MagicalBackRelation_SpeakerToTranscriptionItem_none?: TranscriptionItemWhereInput
-}
-
-export interface TagUpsertWithWhereUniqueNestedInput {
-  where: TagWhereUniqueInput
-  update: TagUpdateDataInput
-  create: TagCreateInput
-}
-
-export interface UserUpdateadminRolesInput {
-  set?: AdminRole[] | AdminRole
-}
-
-export interface VideoUpsertWithWhereUniqueNestedInput {
-  where: VideoWhereUniqueInput
-  update: VideoUpdateDataInput
-  create: VideoCreateInput
-}
-
 export interface SourceCreateInput {
   url: String
   title?: String
   priority?: Int
   publication: PublicationCreateOneInput
   videos?: VideoCreateManyInput
-}
-
-export interface VideoUpdateWithWhereUniqueNestedInput {
-  where: VideoWhereUniqueInput
-  data: VideoUpdateDataInput
-}
-
-export interface DateSubscriptionWhereInput {
-  AND?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  OR?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  NOT?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: DateWhereInput
-}
-
-export interface VideoUpdateManyInput {
-  create?: VideoCreateInput[] | VideoCreateInput
-  connect?: VideoWhereUniqueInput[] | VideoWhereUniqueInput
-  disconnect?: VideoWhereUniqueInput[] | VideoWhereUniqueInput
-  delete?: VideoWhereUniqueInput[] | VideoWhereUniqueInput
-  update?: VideoUpdateWithWhereUniqueNestedInput[] | VideoUpdateWithWhereUniqueNestedInput
-  upsert?: VideoUpsertWithWhereUniqueNestedInput[] | VideoUpsertWithWhereUniqueNestedInput
-}
-
-export interface VideoStorageLinkSubscriptionWhereInput {
-  AND?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
-  OR?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
-  NOT?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoStorageLinkWhereInput
-}
-
-export interface TagUpdateDataInput {
-  name?: String
-  videos?: VideoUpdateManyInput
-}
-
-export interface SpeakerSubscriptionWhereInput {
-  AND?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
-  OR?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
-  NOT?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: SpeakerWhereInput
-}
-
-export interface TagUpdateWithWhereUniqueNestedInput {
-  where: TagWhereUniqueInput
-  data: TagUpdateDataInput
 }
 
 export interface TagWhereInput {
@@ -3748,118 +3705,9 @@ export interface TagWhereInput {
   videos_every?: VideoWhereInput
   videos_some?: VideoWhereInput
   videos_none?: VideoWhereInput
-  _MagicalBackRelation_TagToVideoUpload_every?: VideoUploadWhereInput
-  _MagicalBackRelation_TagToVideoUpload_some?: VideoUploadWhereInput
-  _MagicalBackRelation_TagToVideoUpload_none?: VideoUploadWhereInput
-}
-
-export interface TagUpdateManyInput {
-  create?: TagCreateInput[] | TagCreateInput
-  connect?: TagWhereUniqueInput[] | TagWhereUniqueInput
-  disconnect?: TagWhereUniqueInput[] | TagWhereUniqueInput
-  delete?: TagWhereUniqueInput[] | TagWhereUniqueInput
-  update?: TagUpdateWithWhereUniqueNestedInput[] | TagUpdateWithWhereUniqueNestedInput
-  upsert?: TagUpsertWithWhereUniqueNestedInput[] | TagUpsertWithWhereUniqueNestedInput
-}
-
-export interface PublicationWhereInput {
-  AND?: PublicationWhereInput[] | PublicationWhereInput
-  OR?: PublicationWhereInput[] | PublicationWhereInput
-  NOT?: PublicationWhereInput[] | PublicationWhereInput
-  avatarPath?: String
-  avatarPath_not?: String
-  avatarPath_in?: String[] | String
-  avatarPath_not_in?: String[] | String
-  avatarPath_lt?: String
-  avatarPath_lte?: String
-  avatarPath_gt?: String
-  avatarPath_gte?: String
-  avatarPath_contains?: String
-  avatarPath_not_contains?: String
-  avatarPath_starts_with?: String
-  avatarPath_not_starts_with?: String
-  avatarPath_ends_with?: String
-  avatarPath_not_ends_with?: String
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  _MagicalBackRelation_PublicationToSource_every?: SourceWhereInput
-  _MagicalBackRelation_PublicationToSource_some?: SourceWhereInput
-  _MagicalBackRelation_PublicationToSource_none?: SourceWhereInput
-}
-
-export interface DateUpsertNestedInput {
-  update: DateUpdateDataInput
-  create: DateCreateInput
-}
-
-export interface PublicationSubscriptionWhereInput {
-  AND?: PublicationSubscriptionWhereInput[] | PublicationSubscriptionWhereInput
-  OR?: PublicationSubscriptionWhereInput[] | PublicationSubscriptionWhereInput
-  NOT?: PublicationSubscriptionWhereInput[] | PublicationSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: PublicationWhereInput
-}
-
-export interface DateUpdateDataInput {
-  month?: Int
-  day?: Int
-  year?: Int
-}
-
-export interface VideoWhereInput {
-  AND?: VideoWhereInput[] | VideoWhereInput
-  OR?: VideoWhereInput[] | VideoWhereInput
-  NOT?: VideoWhereInput[] | VideoWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  published?: Boolean
-  published_not?: Boolean
-  advertisingEnabled?: Boolean
-  advertisingEnabled_not?: Boolean
-  views?: Int
-  views_not?: Int
-  views_in?: Int[] | Int
-  views_not_in?: Int[] | Int
-  views_lt?: Int
-  views_lte?: Int
-  views_gt?: Int
-  views_gte?: Int
-  _MagicalBackRelation_SourceToVideo_every?: SourceWhereInput
-  _MagicalBackRelation_SourceToVideo_some?: SourceWhereInput
-  _MagicalBackRelation_SourceToVideo_none?: SourceWhereInput
-  _MagicalBackRelation_TagToVideo_every?: TagWhereInput
-  _MagicalBackRelation_TagToVideo_some?: TagWhereInput
-  _MagicalBackRelation_TagToVideo_none?: TagWhereInput
-  _MagicalBackRelation_VideoToVideoUpload_every?: VideoUploadWhereInput
-  _MagicalBackRelation_VideoToVideoUpload_some?: VideoUploadWhereInput
-  _MagicalBackRelation_VideoToVideoUpload_none?: VideoUploadWhereInput
+  _MagicalBackRelation_TagToVideoMetadata_every?: VideoMetadataWhereInput
+  _MagicalBackRelation_TagToVideoMetadata_some?: VideoMetadataWhereInput
+  _MagicalBackRelation_TagToVideoMetadata_none?: VideoMetadataWhereInput
 }
 
 export interface DateUpdateOneInput {
@@ -3870,135 +3718,7 @@ export interface DateUpdateOneInput {
   upsert?: DateUpsertNestedInput
 }
 
-export interface VideoUploadSubscriptionWhereInput {
-  AND?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
-  OR?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
-  NOT?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoUploadWhereInput
-}
-
-export interface VideoStorageLinkUpsertNestedInput {
-  update: VideoStorageLinkUpdateDataInput
-  create: VideoStorageLinkCreateInput
-}
-
-export interface SourceUpdateInput {
-  url?: String
-  title?: String
-  priority?: Int
-  publication?: PublicationUpdateOneInput
-  videos?: VideoUpdateManyInput
-}
-
-export interface VideoStorageLinkUpdateDataInput {
-  videoID?: ID_Input
-  path?: String
-  bucket?: String
-  version?: VideoVersion
-}
-
-export interface UserWhereUniqueInput {
-  id?: ID_Input
-  auth0Id?: String
-}
-
-export interface VideoStorageLinkUpdateOneInput {
-  create?: VideoStorageLinkCreateInput
-  connect?: VideoStorageLinkWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: VideoStorageLinkUpdateDataInput
-  upsert?: VideoStorageLinkUpsertNestedInput
-}
-
-export interface TagWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface TranscriptionItemUpdateManyInput {
-  create?: TranscriptionItemCreateInput[] | TranscriptionItemCreateInput
-}
-
-export interface VideoWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface VideoUpsertNestedInput {
-  update: VideoUpdateDataInput
-  create: VideoCreateInput
-}
-
-export interface SpeakerUpdateDataInput {
-  name?: String
-  avatarPath?: String
-  title?: String
-}
-
-export interface VideoUploadCreateInput {
-  submitedUrl: String
-  status: VideoUploadStatus
-  state?: VideoUploadState
-  published?: Boolean
-  advertisingEnabled?: Boolean
-  views?: Int
-  title?: String
-  subtitle?: String
-  autoTranscription?: VideoUploadCreateautoTranscriptionInput
-  submitedBy: UserCreateOneInput
-  publishedBy?: UserCreateOneInput
-  publishedVideo?: VideoCreateOneInput
-  transcription?: TranscriptionItemCreateManyInput
-  rawStorageLink?: VideoStorageLinkCreateOneInput
-  webmLink?: VideoStorageLinkCreateOneInput
-  mp4Link?: VideoStorageLinkCreateOneInput
-  dateRecorded?: DateCreateOneInput
-  tags?: TagCreateManyInput
-  source?: SourceCreateOneInput
-}
-
-export interface TranscriptionItemUpdateInput {
-  timestampStart?: Int
-  content?: String
-  sentiment?: Float
-  speaker?: SpeakerUpdateOneInput
-}
-
-export interface VideoUploadCreateautoTranscriptionInput {
-  set?: String[] | String
-}
-
-export interface VideoUpdateInput {
-  published?: Boolean
-  advertisingEnabled?: Boolean
-  views?: Int
-}
-
-export interface UserCreateOneInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-}
-
-export interface TagUpdateInput {
-  name?: String
-  videos?: VideoUpdateManyInput
-}
-
-export interface UserCreateInput {
-  email?: String
-  auth0Id?: String
-  role?: Role
-  displayName?: String
-  avatar?: String
-  givenName?: String
-  familyName?: String
-  adminRoles?: UserCreateadminRolesInput
-}
-
-export interface UserUpdateInput {
+export interface UserUpdateDataInput {
   email?: String
   auth0Id?: String
   role?: Role
@@ -4009,43 +3729,71 @@ export interface UserUpdateInput {
   adminRoles?: UserUpdateadminRolesInput
 }
 
-export interface UserCreateadminRolesInput {
-  set?: AdminRole[] | AdminRole
+export interface SourceUpdateManyInput {
+  create?: SourceCreateInput[] | SourceCreateInput
 }
 
-export interface PublicationUpsertNestedInput {
-  update: PublicationUpdateDataInput
-  create: PublicationCreateInput
-}
-
-export interface VideoCreateOneInput {
-  create?: VideoCreateInput
-  connect?: VideoWhereUniqueInput
-}
-
-export interface PublicationUpdateOneInput {
+export interface PublicationCreateOneInput {
   create?: PublicationCreateInput
-  delete?: Boolean
-  update?: PublicationUpdateDataInput
-  upsert?: PublicationUpsertNestedInput
 }
 
-export interface VideoCreateInput {
-  published?: Boolean
-  advertisingEnabled?: Boolean
-  views?: Int
+export interface TagUpsertWithWhereUniqueNestedInput {
+  where: TagWhereUniqueInput
+  update: TagUpdateDataInput
+  create: TagCreateInput
 }
 
-export interface SourceUpdateOneInput {
-  create?: SourceCreateInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: SourceUpdateDataInput
-  upsert?: SourceUpsertNestedInput
+export interface VideoSubscriptionWhereInput {
+  AND?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
+  OR?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
+  NOT?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoWhereInput
 }
 
-export interface TranscriptionItemCreateManyInput {
-  create?: TranscriptionItemCreateInput[] | TranscriptionItemCreateInput
+export interface VideoUpsertWithWhereUniqueNestedInput {
+  where: VideoWhereUniqueInput
+  update: VideoUpdateDataInput
+  create: VideoCreateInput
+}
+
+export interface VideoMetadataSubscriptionWhereInput {
+  AND?: VideoMetadataSubscriptionWhereInput[] | VideoMetadataSubscriptionWhereInput
+  OR?: VideoMetadataSubscriptionWhereInput[] | VideoMetadataSubscriptionWhereInput
+  NOT?: VideoMetadataSubscriptionWhereInput[] | VideoMetadataSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoMetadataWhereInput
+}
+
+export interface VideoUpdateWithWhereUniqueNestedInput {
+  where: VideoWhereUniqueInput
+  data: VideoUpdateDataInput
+}
+
+export interface TranscriptionItemSubscriptionWhereInput {
+  AND?: TranscriptionItemSubscriptionWhereInput[] | TranscriptionItemSubscriptionWhereInput
+  OR?: TranscriptionItemSubscriptionWhereInput[] | TranscriptionItemSubscriptionWhereInput
+  NOT?: TranscriptionItemSubscriptionWhereInput[] | TranscriptionItemSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: TranscriptionItemWhereInput
+}
+
+export interface VideoUpdateManyInput {
+  create?: VideoCreateInput[] | VideoCreateInput
+  connect?: VideoWhereUniqueInput[] | VideoWhereUniqueInput
+  disconnect?: VideoWhereUniqueInput[] | VideoWhereUniqueInput
+  delete?: VideoWhereUniqueInput[] | VideoWhereUniqueInput
+  update?: VideoUpdateWithWhereUniqueNestedInput[] | VideoUpdateWithWhereUniqueNestedInput
+  upsert?: VideoUpsertWithWhereUniqueNestedInput[] | VideoUpsertWithWhereUniqueNestedInput
 }
 
 export interface TranscriptionItemWhereInput {
@@ -4083,15 +3831,96 @@ export interface TranscriptionItemWhereInput {
   sentiment_gt?: Float
   sentiment_gte?: Float
   speaker?: SpeakerWhereInput
-  _MagicalBackRelation_TranscriptionItemToVideoUpload_every?: VideoUploadWhereInput
-  _MagicalBackRelation_TranscriptionItemToVideoUpload_some?: VideoUploadWhereInput
-  _MagicalBackRelation_TranscriptionItemToVideoUpload_none?: VideoUploadWhereInput
+  _MagicalBackRelation_TranscriptionItemToVideoMetadata_every?: VideoMetadataWhereInput
+  _MagicalBackRelation_TranscriptionItemToVideoMetadata_some?: VideoMetadataWhereInput
+  _MagicalBackRelation_TranscriptionItemToVideoMetadata_none?: VideoMetadataWhereInput
 }
 
-export interface VideoUpdateDataInput {
-  published?: Boolean
+export interface TagUpdateDataInput {
+  name?: String
+  videos?: VideoUpdateManyInput
+}
+
+export interface VideoMetadataWhereInput {
+  AND?: VideoMetadataWhereInput[] | VideoMetadataWhereInput
+  OR?: VideoMetadataWhereInput[] | VideoMetadataWhereInput
+  NOT?: VideoMetadataWhereInput[] | VideoMetadataWhereInput
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
+  subtitle?: String
+  subtitle_not?: String
+  subtitle_in?: String[] | String
+  subtitle_not_in?: String[] | String
+  subtitle_lt?: String
+  subtitle_lte?: String
+  subtitle_gt?: String
+  subtitle_gte?: String
+  subtitle_contains?: String
+  subtitle_not_contains?: String
+  subtitle_starts_with?: String
+  subtitle_not_starts_with?: String
+  subtitle_ends_with?: String
+  subtitle_not_ends_with?: String
   advertisingEnabled?: Boolean
+  advertisingEnabled_not?: Boolean
   views?: Int
+  views_not?: Int
+  views_in?: Int[] | Int
+  views_not_in?: Int[] | Int
+  views_lt?: Int
+  views_lte?: Int
+  views_gt?: Int
+  views_gte?: Int
+  transcript_every?: TranscriptionItemWhereInput
+  transcript_some?: TranscriptionItemWhereInput
+  transcript_none?: TranscriptionItemWhereInput
+  tags_every?: TagWhereInput
+  tags_some?: TagWhereInput
+  tags_none?: TagWhereInput
+  sources_every?: SourceWhereInput
+  sources_some?: SourceWhereInput
+  sources_none?: SourceWhereInput
+  dateRecorded?: DateWhereInput
+  _MagicalBackRelation_VideoUploadMetadataRelation_every?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoUploadMetadataRelation_some?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoUploadMetadataRelation_none?: VideoUploadWhereInput
+}
+
+export interface TagUpdateWithWhereUniqueNestedInput {
+  where: TagWhereUniqueInput
+  data: TagUpdateDataInput
+}
+
+export interface DateSubscriptionWhereInput {
+  AND?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  OR?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  NOT?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: DateWhereInput
+}
+
+export interface TagUpdateManyInput {
+  create?: TagCreateInput[] | TagCreateInput
+  connect?: TagWhereUniqueInput[] | TagWhereUniqueInput
+  disconnect?: TagWhereUniqueInput[] | TagWhereUniqueInput
+  delete?: TagWhereUniqueInput[] | TagWhereUniqueInput
+  update?: TagUpdateWithWhereUniqueNestedInput[] | TagUpdateWithWhereUniqueNestedInput
+  upsert?: TagUpsertWithWhereUniqueNestedInput[] | TagUpsertWithWhereUniqueNestedInput
 }
 
 export interface SourceSubscriptionWhereInput {
@@ -4105,26 +3934,30 @@ export interface SourceSubscriptionWhereInput {
   node?: SourceWhereInput
 }
 
-export interface SpeakerCreateOneInput {
-  create?: SpeakerCreateInput
-  connect?: SpeakerWhereUniqueInput
+export interface TranscriptionItemUpdateManyInput {
+  create?: TranscriptionItemCreateInput[] | TranscriptionItemCreateInput
 }
 
-export interface UserSubscriptionWhereInput {
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+export interface VideoUploadSubscriptionWhereInput {
+  AND?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
+  OR?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
+  NOT?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: UserWhereInput
+  node?: VideoUploadWhereInput
 }
 
-export interface SpeakerCreateInput {
-  name: String
-  avatarPath: String
-  title: String
+export interface VideoMetadataUpdateDataInput {
+  title?: String
+  subtitle?: String
+  advertisingEnabled?: Boolean
+  views?: Int
+  transcript?: TranscriptionItemUpdateManyInput
+  tags?: TagUpdateManyInput
+  sources?: SourceUpdateManyInput
+  dateRecorded?: DateUpdateOneInput
 }
 
 export interface UserWhereInput {
@@ -4241,29 +4074,56 @@ export interface UserWhereInput {
   _MagicalBackRelation_VideoPublisher_none?: VideoUploadWhereInput
 }
 
-export interface VideoStorageLinkCreateOneInput {
-  create?: VideoStorageLinkCreateInput
-  connect?: VideoStorageLinkWhereUniqueInput
+export interface VideoMetadataUpdateOneInput {
+  create?: VideoMetadataCreateInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: VideoMetadataUpdateDataInput
+  upsert?: VideoMetadataUpsertNestedInput
 }
 
-export interface VideoUploadWhereUniqueInput {
+export interface SpeakerUpsertNestedInput {
+  update: SpeakerUpdateDataInput
+  create: SpeakerCreateInput
+}
+
+export interface VideoStorageLinkUpsertNestedInput {
+  update: VideoStorageLinkUpdateDataInput
+  create: VideoStorageLinkCreateInput
+}
+
+export interface UserWhereUniqueInput {
   id?: ID_Input
-  submitedUrl?: String
+  auth0Id?: String
 }
 
-export interface VideoStorageLinkCreateInput {
-  videoID: ID_Input
-  path: String
-  bucket: String
-  version: VideoVersion
+export interface VideoStorageLinkUpdateDataInput {
+  videoID?: ID_Input
+  path?: String
+  bucket?: String
+  version?: VideoVersion
 }
 
 export interface VideoStorageLinkWhereUniqueInput {
   id?: ID_Input
 }
 
-export interface DateCreateOneInput {
-  create?: DateCreateInput
+export interface VideoStorageLinkUpdateOneInput {
+  create?: VideoStorageLinkCreateInput
+  connect?: VideoStorageLinkWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: VideoStorageLinkUpdateDataInput
+  upsert?: VideoStorageLinkUpsertNestedInput
+}
+
+export interface VideoWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface VideoUpsertNestedInput {
+  update: VideoUpdateDataInput
+  create: VideoCreateInput
 }
 
 export interface SpeakerUpdateOneInput {
@@ -4274,10 +4134,69 @@ export interface SpeakerUpdateOneInput {
   upsert?: SpeakerUpsertNestedInput
 }
 
-export interface DateCreateInput {
-  month: Int
-  day: Int
-  year: Int
+export interface VideoUpdateDataInput {
+  published?: Boolean
+  advertisingEnabled?: Boolean
+  views?: Int
+}
+
+export interface DateUpdateInput {
+  month?: Int
+  day?: Int
+  year?: Int
+}
+
+export interface VideoUploadCreateInput {
+  submitedUrl: String
+  status: VideoUploadStatus
+  state?: VideoUploadState
+  published?: Boolean
+  autoTranscription?: VideoUploadCreateautoTranscriptionInput
+  submitedBy: UserCreateOneInput
+  publishedBy?: UserCreateOneInput
+  publishedVideo?: VideoCreateOneInput
+  rawStorageLink?: VideoStorageLinkCreateOneInput
+  webmLink?: VideoStorageLinkCreateOneInput
+  mp4Link?: VideoStorageLinkCreateOneInput
+  metadata?: VideoMetadataCreateOneInput
+}
+
+export interface PublicationUpsertNestedInput {
+  update: PublicationUpdateDataInput
+  create: PublicationCreateInput
+}
+
+export interface VideoUploadCreateautoTranscriptionInput {
+  set?: String[] | String
+}
+
+export interface PublicationUpdateOneInput {
+  create?: PublicationCreateInput
+  delete?: Boolean
+  update?: PublicationUpdateDataInput
+  upsert?: PublicationUpsertNestedInput
+}
+
+export interface UserCreateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface VideoUpdateInput {
+  published?: Boolean
+  advertisingEnabled?: Boolean
+  views?: Int
+}
+
+export interface UserCreateInput {
+  email?: String
+  auth0Id?: String
+  role?: Role
+  displayName?: String
+  avatar?: String
+  givenName?: String
+  familyName?: String
+  adminRoles?: UserCreateadminRolesInput
 }
 
 export interface VideoStorageLinkUpdateInput {
@@ -4287,14 +4206,245 @@ export interface VideoStorageLinkUpdateInput {
   version?: VideoVersion
 }
 
+export interface UserCreateadminRolesInput {
+  set?: AdminRole[] | AdminRole
+}
+
+export interface UserUpdateInput {
+  email?: String
+  auth0Id?: String
+  role?: Role
+  displayName?: String
+  avatar?: String
+  givenName?: String
+  familyName?: String
+  adminRoles?: UserUpdateadminRolesInput
+}
+
+export interface VideoCreateOneInput {
+  create?: VideoCreateInput
+  connect?: VideoWhereUniqueInput
+}
+
+export interface DateUpsertNestedInput {
+  update: DateUpdateDataInput
+  create: DateCreateInput
+}
+
+export interface VideoCreateInput {
+  published?: Boolean
+  advertisingEnabled?: Boolean
+  views?: Int
+}
+
+export interface SpeakerWhereInput {
+  AND?: SpeakerWhereInput[] | SpeakerWhereInput
+  OR?: SpeakerWhereInput[] | SpeakerWhereInput
+  NOT?: SpeakerWhereInput[] | SpeakerWhereInput
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  avatarPath?: String
+  avatarPath_not?: String
+  avatarPath_in?: String[] | String
+  avatarPath_not_in?: String[] | String
+  avatarPath_lt?: String
+  avatarPath_lte?: String
+  avatarPath_gt?: String
+  avatarPath_gte?: String
+  avatarPath_contains?: String
+  avatarPath_not_contains?: String
+  avatarPath_starts_with?: String
+  avatarPath_not_starts_with?: String
+  avatarPath_ends_with?: String
+  avatarPath_not_ends_with?: String
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
+  _MagicalBackRelation_SpeakerToTranscriptionItem_every?: TranscriptionItemWhereInput
+  _MagicalBackRelation_SpeakerToTranscriptionItem_some?: TranscriptionItemWhereInput
+  _MagicalBackRelation_SpeakerToTranscriptionItem_none?: TranscriptionItemWhereInput
+}
+
+export interface VideoStorageLinkCreateOneInput {
+  create?: VideoStorageLinkCreateInput
+  connect?: VideoStorageLinkWhereUniqueInput
+}
+
+export interface VideoStorageLinkSubscriptionWhereInput {
+  AND?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
+  OR?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
+  NOT?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoStorageLinkWhereInput
+}
+
+export interface VideoStorageLinkCreateInput {
+  videoID: ID_Input
+  path: String
+  bucket: String
+  version: VideoVersion
+}
+
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserWhereInput
+}
+
+export interface VideoUpdateOneInput {
+  create?: VideoCreateInput
+  connect?: VideoWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: VideoUpdateDataInput
+  upsert?: VideoUpsertNestedInput
+}
+
+export interface PublicationSubscriptionWhereInput {
+  AND?: PublicationSubscriptionWhereInput[] | PublicationSubscriptionWhereInput
+  OR?: PublicationSubscriptionWhereInput[] | PublicationSubscriptionWhereInput
+  NOT?: PublicationSubscriptionWhereInput[] | PublicationSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: PublicationWhereInput
+}
+
+export interface VideoMetadataCreateInput {
+  title?: String
+  subtitle?: String
+  advertisingEnabled?: Boolean
+  views?: Int
+  transcript?: TranscriptionItemCreateManyInput
+  tags?: TagCreateManyInput
+  sources?: SourceCreateManyInput
+  dateRecorded?: DateCreateOneInput
+}
+
+export interface VideoWhereInput {
+  AND?: VideoWhereInput[] | VideoWhereInput
+  OR?: VideoWhereInput[] | VideoWhereInput
+  NOT?: VideoWhereInput[] | VideoWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  published?: Boolean
+  published_not?: Boolean
+  advertisingEnabled?: Boolean
+  advertisingEnabled_not?: Boolean
+  views?: Int
+  views_not?: Int
+  views_in?: Int[] | Int
+  views_not_in?: Int[] | Int
+  views_lt?: Int
+  views_lte?: Int
+  views_gt?: Int
+  views_gte?: Int
+  _MagicalBackRelation_SourceToVideo_every?: SourceWhereInput
+  _MagicalBackRelation_SourceToVideo_some?: SourceWhereInput
+  _MagicalBackRelation_SourceToVideo_none?: SourceWhereInput
+  _MagicalBackRelation_TagToVideo_every?: TagWhereInput
+  _MagicalBackRelation_TagToVideo_some?: TagWhereInput
+  _MagicalBackRelation_TagToVideo_none?: TagWhereInput
+  _MagicalBackRelation_VideoToVideoUpload_every?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoToVideoUpload_some?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoToVideoUpload_none?: VideoUploadWhereInput
+}
+
+export interface TranscriptionItemCreateManyInput {
+  create?: TranscriptionItemCreateInput[] | TranscriptionItemCreateInput
+}
+
+export interface VideoUploadWhereUniqueInput {
+  id?: ID_Input
+  submitedUrl?: String
+}
+
+export interface TranscriptionItemCreateInput {
+  timestampStart: Int
+  content: String
+  sentiment?: Float
+  speaker: SpeakerCreateOneInput
+}
+
+export interface TagWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface SpeakerCreateOneInput {
+  create?: SpeakerCreateInput
+  connect?: SpeakerWhereUniqueInput
+}
+
+export interface TranscriptionItemUpdateInput {
+  timestampStart?: Int
+  content?: String
+  sentiment?: Float
+  speaker?: SpeakerUpdateOneInput
+}
+
+export interface SpeakerCreateInput {
+  name: String
+  avatarPath: String
+  title: String
+}
+
+export interface PublicationUpdateDataInput {
+  avatarPath?: String
+  name?: String
+}
+
 export interface TagCreateManyInput {
   create?: TagCreateInput[] | TagCreateInput
   connect?: TagWhereUniqueInput[] | TagWhereUniqueInput
 }
 
-export interface SourceUpsertNestedInput {
-  update: SourceUpdateDataInput
-  create: SourceCreateInput
+export interface TagUpdateInput {
+  name?: String
+  videos?: VideoUpdateManyInput
 }
 
 export interface TagCreateInput {
@@ -4302,12 +4452,25 @@ export interface TagCreateInput {
   videos?: VideoCreateManyInput
 }
 
-export interface SourceUpdateDataInput {
-  url?: String
-  title?: String
-  priority?: Int
-  publication?: PublicationUpdateOneInput
-  videos?: VideoUpdateManyInput
+export interface VideoMetadataUpsertNestedInput {
+  update: VideoMetadataUpdateDataInput
+  create: VideoMetadataCreateInput
+}
+
+export interface VideoCreateManyInput {
+  create?: VideoCreateInput[] | VideoCreateInput
+  connect?: VideoWhereUniqueInput[] | VideoWhereUniqueInput
+}
+
+export interface TagSubscriptionWhereInput {
+  AND?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
+  OR?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
+  NOT?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: TagWhereInput
 }
 
 export interface DateWhereInput {
@@ -4338,29 +4501,95 @@ export interface DateWhereInput {
   year_lte?: Int
   year_gt?: Int
   year_gte?: Int
-  _MagicalBackRelation_DateToVideoUpload_every?: VideoUploadWhereInput
-  _MagicalBackRelation_DateToVideoUpload_some?: VideoUploadWhereInput
-  _MagicalBackRelation_DateToVideoUpload_none?: VideoUploadWhereInput
+  _MagicalBackRelation_DateToVideoMetadata_every?: VideoMetadataWhereInput
+  _MagicalBackRelation_DateToVideoMetadata_some?: VideoMetadataWhereInput
+  _MagicalBackRelation_DateToVideoMetadata_none?: VideoMetadataWhereInput
 }
 
-export interface TagSubscriptionWhereInput {
-  AND?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
-  OR?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
-  NOT?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: TagWhereInput
+export interface PublicationWhereInput {
+  AND?: PublicationWhereInput[] | PublicationWhereInput
+  OR?: PublicationWhereInput[] | PublicationWhereInput
+  NOT?: PublicationWhereInput[] | PublicationWhereInput
+  avatarPath?: String
+  avatarPath_not?: String
+  avatarPath_in?: String[] | String
+  avatarPath_not_in?: String[] | String
+  avatarPath_lt?: String
+  avatarPath_lte?: String
+  avatarPath_gt?: String
+  avatarPath_gte?: String
+  avatarPath_contains?: String
+  avatarPath_not_contains?: String
+  avatarPath_starts_with?: String
+  avatarPath_not_starts_with?: String
+  avatarPath_ends_with?: String
+  avatarPath_not_ends_with?: String
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  _MagicalBackRelation_PublicationToSource_every?: SourceWhereInput
+  _MagicalBackRelation_PublicationToSource_some?: SourceWhereInput
+  _MagicalBackRelation_PublicationToSource_none?: SourceWhereInput
 }
 
-export interface VideoUpdateOneInput {
-  create?: VideoCreateInput
-  connect?: VideoWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: VideoUpdateDataInput
-  upsert?: VideoUpsertNestedInput
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput
+  create: UserCreateInput
+}
+
+export interface VideoMetadataUpdateInput {
+  title?: String
+  subtitle?: String
+  advertisingEnabled?: Boolean
+  views?: Int
+  transcript?: TranscriptionItemUpdateManyInput
+  tags?: TagUpdateManyInput
+  sources?: SourceUpdateManyInput
+  dateRecorded?: DateUpdateOneInput
+}
+
+export interface UserUpdateadminRolesInput {
+  set?: AdminRole[] | AdminRole
+}
+
+export interface SpeakerUpdateDataInput {
+  name?: String
+  avatarPath?: String
+  title?: String
+}
+
+export interface PublicationCreateInput {
+  avatarPath: String
+  name: String
+}
+
+export interface SourceUpdateInput {
+  url?: String
+  title?: String
+  priority?: Int
+  publication?: PublicationUpdateOneInput
+  videos?: VideoUpdateManyInput
+}
+
+export interface DateCreateOneInput {
+  create?: DateCreateInput
+}
+
+export interface DateUpdateDataInput {
+  month?: Int
+  day?: Int
+  year?: Int
 }
 
 export interface SourceWhereInput {
@@ -4407,59 +4636,9 @@ export interface SourceWhereInput {
   videos_every?: VideoWhereInput
   videos_some?: VideoWhereInput
   videos_none?: VideoWhereInput
-  _MagicalBackRelation_SourceToVideoUpload_every?: VideoUploadWhereInput
-  _MagicalBackRelation_SourceToVideoUpload_some?: VideoUploadWhereInput
-  _MagicalBackRelation_SourceToVideoUpload_none?: VideoUploadWhereInput
-}
-
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput
-  create: UserCreateInput
-}
-
-export interface SpeakerWhereUniqueInput {
-  name?: String
-}
-
-export interface PublicationCreateOneInput {
-  create?: PublicationCreateInput
-}
-
-export interface PublicationUpdateInput {
-  avatarPath?: String
-  name?: String
-}
-
-export interface PublicationCreateInput {
-  avatarPath: String
-  name: String
-}
-
-export interface PublicationUpdateDataInput {
-  avatarPath?: String
-  name?: String
-}
-
-export interface TranscriptionItemSubscriptionWhereInput {
-  AND?: TranscriptionItemSubscriptionWhereInput[] | TranscriptionItemSubscriptionWhereInput
-  OR?: TranscriptionItemSubscriptionWhereInput[] | TranscriptionItemSubscriptionWhereInput
-  NOT?: TranscriptionItemSubscriptionWhereInput[] | TranscriptionItemSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: TranscriptionItemWhereInput
-}
-
-export interface UserUpdateDataInput {
-  email?: String
-  auth0Id?: String
-  role?: Role
-  displayName?: String
-  avatar?: String
-  givenName?: String
-  familyName?: String
-  adminRoles?: UserUpdateadminRolesInput
+  _MagicalBackRelation_SourceToVideoMetadata_every?: VideoMetadataWhereInput
+  _MagicalBackRelation_SourceToVideoMetadata_some?: VideoMetadataWhereInput
+  _MagicalBackRelation_SourceToVideoMetadata_none?: VideoMetadataWhereInput
 }
 
 export interface UserUpdateOneInput {
@@ -4479,38 +4658,35 @@ export interface VideoUploadUpdateInput {
   status?: VideoUploadStatus
   state?: VideoUploadState
   published?: Boolean
-  advertisingEnabled?: Boolean
-  views?: Int
-  title?: String
-  subtitle?: String
   autoTranscription?: VideoUploadUpdateautoTranscriptionInput
   submitedBy?: UserUpdateOneInput
   publishedBy?: UserUpdateOneInput
   publishedVideo?: VideoUpdateOneInput
-  transcription?: TranscriptionItemUpdateManyInput
   rawStorageLink?: VideoStorageLinkUpdateOneInput
   webmLink?: VideoStorageLinkUpdateOneInput
   mp4Link?: VideoStorageLinkUpdateOneInput
-  dateRecorded?: DateUpdateOneInput
-  tags?: TagUpdateManyInput
-  source?: SourceUpdateOneInput
+  metadata?: VideoMetadataUpdateOneInput
 }
 
-export interface DateUpdateInput {
-  month?: Int
-  day?: Int
-  year?: Int
+export interface DateCreateInput {
+  month: Int
+  day: Int
+  year: Int
 }
 
-export interface VideoSubscriptionWhereInput {
-  AND?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
-  OR?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
-  NOT?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
+export interface SpeakerWhereUniqueInput {
+  name?: String
+}
+
+export interface SpeakerSubscriptionWhereInput {
+  AND?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
+  OR?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
+  NOT?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: VideoWhereInput
+  node?: SpeakerWhereInput
 }
 
 export interface SpeakerUpdateInput {
@@ -4519,9 +4695,9 @@ export interface SpeakerUpdateInput {
   title?: String
 }
 
-export interface SpeakerUpsertNestedInput {
-  update: SpeakerUpdateDataInput
-  create: SpeakerCreateInput
+export interface PublicationUpdateInput {
+  avatarPath?: String
+  name?: String
 }
 
 /*
@@ -4583,26 +4759,18 @@ export interface VideoUpload extends Node {
   status: VideoUploadStatus
   state: VideoUploadState
   autoTranscription: String[]
-  transcription?: TranscriptionItem[]
   published: Boolean
-  advertisingEnabled: Boolean
-  views: Int
   rawStorageLink?: VideoStorageLink
   webmLink?: VideoStorageLink
   mp4Link?: VideoStorageLink
-  title?: String
-  subtitle?: String
-  dateRecorded?: Date
-  tags?: Tag[]
-  source?: Source
+  metadata?: VideoMetadata
 }
 
-export interface VideoStorageLinkPreviousValues {
-  id: ID_Output
-  videoID: ID_Output
-  path: String
-  bucket: String
-  version: VideoVersion
+export interface VideoMetadataPreviousValues {
+  title?: String
+  subtitle?: String
+  advertisingEnabled: Boolean
+  views: Int
 }
 
 export interface AggregateVideo {
@@ -4632,36 +4800,9 @@ export interface VideoConnection {
  * An edge in a connection.
 
  */
-export interface DateEdge {
-  node: Date
+export interface TagEdge {
+  node: Tag
   cursor: String
-}
-
-export interface DatePreviousValues {
-  month: Int
-  day: Int
-  year: Int
-}
-
-export interface AggregateVideoStorageLink {
-  count: Int
-}
-
-export interface DateSubscriptionPayload {
-  mutation: MutationType
-  node?: Date
-  updatedFields?: String[]
-  previousValues?: DatePreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface VideoStorageLinkConnection {
-  pageInfo: PageInfo
-  edges: VideoStorageLinkEdge[]
-  aggregate: AggregateVideoStorageLink
 }
 
 export interface Video extends Node {
@@ -4671,12 +4812,38 @@ export interface Video extends Node {
   views?: Int
 }
 
+export interface AggregateVideoMetadata {
+  count: Int
+}
+
+export interface TagPreviousValues {
+  id: ID_Output
+  name: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface VideoMetadataConnection {
+  pageInfo: PageInfo
+  edges: VideoMetadataEdge[]
+  aggregate: AggregateVideoMetadata
+}
+
+export interface TagSubscriptionPayload {
+  mutation: MutationType
+  node?: Tag
+  updatedFields?: String[]
+  previousValues?: TagPreviousValues
+}
+
 /*
  * An edge in a connection.
 
  */
-export interface TagEdge {
-  node: Tag
+export interface VideoStorageLinkEdge {
+  node: VideoStorageLink
   cursor: String
 }
 
@@ -4687,7 +4854,7 @@ export interface VideoUploadSubscriptionPayload {
   previousValues?: VideoUploadPreviousValues
 }
 
-export interface AggregateSpeaker {
+export interface AggregateTranscriptionItem {
   count: Int
 }
 
@@ -4700,50 +4867,6 @@ export interface VideoUploadPreviousValues {
   state: VideoUploadState
   autoTranscription: String[]
   published: Boolean
-  advertisingEnabled: Boolean
-  views: Int
-  title?: String
-  subtitle?: String
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface SpeakerConnection {
-  pageInfo: PageInfo
-  edges: SpeakerEdge[]
-  aggregate: AggregateSpeaker
-}
-
-export interface Publication {
-  avatarPath: String
-  name: String
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface SourceEdge {
-  node: Source
-  cursor: String
-}
-
-export interface PublicationSubscriptionPayload {
-  mutation: MutationType
-  node?: Publication
-  updatedFields?: String[]
-  previousValues?: PublicationPreviousValues
-}
-
-export interface AggregateTranscriptionItem {
-  count: Int
-}
-
-export interface PublicationPreviousValues {
-  avatarPath: String
-  name: String
 }
 
 /*
@@ -4756,6 +4879,85 @@ export interface TranscriptionItemConnection {
   aggregate: AggregateTranscriptionItem
 }
 
+export interface Date {
+  month: Int
+  day: Int
+  year: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface SpeakerEdge {
+  node: Speaker
+  cursor: String
+}
+
+export interface SourceSubscriptionPayload {
+  mutation: MutationType
+  node?: Source
+  updatedFields?: String[]
+  previousValues?: SourcePreviousValues
+}
+
+export interface AggregateUser {
+  count: Int
+}
+
+export interface SourcePreviousValues {
+  url: String
+  title?: String
+  priority: Int
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
+}
+
+export interface Publication {
+  avatarPath: String
+  name: String
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface DateEdge {
+  node: Date
+  cursor: String
+}
+
+export interface PublicationSubscriptionPayload {
+  mutation: MutationType
+  node?: Publication
+  updatedFields?: String[]
+  previousValues?: PublicationPreviousValues
+}
+
+export interface AggregatePublication {
+  count: Int
+}
+
+export interface PublicationPreviousValues {
+  avatarPath: String
+  name: String
+}
+
+export interface VideoSubscriptionPayload {
+  mutation: MutationType
+  node?: Video
+  updatedFields?: String[]
+  previousValues?: VideoPreviousValues
+}
+
 export interface Source {
   publication: Publication
   url: String
@@ -4765,12 +4967,49 @@ export interface Source {
 }
 
 /*
+ * A connection to a list of items.
+
+ */
+export interface PublicationConnection {
+  pageInfo: PageInfo
+  edges: PublicationEdge[]
+  aggregate: AggregatePublication
+}
+
+export interface DateSubscriptionPayload {
+  mutation: MutationType
+  node?: Date
+  updatedFields?: String[]
+  previousValues?: DatePreviousValues
+}
+
+/*
  * An edge in a connection.
 
  */
-export interface UserEdge {
-  node: User
+export interface SourceEdge {
+  node: Source
   cursor: String
+}
+
+export interface DatePreviousValues {
+  month: Int
+  day: Int
+  year: Int
+}
+
+export interface AggregateVideoUpload {
+  count: Int
+}
+
+export interface Tag extends Node {
+  id: ID_Output
+  name: String
+  videos?: Video[]
+}
+
+export interface AggregateTag {
+  count: Int
 }
 
 export interface UserSubscriptionPayload {
@@ -4780,8 +5019,13 @@ export interface UserSubscriptionPayload {
   previousValues?: UserPreviousValues
 }
 
-export interface AggregatePublication {
-  count: Int
+/*
+ * An edge in a connection.
+
+ */
+export interface VideoMetadataEdge {
+  node: VideoMetadata
+  cursor: String
 }
 
 export interface UserPreviousValues {
@@ -4796,109 +5040,23 @@ export interface UserPreviousValues {
   adminRoles: AdminRole[]
 }
 
-export interface BatchPayload {
-  count: Long
+/*
+ * A connection to a list of items.
+
+ */
+export interface VideoStorageLinkConnection {
+  pageInfo: PageInfo
+  edges: VideoStorageLinkEdge[]
+  aggregate: AggregateVideoStorageLink
 }
 
-export interface Tag extends Node {
-  id: ID_Output
+export interface Speaker {
   name: String
-  videos?: Video[]
+  avatarPath: String
+  title: String
 }
 
-/*
- * A connection to a list of items.
-
- */
-export interface PublicationConnection {
-  pageInfo: PageInfo
-  edges: PublicationEdge[]
-  aggregate: AggregatePublication
-}
-
-export interface TranscriptionItemSubscriptionPayload {
-  mutation: MutationType
-  node?: TranscriptionItem
-  updatedFields?: String[]
-  previousValues?: TranscriptionItemPreviousValues
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface VideoUploadEdge {
-  node: VideoUpload
-  cursor: String
-}
-
-export interface TranscriptionItemPreviousValues {
-  timestampStart: Int
-  content: String
-  sentiment?: Float
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface DateConnection {
-  pageInfo: PageInfo
-  edges: DateEdge[]
-  aggregate: AggregateDate
-}
-
-export interface Date {
-  month: Int
-  day: Int
-  year: Int
-}
-
-export interface AggregateTag {
-  count: Int
-}
-
-export interface SourceSubscriptionPayload {
-  mutation: MutationType
-  node?: Source
-  updatedFields?: String[]
-  previousValues?: SourcePreviousValues
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface SpeakerEdge {
-  node: Speaker
-  cursor: String
-}
-
-export interface SourcePreviousValues {
-  url: String
-  title?: String
-  priority: Int
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface SourceConnection {
-  pageInfo: PageInfo
-  edges: SourceEdge[]
-  aggregate: AggregateSource
-}
-
-export interface VideoStorageLink extends Node {
-  id: ID_Output
-  videoID: ID_Output
-  path: String
-  bucket: String
-  version: VideoVersion
-}
-
-export interface AggregateUser {
+export interface AggregateSpeaker {
   count: Int
 }
 
@@ -4913,8 +5071,8 @@ export interface SpeakerSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface PublicationEdge {
-  node: Publication
+export interface UserEdge {
+  node: User
   cursor: String
 }
 
@@ -4924,34 +5082,14 @@ export interface SpeakerPreviousValues {
   title: String
 }
 
-export interface AggregateVideoUpload {
-  count: Int
-}
-
-export interface Speaker {
-  name: String
-  avatarPath: String
-  title: String
-}
-
 /*
- * An edge in a connection.
+ * A connection to a list of items.
 
  */
-export interface VideoStorageLinkEdge {
-  node: VideoStorageLink
-  cursor: String
-}
-
-export interface AggregateSource {
-  count: Int
-}
-
-export interface VideoStorageLinkSubscriptionPayload {
-  mutation: MutationType
-  node?: VideoStorageLink
-  updatedFields?: String[]
-  previousValues?: VideoStorageLinkPreviousValues
+export interface DateConnection {
+  pageInfo: PageInfo
+  edges: DateEdge[]
+  aggregate: AggregateDate
 }
 
 export interface TranscriptionItem {
@@ -4961,25 +5099,36 @@ export interface TranscriptionItem {
   sentiment?: Float
 }
 
-export interface TagPreviousValues {
-  id: ID_Output
-  name: String
-}
-
-export interface TagSubscriptionPayload {
-  mutation: MutationType
-  node?: Tag
-  updatedFields?: String[]
-  previousValues?: TagPreviousValues
-}
-
 /*
  * An edge in a connection.
 
  */
-export interface TranscriptionItemEdge {
-  node: TranscriptionItem
+export interface PublicationEdge {
+  node: Publication
   cursor: String
+}
+
+export interface TranscriptionItemSubscriptionPayload {
+  mutation: MutationType
+  node?: TranscriptionItem
+  updatedFields?: String[]
+  previousValues?: TranscriptionItemPreviousValues
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface SourceConnection {
+  pageInfo: PageInfo
+  edges: SourceEdge[]
+  aggregate: AggregateSource
+}
+
+export interface TranscriptionItemPreviousValues {
+  timestampStart: Int
+  content: String
+  sentiment?: Float
 }
 
 /*
@@ -4992,25 +5141,89 @@ export interface TagConnection {
   aggregate: AggregateTag
 }
 
+export interface VideoStorageLink extends Node {
+  id: ID_Output
+  videoID: ID_Output
+  path: String
+  bucket: String
+  version: VideoVersion
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface TranscriptionItemEdge {
+  node: TranscriptionItem
+  cursor: String
+}
+
 export interface AggregateDate {
   count: Int
 }
 
-export interface VideoSubscriptionPayload {
+export interface VideoMetadataSubscriptionPayload {
   mutation: MutationType
-  node?: Video
+  node?: VideoMetadata
   updatedFields?: String[]
-  previousValues?: VideoPreviousValues
+  previousValues?: VideoMetadataPreviousValues
+}
+
+export interface VideoMetadata {
+  title?: String
+  subtitle?: String
+  transcript?: TranscriptionItem[]
+  advertisingEnabled: Boolean
+  tags?: Tag[]
+  sources?: Source[]
+  dateRecorded?: Date
+  views: Int
+}
+
+export interface VideoStorageLinkPreviousValues {
+  id: ID_Output
+  videoID: ID_Output
+  path: String
+  bucket: String
+  version: VideoVersion
+}
+
+export interface VideoStorageLinkSubscriptionPayload {
+  mutation: MutationType
+  node?: VideoStorageLink
+  updatedFields?: String[]
+  previousValues?: VideoStorageLinkPreviousValues
+}
+
+export interface BatchPayload {
+  count: Long
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface UserConnection {
+export interface SpeakerConnection {
   pageInfo: PageInfo
-  edges: UserEdge[]
-  aggregate: AggregateUser
+  edges: SpeakerEdge[]
+  aggregate: AggregateSpeaker
+}
+
+export interface AggregateVideoStorageLink {
+  count: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface VideoUploadEdge {
+  node: VideoUpload
+  cursor: String
+}
+
+export interface AggregateSource {
+  count: Int
 }
 
 /*
@@ -5031,11 +5244,6 @@ Long can represent values between -(2^63) and 2^63 - 1.
 export type Long = string
 
 /*
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
-*/
-export type Float = number
-
-/*
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean
@@ -5046,3 +5254,8 @@ The `Int` scalar type represents non-fractional signed whole numeric values. Int
 export type Int = number
 
 export type DateTime = Date | string
+
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
+*/
+export type Float = number

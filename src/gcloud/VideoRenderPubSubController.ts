@@ -28,8 +28,10 @@ class VideoRenderPubSubController extends PubSubController {
     this.renderSubscription = this.renderTopic.subscription(RENDER_SUBSCRIPTION);
     this.renderResponseSubscription = this.renderResponseTopic.subscription(RENDER_RESPONSE_SUBSCRIPTION);
 
-    this.renderResponseSubscription.on('message', responseHandler);
     this.renderSubscription.on('message', requestHandler);
+    this.renderResponseSubscription.on('message', responseHandler);
+
+    logger.debug('Render PubSub controller activated.');
   }
 }
 
@@ -39,10 +41,15 @@ interface IRenderResponsePayload {
   result: [VideoStorageLink];
 }
 
-const controller = new VideoRenderPubSubController(videoRenderHandler, async (message: any) => {
+export const controller = new VideoRenderPubSubController(videoRenderHandler, async (message: any) => {
   const renderResponsePayload = JSON.parse(
     Buffer.from(message.data, 'base64').toString(),
   ) as IRenderResponsePayload;
+
+  const existsInThisContext = await prisma.exists.VideoUpload({ id: renderResponsePayload.requestPayload.id });
+  if (!existsInThisContext) {
+    return message.nack();
+  }
 
   if (renderResponsePayload.error) {
     message.ack();
@@ -61,7 +68,6 @@ const controller = new VideoRenderPubSubController(videoRenderHandler, async (me
     }
 
     logger.error(`Received invalid render response result version type ${link.version}\n\n${link}`);
-
   }));
 
   await prisma.mutation.updateVideoUpload(
@@ -72,7 +78,5 @@ const controller = new VideoRenderPubSubController(videoRenderHandler, async (me
   // tslint:disable-next-line:no-magic-numbers
   logger.info('RENDER RESPONSE ' + JSON.stringify(renderResponsePayload, null, 2));
 });
-
-logger.debug('Render PubSub controller activated.');
 
 export default controller;

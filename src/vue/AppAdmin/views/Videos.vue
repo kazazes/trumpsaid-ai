@@ -4,7 +4,7 @@
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-  name: "VideoSubmissions",
+  name: "VideoSubmission",
   data: function() {
     return {};
   }

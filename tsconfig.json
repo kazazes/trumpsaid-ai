@@ -14,13 +14,8 @@
     "lib": ["esnext", "dom"],
     "baseUrl": "./",
     "paths": {
-      "*": ["node_modules/*", "src/types/*"]
-    },
-    "plugins": [
-      {
-        "name": "ts-vue-plugin"
-      }
-    ]
+      "*": ["node_modules/*", "src/types/*", "src/vue/*"]
+    }
   },
   "include": ["src/**/**/*"],
   "exclude": ["node_modules", "src/vue"]

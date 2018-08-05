@@ -30,7 +30,10 @@ class VideoDownloadPubSubController extends PubSubController {
   }
 }
 
-const controller = new VideoDownloadPubSubController(downloadVideoHandler, (message: any) => { logger.error(message); });
+const controller = new VideoDownloadPubSubController(downloadVideoHandler, (message: any) => {
+  message.ack();
+  logger.error(JSON.stringify(message));
+});
 logger.debug('Video download PubSub controller activated.');
 
 export default controller;
