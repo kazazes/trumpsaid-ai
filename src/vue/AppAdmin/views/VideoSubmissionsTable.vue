@@ -40,7 +40,7 @@
 import gql from "graphql-tag";
 import VideoSubmitModal from "../forms/VideoSubmitModal.vue";
 import moment from "moment";
-import Spinner from "vue-simple-spinner";
+const Spinner = require("vue-simple-spinner");
 
 import {
   VideoUploadState,

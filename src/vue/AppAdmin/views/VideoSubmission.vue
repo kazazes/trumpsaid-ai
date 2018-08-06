@@ -4,14 +4,13 @@
       <b-card no-body header="Video Processing">
         <b-list-group flush>
           <b-list-group-item :variant="videoUpload.status == 'AWAITING_PROCESSING' ? 'info' : 'dark'">
-            <div class="d-flex align-items-center ">
+            <div class="d-flex align-items-center">
               <span class="list-group-step-title">Step 1:</span>
               <span class="mr-4">Download. Review the submited video before initiating processing.</span>
               <div v-if="videoUpload.status === 'AWAITING_PROCESSING'">
                 <b-button class="mr-4" :href="videoUpload.submitedUrl" target="_blank" variant="info">Review Video</b-button>
                 <b-button class="mr-4" @click="startProcessing">Start Processing</b-button>
               </div>
-              </b-button>
             </div>
           </b-list-group-item>
           <b-list-group-item :variant="videoUpload.status == 'READY_TO_RENDER' ? 'info' : 'dark'">
@@ -77,9 +76,21 @@
             <h5>Webm Version</h5>
             <VideoPlayer id="webmVideo" :sources="getSource(videoUpload.webmLink)" :poster="getPoster(videoUpload)" preload="auto" data-setup="{}"></VideoPlayer>
           </b-col>
+          <b-col class="text-center mt-3">
+            <b-button variant="success">Approve</b-button>
+          </b-col>
         </b-row>
       </b-card>
-      {{ formatedUpload() }}
+      <b-row>
+        <b-col class="text-center">
+          <b-button v-b-toggle.debug-info>Toggle Debug Info</b-button>
+        </b-col>
+        <b-collapse id="debug-info" class="mt-2">
+          <b-card header="Debug Info" header-tag="header">
+            <pre>{{ formatedUpload() }}</pre>
+          </b-card>
+        </b-collapse>
+      </b-row>
     </div>
   </div>
 </template>
@@ -88,7 +99,7 @@
 import Vue from "vue";
 import gql from "graphql-tag";
 const Spinner = require("vue-simple-spinner");
-import VideoPlayer from "../views/VideoPlayer";
+import VideoPlayer from "../views/VideoPlayer.vue";
 import $ from "jquery";
 
 import {
@@ -161,7 +172,6 @@ export default Vue.extend({
       const linkUrl = `https://storage.googleapis.com/${
         storageLink.bucket
       }/${encodeURI(storageLink.path)}`;
-
       return [{ src: linkUrl, type: "video/mp4" }];
     },
     performAction(id: string, state: VideoUploadState) {
@@ -294,8 +304,8 @@ export default Vue.extend({
           }
         }
       `,
-      variables() {
-        return { videoSubmissionId: this.$route.params.submissionId };
+      variables: {
+        videoSubmissionId: this.$route.params.submissionId
       },
       pollInterval: 2000
     }
