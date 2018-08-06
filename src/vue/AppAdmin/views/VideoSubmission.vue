@@ -63,14 +63,19 @@
           </b-col>
           <b-col md="6" class="text-center">
             <p>Find a thumbnail frame, pause, then process.</p>
-            <b-button @click="selectThumbnail">Use frame as thumbnail</b-button>
+            <b-button @click="selectThumbnail" id="select-thumbnail" :disabled="selectThumbnailDisabled">Use frame as thumbnail</b-button>
           </b-col>
         </b-row>
       </b-card>
       <b-card v-else-if="videoUpload.status === 'NEEDS_REVIEW'">
         <b-row>
           <b-col md="6">
-            <VideoPlayer id="mp4Video" :sources="getSource(videoUpload.mp4Link)" preload="auto" data-setup="{}"></VideoPlayer>
+            <h5>MP4 Version</h5>
+            <VideoPlayer id="mp4Video" :sources="getSource(videoUpload.mp4Link)" :poster="getPoster(videoUpload)" preload="auto" data-setup="{}"></VideoPlayer>
+          </b-col>
+          <b-col md="6">
+            <h5>Webm Version</h5>
+            <VideoPlayer id="webmVideo" :sources="getSource(videoUpload.webmLink)" :poster="getPoster(videoUpload)" preload="auto" data-setup="{}"></VideoPlayer>
           </b-col>
         </b-row>
       </b-card>
@@ -84,6 +89,7 @@ import Vue from "vue";
 import gql from "graphql-tag";
 const Spinner = require("vue-simple-spinner");
 import VideoPlayer from "../views/VideoPlayer";
+import $ from "jquery";
 
 import {
   VideoUpload,
@@ -104,14 +110,23 @@ export default Vue.extend({
   },
   data: function() {
     return {
-      videoUpload: {}
+      videoUpload: {},
+      selectThumbnailDisabled: false
     };
   },
   methods: {
     formatedUpload() {
       return JSON.stringify(this.videoUpload, null, 2);
     },
+    getPoster(video: VideoUpload) {
+      const storageLink = video.thumbnail;
+      const linkUrl = `https://storage.googleapis.com/${
+        storageLink.bucket
+      }/${encodeURI(storageLink.path)}`;
+      return linkUrl;
+    },
     selectThumbnail() {
+      this.selectThumbnailDisabled = true;
       const player = (window as IWindowWithVideoJS).videojs.default("rawVideo");
       if (!player.paused()) {
         return this.$notify({
@@ -120,24 +135,27 @@ export default Vue.extend({
           text: "You must pause the video before selecting a thumbnail."
         });
       }
-      const timestamp = player.currentTime();
-      console.log("Setting thumbnail to frame at " + timestamp);
 
-      this.$apollo.mutate({
-        mutation: gql`
-          mutation($id: ID!, $timestamp: Float!) {
-            setVideoUploadThumbnail(id: $id, timestamp: $timestamp) {
-              id
-              state
-              status
+      setTimeout(() => {
+        const timestamp = player.currentTime();
+        console.log("Setting thumbnail to frame at " + timestamp);
+        debugger;
+        this.$apollo.mutate({
+          mutation: gql`
+            mutation($id: ID!, $timestamp: Float!) {
+              setVideoUploadThumbnail(id: $id, timestamp: $timestamp) {
+                id
+                state
+                status
+              }
             }
+          `,
+          variables: {
+            id: this.videoUpload.id,
+            timestamp
           }
-        `,
-        variables: {
-          id: this.videoUpload.id,
-          timestamp
-        }
-      });
+        });
+      }, 500);
     },
     getSource(storageLink: VideoStorageLink) {
       const linkUrl = `https://storage.googleapis.com/${
