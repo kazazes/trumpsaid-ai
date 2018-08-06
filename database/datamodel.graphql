@@ -8,6 +8,13 @@ interface IVideo {
   source: Source
 }
 
+interface StorageItem {
+  id: ID! @unique
+  videoID: ID!
+  path: String!
+  bucket: String!
+}
+
 type VideoMetadata {
   title: String
   subtitle: String
@@ -47,6 +54,7 @@ type VideoUpload implements IVideo {
   webmLink: VideoStorageLink @relation(name: "VideoWebmLinkRelation")
   mp4Link: VideoStorageLink @relation(name: "VideoMp4LinkRelation")
   metadata: VideoMetadata @relation(name: "VideoUploadMetadataRelation")
+  thumbnail: Thumbnail
 }
 
 type Tag {
@@ -94,10 +102,17 @@ type Publication {
   name: String!
 }
 
-type VideoStorageLink {
+type VideoStorageLink implements StorageItem {
   id: ID! @unique
   videoID: ID!
   path: String!
   bucket: String!
   version: VideoVersion!
+}
+
+type Thumbnail implements StorageItem {
+  id: ID! @unique
+  videoID: ID!
+  path: String!
+  bucket: String!
 }

@@ -2,10 +2,10 @@ import { File } from '@google-cloud/storage';
 import { WriteStream } from 'fs';
 import stringToStream from 'string-to-stream';
 import youtubedl from 'youtube-dl';
-import { VideoUpload } from '../graphql/generated/prisma';
-import prisma from '../graphql/prismaContext';
-import logger from '../util/logger';
-import { createFileInProcessing, deleteFolderInProcessing, delimiter, processingBucket } from './storageController';
+import { VideoUpload } from '../../graphql/generated/prisma';
+import prisma from '../../graphql/prismaContext';
+import logger from '../../util/logger';
+import { createFileInProcessing, deleteFolderInProcessing, delimiter, processingBucket } from '../storageController';
 import pubSubController from './VideoDownloadPubSubController';
 
 export const downloadVideoHandler = async (message: any) => {
@@ -21,6 +21,7 @@ export const downloadVideoHandler = async (message: any) => {
     .catch((e) => {
       return message.nack();
     });
+
   if (!exists) {
     logger.debug('Passing on video job, cannot find original');
     return message.nack();
@@ -83,6 +84,7 @@ export const downloadVideoHandler = async (message: any) => {
     // tslint:disable-next-line:no-magic-numbers
     const fullPath = `${videoUploadPayload.id}/${remoteMeta._filename}`;
 
+    // TODO: Move video response handling to response handler, only ack() if in correct prisma environment
     try {
       const storageLink = await prisma.mutation.createVideoStorageLink(
         { data: { path: fullPath, videoID: videoUploadPayload.id, bucket: processingBucket.name, version: 'RAW' } }, ' { id }');

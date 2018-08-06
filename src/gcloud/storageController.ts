@@ -31,3 +31,14 @@ export const deletePrefix = async (bucket: Bucket, prefix: string) => {
 export const createFile = (bucket: Bucket, path: string, filename: string) => {
   return bucket.file(path + filename);
 };
+
+export const makeFilePublic = (bucketName: string, path: string) => {
+  const bucket = storage.bucket(bucketName);
+  return bucket.file(path).makePublic()
+    .then(() => {
+      logger.info(`Made ${bucketName}/${path} public`);
+    })
+    .catch((e) => {
+      logger.error(`Error making file public ${bucketName}/${path}\n${e}`);
+    });
+};

@@ -1,10 +1,42 @@
 <template>
   <div class="wrapper">
     <div class="animated fadeIn">
+      <b-card no-body header="Video Processing">
+        <b-list-group flush>
+          <b-list-group-item :variant="videoUpload.status == 'AWAITING_PROCESSING' ? 'info' : 'dark'">
+            <div class="d-flex align-items-center ">
+              <span class="list-group-step-title">Step 1:</span>
+              <span class="mr-4">Download. Review the submited video before initiating processing.</span>
+              <div v-if="videoUpload.status === 'AWAITING_PROCESSING'">
+                <b-button class="mr-4" :href="videoUpload.submitedUrl" target="_blank" variant="info">Review Video</b-button>
+                <b-button class="mr-4" @click="startProcessing">Start Processing</b-button>
+              </div>
+              </b-button>
+            </div>
+          </b-list-group-item>
+          <b-list-group-item :variant="videoUpload.status == 'READY_TO_RENDER' ? 'info' : 'dark'">
+            <div class="d-flex align-items-center ">
+              <span class="list-group-step-title">Step 2:</span>
+              <span>Render. Before rendering, verify that the video was downloaded correctly.</span>
+            </div>
+          </b-list-group-item>
+          <b-list-group-item :variant="videoUpload.status == 'NEEDS_THUMBNAILS' ? 'info' : 'dark'">
+            <div class="d-flex align-items-center ">
+              <span class="list-group-step-title">Step 3:</span>
+              <span>Choose thumbnail.</span>
+            </div>
+          </b-list-group-item>
+          <b-list-group-item :variant="videoUpload.status === 'NEEDS_REVIEW' ? 'info' : 'dark'">
+            <div class="d-flex align-items-center ">
+              <span class="list-group-step-title">Step 4:</span>
+              <span>Review the output videos and thumbnail.</span>
+            </div>
+          </b-list-group-item>
+        </b-list-group>
+      </b-card>
       <b-col v-if="$apollo.loading">
         <Spinner></Spinner>
       </b-col>
-      <b-button v-if="videoUpload.status === 'AWAITING_PROCESSING'" block variant="info" @click="startProcessing">Begin Processing</b-button>
       <b-card v-else-if="videoUpload.status === 'DOWNLOADING'" class="text-center">
         <h5>Downloading...</h5>
         <Spinner></Spinner>
@@ -12,7 +44,7 @@
       <b-card v-else-if="videoUpload.status === 'READY_TO_RENDER'" header="Raw video">
         <b-row>
           <b-col md="6">
-            <VideoPlayer id="rawVideo" :sources="getRawVideoSources(videoUpload)" preload="auto" data-setup="{}"></VideoPlayer>
+            <VideoPlayer id="rawVideoDownload" :sources="getSource(videoUpload.rawStorageLink)" preload="auto" data-setup="{}"></VideoPlayer>
           </b-col>
           <b-col md="6" class="text-center">
             <p v-if="videoUpload.state === 'PENDING'">Before publishing, the video must be rendered for the web. Confirm the video was downloaded correctly before rendering.</p>
@@ -24,7 +56,25 @@
           </b-col>
         </b-row>
       </b-card>
-      {{ videoUpload }}
+      <b-card v-else-if="videoUpload.status === 'NEEDS_THUMBNAILS'">
+        <b-row>
+          <b-col md="6">
+            <VideoPlayer id="rawVideo" :sources="getSource(videoUpload.rawStorageLink)" preload="auto" data-setup="{}"></VideoPlayer>
+          </b-col>
+          <b-col md="6" class="text-center">
+            <p>Find a thumbnail frame, pause, then process.</p>
+            <b-button @click="selectThumbnail">Use frame as thumbnail</b-button>
+          </b-col>
+        </b-row>
+      </b-card>
+      <b-card v-else-if="videoUpload.status === 'NEEDS_REVIEW'">
+        <b-row>
+          <b-col md="6">
+            <VideoPlayer id="mp4Video" :sources="getSource(videoUpload.mp4Link)" preload="auto" data-setup="{}"></VideoPlayer>
+          </b-col>
+        </b-row>
+      </b-card>
+      {{ formatedUpload() }}
     </div>
   </div>
 </template>
@@ -38,8 +88,13 @@ import VideoPlayer from "../views/VideoPlayer";
 import {
   VideoUpload,
   VideoUploadState,
-  VideoUploadStatus
+  VideoUploadStatus,
+  VideoStorageLink
 } from "../../../graphql/generated/prisma";
+
+interface IWindowWithVideoJS extends Window {
+  videojs: any;
+}
 
 export default Vue.extend({
   name: "VideoSubmission",
@@ -53,75 +108,43 @@ export default Vue.extend({
     };
   },
   methods: {
-    getRawVideoSources(videoUpload: VideoUpload) {
-      const storageLink = videoUpload.rawStorageLink;
+    formatedUpload() {
+      return JSON.stringify(this.videoUpload, null, 2);
+    },
+    selectThumbnail() {
+      const player = (window as IWindowWithVideoJS).videojs.default("rawVideo");
+      if (!player.paused()) {
+        return this.$notify({
+          type: "warn",
+          title: "Pause video",
+          text: "You must pause the video before selecting a thumbnail."
+        });
+      }
+      const timestamp = player.currentTime();
+      console.log("Setting thumbnail to frame at " + timestamp);
+
+      this.$apollo.mutate({
+        mutation: gql`
+          mutation($id: ID!, $timestamp: Float!) {
+            setVideoUploadThumbnail(id: $id, timestamp: $timestamp) {
+              id
+              state
+              status
+            }
+          }
+        `,
+        variables: {
+          id: this.videoUpload.id,
+          timestamp
+        }
+      });
+    },
+    getSource(storageLink: VideoStorageLink) {
       const linkUrl = `https://storage.googleapis.com/${
         storageLink.bucket
       }/${encodeURI(storageLink.path)}`;
 
       return [{ src: linkUrl, type: "video/mp4" }];
-    },
-    getBadge(status: VideoUploadStatus) {
-      switch (status) {
-        case "AWAITING_PROCESSING":
-          return "warning";
-        case "DOWNLOADING":
-          return "primary";
-        default:
-          return "secondary";
-      }
-    },
-    getStatusString(status: VideoUploadStatus) {
-      switch (status) {
-        case "AWAITING_PROCESSING":
-          return "Needs Processing";
-        case "DOWNLOADING":
-          return "Downloading";
-        case "READY_TO_RENDER":
-          return "Ready to render";
-        case "GENERATING_THUMBNAILS":
-          return "Generating thumbnails";
-        default:
-          return status;
-      }
-    },
-    getActionString(state: VideoUploadState, status: VideoUploadStatus) {
-      if (status === "AWAITING_PROCESSING") {
-        switch (state) {
-          case "PENDING":
-            return "Process";
-          case "PROCESSING":
-            return `Dispatching job <i class="fa fa-circle-o-notch fa-spin"></i>`;
-          case "FAILED":
-            return "Failed dispatching";
-          default:
-            return "";
-        }
-      } else if (status === "DOWNLOADING") {
-        switch (state) {
-          case "PENDING":
-            return "Pending Download";
-          case "PROCESSING":
-            return "Downloading";
-          case "REJECTED":
-            return "Download rejected";
-          case "FAILED":
-            return "Download failed";
-          default:
-            break;
-        }
-      } else if (status === "READY_TO_RENDER") {
-        switch (state) {
-          case "PENDING":
-            return "Render";
-          case "PROCESSING":
-            return "Rendering";
-          case "FAILED":
-            return "Failed rendering";
-          default:
-            break;
-        }
-      }
     },
     performAction(id: string, state: VideoUploadState) {
       switch (state) {
@@ -211,6 +234,11 @@ export default Vue.extend({
               bucket
             }
             mp4Link {
+              id
+              path
+              bucket
+            }
+            thumbnail {
               id
               path
               bucket

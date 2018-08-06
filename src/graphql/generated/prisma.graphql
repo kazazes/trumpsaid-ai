@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Sun Aug 05 2018 00:50:50 GMT-0700 (PDT)
+# timestamp: Sun Aug 05 2018 20:11:52 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -27,6 +27,10 @@ type AggregateSpeaker {
 }
 
 type AggregateTag {
+  count: Int!
+}
+
+type AggregateThumbnail {
   count: Int!
 }
 
@@ -278,24 +282,28 @@ type Mutation {
   createVideoStorageLink(data: VideoStorageLinkCreateInput!): VideoStorageLink!
   createVideoMetadata(data: VideoMetadataCreateInput!): VideoMetadata!
   createTag(data: TagCreateInput!): Tag!
+  createThumbnail(data: ThumbnailCreateInput!): Thumbnail!
   createVideo(data: VideoCreateInput!): Video!
   updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
   updateVideoStorageLink(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  updateThumbnail(data: ThumbnailUpdateInput!, where: ThumbnailWhereUniqueInput!): Thumbnail
   updateVideo(data: VideoUpdateInput!, where: VideoWhereUniqueInput!): Video
   deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteUser(where: UserWhereUniqueInput!): User
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
   deleteVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   deleteTag(where: TagWhereUniqueInput!): Tag
+  deleteThumbnail(where: ThumbnailWhereUniqueInput!): Thumbnail
   deleteVideo(where: VideoWhereUniqueInput!): Video
   upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
   upsertVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!, create: VideoStorageLinkCreateInput!, update: VideoStorageLinkUpdateInput!): VideoStorageLink!
   upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  upsertThumbnail(where: ThumbnailWhereUniqueInput!, create: ThumbnailCreateInput!, update: ThumbnailUpdateInput!): Thumbnail!
   upsertVideo(where: VideoWhereUniqueInput!, create: VideoCreateInput!, update: VideoUpdateInput!): Video!
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
   updateManySources(data: SourceUpdateInput!, where: SourceWhereInput): BatchPayload!
@@ -307,6 +315,7 @@ type Mutation {
   updateManyVideoStorageLinks(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereInput): BatchPayload!
   updateManyVideoMetadatas(data: VideoMetadataUpdateInput!, where: VideoMetadataWhereInput): BatchPayload!
   updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
+  updateManyThumbnails(data: ThumbnailUpdateInput!, where: ThumbnailWhereInput): BatchPayload!
   updateManyVideos(data: VideoUpdateInput!, where: VideoWhereInput): BatchPayload!
   deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
   deleteManySources(where: SourceWhereInput): BatchPayload!
@@ -318,6 +327,7 @@ type Mutation {
   deleteManyVideoStorageLinks(where: VideoStorageLinkWhereInput): BatchPayload!
   deleteManyVideoMetadatas(where: VideoMetadataWhereInput): BatchPayload!
   deleteManyTags(where: TagWhereInput): BatchPayload!
+  deleteManyThumbnails(where: ThumbnailWhereInput): BatchPayload!
   deleteManyVideos(where: VideoWhereInput): BatchPayload!
 }
 
@@ -565,12 +575,14 @@ type Query {
   videoStorageLinks(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoStorageLink]!
   videoMetadatas(where: VideoMetadataWhereInput, orderBy: VideoMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoMetadata]!
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
+  thumbnails(where: ThumbnailWhereInput, orderBy: ThumbnailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Thumbnail]!
   videos(where: VideoWhereInput, orderBy: VideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Video]!
   videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   user(where: UserWhereUniqueInput!): User
   speaker(where: SpeakerWhereUniqueInput!): Speaker
   videoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   tag(where: TagWhereUniqueInput!): Tag
+  thumbnail(where: ThumbnailWhereUniqueInput!): Thumbnail
   video(where: VideoWhereUniqueInput!): Video
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
   sourcesConnection(where: SourceWhereInput, orderBy: SourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SourceConnection!
@@ -582,6 +594,7 @@ type Query {
   videoStorageLinksConnection(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoStorageLinkConnection!
   videoMetadatasConnection(where: VideoMetadataWhereInput, orderBy: VideoMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoMetadataConnection!
   tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
+  thumbnailsConnection(where: ThumbnailWhereInput, orderBy: ThumbnailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ThumbnailConnection!
   videosConnection(where: VideoWhereInput, orderBy: VideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConnection!
 
   """Fetches an object given its ID"""
@@ -1097,6 +1110,7 @@ type Subscription {
   videoStorageLink(where: VideoStorageLinkSubscriptionWhereInput): VideoStorageLinkSubscriptionPayload
   videoMetadata(where: VideoMetadataSubscriptionWhereInput): VideoMetadataSubscriptionPayload
   tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
+  thumbnail(where: ThumbnailSubscriptionWhereInput): ThumbnailSubscriptionPayload
   video(where: VideoSubscriptionWhereInput): VideoSubscriptionPayload
 }
 
@@ -1318,6 +1332,308 @@ input TagWhereInput {
 }
 
 input TagWhereUniqueInput {
+  id: ID
+}
+
+type Thumbnail implements Node {
+  id: ID!
+  videoID: ID!
+  path: String!
+  bucket: String!
+}
+
+"""A connection to a list of items."""
+type ThumbnailConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ThumbnailEdge]!
+  aggregate: AggregateThumbnail!
+}
+
+input ThumbnailCreateInput {
+  videoID: ID!
+  path: String!
+  bucket: String!
+}
+
+input ThumbnailCreateOneInput {
+  create: ThumbnailCreateInput
+  connect: ThumbnailWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type ThumbnailEdge {
+  """The item at the end of the edge."""
+  node: Thumbnail!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ThumbnailOrderByInput {
+  id_ASC
+  id_DESC
+  videoID_ASC
+  videoID_DESC
+  path_ASC
+  path_DESC
+  bucket_ASC
+  bucket_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ThumbnailPreviousValues {
+  id: ID!
+  videoID: ID!
+  path: String!
+  bucket: String!
+}
+
+type ThumbnailSubscriptionPayload {
+  mutation: MutationType!
+  node: Thumbnail
+  updatedFields: [String!]
+  previousValues: ThumbnailPreviousValues
+}
+
+input ThumbnailSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ThumbnailSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ThumbnailSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ThumbnailSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ThumbnailWhereInput
+}
+
+input ThumbnailUpdateDataInput {
+  videoID: ID
+  path: String
+  bucket: String
+}
+
+input ThumbnailUpdateInput {
+  videoID: ID
+  path: String
+  bucket: String
+}
+
+input ThumbnailUpdateOneInput {
+  create: ThumbnailCreateInput
+  connect: ThumbnailWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ThumbnailUpdateDataInput
+  upsert: ThumbnailUpsertNestedInput
+}
+
+input ThumbnailUpsertNestedInput {
+  update: ThumbnailUpdateDataInput!
+  create: ThumbnailCreateInput!
+}
+
+input ThumbnailWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ThumbnailWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ThumbnailWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ThumbnailWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  videoID: ID
+
+  """All values that are not equal to given value."""
+  videoID_not: ID
+
+  """All values that are contained in given list."""
+  videoID_in: [ID!]
+
+  """All values that are not contained in given list."""
+  videoID_not_in: [ID!]
+
+  """All values less than the given value."""
+  videoID_lt: ID
+
+  """All values less than or equal the given value."""
+  videoID_lte: ID
+
+  """All values greater than the given value."""
+  videoID_gt: ID
+
+  """All values greater than or equal the given value."""
+  videoID_gte: ID
+
+  """All values containing the given string."""
+  videoID_contains: ID
+
+  """All values not containing the given string."""
+  videoID_not_contains: ID
+
+  """All values starting with the given string."""
+  videoID_starts_with: ID
+
+  """All values not starting with the given string."""
+  videoID_not_starts_with: ID
+
+  """All values ending with the given string."""
+  videoID_ends_with: ID
+
+  """All values not ending with the given string."""
+  videoID_not_ends_with: ID
+  path: String
+
+  """All values that are not equal to given value."""
+  path_not: String
+
+  """All values that are contained in given list."""
+  path_in: [String!]
+
+  """All values that are not contained in given list."""
+  path_not_in: [String!]
+
+  """All values less than the given value."""
+  path_lt: String
+
+  """All values less than or equal the given value."""
+  path_lte: String
+
+  """All values greater than the given value."""
+  path_gt: String
+
+  """All values greater than or equal the given value."""
+  path_gte: String
+
+  """All values containing the given string."""
+  path_contains: String
+
+  """All values not containing the given string."""
+  path_not_contains: String
+
+  """All values starting with the given string."""
+  path_starts_with: String
+
+  """All values not starting with the given string."""
+  path_not_starts_with: String
+
+  """All values ending with the given string."""
+  path_ends_with: String
+
+  """All values not ending with the given string."""
+  path_not_ends_with: String
+  bucket: String
+
+  """All values that are not equal to given value."""
+  bucket_not: String
+
+  """All values that are contained in given list."""
+  bucket_in: [String!]
+
+  """All values that are not contained in given list."""
+  bucket_not_in: [String!]
+
+  """All values less than the given value."""
+  bucket_lt: String
+
+  """All values less than or equal the given value."""
+  bucket_lte: String
+
+  """All values greater than the given value."""
+  bucket_gt: String
+
+  """All values greater than or equal the given value."""
+  bucket_gte: String
+
+  """All values containing the given string."""
+  bucket_contains: String
+
+  """All values not containing the given string."""
+  bucket_not_contains: String
+
+  """All values starting with the given string."""
+  bucket_starts_with: String
+
+  """All values not starting with the given string."""
+  bucket_not_starts_with: String
+
+  """All values ending with the given string."""
+  bucket_ends_with: String
+
+  """All values not ending with the given string."""
+  bucket_not_ends_with: String
+  _MagicalBackRelation_ThumbnailToVideoUpload_every: VideoUploadWhereInput
+  _MagicalBackRelation_ThumbnailToVideoUpload_some: VideoUploadWhereInput
+  _MagicalBackRelation_ThumbnailToVideoUpload_none: VideoUploadWhereInput
+}
+
+input ThumbnailWhereUniqueInput {
   id: ID
 }
 
@@ -2756,6 +3072,7 @@ type VideoUpload implements Node {
   webmLink(where: VideoStorageLinkWhereInput): VideoStorageLink
   mp4Link(where: VideoStorageLinkWhereInput): VideoStorageLink
   metadata(where: VideoMetadataWhereInput): VideoMetadata
+  thumbnail(where: ThumbnailWhereInput): Thumbnail
 }
 
 """A connection to a list of items."""
@@ -2785,6 +3102,7 @@ input VideoUploadCreateInput {
   webmLink: VideoStorageLinkCreateOneInput
   mp4Link: VideoStorageLinkCreateOneInput
   metadata: VideoMetadataCreateOneInput
+  thumbnail: ThumbnailCreateOneInput
 }
 
 """An edge in a connection."""
@@ -2839,6 +3157,7 @@ enum VideoUploadStatus {
   RENDERING
   NEEDS_THUMBNAILS
   GENERATING_THUMBNAILS
+  NEEDS_REVIEW
   NEEDS_METADATA
   READY_TO_PUBLISH
 }
@@ -2899,6 +3218,7 @@ input VideoUploadUpdateInput {
   webmLink: VideoStorageLinkUpdateOneInput
   mp4Link: VideoStorageLinkUpdateOneInput
   metadata: VideoMetadataUpdateOneInput
+  thumbnail: ThumbnailUpdateOneInput
 }
 
 input VideoUploadWhereInput {
@@ -3065,6 +3385,7 @@ input VideoUploadWhereInput {
   webmLink: VideoStorageLinkWhereInput
   mp4Link: VideoStorageLinkWhereInput
   metadata: VideoMetadataWhereInput
+  thumbnail: ThumbnailWhereInput
 }
 
 input VideoUploadWhereUniqueInput {

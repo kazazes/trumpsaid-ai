@@ -1,5 +1,6 @@
-#import User from './generated/prisma.graphql';
+# import User from './generated/prisma.graphql';
 # import VideoUpload from './generated/prisma.graphql';
+# import Thumbnail from './generated/prisma.graphql';
 
 type Query {
   videoUploads: [VideoUpload!]
@@ -11,4 +12,5 @@ type Mutation {
   createVideoUpload(url: String): VideoUpload
   deleteVideoUpload(id: ID): VideoUpload
   startProcessingPipeline(id: ID): VideoUpload
+  setVideoUploadThumbnail(id: ID, timestamp: Float): VideoUpload
 }

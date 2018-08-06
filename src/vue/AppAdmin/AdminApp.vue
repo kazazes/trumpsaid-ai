@@ -5,7 +5,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-const PulseLoader = require("vue-spinner/src/PulseLoader.vue");
 
 export default {
   name: "AdminApp",

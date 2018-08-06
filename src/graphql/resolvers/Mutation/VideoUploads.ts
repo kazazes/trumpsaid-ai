@@ -3,6 +3,7 @@ import { isURL } from 'validator';
 import { publishDownloadJob, publishRenderJob } from '../../../gcloud/videoJobPublisher';
 import { IApolloContext } from '../../apollo';
 import { VideoUploadCreateInput } from '../../generated/prisma';
+import { publishThumbnailJob } from './../../../gcloud/videoJobPublisher';
 
 export default {
   createVideoUpload: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
@@ -39,5 +40,18 @@ export default {
     }
 
     return upload;
+  },
+  setVideoUploadThumbnail: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
+    const upload = await ctx.db.query.videoUpload(
+      { where: { id: args.id } },
+      `{ id submitedUrl submitedBy { displayName avatar } status state rawStorageLink { videoID path bucket } }`);
+
+    if (upload) {
+      await publishThumbnailJob(upload, args.timestamp);
+      return ctx.db.mutation.updateVideoUpload({ where: { id: upload.id }, data: { state: 'PROCESSING' } });
+    }
+
+    return new ApolloError('No video with that ID');
+
   },
 };

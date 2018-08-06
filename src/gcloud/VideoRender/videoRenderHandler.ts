@@ -2,11 +2,11 @@ import { File } from '@google-cloud/storage';
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 import PubSub from '@google-cloud/pubsub';
 import fluentFfmpeg from 'fluent-ffmpeg';
-import { VideoUpload } from '../graphql/generated/prisma';
-import prisma from '../graphql/prismaContext';
-import logger from '../util/logger';
-import secrets from '../util/secrets';
-import { delimiter, storage } from './storageController';
+import { VideoUpload } from '../../graphql/generated/prisma';
+import prisma from '../../graphql/prismaContext';
+import logger from '../../util/logger';
+import secrets from '../../util/secrets';
+import { delimiter, storage } from '../storageController';
 import { RENDER_RESPONSE_TOPIC } from './VideoRenderPubSubController';
 
 const pubSub = PubSub({

@@ -1,7 +1,7 @@
 // tslint:disable-next-line:variable-name
 import PubSub from '@google-cloud/pubsub';
-import logger from '../util/logger';
-import PubSubController from './PubSubController';
+import logger from '../../util/logger';
+import PubSubController from '../PubSubController';
 import { downloadVideoHandler } from './videoDownloadHandler';
 
 export const VIDEO_DOWNLOAD_TOPIC = 'video-download';
