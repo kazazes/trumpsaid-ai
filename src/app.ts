@@ -82,6 +82,15 @@ app.use('/', rootRouter);
 app.use('/admin', adminRouter);
 app.use('/graphql', checkJWT);
 
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  // tslint:disable-next-line:no-magic-numbers
+  if (err.status === 401) {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+});
+
 graphServer.applyMiddleware({ app });
 
 export default app;
