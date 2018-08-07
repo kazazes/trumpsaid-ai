@@ -2,6 +2,7 @@ import { File } from '@google-cloud/storage';
 import { THUMBNAIL_RESPONSE_TOPIC } from './VideoThumbnailPubSubController';
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 import PubSub from '@google-cloud/pubsub';
+import sleep from 'await-sleep';
 import fluentFfmpeg from 'fluent-ffmpeg';
 import sharp from 'sharp';
 import { Duplex } from 'stream';
@@ -60,6 +61,8 @@ export const renderThumbnail = async (event: any) => {
 
     try {
       await generateThumbnail(thumbnailFileRaw, sourceFile, timestamp);
+      // tslint:disable-next-line:no-magic-numbers
+      await sleep(1500);
       await compressThumbnail(thumbnailFileRaw, thumbnailFileWeb);
       const response = {
         requestPayload: thumbnailPayload,

@@ -16,7 +16,7 @@
     "lib": ["esnext", "dom"],
     "baseUrl": "./",
     "paths": {
-      "*": ["node_modules/*", "src/types/*", "src/vue/*"]
+      "*": ["node_modules/*", "src/types/*"]
     }
   },
   "include": ["src/**/**/*"],

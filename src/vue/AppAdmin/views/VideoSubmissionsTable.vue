@@ -37,20 +37,19 @@
 </template>
 
 <script lang="ts">
-import gql from "graphql-tag";
-import VideoSubmitModal from "../forms/VideoSubmitModal.vue";
-import moment from "moment";
-const Spinner = require("vue-simple-spinner");
+import gql from 'graphql-tag';
+import VideoSubmitModal from '../forms/VideoSubmitModal.vue';
+import moment from 'moment';
+const Spinner = require('vue-simple-spinner');
 
 import {
   VideoUploadState,
   VideoUploadStatus,
-  User,
   VideoUpload
-} from "../../../graphql/generated/prisma";
+} from '../../../graphql/generated/prisma';
 
 export default {
-  name: "VideoSubmissions",
+  name: 'VideoSubmissions',
   components: {
     VideoSubmitModal,
     Spinner
@@ -59,11 +58,11 @@ export default {
     return {
       videoUploads: [] as [VideoUpload],
       fields: [
-        { key: "name", label: "Submittor" },
-        { key: "createdAt", label: "Submited" },
-        { key: "status" },
-        { key: "action" },
-        { key: "delete", label: "" }
+        { key: 'name', label: 'Submittor' },
+        { key: 'createdAt', label: 'Submited' },
+        { key: 'status' },
+        { key: 'action' },
+        { key: 'delete', label: '' }
       ],
       currentPage: 1,
       perPage: 10,
@@ -82,75 +81,76 @@ export default {
     },
     getBadge(status: VideoUploadStatus) {
       switch (status) {
-        case "AWAITING_PROCESSING":
-          return "warning";
-        case "DOWNLOADING":
-          return "primary";
+        case 'AWAITING_PROCESSING':
+          return 'warning';
+        case 'DOWNLOADING':
+          return 'primary';
         default:
-          return "secondary";
+          return 'secondary';
       }
     },
     getStatusString(status: VideoUploadStatus) {
       switch (status) {
-        case "AWAITING_PROCESSING":
-          return "Needs Processing";
-        case "DOWNLOADING":
-          return "Downloading";
-        case "READY_TO_RENDER":
-          return "Ready to render";
-        case "GENERATING_THUMBNAILS":
-          return "Generating thumbnails";
+        case 'AWAITING_PROCESSING':
+          return 'Needs Processing';
+        case 'DOWNLOADING':
+          return 'Downloading';
+        case 'READY_TO_RENDER':
+          return 'Ready to render';
+        case 'GENERATING_THUMBNAILS':
+          return 'Generating thumbnails';
         default:
           return status;
       }
     },
     getActionString(state: VideoUploadState, status: VideoUploadStatus) {
-      if (status === "AWAITING_PROCESSING") {
+      if (status === 'AWAITING_PROCESSING') {
         switch (state) {
-          case "PENDING":
-            return "Process";
-          case "PROCESSING":
+          case 'PENDING':
+            return 'Process';
+          case 'PROCESSING':
             return `Dispatching job <i class="fa fa-circle-o-notch fa-spin"></i>`;
-          case "FAILED":
-            return "Failed dispatching";
+          case 'FAILED':
+            return 'Failed dispatching';
           default:
-            return "";
+            return '';
         }
-      } else if (status === "DOWNLOADING") {
+      } else if (status === 'DOWNLOADING') {
         switch (state) {
-          case "PENDING":
-            return "Pending Download";
-          case "PROCESSING":
-            return "Downloading";
-          case "REJECTED":
-            return "Download rejected";
-          case "FAILED":
-            return "Download failed";
+          case 'PENDING':
+            return 'Pending Download';
+          case 'PROCESSING':
+            return 'Downloading';
+          case 'REJECTED':
+            return 'Download rejected';
+          case 'FAILED':
+            return 'Download failed';
           default:
-            break;
+            return '';
         }
-      } else if (status === "READY_TO_RENDER") {
+      } else if (status === 'READY_TO_RENDER') {
         switch (state) {
-          case "PENDING":
-            return "Render";
-          case "PROCESSING":
-            return "Rendering";
-          case "FAILED":
-            return "Failed rendering";
+          case 'PENDING':
+            return 'Render';
+          case 'PROCESSING':
+            return 'Rendering';
+          case 'FAILED':
+            return 'Failed rendering';
           default:
-            break;
+            return '';
         }
       }
+      return '';
     },
     performAction(id: string, state: VideoUploadState) {
       switch (state) {
-        case "PENDING":
+        case 'PENDING':
           this.startProcessing(id);
           break;
-        case "PROCESSING":
+        case 'PROCESSING':
           this.$notify({
-            type: "info",
-            title: "Video is processing"
+            type: 'info',
+            title: 'Video is processing'
           });
           break;
         default:
@@ -161,8 +161,8 @@ export default {
       return items.length;
     },
     async deleteUpload(itemId: string) {
-      if (window.confirm("Are you you want to delete this video?")) {
-        const result = await this.$apollo.mutate({
+      if (window.confirm('Are you you want to delete this video?')) {
+        await this.$apollo.mutate({
           mutation: gql`
             mutation($id: ID!) {
               deleteVideoUpload(id: $id) {
@@ -178,13 +178,13 @@ export default {
         this.$apollo.queries.videoUploads.refresh();
 
         this.$notify({
-          type: "danger",
-          title: "Video deleted"
+          type: 'danger',
+          title: 'Video deleted'
         });
       }
     },
     async startProcessing(itemId: string) {
-      const result = await this.$apollo.mutate({
+      await this.$apollo.mutate({
         mutation: gql`
           mutation($id: ID!) {
             startProcessingPipeline(id: $id) {
@@ -202,8 +202,8 @@ export default {
       this.$apollo.queries.videoUploads.refresh();
 
       this.$notify({
-        type: "success",
-        title: "Video processing..."
+        type: 'success',
+        title: 'Video processing...'
       });
     }
   },

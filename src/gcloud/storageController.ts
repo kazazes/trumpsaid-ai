@@ -1,7 +1,9 @@
 import Storage, { Bucket } from '@google-cloud/storage';
 import { mkdirSync } from 'mkdir-recursive';
+import { VideoStorageLink } from '../graphql/generated/prisma';
 import logger from '../util/logger';
 import secrets from '../util/secrets';
+import moment from 'moment';
 
 export const storage = Storage({
   projectId: secrets.GOOGLE_PROJECT_ID,
@@ -55,6 +57,7 @@ export const downloadSourceFile = async (sourceFile: Storage.File) => {
 
   const destination = `${tmpRoot}${sourceFile.name}`;
   logger.info(`Downloading ${sourceFile.name} to ${tmpRoot}`);
+  const start = moment();
 
   const error = await sourceFile.download({
     destination,
@@ -64,6 +67,16 @@ export const downloadSourceFile = async (sourceFile: Storage.File) => {
     logger.error(`Error downloading file: ${JSON.stringify(error)}`);
     throw error;
   } else {
+    logger.debug(`Downloaded ${sourceFile.name} in ${moment().from(start, true)}.`);
     return destination;
   }
+};
+
+export const getReadStream = (source: VideoStorageLink) => {
+  return storage.bucket(source.bucket).file(source.path).createReadStream();
+};
+
+export const getFileSize = async(source: VideoStorageLink) => {
+  const metadata = await storage.bucket(source.bucket).file(source.path).getMetadata();
+  return metadata[0].size;
 };

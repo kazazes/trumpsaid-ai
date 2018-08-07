@@ -13,4 +13,5 @@ type Mutation {
   deleteVideoUpload(id: ID): VideoUpload
   startProcessingPipeline(id: ID): VideoUpload
   setVideoUploadThumbnail(id: ID, timestamp: Float): VideoUpload
+  transcribe(id: ID): VideoUpload
 }

@@ -4,15 +4,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-
 export default {
-  name: "AdminApp",
+  name: 'AdminApp',
   mounted: () => {
-    const token = getQueryParam("token");
+    const token = getQueryParam('token');
     if (token && token.length > 50) {
-      window.localStorage.setItem("access_token", token);
-      window.location.replace("/admin");
+      window.localStorage.setItem('access_token', token);
+      window.location.replace('/admin');
     }
   }
 };
@@ -20,10 +18,10 @@ export default {
 function getQueryParam(param: string) {
   location.search
     .substr(1)
-    .split("&")
+    .split('&')
     .some(function(item) {
       // returns first occurence and stops
-      item.split("=")[0] == param && (param = item.split("=")[1]);
+      item.split('=')[0] == param && (param = item.split('=')[1]);
       return true;
     });
   return param;
@@ -32,17 +30,17 @@ function getQueryParam(param: string) {
 
 <style lang="scss">
 // CoreUI Icons Set
-@import "~@coreui/icons/css/coreui-icons.min.css";
+@import '~@coreui/icons/css/coreui-icons.min.css';
 /* Import Font Awesome Icons Set */
-$fa-font-path: "~font-awesome/fonts/";
-@import "~font-awesome/scss/font-awesome.scss";
+$fa-font-path: '~font-awesome/fonts/';
+@import '~font-awesome/scss/font-awesome.scss';
 /* Import Simple Line Icons Set */
-$simple-line-font-path: "~simple-line-icons/fonts/";
-@import "~simple-line-icons/scss/simple-line-icons.scss";
+$simple-line-font-path: '~simple-line-icons/fonts/';
+@import '~simple-line-icons/scss/simple-line-icons.scss';
 /* Import Flag Icons Set */
-@import "~flag-icon-css/css/flag-icon.min.css";
+@import '~flag-icon-css/css/flag-icon.min.css';
 /* Import Bootstrap Vue Styles */
-@import "~bootstrap-vue/dist/bootstrap-vue.css";
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
 // Import Main styles for this application
-@import "assets/scss/style";
+@import 'assets/scss/style';
 </style>

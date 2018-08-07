@@ -77,12 +77,12 @@
             <VideoPlayer id="webmVideo" :sources="getSource(videoUpload.webmLink)" :poster="getPoster(videoUpload)" preload="auto" data-setup="{}"></VideoPlayer>
           </b-col>
           <b-col class="text-center mt-3">
-            <b-button variant="success" @click="startProcessing">Approve</b-button>
+            <b-button variant="success" @click="transcribe">Approve</b-button>
           </b-col>
         </b-row>
       </b-card>
       <b-row>
-        <b-col class="text-center">
+        <b-col sm="12" class="text-center mb-2">
           <b-button v-b-toggle.debug-info>Toggle Debug Info</b-button>
         </b-col>
         <b-collapse id="debug-info" class="mt-2">
@@ -100,12 +100,10 @@ import Vue from 'vue';
 import gql from 'graphql-tag';
 const Spinner = require('vue-simple-spinner');
 import VideoPlayer from '../views/VideoPlayer.vue';
-import $ from 'jquery';
 
 import {
   VideoUpload,
   VideoUploadState,
-  VideoUploadStatus,
   VideoStorageLink
 } from '../../../graphql/generated/prisma';
 
@@ -191,7 +189,7 @@ export default Vue.extend({
     },
     async deleteUpload(itemId: string) {
       if (window.confirm('Are you you want to delete this video?')) {
-        const result = await this.$apollo.mutate({
+        await this.$apollo.mutate({
           mutation: gql`
             mutation($id: ID!) {
               deleteVideoUpload(id: $id) {
@@ -213,13 +211,33 @@ export default Vue.extend({
       }
     },
     async startProcessing() {
-      const result = await this.$apollo.mutate({
+      await this.$apollo.mutate({
         mutation: gql`
           mutation($id: ID!) {
             startProcessingPipeline(id: $id) {
               id
               status
               state
+            }
+          }
+        `,
+        variables: {
+          id: this.videoUpload.id
+        }
+      });
+
+      this.$notify({
+        type: 'success',
+        title: 'Video processing...'
+      });
+    },
+    async transcribe() {
+      await this.$apollo.mutate({
+        mutation: gql`
+          mutation($id: ID!) {
+            transcribe(id: $id) {
+              state
+              status
             }
           }
         `,

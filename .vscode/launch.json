@@ -12,7 +12,6 @@
       "runtimeArgs": ["run", "debug"],
       "port": 9229,
       "sourceMaps": true,
-      "outputCapture": "std",
       "protocol": "inspector",
       "restart": true
     },

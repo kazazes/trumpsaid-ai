@@ -1,5 +1,6 @@
 import { ApolloError } from 'apollo-server-core';
 import { isURL } from 'validator';
+import { VideoTranscriber } from '../../../gcloud/CloudSpeechToText/VideoTranscriber';
 import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '../../../gcloud/videoJobPublisher';
 import { IApolloContext } from '../../apollo';
 import { VideoUploadCreateInput } from '../../generated/prisma';
@@ -37,7 +38,6 @@ export default {
       upload = await ctx.db.mutation.updateVideoUpload(
         { where: { id: args.id }, data: { state: 'PROCESSING' } }, ' { id status state submitedUrl } ');
     } else if (upload.state === 'PENDING' && upload.status === 'NEEDS_REVIEW') {
-      // TODO: Set to processing, dispatch transcription job
 
     }
 
@@ -55,5 +55,18 @@ export default {
 
     return new ApolloError('No video with that ID');
 
+  },
+  transcribe: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
+    // TODO: Set to processing, dispatch transcription job
+    const upload = await ctx.db.mutation.updateVideoUpload(
+      {
+        where: { id: args.id },
+        data: { state: 'PROCESSING', status: 'AWAITING_TRANSCRIPTION' },
+      },
+      ' { id status state flacLink { bucket path } } ');
+
+    new VideoTranscriber(upload).recognize();
+
+    return upload;
   },
 };

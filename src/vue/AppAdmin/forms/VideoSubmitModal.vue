@@ -17,14 +17,13 @@
 </b-modal>
 </template>
 <script lang="ts">
-import gql from "graphql-tag";
-import router from "../../../routes/adminRouter";
+import gql from 'graphql-tag';
 
 export default {
-  name: "VideoSubmitModal",
+  name: 'VideoSubmitModal',
   data: function() {
     return {
-      videoUrl: "",
+      videoUrl: '',
       buttonsDisabled: false
     };
   },
@@ -48,9 +47,9 @@ export default {
         });
 
         this.$notify({
-          type: "success",
-          title: "Video submited",
-          text: "Video submited succesfully."
+          type: 'success',
+          title: 'Video submited',
+          text: 'Video submited succesfully.'
         });
 
         this.buttonsDisabled = false;
@@ -61,8 +60,8 @@ export default {
       } catch (err) {
         this.buttonsDisabled = false;
         this.$notify({
-          type: "error",
-          title: "Error submiting video",
+          type: 'error',
+          title: 'Error submiting video',
           text: err.message
         });
       }
