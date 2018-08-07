@@ -4,9 +4,8 @@ import express from 'express';
 import expressFlash from 'express-flash';
 import expressSession from 'express-session';
 import expressValidator from 'express-validator';
-import { Options } from 'graphql-binding';
 import lusca from 'lusca';
-import morgan, { Options as MorganOptions } from 'morgan';
+import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
 

@@ -1,4 +1,4 @@
-import { and, shield } from 'graphql-shield';
+import { shield } from 'graphql-shield';
 import { includes } from 'lodash';
 import logger from '../../../util/logger';
 import { IApolloContext } from '../../apollo';
@@ -16,12 +16,14 @@ const getUserRoles = async (ctx: IApolloContext) => {
 export const hasRole = async (role: AdminRole, ctx: IApolloContext) => {
   const roles = await getUserRoles(ctx);
   const hasRole = includes(roles, role);
-  if (hasRole) return hasRole;
-  logger.warn(
-    `Role mismatch error: ${ctx.user.displayName} (${
+  if (!hasRole) {
+    logger.warn(
+      `Role mismatch error: ${ctx.user.displayName} (${
       ctx.user.id
-    }) does not have role ${role}`,
-  );
+      }) does not have role ${role}`,
+    );
+  }
+  return hasRole;
 };
 
 // Permissions

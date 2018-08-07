@@ -1,38 +1,40 @@
 {
+  "extends": "tslint-config-airbnb",
   "linterOptions": {
     "exclude": ["src/graphql/generated/**", "node_modules/**"]
   },
   "rules": {
-    "no-magic-numbers": true,
-    "import-name": false,
-    "only-arrow-functions": true,
     "await-promise": true,
-    "no-return-await": true,
-    "no-var-keyword": true,
-    "triple-equals": true,
-    "use-isnan": true,
-    "no-duplicate-imports": true,
-    "prefer-const": true,
+    "completed-docs": {
+      "severity": "warning"
+    },
+    "import-name": false,
     "interface-name": true,
-    "no-consecutive-blank-lines": true,
-    "no-irregular-whitespace": true,
-    "ordered-imports": true,
-    "prefer-method-signature": true,
-    "whitespace": true,
-    "variable-name": true,
-    "no-floating-promises": true,
-    "no-string-throw": true,
     "max-line-length": [
       true,
       {
-        "limit": 150,
-        "ignore-pattern": "//"
+        "ignore-pattern": "//",
+        "limit": 150
       }
     ],
+    "no-consecutive-blank-lines": true,
+    "no-console": true,
+    "no-duplicate-imports": true,
+    "no-floating-promises": true,
+    "no-irregular-whitespace": true,
+    "no-magic-numbers": true,
+    "no-return-await": true,
+    "no-string-throw": true,
+    "no-var-keyword": true,
+    "only-arrow-functions": true,
+    "ordered-imports": true,
+    "prefer-const": true,
+    "prefer-method-signature": true,
     "prefer-template": [true, "allow-single-concat"],
     "radix": false,
-    "no-console": true,
-    "completed-docs": { "severity": "warning" }
-  },
-  "extends": "tslint-config-airbnb"
+    "triple-equals": true,
+    "use-isnan": true,
+    "variable-name": true,
+    "whitespace": true
+  }
 }

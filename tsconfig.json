@@ -7,6 +7,8 @@
     "noImplicitAny": true,
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
     "sourceMap": true,
     "typeRoots": ["node_modules/@types", "src/types"],
     "outDir": "dist",

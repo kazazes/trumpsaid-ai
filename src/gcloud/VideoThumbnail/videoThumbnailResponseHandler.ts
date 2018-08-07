@@ -1,7 +1,7 @@
 import { Thumbnail } from '../../graphql/generated/prisma';
 import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
-import { makeFilePublic, storage } from '../storageController';
+import { makeFilePublic } from '../storageController';
 import { IThumbnailRequest } from './videoThumbnailHandler';
 
 interface IThumbnailResponsePayload {

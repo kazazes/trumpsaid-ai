@@ -9,11 +9,7 @@
         "$tsc",
         "$node-sass"
       ],
-      "isBackground": true,
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
+      "isBackground": true
     },
     {
       "type": "typescript",
@@ -30,7 +26,26 @@
       "script": "tslint",
       "problemMatcher": [
         "$tslint5"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "npm",
+      "script": "build-ts",
+      "problemMatcher": [
+        "$tsc"
       ]
+    },
+    {
+      "type": "npm",
+      "script": "watch-ts",
+      "problemMatcher": [
+        "$tsc-watch"
+      ],
+      "isBackground": true
     }
   ]
 }

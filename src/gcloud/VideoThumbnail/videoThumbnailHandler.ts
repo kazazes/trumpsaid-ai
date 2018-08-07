@@ -70,9 +70,14 @@ export const renderThumbnail = async (event: any) => {
           videoID: upload.id,
         },
       };
-      const _ = publishResponse(response);
+      publishResponse(response).catch((e) => {
+        logger.error(`Error publishing response: ${JSON.stringify(e)}`);
+      });
     } catch (e) {
-      const _ = publishResponse({ thumbnailPayload, error: e });
+      publishResponse({ thumbnailPayload, error: e })
+        .catch((e) => {
+          logger.error(`Error publishing response: ${JSON.stringify(e)}`);
+        });
     }
   });
 };

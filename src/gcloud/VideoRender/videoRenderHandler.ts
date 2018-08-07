@@ -63,7 +63,7 @@ export const renderVideo = async (event: any) => {
       await flacConversion(flacFile, sourceFilePath);
       await mp4Conversion(mp4File, sourceFile);
       await webmConversion(webmFile, sourceFile);
-      const _ = publishResponse({
+      publishResponse({
         requestPayload: renderPayload,
         error: undefined,
         result: [
@@ -86,9 +86,14 @@ export const renderVideo = async (event: any) => {
             videoID: renderPayload.id,
           },
         ],
+      }).catch((e) => {
+        logger.error(`Error publishing response: ${JSON.stringify(e)}`);
       });
     } catch (e) {
-      const _ = publishResponse({ renderPayload, error: e });
+      publishResponse({ renderPayload, error: e })
+        .catch((e) => {
+          logger.error(`Error publishing response: ${JSON.stringify(e)}`);
+        });
     }
   });
 };
@@ -103,10 +108,7 @@ const publishResponse = (obj: any) => {
   return pubSub
     .topic(RENDER_RESPONSE_TOPIC)
     .publisher()
-    .publish(getBuffer(obj))
-    .catch((e) => {
-      logger.error(`Error publishing response: ${JSON.stringify(e)}`);
-    });
+    .publish(getBuffer(obj));
 };
 
 const mp4Conversion = (mp4File: File, sourceFile: File) => {

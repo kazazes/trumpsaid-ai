@@ -39,6 +39,7 @@ export const renderVideoResponse = async (message: any) => {
     }
 
     logger.error(`Received invalid render response result version type ${link.version}\n\n${link}`);
+    return Promise.reject();
   }));
 
   await prisma.mutation.updateVideoUpload(

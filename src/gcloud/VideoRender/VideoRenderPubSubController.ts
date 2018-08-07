@@ -1,7 +1,5 @@
 // tslint:disable-next-line:variable-name
 import PubSub from '@google-cloud/pubsub';
-import { VideoStorageLink, VideoUpload } from '../../graphql/generated/prisma';
-import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
 import PubSubController from '../PubSubController';
 import videoRenderHandler from './videoRenderHandler';
