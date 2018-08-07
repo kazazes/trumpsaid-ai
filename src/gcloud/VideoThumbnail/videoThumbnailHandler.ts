@@ -3,6 +3,8 @@ import { THUMBNAIL_RESPONSE_TOPIC } from './VideoThumbnailPubSubController';
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 import PubSub from '@google-cloud/pubsub';
 import fluentFfmpeg from 'fluent-ffmpeg';
+import sharp from 'sharp';
+import { Duplex } from 'stream';
 import { VideoUpload } from '../../graphql/generated/prisma';
 import logger from '../../util/logger';
 import secrets from '../../util/secrets';
@@ -48,17 +50,22 @@ export const renderThumbnail = async (event: any) => {
     const bucket = storage.bucket(storageLink.bucket);
     const sourceFile = bucket.file(storageLink.path);
 
-    const thumbnailFile = bucket.file(
-      sourceFile.name.replace(/\.[^/.]+$/, '') + '-thumb.png',
+    const thumbnailFileRaw = bucket.file(
+      sourceFile.name.replace(/\.[^/.]+$/, '') + '-thumb-raw.png',
+    );
+
+    const thumbnailFileWeb = bucket.file(
+      sourceFile.name.replace(/\.[^/.]+$/, '') + '-thumb.jpg',
     );
 
     try {
-      await generateThumbnail(thumbnailFile, sourceFile, timestamp);
+      await generateThumbnail(thumbnailFileRaw, sourceFile, timestamp);
+      await compressThumbnail(thumbnailFileRaw, thumbnailFileWeb);
       const response = {
         requestPayload: thumbnailPayload,
         result:
         {
-          path: thumbnailFile.name,
+          path: thumbnailFileWeb.name,
           bucket: bucket.name,
           videoID: upload.id,
         },
@@ -67,6 +74,25 @@ export const renderThumbnail = async (event: any) => {
     } catch (e) {
       const _ = publishResponse({ thumbnailPayload, error: e });
     }
+  });
+};
+
+const compressThumbnail = async (inputFile: File, outputFile: File) => {
+  return new Promise(async (resolve, reject) => {
+    const fileBuffers = await inputFile.download();
+    const rawBuffer = fileBuffers[0];
+
+    const compressed = await sharp(rawBuffer).jpeg({ progressive: true }).toBuffer();
+    const outputStream = outputFile.createWriteStream({
+      contentType: 'image/jpeg',
+    });
+
+    const readStream = new Duplex();
+    readStream.on('end', resolve);
+    readStream.on('error', reject);
+    readStream.push(compressed);
+    readStream.push(null);
+    readStream.pipe(outputStream);
   });
 };
 
@@ -88,7 +114,7 @@ const publishResponse = (obj: any) => {
 
 const generateThumbnail = (thumbnailFile: File, sourceFile: File, timestamp: number) => {
   return new Promise((resolve, reject) => {
-    const writeStream = thumbnailFile.createWriteStream({
+    const remoteWriteStream = thumbnailFile.createWriteStream({
       contentType: 'image/png',
     });
 
@@ -111,7 +137,7 @@ const generateThumbnail = (thumbnailFile: File, sourceFile: File, timestamp: num
         readStream.destroy();
         reject(err);
       })
-      .writeToStream(writeStream, { end: true });
+      .writeToStream(remoteWriteStream, { end: true });
   });
 };
 
