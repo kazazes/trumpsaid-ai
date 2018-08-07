@@ -1,7 +1,7 @@
+import { Thumbnail } from '../../graphql/generated/prisma';
 import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
-import { Thumbnail } from './../../graphql/generated/prisma';
-import { makeFilePublic, storage } from './../storageController';
+import { makeFilePublic, storage } from '../storageController';
 import { IThumbnailRequest } from './videoThumbnailHandler';
 
 interface IThumbnailResponsePayload {
@@ -29,7 +29,8 @@ export const thumbnailResponse = async (message: any) => {
     return message.nack();
   }
 
-  makeFilePublic(result.bucket, result.path);
+  makeFilePublic(result.bucket, result.path)
+    .catch(e => logger.error(`Error making ${result.bucket}/${result.path} public.\n${e}`));
   const createdThumbnail = await prisma.mutation.createThumbnail({ data: result });
   const updatedVideo = await prisma.mutation
     .updateVideoUpload(

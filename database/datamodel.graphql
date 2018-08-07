@@ -53,6 +53,7 @@ type VideoUpload implements IVideo {
   rawStorageLink: VideoStorageLink @relation(name: "VideoStorageRawRelation")
   webmLink: VideoStorageLink @relation(name: "VideoWebmLinkRelation")
   mp4Link: VideoStorageLink @relation(name: "VideoMp4LinkRelation")
+  flacLink: VideoStorageLink @relation(name: "VideoFlacLinkRelation")
   metadata: VideoMetadata @relation(name: "VideoUploadMetadataRelation")
   thumbnail: Thumbnail
 }

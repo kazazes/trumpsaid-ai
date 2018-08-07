@@ -1,4 +1,5 @@
 import { VideoUpload } from '../graphql/generated/prisma';
+import prisma from '../graphql/prismaContext';
 import logger from '../util/logger';
 import downloadController from './VideoDownload/VideoDownloadPubSubController';
 import renderController from './VideoRender/VideoRenderPubSubController';
@@ -34,6 +35,8 @@ export const publishThumbnailJob = async (upload: VideoUpload, timestamp: Number
   try {
     const messageId = await thumbnailController.thumbnailTopic.publisher().publish(dataBuffer);
     logger.info(`Published thumbnail message for video (Video: ${upload.id}, Message: ${messageId})`);
+    prisma.mutation.updateVideoUpload({ where: { id: upload.id }, data: { status: 'GENERATING_THUMBNAILS', state: 'PROCESSING' } })
+      .catch(e => logger.error(`Error changing video status: ${e}`));
     return messageId;
   } catch (err) {
     logger.error(`Error publishing render job ${err}`);

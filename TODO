@@ -1,14 +1,14 @@
 TS-WTF:
   Web Server:
     Prisma:
-      ☐ Add (abstract) remote storage class @20m @today 
+      ✔ Add (abstract) remote storage class @20m @today @done(18-08-06 01:31)
       ☐ People schema @20m
       ☐ Transcript schema @50m
       ☐ News schema @30m
       ☐ Final video model @40m
     Backend:
-      ☐ Thumbnail generation @today @1h
-      ☐ Transcript generation @2.5h
+      ✔ Thumbnail generation @today @1h @done(18-08-06 01:32)
+      ☐ Transcript generation @2.5h @started(18-08-06 13:30)
       ☐ Vision AI @4h
       ☐ Transcript NLP @10h
     API:
@@ -17,7 +17,6 @@ TS-WTF:
     Frontend:
       Admin:
         ☐ Editors @15h
-        ☐ Convert CoreUI to MDB @3h
       ☐ Design @4h
       ☐ Vue search page @8h
       ☐ Static video pages @3h

@@ -14,15 +14,13 @@ export const renderVideoResponse = async (message: any) => {
     Buffer.from(message.data, 'base64').toString(),
   ) as IRenderResponsePayload;
 
+  if (renderResponsePayload.error) {
+    logger.error(`Received error in response to render job: ${JSON.stringify(renderResponsePayload.error)}`);
+    return message.ack();
+  }
   const existsInThisContext = await prisma.exists.VideoUpload({ id: renderResponsePayload.requestPayload.id });
   if (!existsInThisContext) {
     return message.nack();
-  }
-
-  if (renderResponsePayload.error) {
-    message.ack();
-    logger.error('Render response error: ' + JSON.stringify(renderResponsePayload.error));
-    return;
   }
 
   await Promise.all(renderResponsePayload.result.map(async (link) => {
@@ -34,6 +32,10 @@ export const renderVideoResponse = async (message: any) => {
 
     if (link.version === 'MP4') {
       return prisma.mutation.updateVideoUpload({ where: { id: link.videoID }, data: { mp4Link: { connect: { id: createdLink.id } } } });
+    }
+
+    if (link.version === 'FLAC') {
+      return prisma.mutation.updateVideoUpload({ where: { id: link.videoID }, data: { flacLink: { connect: { id: createdLink.id } } } });
     }
 
     logger.error(`Received invalid render response result version type ${link.version}\n\n${link}`);

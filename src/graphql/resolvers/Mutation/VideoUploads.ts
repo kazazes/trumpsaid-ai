@@ -1,9 +1,8 @@
 import { ApolloError } from 'apollo-server-core';
 import { isURL } from 'validator';
-import { publishDownloadJob, publishRenderJob } from '../../../gcloud/videoJobPublisher';
+import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '../../../gcloud/videoJobPublisher';
 import { IApolloContext } from '../../apollo';
 import { VideoUploadCreateInput } from '../../generated/prisma';
-import { publishThumbnailJob } from './../../../gcloud/videoJobPublisher';
 
 export default {
   createVideoUpload: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
@@ -37,6 +36,9 @@ export default {
       await publishRenderJob(upload);
       upload = await ctx.db.mutation.updateVideoUpload(
         { where: { id: args.id }, data: { state: 'PROCESSING' } }, ' { id status state submitedUrl } ');
+    } else if (upload.state === 'PENDING' && upload.status === 'NEEDS_REVIEW') {
+      // TODO: Set to processing, dispatch transcription job
+
     }
 
     return upload;

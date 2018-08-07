@@ -31,7 +31,8 @@
     ],
     "prefer-template": [true, "allow-single-concat"],
     "radix": false,
-    "no-console": true
+    "no-console": true,
+    "completed-docs": { "severity": "warning" }
   },
   "extends": "tslint-config-airbnb"
 }

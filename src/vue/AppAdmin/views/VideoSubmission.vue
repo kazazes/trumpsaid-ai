@@ -33,7 +33,7 @@
           </b-list-group-item>
         </b-list-group>
       </b-card>
-      <b-col v-if="$apollo.loading">
+      <b-col v-if="$apollo.loading || loading">
         <Spinner></Spinner>
       </b-col>
       <b-card v-else-if="videoUpload.status === 'DOWNLOADING'" class="text-center">
@@ -77,7 +77,7 @@
             <VideoPlayer id="webmVideo" :sources="getSource(videoUpload.webmLink)" :poster="getPoster(videoUpload)" preload="auto" data-setup="{}"></VideoPlayer>
           </b-col>
           <b-col class="text-center mt-3">
-            <b-button variant="success">Approve</b-button>
+            <b-button variant="success" @click="startProcessing">Approve</b-button>
           </b-col>
         </b-row>
       </b-card>
@@ -96,25 +96,25 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import gql from "graphql-tag";
-const Spinner = require("vue-simple-spinner");
-import VideoPlayer from "../views/VideoPlayer.vue";
-import $ from "jquery";
+import Vue from 'vue';
+import gql from 'graphql-tag';
+const Spinner = require('vue-simple-spinner');
+import VideoPlayer from '../views/VideoPlayer.vue';
+import $ from 'jquery';
 
 import {
   VideoUpload,
   VideoUploadState,
   VideoUploadStatus,
   VideoStorageLink
-} from "../../../graphql/generated/prisma";
+} from '../../../graphql/generated/prisma';
 
 interface IWindowWithVideoJS extends Window {
   videojs: any;
 }
 
 export default Vue.extend({
-  name: "VideoSubmission",
+  name: 'VideoSubmission',
   components: {
     Spinner,
     VideoPlayer
@@ -122,7 +122,8 @@ export default Vue.extend({
   data: function() {
     return {
       videoUpload: {},
-      selectThumbnailDisabled: false
+      selectThumbnailDisabled: false,
+      loading: false
     };
   },
   methods: {
@@ -138,19 +139,18 @@ export default Vue.extend({
     },
     selectThumbnail() {
       this.selectThumbnailDisabled = true;
-      const player = (window as IWindowWithVideoJS).videojs.default("rawVideo");
+      const player = (window as IWindowWithVideoJS).videojs.default('rawVideo');
       if (!player.paused()) {
         return this.$notify({
-          type: "warn",
-          title: "Pause video",
-          text: "You must pause the video before selecting a thumbnail."
+          type: 'warn',
+          title: 'Pause video',
+          text: 'You must pause the video before selecting a thumbnail.'
         });
       }
 
       setTimeout(() => {
         const timestamp = player.currentTime();
-        console.log("Setting thumbnail to frame at " + timestamp);
-        debugger;
+        console.log('Setting thumbnail to frame at ' + timestamp);
         this.$apollo.mutate({
           mutation: gql`
             mutation($id: ID!, $timestamp: Float!) {
@@ -172,17 +172,17 @@ export default Vue.extend({
       const linkUrl = `https://storage.googleapis.com/${
         storageLink.bucket
       }/${encodeURI(storageLink.path)}`;
-      return [{ src: linkUrl, type: "video/mp4" }];
+      return [{ src: linkUrl, type: 'video/mp4' }];
     },
     performAction(id: string, state: VideoUploadState) {
       switch (state) {
-        case "PENDING":
+        case 'PENDING':
           this.startProcessing(id);
           break;
-        case "PROCESSING":
+        case 'PROCESSING':
           this.$notify({
-            type: "info",
-            title: "Video is processing"
+            type: 'info',
+            title: 'Video is processing'
           });
           break;
         default:
@@ -190,7 +190,7 @@ export default Vue.extend({
       }
     },
     async deleteUpload(itemId: string) {
-      if (window.confirm("Are you you want to delete this video?")) {
+      if (window.confirm('Are you you want to delete this video?')) {
         const result = await this.$apollo.mutate({
           mutation: gql`
             mutation($id: ID!) {
@@ -207,8 +207,8 @@ export default Vue.extend({
         this.$apollo.queries.videoUploads.refresh();
 
         this.$notify({
-          type: "danger",
-          title: "Video deleted"
+          type: 'danger',
+          title: 'Video deleted'
         });
       }
     },
@@ -228,11 +228,9 @@ export default Vue.extend({
         }
       });
 
-      this.$apollo.queries.videoUpload.refresh();
-
       this.$notify({
-        type: "success",
-        title: "Video processing..."
+        type: 'success',
+        title: 'Video processing...'
       });
     }
   },
@@ -304,10 +302,12 @@ export default Vue.extend({
           }
         }
       `,
-      variables: {
-        videoSubmissionId: this.$route.params.submissionId
+      variables() {
+        return {
+          videoSubmissionId: this.$route.params.submissionId
+        };
       },
-      pollInterval: 2000
+      pollInterval: 1000
     }
   }
 });

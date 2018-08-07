@@ -4,10 +4,9 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 import PubSub from '@google-cloud/pubsub';
 import fluentFfmpeg from 'fluent-ffmpeg';
 import { VideoUpload } from '../../graphql/generated/prisma';
-import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
 import secrets from '../../util/secrets';
-import { createFile, delimiter, storage } from '../storageController';
+import { delimiter, storage } from '../storageController';
 
 const pubSub = PubSub({
   projectId: secrets.GOOGLE_PROJECT_ID,
@@ -33,15 +32,7 @@ export const renderThumbnail = async (event: any) => {
       return event.ack();
     }
 
-    const videoExistsInThisContext = await prisma.exists.VideoUpload({ id: upload.id });
-    if (!videoExistsInThisContext) {
-      event.nack();
-      resolve();
-    } else {
-      event.ack();
-    }
-
-    prisma.mutation.updateVideoUpload({ where: { id: upload.id }, data: { status: 'GENERATING_THUMBNAILS', state: 'PROCESSING' } });
+    event.ack();
 
     // tslint:disable-next-line:no-magic-numbers
     logger.info(`Payload: ${JSON.stringify(thumbnailPayload, null, 2)}`);

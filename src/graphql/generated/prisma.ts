@@ -11,18 +11,18 @@ export interface Query {
     users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     speakers: <T = Speaker[]>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     transcriptionItems: <T = TranscriptionItem[]>(args: { where?: TranscriptionItemWhereInput, orderBy?: TranscriptionItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    videoStorageLinks: <T = VideoStorageLink[]>(args: { where?: VideoStorageLinkWhereInput, orderBy?: VideoStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoMetadatas: <T = VideoMetadata[]>(args: { where?: VideoMetadataWhereInput, orderBy?: VideoMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     tags: <T = Tag[]>(args: { where?: TagWhereInput, orderBy?: TagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     thumbnails: <T = Thumbnail[]>(args: { where?: ThumbnailWhereInput, orderBy?: ThumbnailOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videos: <T = Video[]>(args: { where?: VideoWhereInput, orderBy?: VideoOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoStorageLinks: <T = VideoStorageLink[]>(args: { where?: VideoStorageLinkWhereInput, orderBy?: VideoStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUpload: <T = VideoUpload | null>(args: { where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     speaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    videoStorageLink: <T = VideoStorageLink | null>(args: { where: VideoStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     tag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     thumbnail: <T = Thumbnail | null>(args: { where: ThumbnailWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     video: <T = Video | null>(args: { where: VideoWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoStorageLink: <T = VideoStorageLink | null>(args: { where: VideoStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadsConnection: <T = VideoUploadConnection>(args: { where?: VideoUploadWhereInput, orderBy?: VideoUploadOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     sourcesConnection: <T = SourceConnection>(args: { where?: SourceWhereInput, orderBy?: SourceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     publicationsConnection: <T = PublicationConnection>(args: { where?: PublicationWhereInput, orderBy?: PublicationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -30,11 +30,11 @@ export interface Query {
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     speakersConnection: <T = SpeakerConnection>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     transcriptionItemsConnection: <T = TranscriptionItemConnection>(args: { where?: TranscriptionItemWhereInput, orderBy?: TranscriptionItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    videoStorageLinksConnection: <T = VideoStorageLinkConnection>(args: { where?: VideoStorageLinkWhereInput, orderBy?: VideoStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoMetadatasConnection: <T = VideoMetadataConnection>(args: { where?: VideoMetadataWhereInput, orderBy?: VideoMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     tagsConnection: <T = TagConnection>(args: { where?: TagWhereInput, orderBy?: TagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     thumbnailsConnection: <T = ThumbnailConnection>(args: { where?: ThumbnailWhereInput, orderBy?: ThumbnailOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videosConnection: <T = VideoConnection>(args: { where?: VideoWhereInput, orderBy?: VideoOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoStorageLinksConnection: <T = VideoStorageLinkConnection>(args: { where?: VideoStorageLinkWhereInput, orderBy?: VideoStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
@@ -46,32 +46,32 @@ export interface Mutation {
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createSpeaker: <T = Speaker>(args: { data: SpeakerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createTranscriptionItem: <T = TranscriptionItem>(args: { data: TranscriptionItemCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createVideoStorageLink: <T = VideoStorageLink>(args: { data: VideoStorageLinkCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideoMetadata: <T = VideoMetadata>(args: { data: VideoMetadataCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createTag: <T = Tag>(args: { data: TagCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createThumbnail: <T = Thumbnail>(args: { data: ThumbnailCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideo: <T = Video>(args: { data: VideoCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createVideoStorageLink: <T = VideoStorageLink>(args: { data: VideoStorageLinkCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUpload: <T = VideoUpload | null>(args: { data: VideoUploadUpdateInput, where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateSpeaker: <T = Speaker | null>(args: { data: SpeakerUpdateInput, where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateVideoStorageLink: <T = VideoStorageLink | null>(args: { data: VideoStorageLinkUpdateInput, where: VideoStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateTag: <T = Tag | null>(args: { data: TagUpdateInput, where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateThumbnail: <T = Thumbnail | null>(args: { data: ThumbnailUpdateInput, where: ThumbnailWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideo: <T = Video | null>(args: { data: VideoUpdateInput, where: VideoWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateVideoStorageLink: <T = VideoStorageLink | null>(args: { data: VideoStorageLinkUpdateInput, where: VideoStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUpload: <T = VideoUpload | null>(args: { where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteSpeaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteVideoStorageLink: <T = VideoStorageLink | null>(args: { where: VideoStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteTag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteThumbnail: <T = Thumbnail | null>(args: { where: ThumbnailWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideo: <T = Video | null>(args: { where: VideoWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteVideoStorageLink: <T = VideoStorageLink | null>(args: { where: VideoStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUpload: <T = VideoUpload>(args: { where: VideoUploadWhereUniqueInput, create: VideoUploadCreateInput, update: VideoUploadUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertSpeaker: <T = Speaker>(args: { where: SpeakerWhereUniqueInput, create: SpeakerCreateInput, update: SpeakerUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertVideoStorageLink: <T = VideoStorageLink>(args: { where: VideoStorageLinkWhereUniqueInput, create: VideoStorageLinkCreateInput, update: VideoStorageLinkUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertTag: <T = Tag>(args: { where: TagWhereUniqueInput, create: TagCreateInput, update: TagUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertThumbnail: <T = Thumbnail>(args: { where: ThumbnailWhereUniqueInput, create: ThumbnailCreateInput, update: ThumbnailUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideo: <T = Video>(args: { where: VideoWhereUniqueInput, create: VideoCreateInput, update: VideoUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertVideoStorageLink: <T = VideoStorageLink>(args: { where: VideoStorageLinkWhereUniqueInput, create: VideoStorageLinkCreateInput, update: VideoStorageLinkUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploads: <T = BatchPayload>(args: { data: VideoUploadUpdateInput, where?: VideoUploadWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManySources: <T = BatchPayload>(args: { data: SourceUpdateInput, where?: SourceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyPublications: <T = BatchPayload>(args: { data: PublicationUpdateInput, where?: PublicationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -79,11 +79,11 @@ export interface Mutation {
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManySpeakers: <T = BatchPayload>(args: { data: SpeakerUpdateInput, where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyTranscriptionItems: <T = BatchPayload>(args: { data: TranscriptionItemUpdateInput, where?: TranscriptionItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyVideoStorageLinks: <T = BatchPayload>(args: { data: VideoStorageLinkUpdateInput, where?: VideoStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoMetadatas: <T = BatchPayload>(args: { data: VideoMetadataUpdateInput, where?: VideoMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyTags: <T = BatchPayload>(args: { data: TagUpdateInput, where?: TagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyThumbnails: <T = BatchPayload>(args: { data: ThumbnailUpdateInput, where?: ThumbnailWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideos: <T = BatchPayload>(args: { data: VideoUpdateInput, where?: VideoWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyVideoStorageLinks: <T = BatchPayload>(args: { data: VideoStorageLinkUpdateInput, where?: VideoStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploads: <T = BatchPayload>(args: { where?: VideoUploadWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManySources: <T = BatchPayload>(args: { where?: SourceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyPublications: <T = BatchPayload>(args: { where?: PublicationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -91,11 +91,11 @@ export interface Mutation {
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManySpeakers: <T = BatchPayload>(args: { where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyTranscriptionItems: <T = BatchPayload>(args: { where?: TranscriptionItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyVideoStorageLinks: <T = BatchPayload>(args: { where?: VideoStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoMetadatas: <T = BatchPayload>(args: { where?: VideoMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyTags: <T = BatchPayload>(args: { where?: TagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyThumbnails: <T = BatchPayload>(args: { where?: ThumbnailWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyVideos: <T = BatchPayload>(args: { where?: VideoWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    deleteManyVideos: <T = BatchPayload>(args: { where?: VideoWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyVideoStorageLinks: <T = BatchPayload>(args: { where?: VideoStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {
@@ -106,11 +106,11 @@ export interface Subscription {
     user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     speaker: <T = SpeakerSubscriptionPayload | null>(args: { where?: SpeakerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     transcriptionItem: <T = TranscriptionItemSubscriptionPayload | null>(args: { where?: TranscriptionItemSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    videoStorageLink: <T = VideoStorageLinkSubscriptionPayload | null>(args: { where?: VideoStorageLinkSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     videoMetadata: <T = VideoMetadataSubscriptionPayload | null>(args: { where?: VideoMetadataSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     tag: <T = TagSubscriptionPayload | null>(args: { where?: TagSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     thumbnail: <T = ThumbnailSubscriptionPayload | null>(args: { where?: ThumbnailSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    video: <T = VideoSubscriptionPayload | null>(args: { where?: VideoSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
+    video: <T = VideoSubscriptionPayload | null>(args: { where?: VideoSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    videoStorageLink: <T = VideoStorageLinkSubscriptionPayload | null>(args: { where?: VideoStorageLinkSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
 
 export interface Exists {
@@ -121,11 +121,11 @@ export interface Exists {
   User: (where?: UserWhereInput) => Promise<boolean>
   Speaker: (where?: SpeakerWhereInput) => Promise<boolean>
   TranscriptionItem: (where?: TranscriptionItemWhereInput) => Promise<boolean>
-  VideoStorageLink: (where?: VideoStorageLinkWhereInput) => Promise<boolean>
   VideoMetadata: (where?: VideoMetadataWhereInput) => Promise<boolean>
   Tag: (where?: TagWhereInput) => Promise<boolean>
   Thumbnail: (where?: ThumbnailWhereInput) => Promise<boolean>
   Video: (where?: VideoWhereInput) => Promise<boolean>
+  VideoStorageLink: (where?: VideoStorageLinkWhereInput) => Promise<boolean>
 }
 
 export interface Prisma {
@@ -428,32 +428,32 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createSpeaker(data: SpeakerCreateInput!): Speaker!
   createTranscriptionItem(data: TranscriptionItemCreateInput!): TranscriptionItem!
-  createVideoStorageLink(data: VideoStorageLinkCreateInput!): VideoStorageLink!
   createVideoMetadata(data: VideoMetadataCreateInput!): VideoMetadata!
   createTag(data: TagCreateInput!): Tag!
   createThumbnail(data: ThumbnailCreateInput!): Thumbnail!
   createVideo(data: VideoCreateInput!): Video!
+  createVideoStorageLink(data: VideoStorageLinkCreateInput!): VideoStorageLink!
   updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
-  updateVideoStorageLink(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   updateThumbnail(data: ThumbnailUpdateInput!, where: ThumbnailWhereUniqueInput!): Thumbnail
   updateVideo(data: VideoUpdateInput!, where: VideoWhereUniqueInput!): Video
+  updateVideoStorageLink(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteUser(where: UserWhereUniqueInput!): User
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
-  deleteVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteThumbnail(where: ThumbnailWhereUniqueInput!): Thumbnail
   deleteVideo(where: VideoWhereUniqueInput!): Video
+  deleteVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
-  upsertVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!, create: VideoStorageLinkCreateInput!, update: VideoStorageLinkUpdateInput!): VideoStorageLink!
   upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
   upsertThumbnail(where: ThumbnailWhereUniqueInput!, create: ThumbnailCreateInput!, update: ThumbnailUpdateInput!): Thumbnail!
   upsertVideo(where: VideoWhereUniqueInput!, create: VideoCreateInput!, update: VideoUpdateInput!): Video!
+  upsertVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!, create: VideoStorageLinkCreateInput!, update: VideoStorageLinkUpdateInput!): VideoStorageLink!
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
   updateManySources(data: SourceUpdateInput!, where: SourceWhereInput): BatchPayload!
   updateManyPublications(data: PublicationUpdateInput!, where: PublicationWhereInput): BatchPayload!
@@ -461,11 +461,11 @@ type Mutation {
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
   updateManyTranscriptionItems(data: TranscriptionItemUpdateInput!, where: TranscriptionItemWhereInput): BatchPayload!
-  updateManyVideoStorageLinks(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereInput): BatchPayload!
   updateManyVideoMetadatas(data: VideoMetadataUpdateInput!, where: VideoMetadataWhereInput): BatchPayload!
   updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
   updateManyThumbnails(data: ThumbnailUpdateInput!, where: ThumbnailWhereInput): BatchPayload!
   updateManyVideos(data: VideoUpdateInput!, where: VideoWhereInput): BatchPayload!
+  updateManyVideoStorageLinks(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereInput): BatchPayload!
   deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
   deleteManySources(where: SourceWhereInput): BatchPayload!
   deleteManyPublications(where: PublicationWhereInput): BatchPayload!
@@ -473,11 +473,11 @@ type Mutation {
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
   deleteManyTranscriptionItems(where: TranscriptionItemWhereInput): BatchPayload!
-  deleteManyVideoStorageLinks(where: VideoStorageLinkWhereInput): BatchPayload!
   deleteManyVideoMetadatas(where: VideoMetadataWhereInput): BatchPayload!
   deleteManyTags(where: TagWhereInput): BatchPayload!
   deleteManyThumbnails(where: ThumbnailWhereInput): BatchPayload!
   deleteManyVideos(where: VideoWhereInput): BatchPayload!
+  deleteManyVideoStorageLinks(where: VideoStorageLinkWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -721,18 +721,18 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
   transcriptionItems(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TranscriptionItem]!
-  videoStorageLinks(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoStorageLink]!
   videoMetadatas(where: VideoMetadataWhereInput, orderBy: VideoMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoMetadata]!
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
   thumbnails(where: ThumbnailWhereInput, orderBy: ThumbnailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Thumbnail]!
   videos(where: VideoWhereInput, orderBy: VideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Video]!
+  videoStorageLinks(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoStorageLink]!
   videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   user(where: UserWhereUniqueInput!): User
   speaker(where: SpeakerWhereUniqueInput!): Speaker
-  videoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   tag(where: TagWhereUniqueInput!): Tag
   thumbnail(where: ThumbnailWhereUniqueInput!): Thumbnail
   video(where: VideoWhereUniqueInput!): Video
+  videoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
   sourcesConnection(where: SourceWhereInput, orderBy: SourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SourceConnection!
   publicationsConnection(where: PublicationWhereInput, orderBy: PublicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PublicationConnection!
@@ -740,11 +740,11 @@ type Query {
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
   transcriptionItemsConnection(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TranscriptionItemConnection!
-  videoStorageLinksConnection(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoStorageLinkConnection!
   videoMetadatasConnection(where: VideoMetadataWhereInput, orderBy: VideoMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoMetadataConnection!
   tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
   thumbnailsConnection(where: ThumbnailWhereInput, orderBy: ThumbnailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ThumbnailConnection!
   videosConnection(where: VideoWhereInput, orderBy: VideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConnection!
+  videoStorageLinksConnection(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoStorageLinkConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1256,11 +1256,11 @@ type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
   transcriptionItem(where: TranscriptionItemSubscriptionWhereInput): TranscriptionItemSubscriptionPayload
-  videoStorageLink(where: VideoStorageLinkSubscriptionWhereInput): VideoStorageLinkSubscriptionPayload
   videoMetadata(where: VideoMetadataSubscriptionWhereInput): VideoMetadataSubscriptionPayload
   tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
   thumbnail(where: ThumbnailSubscriptionWhereInput): ThumbnailSubscriptionPayload
   video(where: VideoSubscriptionWhereInput): VideoSubscriptionPayload
+  videoStorageLink(where: VideoStorageLinkSubscriptionWhereInput): VideoStorageLinkSubscriptionPayload
 }
 
 type Tag implements Node {
@@ -3125,6 +3125,9 @@ input VideoStorageLinkWhereInput {
   _MagicalBackRelation_VideoMp4LinkRelation_every: VideoUploadWhereInput
   _MagicalBackRelation_VideoMp4LinkRelation_some: VideoUploadWhereInput
   _MagicalBackRelation_VideoMp4LinkRelation_none: VideoUploadWhereInput
+  _MagicalBackRelation_VideoFlacLinkRelation_every: VideoUploadWhereInput
+  _MagicalBackRelation_VideoFlacLinkRelation_some: VideoUploadWhereInput
+  _MagicalBackRelation_VideoFlacLinkRelation_none: VideoUploadWhereInput
 }
 
 input VideoStorageLinkWhereUniqueInput {
@@ -3220,6 +3223,7 @@ type VideoUpload implements Node {
   rawStorageLink(where: VideoStorageLinkWhereInput): VideoStorageLink
   webmLink(where: VideoStorageLinkWhereInput): VideoStorageLink
   mp4Link(where: VideoStorageLinkWhereInput): VideoStorageLink
+  flacLink(where: VideoStorageLinkWhereInput): VideoStorageLink
   metadata(where: VideoMetadataWhereInput): VideoMetadata
   thumbnail(where: ThumbnailWhereInput): Thumbnail
 }
@@ -3250,6 +3254,7 @@ input VideoUploadCreateInput {
   rawStorageLink: VideoStorageLinkCreateOneInput
   webmLink: VideoStorageLinkCreateOneInput
   mp4Link: VideoStorageLinkCreateOneInput
+  flacLink: VideoStorageLinkCreateOneInput
   metadata: VideoMetadataCreateOneInput
   thumbnail: ThumbnailCreateOneInput
 }
@@ -3366,6 +3371,7 @@ input VideoUploadUpdateInput {
   rawStorageLink: VideoStorageLinkUpdateOneInput
   webmLink: VideoStorageLinkUpdateOneInput
   mp4Link: VideoStorageLinkUpdateOneInput
+  flacLink: VideoStorageLinkUpdateOneInput
   metadata: VideoMetadataUpdateOneInput
   thumbnail: ThumbnailUpdateOneInput
 }
@@ -3533,6 +3539,7 @@ input VideoUploadWhereInput {
   rawStorageLink: VideoStorageLinkWhereInput
   webmLink: VideoStorageLinkWhereInput
   mp4Link: VideoStorageLinkWhereInput
+  flacLink: VideoStorageLinkWhereInput
   metadata: VideoMetadataWhereInput
   thumbnail: ThumbnailWhereInput
 }
@@ -3557,6 +3564,7 @@ enum VideoVersion {
   RAW
   WEBM
   MP4
+  FLAC
 }
 
 input VideoWhereInput {
@@ -3683,7 +3691,8 @@ export type UserOrderByInput =   'id_ASC' |
 
 export type VideoVersion =   'RAW' |
   'WEBM' |
-  'MP4'
+  'MP4' |
+  'FLAC'
 
 export type DateOrderByInput =   'month_ASC' |
   'month_DESC' |
@@ -3698,7 +3707,7 @@ export type DateOrderByInput =   'month_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type ThumbnailOrderByInput =   'id_ASC' |
+export type VideoStorageLinkOrderByInput =   'id_ASC' |
   'id_DESC' |
   'videoID_ASC' |
   'videoID_DESC' |
@@ -3706,6 +3715,8 @@ export type ThumbnailOrderByInput =   'id_ASC' |
   'path_DESC' |
   'bucket_ASC' |
   'bucket_DESC' |
+  'version_ASC' |
+  'version_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -3741,16 +3752,16 @@ export type SourceOrderByInput =   'url_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type VideoStorageLinkOrderByInput =   'id_ASC' |
+export type VideoMetadataOrderByInput =   'title_ASC' |
+  'title_DESC' |
+  'subtitle_ASC' |
+  'subtitle_DESC' |
+  'advertisingEnabled_ASC' |
+  'advertisingEnabled_DESC' |
+  'views_ASC' |
+  'views_DESC' |
+  'id_ASC' |
   'id_DESC' |
-  'videoID_ASC' |
-  'videoID_DESC' |
-  'path_ASC' |
-  'path_DESC' |
-  'bucket_ASC' |
-  'bucket_DESC' |
-  'version_ASC' |
-  'version_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -3833,16 +3844,14 @@ export type MutationType =   'CREATED' |
 export type Role =   'USER' |
   'ADMIN'
 
-export type VideoMetadataOrderByInput =   'title_ASC' |
-  'title_DESC' |
-  'subtitle_ASC' |
-  'subtitle_DESC' |
-  'advertisingEnabled_ASC' |
-  'advertisingEnabled_DESC' |
-  'views_ASC' |
-  'views_DESC' |
-  'id_ASC' |
+export type ThumbnailOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'videoID_ASC' |
+  'videoID_DESC' |
+  'path_ASC' |
+  'path_DESC' |
+  'bucket_ASC' |
+  'bucket_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -3933,6 +3942,7 @@ export interface VideoUploadWhereInput {
   rawStorageLink?: VideoStorageLinkWhereInput
   webmLink?: VideoStorageLinkWhereInput
   mp4Link?: VideoStorageLinkWhereInput
+  flacLink?: VideoStorageLinkWhereInput
   metadata?: VideoMetadataWhereInput
   thumbnail?: ThumbnailWhereInput
 }
@@ -4014,6 +4024,9 @@ export interface VideoStorageLinkWhereInput {
   _MagicalBackRelation_VideoMp4LinkRelation_every?: VideoUploadWhereInput
   _MagicalBackRelation_VideoMp4LinkRelation_some?: VideoUploadWhereInput
   _MagicalBackRelation_VideoMp4LinkRelation_none?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoFlacLinkRelation_every?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoFlacLinkRelation_some?: VideoUploadWhereInput
+  _MagicalBackRelation_VideoFlacLinkRelation_none?: VideoUploadWhereInput
 }
 
 export interface PublicationCreateInput {
@@ -4081,19 +4094,36 @@ export interface DateUpdateOneInput {
   upsert?: DateUpsertNestedInput
 }
 
-export interface VideoSubscriptionWhereInput {
-  AND?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
-  OR?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
-  NOT?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
+export interface VideoStorageLinkSubscriptionWhereInput {
+  AND?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
+  OR?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
+  NOT?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: VideoWhereInput
+  node?: VideoStorageLinkWhereInput
 }
 
 export interface SourceUpdateManyInput {
   create?: SourceCreateInput[] | SourceCreateInput
+}
+
+export interface ThumbnailSubscriptionWhereInput {
+  AND?: ThumbnailSubscriptionWhereInput[] | ThumbnailSubscriptionWhereInput
+  OR?: ThumbnailSubscriptionWhereInput[] | ThumbnailSubscriptionWhereInput
+  NOT?: ThumbnailSubscriptionWhereInput[] | ThumbnailSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: ThumbnailWhereInput
+}
+
+export interface TagUpsertWithWhereUniqueNestedInput {
+  where: TagWhereUniqueInput
+  update: TagUpdateDataInput
+  create: TagCreateInput
 }
 
 export interface TagSubscriptionWhereInput {
@@ -4105,23 +4135,6 @@ export interface TagSubscriptionWhereInput {
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
   node?: TagWhereInput
-}
-
-export interface TagUpsertWithWhereUniqueNestedInput {
-  where: TagWhereUniqueInput
-  update: TagUpdateDataInput
-  create: TagCreateInput
-}
-
-export interface VideoMetadataSubscriptionWhereInput {
-  AND?: VideoMetadataSubscriptionWhereInput[] | VideoMetadataSubscriptionWhereInput
-  OR?: VideoMetadataSubscriptionWhereInput[] | VideoMetadataSubscriptionWhereInput
-  NOT?: VideoMetadataSubscriptionWhereInput[] | VideoMetadataSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoMetadataWhereInput
 }
 
 export interface VideoUpsertWithWhereUniqueNestedInput {
@@ -4436,7 +4449,7 @@ export interface VideoStorageLinkUpsertNestedInput {
   create: VideoStorageLinkCreateInput
 }
 
-export interface VideoStorageLinkWhereUniqueInput {
+export interface TagWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -4447,7 +4460,7 @@ export interface VideoStorageLinkUpdateDataInput {
   version?: VideoVersion
 }
 
-export interface ThumbnailWhereUniqueInput {
+export interface VideoWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -4490,6 +4503,7 @@ export interface VideoUploadCreateInput {
   rawStorageLink?: VideoStorageLinkCreateOneInput
   webmLink?: VideoStorageLinkCreateOneInput
   mp4Link?: VideoStorageLinkCreateOneInput
+  flacLink?: VideoStorageLinkCreateOneInput
   metadata?: VideoMetadataCreateOneInput
   thumbnail?: ThumbnailCreateOneInput
 }
@@ -4532,21 +4546,19 @@ export interface UserCreateInput {
   adminRoles?: UserCreateadminRolesInput
 }
 
-export interface ThumbnailUpdateInput {
-  videoID?: ID_Input
-  path?: String
-  bucket?: String
+export interface VideoUpdateInput {
+  published?: Boolean
+  advertisingEnabled?: Boolean
+  views?: Int
 }
 
 export interface UserCreateadminRolesInput {
   set?: AdminRole[] | AdminRole
 }
 
-export interface VideoStorageLinkUpdateInput {
-  videoID?: ID_Input
-  path?: String
-  bucket?: String
-  version?: VideoVersion
+export interface TagUpdateInput {
+  name?: String
+  videos?: VideoUpdateManyInput
 }
 
 export interface VideoCreateOneInput {
@@ -4594,30 +4606,30 @@ export interface VideoStorageLinkCreateInput {
   version: VideoVersion
 }
 
-export interface ThumbnailSubscriptionWhereInput {
-  AND?: ThumbnailSubscriptionWhereInput[] | ThumbnailSubscriptionWhereInput
-  OR?: ThumbnailSubscriptionWhereInput[] | ThumbnailSubscriptionWhereInput
-  NOT?: ThumbnailSubscriptionWhereInput[] | ThumbnailSubscriptionWhereInput
+export interface VideoSubscriptionWhereInput {
+  AND?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
+  OR?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
+  NOT?: VideoSubscriptionWhereInput[] | VideoSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: ThumbnailWhereInput
+  node?: VideoWhereInput
 }
 
 export interface VideoMetadataCreateOneInput {
   create?: VideoMetadataCreateInput
 }
 
-export interface VideoStorageLinkSubscriptionWhereInput {
-  AND?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
-  OR?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
-  NOT?: VideoStorageLinkSubscriptionWhereInput[] | VideoStorageLinkSubscriptionWhereInput
+export interface VideoMetadataSubscriptionWhereInput {
+  AND?: VideoMetadataSubscriptionWhereInput[] | VideoMetadataSubscriptionWhereInput
+  OR?: VideoMetadataSubscriptionWhereInput[] | VideoMetadataSubscriptionWhereInput
+  NOT?: VideoMetadataSubscriptionWhereInput[] | VideoMetadataSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: VideoStorageLinkWhereInput
+  node?: VideoMetadataWhereInput
 }
 
 export interface VideoUpdateDataInput {
@@ -4762,7 +4774,7 @@ export interface SpeakerCreateInput {
   title: String
 }
 
-export interface TagWhereUniqueInput {
+export interface ThumbnailWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -4794,10 +4806,11 @@ export interface VideoCreateManyInput {
   connect?: VideoWhereUniqueInput[] | VideoWhereUniqueInput
 }
 
-export interface VideoUpdateInput {
-  published?: Boolean
-  advertisingEnabled?: Boolean
-  views?: Int
+export interface VideoStorageLinkUpdateInput {
+  videoID?: ID_Input
+  path?: String
+  bucket?: String
+  version?: VideoVersion
 }
 
 export interface SourceCreateManyInput {
@@ -4985,7 +4998,7 @@ export interface DateCreateInput {
   year: Int
 }
 
-export interface VideoWhereUniqueInput {
+export interface VideoStorageLinkWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -5058,6 +5071,7 @@ export interface VideoUploadUpdateInput {
   rawStorageLink?: VideoStorageLinkUpdateOneInput
   webmLink?: VideoStorageLinkUpdateOneInput
   mp4Link?: VideoStorageLinkUpdateOneInput
+  flacLink?: VideoStorageLinkUpdateOneInput
   metadata?: VideoMetadataUpdateOneInput
   thumbnail?: ThumbnailUpdateOneInput
 }
@@ -5151,9 +5165,10 @@ export interface TagWhereInput {
   _MagicalBackRelation_TagToVideoMetadata_none?: VideoMetadataWhereInput
 }
 
-export interface TagUpdateInput {
-  name?: String
-  videos?: VideoUpdateManyInput
+export interface ThumbnailUpdateInput {
+  videoID?: ID_Input
+  path?: String
+  bucket?: String
 }
 
 export interface DateUpdateInput {
@@ -5185,11 +5200,12 @@ export interface PageInfo {
   endCursor?: String
 }
 
-export interface VideoPreviousValues {
+export interface VideoStorageLinkPreviousValues {
   id: ID_Output
-  published?: Boolean
-  advertisingEnabled?: Boolean
-  views?: Int
+  videoID: ID_Output
+  path: String
+  bucket: String
+  version: VideoVersion
 }
 
 /*
@@ -5229,17 +5245,39 @@ export interface VideoUpload extends Node {
   rawStorageLink?: VideoStorageLink
   webmLink?: VideoStorageLink
   mp4Link?: VideoStorageLink
+  flacLink?: VideoStorageLink
   metadata?: VideoMetadata
   thumbnail?: Thumbnail
 }
 
-export interface TagPreviousValues {
+export interface ThumbnailPreviousValues {
   id: ID_Output
-  name: String
+  videoID: ID_Output
+  path: String
+  bucket: String
 }
 
-export interface AggregateVideo {
+export interface AggregateVideoStorageLink {
   count: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface VideoStorageLinkEdge {
+  node: VideoStorageLink
+  cursor: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface VideoStorageLinkConnection {
+  pageInfo: PageInfo
+  edges: VideoStorageLinkEdge[]
+  aggregate: AggregateVideoStorageLink
 }
 
 /*
@@ -5251,25 +5289,6 @@ export interface VideoEdge {
   cursor: String
 }
 
-/*
- * A connection to a list of items.
-
- */
-export interface VideoConnection {
-  pageInfo: PageInfo
-  edges: VideoEdge[]
-  aggregate: AggregateVideo
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface ThumbnailEdge {
-  node: Thumbnail
-  cursor: String
-}
-
 export interface Video extends Node {
   id: ID_Output
   published?: Boolean
@@ -5277,40 +5296,40 @@ export interface Video extends Node {
   views?: Int
 }
 
-export interface AggregateTag {
+export interface AggregateThumbnail {
   count: Int
 }
 
-export interface ThumbnailPreviousValues {
+export interface VideoPreviousValues {
   id: ID_Output
-  videoID: ID_Output
-  path: String
-  bucket: String
+  published?: Boolean
+  advertisingEnabled?: Boolean
+  views?: Int
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface TagConnection {
+export interface ThumbnailConnection {
   pageInfo: PageInfo
-  edges: TagEdge[]
-  aggregate: AggregateTag
+  edges: ThumbnailEdge[]
+  aggregate: AggregateThumbnail
 }
 
-export interface ThumbnailSubscriptionPayload {
+export interface VideoSubscriptionPayload {
   mutation: MutationType
-  node?: Thumbnail
+  node?: Video
   updatedFields?: String[]
-  previousValues?: ThumbnailPreviousValues
+  previousValues?: VideoPreviousValues
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface VideoMetadataEdge {
-  node: VideoMetadata
+export interface TagEdge {
+  node: Tag
   cursor: String
 }
 
@@ -5321,7 +5340,7 @@ export interface VideoUploadSubscriptionPayload {
   previousValues?: VideoUploadPreviousValues
 }
 
-export interface AggregateVideoStorageLink {
+export interface AggregateVideoMetadata {
   count: Int
 }
 
@@ -5340,10 +5359,10 @@ export interface VideoUploadPreviousValues {
  * A connection to a list of items.
 
  */
-export interface VideoStorageLinkConnection {
+export interface VideoMetadataConnection {
   pageInfo: PageInfo
-  edges: VideoStorageLinkEdge[]
-  aggregate: AggregateVideoStorageLink
+  edges: VideoMetadataEdge[]
+  aggregate: AggregateVideoMetadata
 }
 
 export interface Thumbnail extends Node {
@@ -5515,10 +5534,10 @@ export interface UserPreviousValues {
  * A connection to a list of items.
 
  */
-export interface ThumbnailConnection {
+export interface VideoConnection {
   pageInfo: PageInfo
-  edges: ThumbnailEdge[]
-  aggregate: AggregateThumbnail
+  edges: VideoEdge[]
+  aggregate: AggregateVideo
 }
 
 export interface Tag extends Node {
@@ -5527,7 +5546,7 @@ export interface Tag extends Node {
   videos?: Video[]
 }
 
-export interface AggregateVideoMetadata {
+export interface AggregateTag {
   count: Int
 }
 
@@ -5542,8 +5561,8 @@ export interface SpeakerSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface VideoStorageLinkEdge {
-  node: VideoStorageLink
+export interface VideoMetadataEdge {
+  node: VideoMetadata
   cursor: String
 }
 
@@ -5597,11 +5616,11 @@ export interface TranscriptionItemPreviousValues {
   sentiment?: Float
 }
 
-export interface VideoSubscriptionPayload {
+export interface VideoStorageLinkSubscriptionPayload {
   mutation: MutationType
-  node?: Video
+  node?: VideoStorageLink
   updatedFields?: String[]
-  previousValues?: VideoPreviousValues
+  previousValues?: VideoStorageLinkPreviousValues
 }
 
 export interface Speaker {
@@ -5619,33 +5638,32 @@ export interface SourceEdge {
   cursor: String
 }
 
-export interface VideoStorageLinkSubscriptionPayload {
+export interface VideoMetadataSubscriptionPayload {
   mutation: MutationType
-  node?: VideoStorageLink
+  node?: VideoMetadata
   updatedFields?: String[]
-  previousValues?: VideoStorageLinkPreviousValues
+  previousValues?: VideoMetadataPreviousValues
 }
 
-export interface AggregateThumbnail {
+export interface AggregateVideo {
   count: Int
 }
 
-export interface VideoStorageLinkPreviousValues {
-  id: ID_Output
-  videoID: ID_Output
-  path: String
-  bucket: String
-  version: VideoVersion
+export interface VideoMetadataPreviousValues {
+  title?: String
+  subtitle?: String
+  advertisingEnabled: Boolean
+  views: Int
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface VideoMetadataConnection {
+export interface TagConnection {
   pageInfo: PageInfo
-  edges: VideoMetadataEdge[]
-  aggregate: AggregateVideoMetadata
+  edges: TagEdge[]
+  aggregate: AggregateTag
 }
 
 export interface TranscriptionItem {
@@ -5668,11 +5686,11 @@ export interface AggregatePublication {
   count: Int
 }
 
-export interface TagSubscriptionPayload {
+export interface ThumbnailSubscriptionPayload {
   mutation: MutationType
-  node?: Tag
+  node?: Thumbnail
   updatedFields?: String[]
-  previousValues?: TagPreviousValues
+  previousValues?: ThumbnailPreviousValues
 }
 
 export interface VideoMetadata {
@@ -5686,18 +5704,16 @@ export interface VideoMetadata {
   views: Int
 }
 
-export interface VideoMetadataPreviousValues {
-  title?: String
-  subtitle?: String
-  advertisingEnabled: Boolean
-  views: Int
+export interface TagPreviousValues {
+  id: ID_Output
+  name: String
 }
 
-export interface VideoMetadataSubscriptionPayload {
+export interface TagSubscriptionPayload {
   mutation: MutationType
-  node?: VideoMetadata
+  node?: Tag
   updatedFields?: String[]
-  previousValues?: VideoMetadataPreviousValues
+  previousValues?: TagPreviousValues
 }
 
 /*
@@ -5728,8 +5744,8 @@ export interface AggregateTranscriptionItem {
  * An edge in a connection.
 
  */
-export interface TagEdge {
-  node: Tag
+export interface ThumbnailEdge {
+  node: Thumbnail
   cursor: String
 }
 

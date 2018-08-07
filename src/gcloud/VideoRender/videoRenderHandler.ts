@@ -2,11 +2,11 @@ import { File } from '@google-cloud/storage';
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 import PubSub from '@google-cloud/pubsub';
 import fluentFfmpeg from 'fluent-ffmpeg';
+import fs from 'fs';
 import { VideoUpload } from '../../graphql/generated/prisma';
-import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
 import secrets from '../../util/secrets';
-import { delimiter, storage } from '../storageController';
+import { delimiter, downloadSourceFile, storage } from '../storageController';
 import { RENDER_RESPONSE_TOPIC } from './VideoRenderPubSubController';
 
 const pubSub = PubSub({
@@ -20,20 +20,24 @@ export const renderVideo = async (event: any) => {
       Buffer.from(event.data, 'base64').toString(),
     ) as VideoUpload;
 
-    const videoExistsInThisContext = await prisma.exists.VideoUpload({ id: renderPayload.id });
-    if (!videoExistsInThisContext) {
-      event.nack();
-      resolve();
-    } else {
-      event.ack();
-    }
+    /* We don't rely on any local Prisma info, so processing can happen in any worker environment.
+       Uncomment to ensure render job exists in current Prisma environment.
+
+      const videoExistsInThisContext = await prisma.exists.VideoUpload({ id: renderPayload.id });
+      if (!videoExistsInThisContext) {
+        event.nack();
+        return resolve();
+      }
+    */
+
+    event.ack();
 
     // tslint:disable-next-line:no-magic-numbers
-    logger.info(`Payload: ${JSON.stringify(renderPayload, null, 2)}`);
+    logger.debug(`Render Payload: ${JSON.stringify(renderPayload, null, 2)}`);
 
     const storageLink = renderPayload.rawStorageLink;
 
-    logger.info(
+    logger.debug(
       `Reading from Storage ${storageLink.bucket +
       delimiter +
       storageLink.path}`,
@@ -45,11 +49,18 @@ export const renderVideo = async (event: any) => {
     const mp4File = bucket.file(
       sourceFile.name.replace(/\.[^/.]+$/, '') + '-web.mp4',
     );
+
     const webmFile = bucket.file(
       sourceFile.name.replace(/\.[^/.]+$/, '') + '-web.webm',
     );
 
+    const flacFile = bucket.file(
+      sourceFile.name.replace(/\.[^/.]+$/, '') + '.flac',
+    );
+
     try {
+      const sourceFilePath = await downloadSourceFile(sourceFile);
+      await flacConversion(flacFile, sourceFilePath);
       await mp4Conversion(mp4File, sourceFile);
       await webmConversion(webmFile, sourceFile);
       const _ = publishResponse({
@@ -66,6 +77,12 @@ export const renderVideo = async (event: any) => {
             path: mp4File.name,
             bucket: bucket.name,
             version: 'MP4',
+            videoID: renderPayload.id,
+          },
+          {
+            path: flacFile.name,
+            bucket: bucket.name,
+            version: 'FLAC',
             videoID: renderPayload.id,
           },
         ],
@@ -111,7 +128,7 @@ const mp4Conversion = (mp4File: File, sourceFile: File) => {
       .outputOptions('-movflags faststart+frag_keyframe')
       .outputOptions('-preset slow')
       .on('start', (cmdLine) => {
-        logger.debug('Started ffmpeg with command:' + cmdLine);
+        logger.debug('Started ffmpeg with command: ' + cmdLine);
       })
       .on('end', () => {
         logger.debug('Successfully re-encoded video as mp4.');
@@ -119,7 +136,7 @@ const mp4Conversion = (mp4File: File, sourceFile: File) => {
         resolve();
       })
       .on('error', (err, stdout, stderr) => {
-        logger.error('An error occured during encoding', err.message);
+        logger.error('An error occured during encoding: ', err.message);
         readStream.destroy();
         reject(err);
       })
@@ -146,7 +163,7 @@ const webmConversion = (webmFile: File, sourceFile: File) => {
       .outputOptions('-qmin 0')
       .outputOptions('-qmax 25')
       .on('start', (cmdLine) => {
-        logger.info('Started ffmpeg with command:' + cmdLine);
+        logger.info('Started ffmpeg with command: ' + cmdLine);
       })
       .on('end', () => {
         logger.info('Successfully re-encoded video to webm.');
@@ -160,6 +177,47 @@ const webmConversion = (webmFile: File, sourceFile: File) => {
       })
       .writeToStream(writeStream, { end: true });
   });
+};
+
+/**
+ * @param  {File} flacFile - The Google Cloud Flac File
+ * @param  {string} sourceFile - The path to the locally downloaded source video
+ */
+const flacConversion = (flacFile: File, sourceFile: string) => {
+  const flacOutputPath = '/tmp/ts-wtf/' + flacFile.name;
+  return new Promise((resolve, reject) => {
+    const ffmpeg = fluentFfmpeg();
+
+    ffmpeg.setFfmpegPath(ffmpegPath);
+    ffmpeg
+      .input(sourceFile)
+      .inputFormat(sourceFile.split('.').pop() as string)
+      .noVideo()
+      .format('flac')
+      .audioChannels(1)
+      .output(flacOutputPath)
+      .on('start', (cmdLine) => {
+        logger.info('Started ffmpeg with command:' + cmdLine);
+      })
+      .on('end', () => {
+        logger.info('Successfully extracted flac audio.');
+        resolve(flacOutputPath);
+      })
+      .on('error', (err, stdout, stderr) => {
+        logger.error('An error occured during encoding', err.message);
+        reject(err);
+      })
+      .run();
+  })
+    .then((outputPath: string) => {
+      const writeStream = flacFile.createWriteStream({
+        contentType: 'audio/flac',
+      });
+
+      const flacFileLocal = fs.createReadStream(outputPath);
+
+      flacFileLocal.pipe(writeStream);
+    });
 };
 
 export default renderVideo;

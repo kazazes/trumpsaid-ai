@@ -7,7 +7,7 @@
       "script": "build",
       "problemMatcher": [
         "$tsc",
-        "$node-sass",
+        "$node-sass"
       ],
       "isBackground": true,
       "group": {
@@ -23,6 +23,13 @@
       "option": "watch",
       "problemMatcher": [
         "$tsc-watch"
+      ]
+    },
+    {
+      "type": "npm",
+      "script": "tslint",
+      "problemMatcher": [
+        "$tslint5"
       ]
     }
   ]

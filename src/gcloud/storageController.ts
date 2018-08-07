@@ -1,4 +1,5 @@
 import Storage, { Bucket } from '@google-cloud/storage';
+import { mkdirSync } from 'mkdir-recursive';
 import logger from '../util/logger';
 import secrets from '../util/secrets';
 
@@ -41,4 +42,28 @@ export const makeFilePublic = (bucketName: string, path: string) => {
     .catch((e) => {
       logger.error(`Error making file public ${bucketName}/${path}\n${e}`);
     });
+};
+
+export const downloadSourceFile = async (sourceFile: Storage.File) => {
+  // Matches filename part of path
+  const idRegex = new RegExp('\/.+\.*$');
+  const tmpRoot = '/tmp/ts-wtf/';
+
+  // Create dir tmpRoot/ObjectID
+  const destinationDir = `${tmpRoot}${sourceFile.name.replace(idRegex, '')}/`;
+  mkdirSync(destinationDir);
+
+  const destination = `${tmpRoot}${sourceFile.name}`;
+  logger.info(`Downloading ${sourceFile.name} to ${tmpRoot}`);
+
+  const error = await sourceFile.download({
+    destination,
+  });
+
+  if (error.length > 0) {
+    logger.error(`Error downloading file: ${JSON.stringify(error)}`);
+    throw error;
+  } else {
+    return destination;
+  }
 };

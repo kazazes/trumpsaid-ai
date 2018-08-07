@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Sun Aug 05 2018 20:11:52 GMT-0700 (PDT)
+# timestamp: Mon Aug 06 2018 16:08:46 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -279,32 +279,32 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createSpeaker(data: SpeakerCreateInput!): Speaker!
   createTranscriptionItem(data: TranscriptionItemCreateInput!): TranscriptionItem!
-  createVideoStorageLink(data: VideoStorageLinkCreateInput!): VideoStorageLink!
   createVideoMetadata(data: VideoMetadataCreateInput!): VideoMetadata!
   createTag(data: TagCreateInput!): Tag!
   createThumbnail(data: ThumbnailCreateInput!): Thumbnail!
   createVideo(data: VideoCreateInput!): Video!
+  createVideoStorageLink(data: VideoStorageLinkCreateInput!): VideoStorageLink!
   updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
-  updateVideoStorageLink(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
   updateThumbnail(data: ThumbnailUpdateInput!, where: ThumbnailWhereUniqueInput!): Thumbnail
   updateVideo(data: VideoUpdateInput!, where: VideoWhereUniqueInput!): Video
+  updateVideoStorageLink(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteUser(where: UserWhereUniqueInput!): User
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
-  deleteVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   deleteTag(where: TagWhereUniqueInput!): Tag
   deleteThumbnail(where: ThumbnailWhereUniqueInput!): Thumbnail
   deleteVideo(where: VideoWhereUniqueInput!): Video
+  deleteVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
-  upsertVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!, create: VideoStorageLinkCreateInput!, update: VideoStorageLinkUpdateInput!): VideoStorageLink!
   upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
   upsertThumbnail(where: ThumbnailWhereUniqueInput!, create: ThumbnailCreateInput!, update: ThumbnailUpdateInput!): Thumbnail!
   upsertVideo(where: VideoWhereUniqueInput!, create: VideoCreateInput!, update: VideoUpdateInput!): Video!
+  upsertVideoStorageLink(where: VideoStorageLinkWhereUniqueInput!, create: VideoStorageLinkCreateInput!, update: VideoStorageLinkUpdateInput!): VideoStorageLink!
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
   updateManySources(data: SourceUpdateInput!, where: SourceWhereInput): BatchPayload!
   updateManyPublications(data: PublicationUpdateInput!, where: PublicationWhereInput): BatchPayload!
@@ -312,11 +312,11 @@ type Mutation {
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
   updateManyTranscriptionItems(data: TranscriptionItemUpdateInput!, where: TranscriptionItemWhereInput): BatchPayload!
-  updateManyVideoStorageLinks(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereInput): BatchPayload!
   updateManyVideoMetadatas(data: VideoMetadataUpdateInput!, where: VideoMetadataWhereInput): BatchPayload!
   updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
   updateManyThumbnails(data: ThumbnailUpdateInput!, where: ThumbnailWhereInput): BatchPayload!
   updateManyVideos(data: VideoUpdateInput!, where: VideoWhereInput): BatchPayload!
+  updateManyVideoStorageLinks(data: VideoStorageLinkUpdateInput!, where: VideoStorageLinkWhereInput): BatchPayload!
   deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
   deleteManySources(where: SourceWhereInput): BatchPayload!
   deleteManyPublications(where: PublicationWhereInput): BatchPayload!
@@ -324,11 +324,11 @@ type Mutation {
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
   deleteManyTranscriptionItems(where: TranscriptionItemWhereInput): BatchPayload!
-  deleteManyVideoStorageLinks(where: VideoStorageLinkWhereInput): BatchPayload!
   deleteManyVideoMetadatas(where: VideoMetadataWhereInput): BatchPayload!
   deleteManyTags(where: TagWhereInput): BatchPayload!
   deleteManyThumbnails(where: ThumbnailWhereInput): BatchPayload!
   deleteManyVideos(where: VideoWhereInput): BatchPayload!
+  deleteManyVideoStorageLinks(where: VideoStorageLinkWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -572,18 +572,18 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
   transcriptionItems(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TranscriptionItem]!
-  videoStorageLinks(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoStorageLink]!
   videoMetadatas(where: VideoMetadataWhereInput, orderBy: VideoMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoMetadata]!
   tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
   thumbnails(where: ThumbnailWhereInput, orderBy: ThumbnailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Thumbnail]!
   videos(where: VideoWhereInput, orderBy: VideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Video]!
+  videoStorageLinks(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoStorageLink]!
   videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   user(where: UserWhereUniqueInput!): User
   speaker(where: SpeakerWhereUniqueInput!): Speaker
-  videoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   tag(where: TagWhereUniqueInput!): Tag
   thumbnail(where: ThumbnailWhereUniqueInput!): Thumbnail
   video(where: VideoWhereUniqueInput!): Video
+  videoStorageLink(where: VideoStorageLinkWhereUniqueInput!): VideoStorageLink
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
   sourcesConnection(where: SourceWhereInput, orderBy: SourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SourceConnection!
   publicationsConnection(where: PublicationWhereInput, orderBy: PublicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PublicationConnection!
@@ -591,11 +591,11 @@ type Query {
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
   transcriptionItemsConnection(where: TranscriptionItemWhereInput, orderBy: TranscriptionItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TranscriptionItemConnection!
-  videoStorageLinksConnection(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoStorageLinkConnection!
   videoMetadatasConnection(where: VideoMetadataWhereInput, orderBy: VideoMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoMetadataConnection!
   tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
   thumbnailsConnection(where: ThumbnailWhereInput, orderBy: ThumbnailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ThumbnailConnection!
   videosConnection(where: VideoWhereInput, orderBy: VideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConnection!
+  videoStorageLinksConnection(where: VideoStorageLinkWhereInput, orderBy: VideoStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoStorageLinkConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -1107,11 +1107,11 @@ type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
   transcriptionItem(where: TranscriptionItemSubscriptionWhereInput): TranscriptionItemSubscriptionPayload
-  videoStorageLink(where: VideoStorageLinkSubscriptionWhereInput): VideoStorageLinkSubscriptionPayload
   videoMetadata(where: VideoMetadataSubscriptionWhereInput): VideoMetadataSubscriptionPayload
   tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
   thumbnail(where: ThumbnailSubscriptionWhereInput): ThumbnailSubscriptionPayload
   video(where: VideoSubscriptionWhereInput): VideoSubscriptionPayload
+  videoStorageLink(where: VideoStorageLinkSubscriptionWhereInput): VideoStorageLinkSubscriptionPayload
 }
 
 type Tag implements Node {
@@ -2976,6 +2976,9 @@ input VideoStorageLinkWhereInput {
   _MagicalBackRelation_VideoMp4LinkRelation_every: VideoUploadWhereInput
   _MagicalBackRelation_VideoMp4LinkRelation_some: VideoUploadWhereInput
   _MagicalBackRelation_VideoMp4LinkRelation_none: VideoUploadWhereInput
+  _MagicalBackRelation_VideoFlacLinkRelation_every: VideoUploadWhereInput
+  _MagicalBackRelation_VideoFlacLinkRelation_some: VideoUploadWhereInput
+  _MagicalBackRelation_VideoFlacLinkRelation_none: VideoUploadWhereInput
 }
 
 input VideoStorageLinkWhereUniqueInput {
@@ -3071,6 +3074,7 @@ type VideoUpload implements Node {
   rawStorageLink(where: VideoStorageLinkWhereInput): VideoStorageLink
   webmLink(where: VideoStorageLinkWhereInput): VideoStorageLink
   mp4Link(where: VideoStorageLinkWhereInput): VideoStorageLink
+  flacLink(where: VideoStorageLinkWhereInput): VideoStorageLink
   metadata(where: VideoMetadataWhereInput): VideoMetadata
   thumbnail(where: ThumbnailWhereInput): Thumbnail
 }
@@ -3101,6 +3105,7 @@ input VideoUploadCreateInput {
   rawStorageLink: VideoStorageLinkCreateOneInput
   webmLink: VideoStorageLinkCreateOneInput
   mp4Link: VideoStorageLinkCreateOneInput
+  flacLink: VideoStorageLinkCreateOneInput
   metadata: VideoMetadataCreateOneInput
   thumbnail: ThumbnailCreateOneInput
 }
@@ -3217,6 +3222,7 @@ input VideoUploadUpdateInput {
   rawStorageLink: VideoStorageLinkUpdateOneInput
   webmLink: VideoStorageLinkUpdateOneInput
   mp4Link: VideoStorageLinkUpdateOneInput
+  flacLink: VideoStorageLinkUpdateOneInput
   metadata: VideoMetadataUpdateOneInput
   thumbnail: ThumbnailUpdateOneInput
 }
@@ -3384,6 +3390,7 @@ input VideoUploadWhereInput {
   rawStorageLink: VideoStorageLinkWhereInput
   webmLink: VideoStorageLinkWhereInput
   mp4Link: VideoStorageLinkWhereInput
+  flacLink: VideoStorageLinkWhereInput
   metadata: VideoMetadataWhereInput
   thumbnail: ThumbnailWhereInput
 }
@@ -3408,6 +3415,7 @@ enum VideoVersion {
   RAW
   WEBM
   MP4
+  FLAC
 }
 
 input VideoWhereInput {

@@ -36,4 +36,5 @@ enum VideoVersion {
   RAW
   WEBM
   MP4
+  FLAC
 }
