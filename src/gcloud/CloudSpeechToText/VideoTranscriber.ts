@@ -1,5 +1,10 @@
+import { findIndex, slice, take } from 'lodash';
 import * as mm from 'music-metadata';
-import { VideoStorageLink, VideoUpload } from '../../graphql/generated/prisma';
+import {
+  SpeechAPIConversation, SpeechAPIConversationBlockCreateInput,
+  SpeechAPIConversationCreateInput, SpeechAPIWordCreateInput, VideoStorageLink, VideoUpload,
+} from '../../graphql/generated/prisma';
+import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
 import secrets from '../../util/secrets';
 import { getFileSize, getReadStream } from '../storageController';
@@ -16,6 +21,7 @@ export class VideoTranscriber {
   sampleRateHertz: number;
   flacLink: VideoStorageLink;
   video: VideoUpload;
+  speechAPIConversation: SpeechAPIConversation;
   constructor(video: VideoUpload) {
     this.video = video;
     this.flacLink = video.flacLink;
@@ -33,8 +39,9 @@ export class VideoTranscriber {
 
     // tslint:disable-next-line:no-magic-numbers
     logger.debug(`Audio of video ${this.video.id} metadata:\n ${JSON.stringify(metadata, null, 2)}`);
+    logger.info(`Dispatching transcription job for ${this.video.id}.`);
 
-    const config = {
+    const speechApiConfig = {
       encoding: 'FLAC',
       languageCode: 'en-US',
       enableSpeakerDiarization: true,
@@ -42,30 +49,76 @@ export class VideoTranscriber {
       sampleRateHertz: metadata.format.sampleRate,
       enableAutomaticPunctuation: true,
       useEnhanced: true,
+      enableWordTimeOffsets: true,
+      enableWordConfidence: true,
       metadata: {
-        interactionType: 1, // Discussion https://cloud.google.com/nodejs/docs/reference/speech/2.0.x/google.cloud.speech.v1p1beta1#.InteractionType
+        interactionType: 1, // "Discussion" https://cloud.google.com/nodejs/docs/reference/speech/2.0.x/google.cloud.speech.v1p1beta1#.InteractionType
         industryNaicsCodeOfAudio: 813940, // Political orgs. https://www.naics.com/naics-code-description/?code=813940
         originalMediaType: 2, // Video https://cloud.google.com/nodejs/docs/reference/speech/2.0.x/google.cloud.speech.v1p1beta1#.OriginalMediaType
       },
     };
 
-    client.longRunningRecognize({
-      config,
+    const clientData = await client.longRunningRecognize({
+      config: speechApiConfig,
       audio: { uri: this.uri },
-    }).then((data: [any]) => {
-      const operation = data[0];
-      return operation.promise();
-    })
-      .then((data: [any]) => {
-        const response = data[0] as ILongRunningRecognizeResponse;
-        const transcription = response.results
-          .map((result: any) => result.alternatives[0].transcript)
-          .join('\n');
-        logger.debug(`Transcription: ${transcription}`);
-      })
-      .catch((err: any) => {
-        logger.error('ERROR:', err);
+    });
+
+    const fullData = await clientData[0].promise();
+
+    const response = fullData[0] as ILongRunningRecognizeResponse;
+    // TODO: Store
+    const lastResult = response.results[response.results.length - 1];
+    const lastWords = lastResult.alternatives[0].words;
+    const conversation = this.wordsToConversation(lastWords);
+    this.speechAPIConversation = await this.storeConversation(conversation);
+    logger.info(`Set GC Speech API conversation on video ${this.video.id}`);
+  }
+
+  private async storeConversation(conversation: IWord[][]) {
+    const video = this.video;
+    const conversationMappedToGraph: SpeechAPIConversationBlockCreateInput[] = conversation.map((rawBlock) => {
+      const wordCreateInput: SpeechAPIWordCreateInput[] = rawBlock.map((word) => {
+        return {
+          video: { connect: { id: video.id } },
+          startTime: word.startTime.nanos,
+          endTime: word.endTime.nanos,
+          word: word.word,
+          speakerTag: word.speakerTag,
+        };
       });
+
+      const convoBlock: SpeechAPIConversationBlockCreateInput =
+        { video: { connect: { id: video.id } }, speakerTag: rawBlock[0].speakerTag, words: { create: wordCreateInput } };
+      return convoBlock;
+    });
+
+    const speechConversation: SpeechAPIConversationCreateInput = {
+      video: { connect: { id: video.id } },
+      conversation: { create: conversationMappedToGraph },
+    };
+
+    return prisma.mutation.createSpeechAPIConversation({ data: speechConversation });
+  }
+
+  private wordsToConversation(words: IWord[]) {
+    let mutableWords = words;
+    const conversation: IWord[][] = [];
+    while (mutableWords.length > 0) {
+      const speaker = mutableWords[0].speakerTag;
+      let end = findIndex(mutableWords, (word) => {
+        return word.speakerTag !== speaker;
+      });
+
+      if (end === -1) {
+        end = mutableWords.length;
+      }
+
+      const chunk = take(mutableWords, end);
+      conversation.push(chunk);
+
+      mutableWords = slice(mutableWords, end);
+    }
+    return conversation;
   }
 }
 

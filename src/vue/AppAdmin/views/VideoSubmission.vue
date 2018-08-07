@@ -265,7 +265,6 @@ export default Vue.extend({
             }
             status
             state
-            autoTranscription
             submitedUrl
             rawStorageLink {
               id
@@ -290,14 +289,6 @@ export default Vue.extend({
             metadata {
               title
               subtitle
-              transcript(orderBy: timestampStart_ASC) {
-                speaker {
-                  name
-                  avatarPath
-                }
-                timestampStart
-                content
-              }
               advertisingEnabled
               tags(orderBy: name_ASC) {
                 name

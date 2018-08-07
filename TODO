@@ -8,7 +8,8 @@ TS-WTF:
       ☐ Final video model @40m
     Backend:
       ✔ Thumbnail generation @today @1h @done(18-08-06 01:32)
-      ☐ Transcript generation @2.5h @started(18-08-06 13:30)
+      ✔ Transcript generation @2.5h @started(18-08-06 13:30) @done(18-08-07 03:20) @lasted(13h50m22s)
+      ☐ If Webm, download Webm
       ☐ Vision AI @4h
       ☐ Transcript NLP @10h
     API:
@@ -17,6 +18,7 @@ TS-WTF:
     Frontend:
       Admin:
         ☐ Editors @15h
+        ☐ Centralize vue-apollo queries https://www.howtographql.com/vue-apollo/2-queries-loading-links/
       ☐ Design @4h
       ☐ Vue search page @8h
       ☐ Static video pages @3h

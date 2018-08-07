@@ -4,7 +4,6 @@ interface IVideo {
   views: Int @default(value: "0")
   webmLink: VideoStorageLink
   mp4Link: VideoStorageLink
-  transcription: [TranscriptionItem!]!
   source: Source
 }
 
@@ -18,7 +17,6 @@ interface StorageItem {
 type VideoMetadata {
   title: String
   subtitle: String
-  transcript: [TranscriptionItem!]!
   advertisingEnabled: Boolean! @default(value: "false")
   tags: [Tag!]!
   sources: [Source!]!
@@ -48,27 +46,27 @@ type VideoUpload implements IVideo {
   submitedUrl: String! @unique
   status: VideoUploadStatus!
   state: VideoUploadState! @default(value: "PENDING")
-  autoTranscription: [String!]!
   published: Boolean! @default(value: "false")
-  rawStorageLink: VideoStorageLink @relation(name: "VideoStorageRawRelation")
-  webmLink: VideoStorageLink @relation(name: "VideoWebmLinkRelation")
-  mp4Link: VideoStorageLink @relation(name: "VideoMp4LinkRelation")
-  flacLink: VideoStorageLink @relation(name: "VideoFlacLinkRelation")
-  metadata: VideoMetadata @relation(name: "VideoUploadMetadataRelation")
+  rawStorageLink: VideoStorageLink
+    @relation(name: "VideoStorageRawRelation", onDelete: CASCADE)
+  webmLink: VideoStorageLink
+    @relation(name: "VideoWebmLinkRelation", onDelete: CASCADE)
+  mp4Link: VideoStorageLink
+    @relation(name: "VideoMp4LinkRelation", onDelete: CASCADE)
+  flacLink: VideoStorageLink
+    @relation(name: "VideoFlacLinkRelation", onDelete: CASCADE)
+  metadata: VideoMetadata
+    @relation(name: "VideoUploadMetadataRelation", onDelete: CASCADE)
   thumbnail: Thumbnail
+    @relation(name: "VideoUploadThumbnailRelation", onDelete: CASCADE)
+  generatedConversation: SpeechAPIConversation
+    @relation(name: "SpeechAPIConversationVideoRelation", onDelete: CASCADE)
 }
 
 type Tag {
   id: ID! @unique
   name: String!
   videos: [Video!]!
-}
-
-type TranscriptionItem {
-  speaker: Speaker!
-  timestampStart: Int!
-  content: String!
-  sentiment: Float
 }
 
 type Source {
@@ -116,4 +114,26 @@ type Thumbnail implements StorageItem {
   videoID: ID!
   path: String!
   bucket: String!
+}
+
+type SpeechAPIWord {
+  id: ID! @unique
+  startTime: Int!
+  endTime: Int!
+  word: String!
+  speakerTag: Int!
+  video: VideoUpload! @relation(name: "SpeechAPIWordVideoRelation")
+}
+
+type SpeechAPIConversationBlock {
+  id: ID! @unique
+  speakerTag: Int!
+  words: [SpeechAPIWord!]!
+  video: VideoUpload! @relation(name: "SpeechAPIConversationBlockVideoRelation")
+}
+
+type SpeechAPIConversation {
+  id: ID! @unique
+  video: VideoUpload! @relation(name: "SpeechAPIConversationVideoRelation")
+  conversation: [SpeechAPIConversationBlock!]!
 }
