@@ -61,8 +61,8 @@ export const renderVideo = async (event: any) => {
     try {
       const sourceFilePath = await downloadSourceFile(sourceFile);
       await flacConversion(flacFile, sourceFilePath);
-      await mp4Conversion(mp4File, sourceFile);
-      await webmConversion(webmFile, sourceFile);
+      await mp4Conversion(mp4File, sourceFilePath);
+      await webmConversion(webmFile, sourceFilePath);
       publishResponse({
         requestPayload: renderPayload,
         error: undefined,
@@ -111,17 +111,17 @@ const publishResponse = (obj: any) => {
     .publish(getBuffer(obj));
 };
 
-const mp4Conversion = (mp4File: File, sourceFile: File) => {
+const mp4Conversion = (mp4File: File, sourceFilePath: string) => {
   return new Promise((resolve, reject) => {
     const writeStream = mp4File.createWriteStream({
       contentType: 'video/mp4',
     });
-    const readStream = sourceFile.createReadStream();
+
     const ffmpeg = fluentFfmpeg();
     ffmpeg.setFfmpegPath(ffmpegPath);
     ffmpeg
-      .input(readStream)
-      .inputFormat(sourceFile.name.split('.').pop() as string)
+      .input(sourceFilePath)
+      .inputFormat(sourceFilePath.split('.').pop() as string)
       .format('mp4')
       .videoCodec('libx264')
       .audioCodec('aac')
@@ -134,29 +134,26 @@ const mp4Conversion = (mp4File: File, sourceFile: File) => {
       })
       .on('end', () => {
         logger.debug('Successfully re-encoded video as mp4.');
-        readStream.destroy();
         resolve();
       })
       .on('error', (err, stdout, stderr) => {
-        logger.error('An error occured during encoding: ', err.message);
-        readStream.destroy();
+        logger.error('An error occured during encoding: ', JSON.stringify(err));
         reject(err);
       })
       .writeToStream(writeStream, { end: true });
   });
 };
 
-const webmConversion = (webmFile: File, sourceFile: File) => {
+const webmConversion = (webmFile: File, sourceFilePath: string) => {
   return new Promise((resolve, reject) => {
     const writeStream = webmFile.createWriteStream({
       contentType: 'video/webm',
     });
-    const readStream = sourceFile.createReadStream();
     const ffmpeg = fluentFfmpeg();
     ffmpeg.setFfmpegPath(ffmpegPath);
     ffmpeg
-      .input(readStream)
-      .inputFormat(sourceFile.name.split('.').pop() as string)
+      .input(sourceFilePath)
+      .inputFormat(sourceFilePath.split('.').pop() as string)
       .format('webm')
       .videoCodec('libvpx')
       .audioCodec('libvorbis')
@@ -169,12 +166,10 @@ const webmConversion = (webmFile: File, sourceFile: File) => {
       })
       .on('end', () => {
         logger.info('Successfully re-encoded video to webm.');
-        readStream.destroy();
         resolve();
       })
       .on('error', (err, stdout, stderr) => {
-        logger.error('An error occured during encoding', err.message);
-        readStream.destroy();
+        logger.error('An error occured during encoding', JSON.stringify(err));
         reject(err);
       })
       .writeToStream(writeStream, { end: true });
@@ -183,17 +178,17 @@ const webmConversion = (webmFile: File, sourceFile: File) => {
 
 /**
  * @param  {File} flacFile - The Google Cloud Flac File
- * @param  {string} sourceFile - The path to the locally downloaded source video
+ * @param  {string} sourceFilePath - The path to the locally downloaded source video
  */
-const flacConversion = (flacFile: File, sourceFile: string) => {
+const flacConversion = (flacFile: File, sourceFilePath: string) => {
   const flacOutputPath = '/tmp/ts-wtf/' + flacFile.name;
   return new Promise((resolve, reject) => {
     const ffmpeg = fluentFfmpeg();
 
     ffmpeg.setFfmpegPath(ffmpegPath);
     ffmpeg
-      .input(sourceFile)
-      .inputFormat(sourceFile.split('.').pop() as string)
+      .input(sourceFilePath)
+      .inputFormat(sourceFilePath.split('.').pop() as string)
       .noVideo()
       .format('flac')
       .audioChannels(1)
@@ -206,7 +201,7 @@ const flacConversion = (flacFile: File, sourceFile: string) => {
         resolve(flacOutputPath);
       })
       .on('error', (err, stdout, stderr) => {
-        logger.error('An error occured during encoding', err.message);
+        logger.error('An error occured during encoding', JSON.stringify(err));
         reject(err);
       })
       .run();

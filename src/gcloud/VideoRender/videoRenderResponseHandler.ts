@@ -16,6 +16,9 @@ export const renderVideoResponse = async (message: any) => {
 
   if (renderResponsePayload.error) {
     logger.error(`Received error in response to render job: ${JSON.stringify(renderResponsePayload.error)}`);
+    prisma.mutation.updateVideoUpload(
+      { where: { id: renderResponsePayload.requestPayload.id }, data: { status: 'READY_TO_RENDER', state: 'PENDING' } })
+    .catch(e => logger.error(`Error updating videoUpload in render response error handler: \n ${JSON.stringify(e)}`));
     return message.ack();
   }
   const existsInThisContext = await prisma.exists.VideoUpload({ id: renderResponsePayload.requestPayload.id });
