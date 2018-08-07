@@ -1,26 +1,17 @@
-<h2 align="center"><strong>🚀 Web server powering <a href="https://djt.wtf/">trumpsaid.wtf</a> 👺</strong></h2>
+<h2 align="center"><strong>🚀 Web server powering <a href="https://trumpsaid.wtf/">trumpsaid.wtf</a> 👺</strong></h2>
 
-## Getting started
+<h3 align="center">Active construction site. Hardhats on.</h3>
 
-```sh
-# 1. Clone the server
-git clone https://github.com/trumpsaid-wtf/web-app.git djt-wtf
+### Requirements
 
-# 2. Navigate to the new project
-cd djt-wtf
+1.  MySQL, Redis, and [Prisma](https://www.prisma.io) servers.
+2.  A Google Cloud project with access to the PubSub and Speech APIs.
 
-# 3. Install dependencies
-npm install
+### Setup
 
-# 4. Create and edit configs
-cp .env.example .env
-cp database/.env.example database/.env
-vim .env
-vim database/.env
-
-# 4. Deploy prisma cluster
-prisma deploy
-
-# 5. Run server
-npm run debug
-```
+1.  Using `.env.example` as a template, populate environment variables in `.env` and `database/.env`.
+2.  Edit `database/prisma.yml` and `.graphqlconfig.yml` to reflect your endpoints, if needed.
+3.  `prisma deploy`
+4.  `npm install`
+5.  `npm run build`
+6.  `npm run serve`

@@ -1,57 +1,88 @@
 TS-WTF:
   Web Server:
-    Prisma:
+    Backend:
+      ☐ Opportunistic download and render strategy @critical 
+        ☐ Change VideoUpload file links to array of storage objects with version and type, include thumbnail @high @today
+          ☐ Backend @2h @today
+          ☐ Frontend @1h 
+        ☐ Download many formats @high @2h
+        ☐ Encode available @high @2h
+        ☐ Transcode "missing" @1h
+      ☐ Decouple response handlers from processing handlers (no DB mutations in handlers)
+        ☐ Downloader @1h @critical @today  
+        ☐ Thumbnail @30m @high 
+        ☐ Processing/web environment @high 
+          ☐ Web @1h
+          ☐ Web + Processing @10m
+          ☐ Processing (AppEngine) @2h
+      ☐ Job handling
+        ☐ Job status log
+          ☐ Server @3h
+              ☐ DOWNLOAD
+              ☐ ENCODE
+              ☐ TRANSCODE
+              ☐ USER_INPUT
+              ☐ THUMBNAILS
+              ☐ NLP
+              ☐ SOCIAL
+          ☐ Frontend @2h
+        ☐ PubSub-Prisma Watcher @3h @low
+            ☐ Transcript
+        ☐ NLP & NER + tag suggestions @10h
+    Graph API & Prisma:
+      ☐ Upload pipeline @15h @critical @today
+      ☐ Default privilege level @3h 
+      ☐ Service worker decoupling @6h
       ☐ People/speaker schema + queries @2h
       ☐ Transcript schema @1h
       ☐ News schema @30m
       ☐ Final video model @40m
-    Backend:
-      ☐ Opportunistic download and render strategy @critical 
-        ☐ Download many formats @high @2h
-        ☐ Decouple downloader and response handler @2h
-        ☐ Encode available @high @2h
-        ☐ Transcode "missing" @1h
-      ☐ Upload job watcher
-        ☐ Job status log @2h
-        ☐ Watcher @3h
-      ☐ Transcript NLP & NER + tag suggestions @10h
-      ☐ WebVTT generation @1h
-      ☐ Metatag generation @4h
-      ☐ CDN distribution @4h
-      ☐ Spot.im broadcaster @3h
-      ☐ ELK seeding @5h
-    API:
-      ☐ Upload pipeline @4h @critical @today
-      ☐ Default privilege level @3h 
-      ☐ Service worker decoupling @6h
-      ☐ Social media publish on publish @2h
-      ☐ ELK API @5h
-    Frontend:
-      Admin:
-        ☐ Centralize vue-apollo queries https://www.howtographql.com/vue-apollo/2-queries-loading-links/ @critical @3h
-        ☐ Set speaker diarization count in submission @2h @high 
-        ☐ Re-make status display @high 
-        ☐ Editors @high 
-          ☐ Admin dashboards
-            ☐ Users @8h @low 
-            ☐ Submitted Videos @4h @high 
-            ☐ Published Videos @8h @low 
-      ☐ Design @4h 
-      ☐ Vue search page @10h
-      ☐ Static video pages @12h
-        ☐ P2P distribution 
-          ☐ Web seed solution @5h
-          ☐ Video-player support @4h
-          ☐ Torrent/download links @1h @low
-        ☐ CDN/Cache layer @4h
+      ☐ Protect routes, test @5h
+  Frontend:
+    Admin:
+      ☐ Centralize vue-apollo queries https://www.howtographql.com/vue-apollo/2-queries-loading-links/ @critical @5h
+      ☐ Set speaker diarization count in submission @2h @high @today 
+      ☐ Re-make upload status display @high @2h
+      ☐ Editors @high 
+        ☐ Admin dashboards
+          ☐ Users @8h @low 
+          ☐ Submitted Videos @4h @high 
+          ☐ Published Videos @8h @low 
+    ☐ Design @4h 
+    ☐ Clean up Vue @4h @high 
+    ☐ Vue search page @10h
+    ☐ Static video pages @12h
   Infrastructure:
     ☐ ELK @1h
     ☐ ELK/Prisma integration @3h
     ☐ ELK/Vue integration @3h
     ☐ Nginx serve static & cache invalidation @2h
 
+Upstream:
+  Metatag generation
+  ELK seeding
+  WebVTT generation
+  CDN distribution
+  Spot.im broadcaster
+  Torrent/download links
+  ELK API
+  Social media publish on publish
+  P2P distribution
+  Web seed solution
+  CDN/Cache layer
+  Video-player support 
+  Tests
+  Unprotected routes
+
 Done:
-  ✔ Transcript generation @2.5h @started(18-08-06 13:30) @done(18-08-07 03:20) @lasted(13h50m22s) @project(TS-WTF.Web Server.Backend)
-  ✔ Add (abstract) remote storage class @20m @today @done(18-08-06 01:31) @project(TS-WTF.Web Server.Prisma)
-  ✔ Thumbnail generation @today @1h @done(18-08-06 01:32) @project(TS-WTF.Web Server.Backend)
-Archive:
+  ✔ TRANSCRIPTION @done(18-08-07 09:18) @project(TS-WTF.Web Server.Backend)
+  ✔ Move transcript saving to metadata @critical @today @20m @started(18-08-07 07:00) @done(18-08-07 08:19) @lasted(1h19m46s) @project(TS-WTF.Web Server.Backend)
+  ✔ Handlers @30m @started(18-08-07 07:00) @done(18-08-07 08:19) @lasted(1h19m51s) @project(TS-WTF.Web Server.Backend)
+  ✔ Create abstract storage class @1h @today @done(18-08-07 06:54) @project(TS-WTF.Web Server.Backend)
+  ✔ Prisma @30m @started(18-08-07 06:08) @done(18-08-07 06:20) @lasted(12m57s) @project(TS-WTF.Web Server.Backend)
+  ✔ Prisma @20m @started(18-08-07 06:32) @done(18-08-07 06:53) @lasted(21m46s) @project(TS-WTF.Web Server.Backend)
+  ✔ DB @1h @done(18-08-07 06:54) @project(TS-WTF.Web Server.Backend)
+  ✔ Transcript generation @2.5h @started(18-08-06 13:30) @done(18-08-07 03:20) @lasted(13h50m22s) @project(TS-WTF.Web Server.Backend) @project(TS-WTF)
+  ✔ Add (abstract) remote storage class @20m @today @done(18-08-06 01:31) @project(TS-WTF.Web Server.Prisma) @project(TS-WTF)
+  ✔ Thumbnail generation @today @1h @done(18-08-06 01:32) @project(TS-WTF.Web Server.Backend) @project(TS-WTF)
+
