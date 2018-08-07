@@ -2,6 +2,7 @@ import { ApolloError } from 'apollo-server-core';
 import { isURL } from 'validator';
 import { VideoTranscriber } from '../../../gcloud/CloudSpeechToText/VideoTranscriber';
 import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '../../../gcloud/videoJobPublisher';
+import logger from '../../../util/logger';
 import { IApolloContext } from '../../apollo';
 import { VideoUploadCreateInput } from '../../generated/prisma';
 
@@ -65,7 +66,8 @@ export default {
       },
       ' { id status state flacLink { bucket path } } ');
 
-    new VideoTranscriber(upload).recognize();
+    new VideoTranscriber(upload).recognize()
+      .catch(e => logger.error(`Error while transcribing:\n ${e}`));
 
     return upload;
   },

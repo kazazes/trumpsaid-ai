@@ -2,5 +2,5 @@
 
 export = await_sleep;
 
-declare function await_sleep(ms: any): void;
+declare function await_sleep(ms: number): Promise<void>;
 

@@ -1,9 +1,9 @@
 import Storage, { Bucket } from '@google-cloud/storage';
 import { mkdirSync } from 'mkdir-recursive';
+import moment from 'moment';
 import { VideoStorageLink } from '../graphql/generated/prisma';
 import logger from '../util/logger';
 import secrets from '../util/secrets';
-import moment from 'moment';
 
 export const storage = Storage({
   projectId: secrets.GOOGLE_PROJECT_ID,

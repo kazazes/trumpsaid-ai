@@ -43,9 +43,9 @@ export class VideoTranscriber {
       enableAutomaticPunctuation: true,
       useEnhanced: true,
       metadata: {
-        interactionType: 1,
-        industryNaicsCodeOfAudio: 813940,
-        originalMediaType: 2,
+        interactionType: 1, // Discussion https://cloud.google.com/nodejs/docs/reference/speech/2.0.x/google.cloud.speech.v1p1beta1#.InteractionType
+        industryNaicsCodeOfAudio: 813940, // Political orgs. https://www.naics.com/naics-code-description/?code=813940
+        originalMediaType: 2, // Video https://cloud.google.com/nodejs/docs/reference/speech/2.0.x/google.cloud.speech.v1p1beta1#.OriginalMediaType
       },
     };
 
