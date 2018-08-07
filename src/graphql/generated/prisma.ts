@@ -1279,7 +1279,7 @@ input SpeakerWhereUniqueInput {
 
 type SpeechAPIConversation implements Node {
   id: ID!
-  video(where: VideoUploadWhereInput): VideoUpload!
+  videoUpload(where: VideoUploadWhereInput): VideoUpload!
   conversation(where: SpeechAPIConversationBlockWhereInput, orderBy: SpeechAPIConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIConversationBlock!]
 }
 
@@ -1287,7 +1287,7 @@ type SpeechAPIConversationBlock implements Node {
   id: ID!
   speakerTag: Int!
   words(where: SpeechAPIWordWhereInput, orderBy: SpeechAPIWordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIWord!]
-  video(where: VideoUploadWhereInput): VideoUpload!
+  videoUpload(where: VideoUploadWhereInput): VideoUpload!
 }
 
 """A connection to a list of items."""
@@ -1303,7 +1303,7 @@ type SpeechAPIConversationBlockConnection {
 input SpeechAPIConversationBlockCreateInput {
   speakerTag: Int!
   words: SpeechAPIWordCreateManyInput
-  video: VideoUploadCreateOneInput!
+  videoUpload: VideoUploadCreateOneInput!
 }
 
 input SpeechAPIConversationBlockCreateManyInput {
@@ -1378,13 +1378,13 @@ input SpeechAPIConversationBlockSubscriptionWhereInput {
 input SpeechAPIConversationBlockUpdateDataInput {
   speakerTag: Int
   words: SpeechAPIWordUpdateManyInput
-  video: VideoUploadUpdateOneInput
+  videoUpload: VideoUploadUpdateOneInput
 }
 
 input SpeechAPIConversationBlockUpdateInput {
   speakerTag: Int
   words: SpeechAPIWordUpdateManyInput
-  video: VideoUploadUpdateOneInput
+  videoUpload: VideoUploadUpdateOneInput
 }
 
 input SpeechAPIConversationBlockUpdateManyInput {
@@ -1481,7 +1481,7 @@ input SpeechAPIConversationBlockWhereInput {
   words_every: SpeechAPIWordWhereInput
   words_some: SpeechAPIWordWhereInput
   words_none: SpeechAPIWordWhereInput
-  video: VideoUploadWhereInput
+  videoUpload: VideoUploadWhereInput
   _MagicalBackRelation_SpeechAPIConversationToSpeechAPIConversationBlock_every: SpeechAPIConversationWhereInput
   _MagicalBackRelation_SpeechAPIConversationToSpeechAPIConversationBlock_some: SpeechAPIConversationWhereInput
   _MagicalBackRelation_SpeechAPIConversationToSpeechAPIConversationBlock_none: SpeechAPIConversationWhereInput
@@ -1502,16 +1502,16 @@ type SpeechAPIConversationConnection {
 }
 
 input SpeechAPIConversationCreateInput {
-  video: VideoUploadCreateOneWithoutGeneratedConversationInput!
+  videoUpload: VideoUploadCreateOneWithoutGeneratedConversationInput!
   conversation: SpeechAPIConversationBlockCreateManyInput
 }
 
-input SpeechAPIConversationCreateOneWithoutVideoInput {
-  create: SpeechAPIConversationCreateWithoutVideoInput
+input SpeechAPIConversationCreateOneWithoutVideoUploadInput {
+  create: SpeechAPIConversationCreateWithoutVideoUploadInput
   connect: SpeechAPIConversationWhereUniqueInput
 }
 
-input SpeechAPIConversationCreateWithoutVideoInput {
+input SpeechAPIConversationCreateWithoutVideoUploadInput {
   conversation: SpeechAPIConversationBlockCreateManyInput
 }
 
@@ -1577,26 +1577,26 @@ input SpeechAPIConversationSubscriptionWhereInput {
 }
 
 input SpeechAPIConversationUpdateInput {
-  video: VideoUploadUpdateOneWithoutGeneratedConversationInput
+  videoUpload: VideoUploadUpdateOneWithoutGeneratedConversationInput
   conversation: SpeechAPIConversationBlockUpdateManyInput
 }
 
-input SpeechAPIConversationUpdateOneWithoutVideoInput {
-  create: SpeechAPIConversationCreateWithoutVideoInput
+input SpeechAPIConversationUpdateOneWithoutVideoUploadInput {
+  create: SpeechAPIConversationCreateWithoutVideoUploadInput
   connect: SpeechAPIConversationWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: SpeechAPIConversationUpdateWithoutVideoDataInput
-  upsert: SpeechAPIConversationUpsertWithoutVideoInput
+  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
+  upsert: SpeechAPIConversationUpsertWithoutVideoUploadInput
 }
 
-input SpeechAPIConversationUpdateWithoutVideoDataInput {
+input SpeechAPIConversationUpdateWithoutVideoUploadDataInput {
   conversation: SpeechAPIConversationBlockUpdateManyInput
 }
 
-input SpeechAPIConversationUpsertWithoutVideoInput {
-  update: SpeechAPIConversationUpdateWithoutVideoDataInput!
-  create: SpeechAPIConversationCreateWithoutVideoInput!
+input SpeechAPIConversationUpsertWithoutVideoUploadInput {
+  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput!
+  create: SpeechAPIConversationCreateWithoutVideoUploadInput!
 }
 
 input SpeechAPIConversationWhereInput {
@@ -1648,7 +1648,7 @@ input SpeechAPIConversationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  video: VideoUploadWhereInput
+  videoUpload: VideoUploadWhereInput
   conversation_every: SpeechAPIConversationBlockWhereInput
   conversation_some: SpeechAPIConversationBlockWhereInput
   conversation_none: SpeechAPIConversationBlockWhereInput
@@ -1664,7 +1664,7 @@ type SpeechAPIWord implements Node {
   endTime: Int!
   word: String!
   speakerTag: Int!
-  video(where: VideoUploadWhereInput): VideoUpload!
+  videoUpload(where: VideoUploadWhereInput): VideoUpload!
 }
 
 """A connection to a list of items."""
@@ -1682,7 +1682,7 @@ input SpeechAPIWordCreateInput {
   endTime: Int!
   word: String!
   speakerTag: Int!
-  video: VideoUploadCreateOneInput!
+  videoUpload: VideoUploadCreateOneInput!
 }
 
 input SpeechAPIWordCreateManyInput {
@@ -1768,7 +1768,7 @@ input SpeechAPIWordUpdateDataInput {
   endTime: Int
   word: String
   speakerTag: Int
-  video: VideoUploadUpdateOneInput
+  videoUpload: VideoUploadUpdateOneInput
 }
 
 input SpeechAPIWordUpdateInput {
@@ -1776,7 +1776,7 @@ input SpeechAPIWordUpdateInput {
   endTime: Int
   word: String
   speakerTag: Int
-  video: VideoUploadUpdateOneInput
+  videoUpload: VideoUploadUpdateOneInput
 }
 
 input SpeechAPIWordUpdateManyInput {
@@ -1954,7 +1954,7 @@ input SpeechAPIWordWhereInput {
 
   """All values greater than or equal the given value."""
   speakerTag_gte: Int
-  video: VideoUploadWhereInput
+  videoUpload: VideoUploadWhereInput
   _MagicalBackRelation_SpeechAPIConversationBlockToSpeechAPIWord_every: SpeechAPIConversationBlockWhereInput
   _MagicalBackRelation_SpeechAPIConversationBlockToSpeechAPIWord_some: SpeechAPIConversationBlockWhereInput
   _MagicalBackRelation_SpeechAPIConversationBlockToSpeechAPIWord_none: SpeechAPIConversationBlockWhereInput
@@ -3756,7 +3756,7 @@ input VideoUploadCreateInput {
   flacLink: VideoStorageLinkCreateOneInput
   metadata: VideoMetadataCreateOneInput
   thumbnail: ThumbnailCreateOneInput
-  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoInput
+  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadInput
 }
 
 input VideoUploadCreateOneInput {
@@ -3895,7 +3895,7 @@ input VideoUploadUpdateDataInput {
   flacLink: VideoStorageLinkUpdateOneInput
   metadata: VideoMetadataUpdateOneInput
   thumbnail: ThumbnailUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoInput
+  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
 }
 
 input VideoUploadUpdateInput {
@@ -3912,7 +3912,7 @@ input VideoUploadUpdateInput {
   flacLink: VideoStorageLinkUpdateOneInput
   metadata: VideoMetadataUpdateOneInput
   thumbnail: ThumbnailUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoInput
+  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
 }
 
 input VideoUploadUpdateOneInput {
@@ -4531,7 +4531,7 @@ export interface SpeechAPIWordCreateInput {
   endTime: Int
   word: String
   speakerTag: Int
-  video: VideoUploadCreateOneInput
+  videoUpload: VideoUploadCreateOneInput
 }
 
 export interface ThumbnailWhereInput {
@@ -4633,7 +4633,7 @@ export interface SpeechAPIConversationBlockWhereInput {
   words_every?: SpeechAPIWordWhereInput
   words_some?: SpeechAPIWordWhereInput
   words_none?: SpeechAPIWordWhereInput
-  video?: VideoUploadWhereInput
+  videoUpload?: VideoUploadWhereInput
   _MagicalBackRelation_SpeechAPIConversationToSpeechAPIConversationBlock_every?: SpeechAPIConversationWhereInput
   _MagicalBackRelation_SpeechAPIConversationToSpeechAPIConversationBlock_some?: SpeechAPIConversationWhereInput
   _MagicalBackRelation_SpeechAPIConversationToSpeechAPIConversationBlock_none?: SpeechAPIConversationWhereInput
@@ -4671,7 +4671,7 @@ export interface VideoUploadCreateInput {
   flacLink?: VideoStorageLinkCreateOneInput
   metadata?: VideoMetadataCreateOneInput
   thumbnail?: ThumbnailCreateOneInput
-  generatedConversation?: SpeechAPIConversationCreateOneWithoutVideoInput
+  generatedConversation?: SpeechAPIConversationCreateOneWithoutVideoUploadInput
 }
 
 export interface ThumbnailUpdateDataInput {
@@ -4978,7 +4978,7 @@ export interface SpeechAPIConversationWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  video?: VideoUploadWhereInput
+  videoUpload?: VideoUploadWhereInput
   conversation_every?: SpeechAPIConversationBlockWhereInput
   conversation_some?: SpeechAPIConversationBlockWhereInput
   conversation_none?: SpeechAPIConversationBlockWhereInput
@@ -5017,7 +5017,7 @@ export interface SpeechAPIWordWhereUniqueInput {
 }
 
 export interface SpeechAPIConversationCreateInput {
-  video: VideoUploadCreateOneWithoutGeneratedConversationInput
+  videoUpload: VideoUploadCreateOneWithoutGeneratedConversationInput
   conversation?: SpeechAPIConversationBlockCreateManyInput
 }
 
@@ -5115,7 +5115,7 @@ export interface VideoUploadUpdateInput {
   flacLink?: VideoStorageLinkUpdateOneInput
   metadata?: VideoMetadataUpdateOneInput
   thumbnail?: ThumbnailUpdateOneInput
-  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoInput
+  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
 }
 
 export interface VideoCreateInput {
@@ -5129,7 +5129,7 @@ export interface SpeechAPIWordUpdateInput {
   endTime?: Int
   word?: String
   speakerTag?: Int
-  video?: VideoUploadUpdateOneInput
+  videoUpload?: VideoUploadUpdateOneInput
 }
 
 export interface VideoStorageLinkCreateOneInput {
@@ -5160,9 +5160,9 @@ export interface VideoMetadataCreateOneInput {
   create?: VideoMetadataCreateInput
 }
 
-export interface SpeechAPIConversationUpsertWithoutVideoInput {
-  update: SpeechAPIConversationUpdateWithoutVideoDataInput
-  create: SpeechAPIConversationCreateWithoutVideoInput
+export interface SpeechAPIConversationUpsertWithoutVideoUploadInput {
+  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
+  create: SpeechAPIConversationCreateWithoutVideoUploadInput
 }
 
 export interface VideoMetadataCreateInput {
@@ -5175,13 +5175,13 @@ export interface VideoMetadataCreateInput {
   dateRecorded?: DateCreateOneInput
 }
 
-export interface SpeechAPIConversationUpdateOneWithoutVideoInput {
-  create?: SpeechAPIConversationCreateWithoutVideoInput
+export interface SpeechAPIConversationUpdateOneWithoutVideoUploadInput {
+  create?: SpeechAPIConversationCreateWithoutVideoUploadInput
   connect?: SpeechAPIConversationWhereUniqueInput
   disconnect?: Boolean
   delete?: Boolean
-  update?: SpeechAPIConversationUpdateWithoutVideoDataInput
-  upsert?: SpeechAPIConversationUpsertWithoutVideoInput
+  update?: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
+  upsert?: SpeechAPIConversationUpsertWithoutVideoUploadInput
 }
 
 export interface TagCreateManyInput {
@@ -5215,7 +5215,7 @@ export interface VideoCreateManyInput {
 export interface SpeechAPIConversationBlockUpdateDataInput {
   speakerTag?: Int
   words?: SpeechAPIWordUpdateManyInput
-  video?: VideoUploadUpdateOneInput
+  videoUpload?: VideoUploadUpdateOneInput
 }
 
 export interface VideoMetadataUpdateDataInput {
@@ -5548,7 +5548,7 @@ export interface SpeechAPIConversationBlockWhereUniqueInput {
 export interface SpeechAPIConversationBlockCreateInput {
   speakerTag: Int
   words?: SpeechAPIWordCreateManyInput
-  video: VideoUploadCreateOneInput
+  videoUpload: VideoUploadCreateOneInput
 }
 
 export interface VideoWhereUniqueInput {
@@ -5623,7 +5623,7 @@ export interface SpeechAPIWordWhereInput {
   speakerTag_lte?: Int
   speakerTag_gt?: Int
   speakerTag_gte?: Int
-  video?: VideoUploadWhereInput
+  videoUpload?: VideoUploadWhereInput
   _MagicalBackRelation_SpeechAPIConversationBlockToSpeechAPIWord_every?: SpeechAPIConversationBlockWhereInput
   _MagicalBackRelation_SpeechAPIConversationBlockToSpeechAPIWord_some?: SpeechAPIConversationBlockWhereInput
   _MagicalBackRelation_SpeechAPIConversationBlockToSpeechAPIWord_none?: SpeechAPIConversationBlockWhereInput
@@ -5742,11 +5742,11 @@ export interface VideoUploadUpdateDataInput {
   flacLink?: VideoStorageLinkUpdateOneInput
   metadata?: VideoMetadataUpdateOneInput
   thumbnail?: ThumbnailUpdateOneInput
-  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoInput
+  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
 }
 
-export interface SpeechAPIConversationCreateOneWithoutVideoInput {
-  create?: SpeechAPIConversationCreateWithoutVideoInput
+export interface SpeechAPIConversationCreateOneWithoutVideoUploadInput {
+  create?: SpeechAPIConversationCreateWithoutVideoUploadInput
   connect?: SpeechAPIConversationWhereUniqueInput
 }
 
@@ -5759,7 +5759,7 @@ export interface SpeechAPIWordUpdateManyInput {
   upsert?: SpeechAPIWordUpsertWithWhereUniqueNestedInput[] | SpeechAPIWordUpsertWithWhereUniqueNestedInput
 }
 
-export interface SpeechAPIConversationCreateWithoutVideoInput {
+export interface SpeechAPIConversationCreateWithoutVideoUploadInput {
   conversation?: SpeechAPIConversationBlockCreateManyInput
 }
 
@@ -5835,7 +5835,7 @@ export interface VideoMetadataWhereInput {
 }
 
 export interface SpeechAPIConversationUpdateInput {
-  video?: VideoUploadUpdateOneWithoutGeneratedConversationInput
+  videoUpload?: VideoUploadUpdateOneWithoutGeneratedConversationInput
   conversation?: SpeechAPIConversationBlockUpdateManyInput
 }
 
@@ -5954,7 +5954,7 @@ export interface SpeechAPIWordUpdateDataInput {
   endTime?: Int
   word?: String
   speakerTag?: Int
-  video?: VideoUploadUpdateOneInput
+  videoUpload?: VideoUploadUpdateOneInput
 }
 
 export interface UserUpsertNestedInput {
@@ -6033,7 +6033,7 @@ export interface VideoUpsertNestedInput {
 export interface SpeechAPIConversationBlockUpdateInput {
   speakerTag?: Int
   words?: SpeechAPIWordUpdateManyInput
-  video?: VideoUploadUpdateOneInput
+  videoUpload?: VideoUploadUpdateOneInput
 }
 
 export interface UserWhereUniqueInput {
@@ -6057,7 +6057,7 @@ export interface SpeechAPIConversationBlockUpdateWithWhereUniqueNestedInput {
   data: SpeechAPIConversationBlockUpdateDataInput
 }
 
-export interface SpeechAPIConversationUpdateWithoutVideoDataInput {
+export interface SpeechAPIConversationUpdateWithoutVideoUploadDataInput {
   conversation?: SpeechAPIConversationBlockUpdateManyInput
 }
 
@@ -6088,7 +6088,7 @@ export interface SpeakerConnection {
 
 export interface SpeechAPIConversation extends Node {
   id: ID_Output
-  video: VideoUpload
+  videoUpload: VideoUpload
   conversation?: SpeechAPIConversationBlock[]
 }
 
@@ -6271,7 +6271,7 @@ export interface SpeechAPIWord extends Node {
   endTime: Int
   word: String
   speakerTag: Int
-  video: VideoUpload
+  videoUpload: VideoUpload
 }
 
 /*
@@ -6314,7 +6314,7 @@ export interface SpeechAPIConversationBlock extends Node {
   id: ID_Output
   speakerTag: Int
   words?: SpeechAPIWord[]
-  video: VideoUpload
+  videoUpload: VideoUpload
 }
 
 /*

@@ -122,18 +122,20 @@ type SpeechAPIWord {
   endTime: Int!
   word: String!
   speakerTag: Int!
-  video: VideoUpload! @relation(name: "SpeechAPIWordVideoRelation")
+  videoUpload: VideoUpload! @relation(name: "SpeechAPIWordVideoRelation")
 }
 
 type SpeechAPIConversationBlock {
   id: ID! @unique
   speakerTag: Int!
   words: [SpeechAPIWord!]!
-  video: VideoUpload! @relation(name: "SpeechAPIConversationBlockVideoRelation")
+  videoUpload: VideoUpload!
+    @relation(name: "SpeechAPIConversationBlockVideoRelation")
 }
 
 type SpeechAPIConversation {
   id: ID! @unique
-  video: VideoUpload! @relation(name: "SpeechAPIConversationVideoRelation")
+  videoUpload: VideoUpload!
+    @relation(name: "SpeechAPIConversationVideoRelation")
   conversation: [SpeechAPIConversationBlock!]!
 }

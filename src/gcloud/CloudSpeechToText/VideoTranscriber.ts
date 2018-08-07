@@ -79,7 +79,7 @@ export class VideoTranscriber {
     const conversationMappedToGraph: SpeechAPIConversationBlockCreateInput[] = conversation.map((rawBlock) => {
       const wordCreateInput: SpeechAPIWordCreateInput[] = rawBlock.map((word) => {
         return {
-          video: { connect: { id: video.id } },
+          videoUpload: { connect: { id: video.id } },
           startTime: word.startTime.nanos,
           endTime: word.endTime.nanos,
           word: word.word,
@@ -88,12 +88,12 @@ export class VideoTranscriber {
       });
 
       const convoBlock: SpeechAPIConversationBlockCreateInput =
-        { video: { connect: { id: video.id } }, speakerTag: rawBlock[0].speakerTag, words: { create: wordCreateInput } };
+        { videoUpload: { connect: { id: video.id } }, speakerTag: rawBlock[0].speakerTag, words: { create: wordCreateInput } };
       return convoBlock;
     });
 
     const speechConversation: SpeechAPIConversationCreateInput = {
-      video: { connect: { id: video.id } },
+      videoUpload: { connect: { id: video.id } },
       conversation: { create: conversationMappedToGraph },
     };
 

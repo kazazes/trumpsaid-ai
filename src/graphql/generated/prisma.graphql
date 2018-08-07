@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Tue Aug 07 2018 03:16:48 GMT-0700 (PDT)
+# timestamp: Tue Aug 07 2018 03:36:16 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -1104,7 +1104,7 @@ input SpeakerWhereUniqueInput {
 
 type SpeechAPIConversation implements Node {
   id: ID!
-  video(where: VideoUploadWhereInput): VideoUpload!
+  videoUpload(where: VideoUploadWhereInput): VideoUpload!
   conversation(where: SpeechAPIConversationBlockWhereInput, orderBy: SpeechAPIConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIConversationBlock!]
 }
 
@@ -1112,7 +1112,7 @@ type SpeechAPIConversationBlock implements Node {
   id: ID!
   speakerTag: Int!
   words(where: SpeechAPIWordWhereInput, orderBy: SpeechAPIWordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIWord!]
-  video(where: VideoUploadWhereInput): VideoUpload!
+  videoUpload(where: VideoUploadWhereInput): VideoUpload!
 }
 
 """A connection to a list of items."""
@@ -1128,7 +1128,7 @@ type SpeechAPIConversationBlockConnection {
 input SpeechAPIConversationBlockCreateInput {
   speakerTag: Int!
   words: SpeechAPIWordCreateManyInput
-  video: VideoUploadCreateOneInput!
+  videoUpload: VideoUploadCreateOneInput!
 }
 
 input SpeechAPIConversationBlockCreateManyInput {
@@ -1203,13 +1203,13 @@ input SpeechAPIConversationBlockSubscriptionWhereInput {
 input SpeechAPIConversationBlockUpdateDataInput {
   speakerTag: Int
   words: SpeechAPIWordUpdateManyInput
-  video: VideoUploadUpdateOneInput
+  videoUpload: VideoUploadUpdateOneInput
 }
 
 input SpeechAPIConversationBlockUpdateInput {
   speakerTag: Int
   words: SpeechAPIWordUpdateManyInput
-  video: VideoUploadUpdateOneInput
+  videoUpload: VideoUploadUpdateOneInput
 }
 
 input SpeechAPIConversationBlockUpdateManyInput {
@@ -1306,7 +1306,7 @@ input SpeechAPIConversationBlockWhereInput {
   words_every: SpeechAPIWordWhereInput
   words_some: SpeechAPIWordWhereInput
   words_none: SpeechAPIWordWhereInput
-  video: VideoUploadWhereInput
+  videoUpload: VideoUploadWhereInput
   _MagicalBackRelation_SpeechAPIConversationToSpeechAPIConversationBlock_every: SpeechAPIConversationWhereInput
   _MagicalBackRelation_SpeechAPIConversationToSpeechAPIConversationBlock_some: SpeechAPIConversationWhereInput
   _MagicalBackRelation_SpeechAPIConversationToSpeechAPIConversationBlock_none: SpeechAPIConversationWhereInput
@@ -1327,16 +1327,16 @@ type SpeechAPIConversationConnection {
 }
 
 input SpeechAPIConversationCreateInput {
-  video: VideoUploadCreateOneWithoutGeneratedConversationInput!
+  videoUpload: VideoUploadCreateOneWithoutGeneratedConversationInput!
   conversation: SpeechAPIConversationBlockCreateManyInput
 }
 
-input SpeechAPIConversationCreateOneWithoutVideoInput {
-  create: SpeechAPIConversationCreateWithoutVideoInput
+input SpeechAPIConversationCreateOneWithoutVideoUploadInput {
+  create: SpeechAPIConversationCreateWithoutVideoUploadInput
   connect: SpeechAPIConversationWhereUniqueInput
 }
 
-input SpeechAPIConversationCreateWithoutVideoInput {
+input SpeechAPIConversationCreateWithoutVideoUploadInput {
   conversation: SpeechAPIConversationBlockCreateManyInput
 }
 
@@ -1402,26 +1402,26 @@ input SpeechAPIConversationSubscriptionWhereInput {
 }
 
 input SpeechAPIConversationUpdateInput {
-  video: VideoUploadUpdateOneWithoutGeneratedConversationInput
+  videoUpload: VideoUploadUpdateOneWithoutGeneratedConversationInput
   conversation: SpeechAPIConversationBlockUpdateManyInput
 }
 
-input SpeechAPIConversationUpdateOneWithoutVideoInput {
-  create: SpeechAPIConversationCreateWithoutVideoInput
+input SpeechAPIConversationUpdateOneWithoutVideoUploadInput {
+  create: SpeechAPIConversationCreateWithoutVideoUploadInput
   connect: SpeechAPIConversationWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: SpeechAPIConversationUpdateWithoutVideoDataInput
-  upsert: SpeechAPIConversationUpsertWithoutVideoInput
+  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
+  upsert: SpeechAPIConversationUpsertWithoutVideoUploadInput
 }
 
-input SpeechAPIConversationUpdateWithoutVideoDataInput {
+input SpeechAPIConversationUpdateWithoutVideoUploadDataInput {
   conversation: SpeechAPIConversationBlockUpdateManyInput
 }
 
-input SpeechAPIConversationUpsertWithoutVideoInput {
-  update: SpeechAPIConversationUpdateWithoutVideoDataInput!
-  create: SpeechAPIConversationCreateWithoutVideoInput!
+input SpeechAPIConversationUpsertWithoutVideoUploadInput {
+  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput!
+  create: SpeechAPIConversationCreateWithoutVideoUploadInput!
 }
 
 input SpeechAPIConversationWhereInput {
@@ -1473,7 +1473,7 @@ input SpeechAPIConversationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  video: VideoUploadWhereInput
+  videoUpload: VideoUploadWhereInput
   conversation_every: SpeechAPIConversationBlockWhereInput
   conversation_some: SpeechAPIConversationBlockWhereInput
   conversation_none: SpeechAPIConversationBlockWhereInput
@@ -1489,7 +1489,7 @@ type SpeechAPIWord implements Node {
   endTime: Int!
   word: String!
   speakerTag: Int!
-  video(where: VideoUploadWhereInput): VideoUpload!
+  videoUpload(where: VideoUploadWhereInput): VideoUpload!
 }
 
 """A connection to a list of items."""
@@ -1507,7 +1507,7 @@ input SpeechAPIWordCreateInput {
   endTime: Int!
   word: String!
   speakerTag: Int!
-  video: VideoUploadCreateOneInput!
+  videoUpload: VideoUploadCreateOneInput!
 }
 
 input SpeechAPIWordCreateManyInput {
@@ -1593,7 +1593,7 @@ input SpeechAPIWordUpdateDataInput {
   endTime: Int
   word: String
   speakerTag: Int
-  video: VideoUploadUpdateOneInput
+  videoUpload: VideoUploadUpdateOneInput
 }
 
 input SpeechAPIWordUpdateInput {
@@ -1601,7 +1601,7 @@ input SpeechAPIWordUpdateInput {
   endTime: Int
   word: String
   speakerTag: Int
-  video: VideoUploadUpdateOneInput
+  videoUpload: VideoUploadUpdateOneInput
 }
 
 input SpeechAPIWordUpdateManyInput {
@@ -1779,7 +1779,7 @@ input SpeechAPIWordWhereInput {
 
   """All values greater than or equal the given value."""
   speakerTag_gte: Int
-  video: VideoUploadWhereInput
+  videoUpload: VideoUploadWhereInput
   _MagicalBackRelation_SpeechAPIConversationBlockToSpeechAPIWord_every: SpeechAPIConversationBlockWhereInput
   _MagicalBackRelation_SpeechAPIConversationBlockToSpeechAPIWord_some: SpeechAPIConversationBlockWhereInput
   _MagicalBackRelation_SpeechAPIConversationBlockToSpeechAPIWord_none: SpeechAPIConversationBlockWhereInput
@@ -3581,7 +3581,7 @@ input VideoUploadCreateInput {
   flacLink: VideoStorageLinkCreateOneInput
   metadata: VideoMetadataCreateOneInput
   thumbnail: ThumbnailCreateOneInput
-  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoInput
+  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadInput
 }
 
 input VideoUploadCreateOneInput {
@@ -3720,7 +3720,7 @@ input VideoUploadUpdateDataInput {
   flacLink: VideoStorageLinkUpdateOneInput
   metadata: VideoMetadataUpdateOneInput
   thumbnail: ThumbnailUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoInput
+  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
 }
 
 input VideoUploadUpdateInput {
@@ -3737,7 +3737,7 @@ input VideoUploadUpdateInput {
   flacLink: VideoStorageLinkUpdateOneInput
   metadata: VideoMetadataUpdateOneInput
   thumbnail: ThumbnailUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoInput
+  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
 }
 
 input VideoUploadUpdateOneInput {

@@ -1,42 +1,57 @@
 TS-WTF:
   Web Server:
     Prisma:
-      ✔ Add (abstract) remote storage class @20m @today @done(18-08-06 01:31)
-      ☐ People schema @20m
-      ☐ Transcript schema @50m
+      ☐ People/speaker schema + queries @2h
+      ☐ Transcript schema @1h
       ☐ News schema @30m
       ☐ Final video model @40m
     Backend:
-      ✔ Thumbnail generation @today @1h @done(18-08-06 01:32)
-      ✔ Transcript generation @2.5h @started(18-08-06 13:30) @done(18-08-07 03:20) @lasted(13h50m22s)
-      ☐ If Webm, download Webm
-      ☐ Vision AI @4h
-      ☐ Transcript NLP @10h
+      ☐ Opportunistic download and render strategy @critical 
+        ☐ Download many formats @high @2h
+        ☐ Decouple downloader and response handler @2h
+        ☐ Encode available @high @2h
+        ☐ Transcode "missing" @1h
+      ☐ Upload job watcher
+        ☐ Job status log @2h
+        ☐ Watcher @3h
+      ☐ Transcript NLP & NER + tag suggestions @10h
+      ☐ WebVTT generation @1h
+      ☐ Metatag generation @4h
+      ☐ CDN distribution @4h
+      ☐ Spot.im broadcaster @3h
+      ☐ ELK seeding @5h
     API:
-      ☐ Default privilege level @30m
-      ☐ Service worker decoupling @3d
+      ☐ Upload pipeline @4h @critical @today
+      ☐ Default privilege level @3h 
+      ☐ Service worker decoupling @6h
+      ☐ Social media publish on publish @2h
+      ☐ ELK API @5h
     Frontend:
       Admin:
-        ☐ Editors @15h
-        ☐ Centralize vue-apollo queries https://www.howtographql.com/vue-apollo/2-queries-loading-links/
-      ☐ Design @4h
-      ☐ Vue search page @8h
-      ☐ Static video pages @3h
+        ☐ Centralize vue-apollo queries https://www.howtographql.com/vue-apollo/2-queries-loading-links/ @critical @3h
+        ☐ Set speaker diarization count in submission @2h @high 
+        ☐ Re-make status display @high 
+        ☐ Editors @high 
+          ☐ Admin dashboards
+            ☐ Users @8h @low 
+            ☐ Submitted Videos @4h @high 
+            ☐ Published Videos @8h @low 
+      ☐ Design @4h 
+      ☐ Vue search page @10h
+      ☐ Static video pages @12h
         ☐ P2P distribution 
           ☐ Web seed solution @5h
-          ☐ Video-player support @2h
-          ☐ Torrent/download links @1h
+          ☐ Video-player support @4h
+          ☐ Torrent/download links @1h @low
         ☐ CDN/Cache layer @4h
   Infrastructure:
     ☐ ELK @1h
     ☐ ELK/Prisma integration @3h
     ☐ ELK/Vue integration @3h
-    ☐ Nginx serve static & deploy @2h
+    ☐ Nginx serve static & cache invalidation @2h
 
-
+Done:
+  ✔ Transcript generation @2.5h @started(18-08-06 13:30) @done(18-08-07 03:20) @lasted(13h50m22s) @project(TS-WTF.Web Server.Backend)
+  ✔ Add (abstract) remote storage class @20m @today @done(18-08-06 01:31) @project(TS-WTF.Web Server.Prisma)
+  ✔ Thumbnail generation @today @1h @done(18-08-06 01:32) @project(TS-WTF.Web Server.Backend)
 Archive:
-  ☐ Press Cmd/Ctrl+Enter to add a new todo
-  ☐ Press Alt+S to mark a todo as started @started(17-11-03 10:42)
-  ✔ Press Alt+D to mark a todo as done
-  ☐ You can add tags using the @ symbol, like this @tag
-  ☐ There are some special, customizable tags: @critical @high @low @today
