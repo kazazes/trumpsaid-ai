@@ -1,29 +1,26 @@
-// tslint:disable-next-line:variable-name
-import PubSub from '@google-cloud/pubsub';
 import logger from '../../util/logger';
 import PubSubController from '../PubSubController';
-import videoDownloadHandler from './videoDownloadHandler';
-import videoDownloadResponseHandler from './videoDownloadResponseHandler';
+import VideoDownloadHandler from './videoDownloadHandler';
+import VideoDownloadResponseHandler from './videoDownloadResponseHandler';
 
-export const VIDEO_DOWNLOAD_TOPIC = 'video-download';
-export const VIDEO_DOWNLOAD_RESPONSE_TOPIC = 'video-download-response';
+export class VideoDownloadPubSubController extends PubSubController {
+  topicSubcriptionNames = {
+    consumerTopicName: 'video-download',
+    consumerSubscriptionName: 'video-download-subscription',
+    responderTopicName: 'video-download-response',
+    responderSubscriptionName: 'video-download-response-subscription',
+  };
+  constructor(){
+    super();
 
-export const VIDEO_DOWNLOAD_SUBSCRIPTION = 'video-download-subscription';
-export const VIDEO_DOWNLOAD_RESPONSE_SUBSCRIPTION =
-  'video-download-response-subscription';
+    this.consumerHandler = new VideoDownloadHandler(1200000, this);
+    this.responseHandler = new VideoDownloadResponseHandler(this);
 
-class VideoDownloadPubSubController extends PubSubController {
-  pubsub: PubSub.PubSub;
-  constructor(downloadHandler: any, responseHandler: any) {
-    super(VIDEO_DOWNLOAD_TOPIC, VIDEO_DOWNLOAD_SUBSCRIPTION, VIDEO_DOWNLOAD_RESPONSE_TOPIC, VIDEO_DOWNLOAD_RESPONSE_SUBSCRIPTION);
+    this.addConsumerListener();
+    this.addResponseListener();
 
-    this.consumerSubscription.on('message', downloadHandler);
-    this.responderSubscription.on('message', responseHandler);
+    logger.debug('Started Video Download PubSub controller');
   }
 }
 
-const controller = new VideoDownloadPubSubController(videoDownloadHandler, videoDownloadResponseHandler);
-
-logger.debug('Video download PubSub controller activated.');
-
-export default controller;
+export default VideoDownloadPubSubController;

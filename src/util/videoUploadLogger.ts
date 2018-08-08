@@ -12,19 +12,26 @@ import logger from './logger';
  * @param {Moment} [timeout]
  */
 export const writeToVideoUploadLog = (
-  videoUpload: VideoUpload, status: VideoUploadLogItemStatus, event: VideoUploadLogItemEvent, message?: string, timeout?: Moment) => {
+  videoUpload: VideoUpload, status: VideoUploadLogItemStatus, event: VideoUploadLogItemEvent, message?: any, timeout?: Moment) => {
   let timesoutAt;
 
   if (timeout) {
     timesoutAt = timeout.milliseconds();
   }
 
+  let msg: string;
+  if (typeof message === 'string') {
+    msg = message as string;
+  } else {
+    msg = JSON.stringify(message);
+  }
+
   prisma.mutation.createVideoUploadStatusLogItem({
     data: {
       status,
       event,
-      message,
       timesoutAt,
+      message: msg,
       videoUpload: { connect: { id: videoUpload.id } },
     },
   })
