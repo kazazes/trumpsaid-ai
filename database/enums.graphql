@@ -12,14 +12,12 @@ enum VideoUploadLogItemStatus {
 
 enum VideoUploadLogItemEvent {
   DOWNLOAD
-  TRANSCODE
   ENCODE
   TRANSCRIPTION
   USER_INPUT
   NLP
   SOCIAL
-  THUMBNAIL_SELECT
-  THUMBNAIL_COMPRESS
+  THUMBNAIL
 }
 
 enum AdminRole {

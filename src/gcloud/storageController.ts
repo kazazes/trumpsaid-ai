@@ -2,7 +2,7 @@ import Storage, { Bucket } from '@google-cloud/storage';
 import fs from 'fs';
 import { mkdirSync } from 'mkdir-recursive';
 import moment from 'moment';
-import { VideoUploadStorageLink } from '../graphql/generated/prisma';
+import { VideoUploadStorageLink, VideoUploadStorageLinkCreateInput } from '../graphql/generated/prisma';
 import logger from '../util/logger';
 import secrets from '../util/secrets';
 
@@ -87,7 +87,7 @@ export const downloadSourceFile = async (sourceFile: Storage.File, force?: boole
   }
 };
 
-export const downloadStorageItem = async (storageItem: VideoUploadStorageLink, force?: boolean) => {
+export const downloadStorageItem = async (storageItem: VideoUploadStorageLink | VideoUploadStorageLinkCreateInput, force?: boolean) => {
   const file = storage.bucket(storageItem.bucket).file(storageItem.path);
   return downloadSourceFile(file, force);
 };

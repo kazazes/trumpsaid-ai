@@ -16,10 +16,17 @@ export default class VideoRenderResponseHandler extends PubSubResponseHandler {
     if (messageData.error) {
       return this.handleError(messageData, message);
     }
-    message.ack();
 
     const response = messageData as IVideoRenderSuccessMessage;
     const id = response.videoUpload.id;
+
+    const existsInThisContext = await prisma.exists.VideoUpload({ id });
+    if (!existsInThisContext) {
+      return message.nack();
+    }
+
+    message.ack();
+
     await Promise.all(response.storageLinkCreateInputs.map((linkCreateInput) => {
       logger.debug(`Created ${linkCreateInput.version} storage link on ${id}`);
       makeFilePublic(linkCreateInput.bucket, linkCreateInput.path);

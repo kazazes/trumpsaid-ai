@@ -1,7 +1,7 @@
 import { ApolloError } from 'apollo-server-core';
 import { isURL } from 'validator';
 import { VideoTranscriber } from '../../../gcloud/VideoTranscription/VideoTranscriber';
-import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '../../../gcloud/videoUploadJobPublisher';
+import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '../../../gcloud/VideoUploadJobPublisher';
 import logger from '../../../util/logger';
 import { IApolloContext } from '../../apollo';
 import { VideoUploadCreateInput } from '../../generated/prisma';
@@ -36,11 +36,11 @@ export default {
       `{ id submitedUrl submitedBy { displayName avatar } status state rawStorageLink { videoID path bucket } }`);
 
     if (upload.state === 'PENDING' && upload.status === 'AWAITING_PROCESSING') {
-      await publishDownloadJob(upload);
+      publishDownloadJob(upload);
       upload = await ctx.db.mutation.updateVideoUpload(
         { where: { id: args.id }, data: { state: 'PROCESSING' } }, ' { id status state submitedUrl } ');
     } else if (upload.state === 'PENDING' && upload.status === 'READY_TO_RENDER') {
-      await publishRenderJob(upload);
+      publishRenderJob(upload);
       upload = await ctx.db.mutation.updateVideoUpload(
         { where: { id: args.id }, data: { state: 'PROCESSING' } }, ' { id status state submitedUrl } ');
     } else if (upload.state === 'PENDING' && upload.status === 'NEEDS_REVIEW') {
@@ -55,7 +55,7 @@ export default {
       `{ id submitedUrl submitedBy { displayName avatar } status state rawStorageLink { videoID path bucket } }`);
 
     if (upload) {
-      await publishThumbnailJob(upload, args.timestamp);
+      publishThumbnailJob(upload, args.timestamp);
       return ctx.db.mutation.updateVideoUpload({ where: { id: upload.id }, data: { state: 'PROCESSING' } });
     }
 

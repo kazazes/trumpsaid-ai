@@ -1,7 +1,7 @@
 import logger from '../../util/logger';
 import PubSubController from '../PubSubController';
 import VideoRenderHandler from './VideoRenderHandler';
-import VideoRenderResponseHandler from './videoRenderResponseHandler';
+import VideoRenderResponseHandler from './VideoRenderResponseHandler';
 
 export default class VideoRenderPubSubController extends PubSubController {
   topicSubcriptionNames = {
