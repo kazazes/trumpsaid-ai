@@ -5,12 +5,13 @@ TS-WTF:
         ☐ Change VideoUpload file links to array of storage objects with version and type, include thumbnail @high @today
           ☐ Backend @2h @today
           ☐ Frontend @1h 
-        ☐ Download many formats @high @2h
+        ✔ Download many formats @high @2h @started(18-08-07 19:56) @done(18-08-07 22:38) @lasted(2h42m31s)
         ☐ Encode available @high @2h
         ☐ Transcode "missing" @1h
       ☐ Decouple response handlers from processing handlers (no DB mutations in handlers)
-        ☐ Downloader @1h @critical @today  
+        ✔ Downloader @1h @critical @today @started(18-08-07 18:59) @done(18-08-07 22:38) @lasted(3h39m27s)
         ☐ Thumbnail @30m @high 
+        ☐ Encode/transcode
         ☐ Processing/web environment @high 
           ☐ Web @1h
           ☐ Web + Processing @10m
@@ -18,7 +19,7 @@ TS-WTF:
       ☐ Job handling
         ☐ Job status log
           ☐ Server @3h
-              ☐ DOWNLOAD
+              ✔ DOWNLOAD @started(18-08-07 19:56) @done(18-08-07 22:38) @lasted(2h42m21s)
               ☐ ENCODE
               ☐ TRANSCODE
               ☐ USER_INPUT
@@ -86,3 +87,5 @@ Done:
   ✔ Add (abstract) remote storage class @20m @today @done(18-08-06 01:31) @project(TS-WTF.Web Server.Prisma) @project(TS-WTF)
   ✔ Thumbnail generation @today @1h @done(18-08-06 01:32) @project(TS-WTF.Web Server.Backend) @project(TS-WTF)
 
+
+Archive:

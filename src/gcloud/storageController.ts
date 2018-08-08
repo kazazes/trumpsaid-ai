@@ -1,7 +1,7 @@
 import Storage, { Bucket } from '@google-cloud/storage';
 import { mkdirSync } from 'mkdir-recursive';
 import moment from 'moment';
-import { VideoStorageLink } from '../graphql/generated/prisma';
+import { VideoUploadStorageLink } from '../graphql/generated/prisma';
 import logger from '../util/logger';
 import secrets from '../util/secrets';
 
@@ -9,7 +9,7 @@ export const storage = Storage({
   projectId: secrets.GOOGLE_PROJECT_ID,
 });
 
-const processingBucketName = 'ts-video-processing';
+export const processingBucketName = 'ts-video-processing';
 
 export const processingBucket = storage.bucket(processingBucketName);
 export const delimiter = '/';
@@ -72,11 +72,11 @@ export const downloadSourceFile = async (sourceFile: Storage.File) => {
   }
 };
 
-export const getReadStream = (source: VideoStorageLink) => {
+export const getReadStream = (source: VideoUploadStorageLink) => {
   return storage.bucket(source.bucket).file(source.path).createReadStream();
 };
 
-export const getFileSize = async(source: VideoStorageLink) => {
+export const getFileSize = async (source: VideoUploadStorageLink) => {
   const metadata = await storage.bucket(source.bucket).file(source.path).getMetadata();
   return metadata[0].size;
 };

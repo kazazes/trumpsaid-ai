@@ -52,7 +52,6 @@ export const testPrismaConnection = () => {
       })
       .catch((err) => {
         logger.error(`Error on connecting to Prisma at ${prismaEndpoint}`);
-        throw err;
         process.exit(1);
       });
   });

@@ -1,7 +1,7 @@
 import { ApolloError } from 'apollo-server-core';
 import { isURL } from 'validator';
-import { VideoTranscriber } from '../../../gcloud/CloudSpeechToText/VideoTranscriber';
-import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '../../../gcloud/videoJobPublisher';
+import { VideoTranscriber } from '../../../gcloud/VideoTranscription/VideoTranscriber';
+import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '../../../gcloud/videoUploadJobPublisher';
 import logger from '../../../util/logger';
 import { IApolloContext } from '../../apollo';
 import { VideoUploadCreateInput } from '../../generated/prisma';
@@ -24,6 +24,11 @@ export default {
   },
   deleteVideoUpload: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
     return ctx.db.mutation.deleteVideoUpload({ where: { id: args.id } });
+  },
+  downloadVideoUploadSources: async(obj: any, args: any, ctx: IApolloContext, info: any) => {
+    const upload = await ctx.db.query.videoUpload({ where: { id: args.id } });
+    publishDownloadJob(upload);
+    return upload;
   },
   startProcessingPipeline: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
     let upload = await ctx.db.query.videoUpload(

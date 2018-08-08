@@ -3,25 +3,23 @@ enum Role {
   ADMIN
 }
 
-enum VideoUploadStatus {
-  AWAITING_PROCESSING
-  DOWNLOADING
-  READY_TO_RENDER
-  RENDERING
-  NEEDS_THUMBNAILS
-  GENERATING_THUMBNAILS
-  NEEDS_REVIEW
-  AWAITING_TRANSCRIPTION
-  NEEDS_METADATA
-  READY_TO_PUBLISH
+enum VideoUploadLogItemStatus {
+  STARTED
+  FINISHED
+  FAILED
+  TIMED_OUT
 }
 
-enum VideoUploadState {
-  PENDING
-  PROCESSING
-  REJECTED
-  FAILED
-  PUBLISHED
+enum VideoUploadLogItemEvent {
+  DOWNLOAD
+  TRANSCODE
+  ENCODE
+  TRANSCRIPTION
+  USER_INPUT
+  NLP
+  SOCIAL
+  THUMBNAIL_SELECT
+  THUMBNAIL_COMPRESS
 }
 
 enum AdminRole {
@@ -33,9 +31,16 @@ enum AdminRole {
   DELETE_UPLOADS
 }
 
-enum VideoVersion {
+enum VideoUploadFileLinkType {
   RAW
   WEBM
   MP4
   FLAC
+  JPG
+  PNG
+}
+
+enum VideoUploadFileLinkVersion {
+  WEB
+  MASTER
 }
