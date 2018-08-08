@@ -1,57 +1,48 @@
-import { VideoStorageLink, VideoUpload } from '../../graphql/generated/prisma';
 import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
+import writeToVideoUploadLog from '../../util/videoUploadLogger';
+import { IPubSubConsumerPayload } from '../PubSubHandler';
+import { PubSubResponseHandler } from '../PubSubResponseHandler';
 import { makeFilePublic } from '../storageController';
+import { IVideoRenderFailedMessage, IVideoRenderSuccessMessage } from './VideoRenderHandler';
+import VideoRenderPubSubController from './VideoRenderPubSubController';
 
-interface IRenderResponsePayload {
-  requestPayload: VideoUpload;
-  error: any;
-  result: [VideoStorageLink];
+export default class VideoRenderResponseHandler extends PubSubResponseHandler {
+  constructor(pubSubController: VideoRenderPubSubController) {
+    super(pubSubController);
+  }
+  public async responseHandler(message: IPubSubConsumerPayload) {
+    const messageData = this.pubSubController.parseMessageData(message);
+    if (messageData.error) {
+      return this.handleError(messageData, message);
+    }
+    message.ack();
+
+    const response = messageData as IVideoRenderSuccessMessage;
+    const id = response.videoUpload.id;
+    await Promise.all(response.storageLinkCreateInputs.map((linkCreateInput) => {
+      logger.debug(`Created ${linkCreateInput.version} storage link on ${id}`);
+      makeFilePublic(linkCreateInput.bucket, linkCreateInput.path);
+      return prisma.mutation.createVideoUploadStorageLink({ data: linkCreateInput });
+    }))
+      .catch((e) => {
+        logger.error(`Error setting storage links on ${id}`, e);
+      });
+  }
+
+  protected async handleError(messageData: IVideoRenderFailedMessage, message: IPubSubConsumerPayload) {
+    const messageError: IVideoRenderFailedMessage = messageData;
+    const id = messageError.requestPayload.id;
+    const exists = await prisma.exists.VideoUpload({ id });
+    if (!exists) {
+      logger.debug(`Video render error handler nacking because ${id} does not exist in this environment`);
+      return message.nack();
+    }
+
+    message.ack();
+    const upload = await prisma.query.videoUpload({ where: { id } });
+
+    writeToVideoUploadLog(upload, 'FAILED', 'ENCODE', messageError.error);
+    logger.error(`Received render handler error response: \n ${JSON.stringify(messageData.error)}`);
+  }
 }
-
-export const renderVideoResponse = async (message: any) => {
-  const renderResponsePayload = JSON.parse(
-    Buffer.from(message.data, 'base64').toString(),
-  ) as IRenderResponsePayload;
-
-  if (renderResponsePayload.error) {
-    logger.error(`Received error in response to render job: ${JSON.stringify(renderResponsePayload.error)}`);
-    prisma.mutation.updateVideoUpload(
-      { where: { id: renderResponsePayload.requestPayload.id }, data: { status: 'READY_TO_RENDER', state: 'PENDING' } })
-    .catch(e => logger.error(`Error updating videoUpload in render response error handler: \n ${JSON.stringify(e)}`));
-    return message.ack();
-  }
-  const existsInThisContext = await prisma.exists.VideoUpload({ id: renderResponsePayload.requestPayload.id });
-  if (!existsInThisContext) {
-    return message.nack();
-  }
-
-  await Promise.all(renderResponsePayload.result.map(async (link) => {
-    const createdLink = await prisma.mutation.createVideoStorageLink({ data: link });
-    await makeFilePublic(link.bucket, link.path);
-    if (link.version === 'WEBM') {
-      return prisma.mutation.updateVideoUpload({ where: { id: link.videoID }, data: { webmLink: { connect: { id: createdLink.id } } } });
-    }
-
-    if (link.version === 'MP4') {
-      return prisma.mutation.updateVideoUpload({ where: { id: link.videoID }, data: { mp4Link: { connect: { id: createdLink.id } } } });
-    }
-
-    if (link.version === 'FLAC') {
-      return prisma.mutation.updateVideoUpload({ where: { id: link.videoID }, data: { flacLink: { connect: { id: createdLink.id } } } });
-    }
-
-    logger.error(`Received invalid render response result version type ${link.version}\n\n${link}`);
-    return Promise.reject();
-  }));
-
-  await prisma.mutation.updateVideoUpload(
-    { where: { id: renderResponsePayload.requestPayload.id }, data: { state: 'PENDING', status: 'NEEDS_THUMBNAILS' } });
-
-  message.ack();
-
-  // tslint:disable-next-line:no-magic-numbers
-  logger.info('RENDER RESPONSE ' + JSON.stringify(renderResponsePayload, null, 2));
-};
-
-export default renderVideoResponse;

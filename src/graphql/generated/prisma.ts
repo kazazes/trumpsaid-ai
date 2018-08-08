@@ -2274,12 +2274,10 @@ type VideoUploadEdge {
 }
 
 enum VideoUploadFileLinkType {
-  RAW
   WEBM
   MP4
-  FLAC
-  JPG
-  PNG
+  AUDIO
+  THUMBNAIL
 }
 
 enum VideoUploadFileLinkVersion {
@@ -3594,12 +3592,10 @@ export type VideoUploadStatusLogItemOrderByInput =   'id_ASC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
-export type VideoUploadFileLinkType =   'RAW' |
-  'WEBM' |
+export type VideoUploadFileLinkType =   'WEBM' |
   'MP4' |
-  'FLAC' |
-  'JPG' |
-  'PNG'
+  'AUDIO' |
+  'THUMBNAIL'
 
 export type AdminRole =   'CREATE_UPLOAD' |
   'LIST_UPLOADS' |

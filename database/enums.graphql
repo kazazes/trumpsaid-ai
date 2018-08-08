@@ -32,12 +32,10 @@ enum AdminRole {
 }
 
 enum VideoUploadFileLinkType {
-  RAW
   WEBM
   MP4
-  FLAC
-  JPG
-  PNG
+  AUDIO
+  THUMBNAIL
 }
 
 enum VideoUploadFileLinkVersion {

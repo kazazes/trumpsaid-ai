@@ -2,7 +2,7 @@
 import PubSub, { Subscription, Topic } from '@google-cloud/pubsub';
 import logger from '../util/logger';
 import secrets from '../util/secrets';
-import { PubSubHandler } from './PubSubHandler';
+import { IPubSubConsumerFailedResponse, IPubSubConsumerSuccessMessage, PubSubHandler } from './PubSubHandler';
 import { PubSubResponseHandler } from './PubSubResponseHandler';
 
 export interface ITopicSubscriptionNames {
@@ -51,7 +51,7 @@ abstract class PubSubController {
       });
   }
 
-  public publishResponseMessage = (obj: any) => {
+  public publishResponseMessage = (obj: IPubSubConsumerSuccessMessage) => {
     logger.info(`Published to ${this.responderTopic}: ${JSON.stringify(obj, null, 2)}`);
     this.responderTopic
       .publisher()
@@ -59,6 +59,18 @@ abstract class PubSubController {
       .catch((err) => {
         logger.error(
           `Error publishing to topic ${this.responderTopic}]\n ${JSON.stringify(err)}`,
+        );
+      });
+  }
+
+  public publishFailureMessage = (obj: IPubSubConsumerFailedResponse) => {
+    logger.info(`Published failure to ${this.responderTopic}: ${JSON.stringify(obj, null, 2)}`);
+    this.responderTopic
+      .publisher()
+      .publish(this.getBuffer(obj))
+      .catch((err) => {
+        logger.error(
+          `Error publishing failure to topic ${this.responderTopic}]\n ${JSON.stringify(err)}`,
         );
       });
   }

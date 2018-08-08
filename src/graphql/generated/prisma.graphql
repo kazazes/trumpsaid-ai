@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Tue Aug 07 2018 09:05:16 GMT-0700 (PDT)
+# timestamp: Wed Aug 08 2018 01:38:47 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -2120,12 +2120,10 @@ type VideoUploadEdge {
 }
 
 enum VideoUploadFileLinkType {
-  RAW
   WEBM
   MP4
-  FLAC
-  JPG
-  PNG
+  AUDIO
+  THUMBNAIL
 }
 
 enum VideoUploadFileLinkVersion {

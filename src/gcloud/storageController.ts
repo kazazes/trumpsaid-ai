@@ -1,4 +1,5 @@
 import Storage, { Bucket } from '@google-cloud/storage';
+import fs from 'fs';
 import { mkdirSync } from 'mkdir-recursive';
 import moment from 'moment';
 import { VideoUploadStorageLink } from '../graphql/generated/prisma';
@@ -37,7 +38,7 @@ export const createFile = (bucket: Bucket, path: string, filename: string) => {
 
 export const makeFilePublic = (bucketName: string, path: string) => {
   const bucket = storage.bucket(bucketName);
-  return bucket.file(path).makePublic()
+  bucket.file(path).makePublic()
     .then(() => {
       logger.info(`Made ${bucketName}/${path} public`);
     })
@@ -46,17 +47,31 @@ export const makeFilePublic = (bucketName: string, path: string) => {
     });
 };
 
-export const downloadSourceFile = async (sourceFile: Storage.File) => {
+ /**
+ * @description Download Google Cloud file locally
+ * @param {Storage.File} sourceFile
+ * @param {boolean} [force] - Force redownload, even file is already on disk
+ * @returns {string} The path.
+ */
+export const downloadSourceFile = async (sourceFile: Storage.File, force?: boolean) => {
   // Matches filename part of path
   const idRegex = new RegExp('\/.+\.*$');
   const tmpRoot = '/tmp/ts-wtf/';
 
   // Create dir tmpRoot/ObjectID
   const destinationDir = `${tmpRoot}${sourceFile.name.replace(idRegex, '')}/`;
-  mkdirSync(destinationDir);
 
   const destination = `${tmpRoot}${sourceFile.name}`;
-  logger.info(`Downloading ${sourceFile.name} to ${tmpRoot}`);
+  if (!force) {
+    const exists = fs.existsSync(destination);
+    if (exists) {
+      return destination;
+    }
+  }
+
+  mkdirSync(destinationDir);
+
+  logger.debug(`Downloading ${sourceFile.name} to ${tmpRoot}`);
   const start = moment();
 
   const error = await sourceFile.download({
@@ -72,6 +87,11 @@ export const downloadSourceFile = async (sourceFile: Storage.File) => {
   }
 };
 
+export const downloadStorageItem = async (storageItem: VideoUploadStorageLink, force?: boolean) => {
+  const file = storage.bucket(storageItem.bucket).file(storageItem.path);
+  return downloadSourceFile(file, force);
+};
+
 export const getReadStream = (source: VideoUploadStorageLink) => {
   return storage.bucket(source.bucket).file(source.path).createReadStream();
 };
@@ -79,4 +99,17 @@ export const getReadStream = (source: VideoUploadStorageLink) => {
 export const getFileSize = async (source: VideoUploadStorageLink) => {
   const metadata = await storage.bucket(source.bucket).file(source.path).getMetadata();
   return metadata[0].size;
+};
+
+export const filenameFromPath = (path: string) => {
+  const regex = new RegExp('\w+(?:\.\w+)*$');
+  return path.replace(regex, '');
+};
+export const directoryFromPath = (path: string) => {
+  const regex = new RegExp('[^\/]*$');
+  return path.replace(regex, '');
+};
+export const filenameWithoutPathOrExtension = (path: string) => {
+  const matchExtension = new RegExp('.\w+$');
+  return this.filenameFromPath(path).replace(matchExtension, '');
 };

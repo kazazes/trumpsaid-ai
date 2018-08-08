@@ -30,7 +30,7 @@ class VideoDownloadHandler extends PubSubHandler {
       requestPayload: payload,
       error: new Error('Download handler timed out'),
     };
-    this.pubSubController.publishResponseMessage(resp);
+    this.failed(resp);
   }
   public async requestHandler(message: IPubSubConsumerPayload) {
     const timer = this.startTimer(message);
@@ -44,7 +44,7 @@ class VideoDownloadHandler extends PubSubHandler {
     const path = delimiter + storagePrefix + delimiter;
     await deleteFolderInProcessing(path);
 
-    const desiredVersions: VideoUploadFileLinkType[] = ['FLAC', 'MP4', 'WEBM'];
+    const desiredVersions: VideoUploadFileLinkType[] = ['AUDIO', 'MP4', 'WEBM'];
     const versions: IFileWithType[] = await Promise.all(desiredVersions.map((version) => {
       return this.download(videoUpload.submitedUrl, version, path);
     }));
@@ -85,7 +85,7 @@ class VideoDownloadHandler extends PubSubHandler {
         case 'MP4':
           video = youtubedl(url, ['-f best[ext=mp4]'], {});
           break;
-        case 'FLAC':
+        case 'AUDIO':
           video = youtubedl(url, ['-f bestaudio', '--extract-audio', '--audio-quality 0'], {});
           break;
         default:

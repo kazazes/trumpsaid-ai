@@ -1,220 +1,325 @@
 import { File } from '@google-cloud/storage';
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
-import PubSub from '@google-cloud/pubsub';
-import fluentFfmpeg from 'fluent-ffmpeg';
+import fluentFfmpeg, { FfmpegCommand } from 'fluent-ffmpeg';
 import fs from 'fs';
-import { VideoUpload } from '../../graphql/generated/prisma';
+import moment, { Moment } from 'moment';
+import { VideoUpload, VideoUploadFileLinkType, VideoUploadStorageLink, VideoUploadStorageLinkCreateInput } from '../../graphql/generated/prisma';
 import logger from '../../util/logger';
-import secrets from '../../util/secrets';
-import { delimiter, downloadSourceFile, storage } from '../storageController';
-import { RENDER_RESPONSE_TOPIC } from './VideoRenderPubSubController';
+import { IPubSubConsumerFailedResponse, IPubSubConsumerPayload, IPubSubConsumerSuccessMessage, PubSubHandler } from '../PubSubHandler';
+import { createFileInProcessing, directoryFromPath, downloadStorageItem,
+  filenameWithoutPathOrExtension, processingBucketName } from '../storageController';
+import VideoRenderPubSubController from './VideoRenderPubSubController';
 
-const pubSub = PubSub({
-  projectId: secrets.GOOGLE_PROJECT_ID,
-  keyFilename: 'gc-credentials.json',
-});
+interface IFfmpegStage {
+  ffmpeg: FfmpegCommand;
+  renderOutput: File;
+  masterLocalPath: string;
+  start: Moment;
+  path: string;
+  inputFormat: string;
+}
 
-export const renderVideo = async (event: any) => {
-  return new Promise(async (resolve, reject) => {
-    const renderPayload = JSON.parse(
-      Buffer.from(event.data, 'base64').toString(),
-    ) as VideoUpload;
+// We can't itterate type definitions, which is all Prisma gives us, so define manually here
+// Thumbnail intentionally excluded, as it's a seperate handler
+enum VideoUploadFileLinkTypeEnum {
+  WEBM,
+  MP4,
+  AUDIO,
+}
 
-    /* We don't rely on any local Prisma info, so processing can happen in any worker environment.
-       Uncomment to ensure render job exists in current Prisma environment.
+export interface IVideoRenderSuccessMessage extends IPubSubConsumerSuccessMessage {
+  videoUpload: VideoUpload;
+  storageLinkCreateInputs: VideoUploadStorageLinkCreateInput[];
+}
 
-      const videoExistsInThisContext = await prisma.exists.VideoUpload({ id: renderPayload.id });
-      if (!videoExistsInThisContext) {
-        event.nack();
-        return resolve();
+export interface IVideoRenderFailedMessage extends IPubSubConsumerFailedResponse {
+  requestPayload: VideoUpload;
+}
+
+export default class VideoRenderHandler extends PubSubHandler {
+  constructor(timeout: number, controller: VideoRenderPubSubController) {
+    super(timeout, controller);
+  }
+  public async requestHandler(message: IPubSubConsumerPayload) {
+    const timer = this.startTimer(message);
+    return new Promise<void>(async (resolve, reject) => {
+      const videoUpload = this.pubSubController.parseMessageData(message) as VideoUpload;
+
+      message.ack();
+
+      logger.debug(`Handling render for ${videoUpload.id}`);
+
+      const storageLinks = videoUpload.storageLinks;
+
+      const hasAMaster = storageLinks.find((link) => {
+        return link.version === 'MASTER' && (link.fileType === 'MP4' || link.fileType === 'WEBM');
+      });
+
+      if (!hasAMaster) {
+        const err = 'Renderer was given a job which has no video masters. Aborting.';
+        logger.error(err);
+        const resp: IVideoRenderFailedMessage = {
+          requestPayload: videoUpload,
+          error: err,
+        };
+        this.failed(resp, timer);
+        return reject();
       }
-    */
 
-    event.ack();
+      const encodeFormats: VideoUploadFileLinkType[] = [];
+      const transcodeFormats: VideoUploadFileLinkType[] = [];
 
-    // tslint:disable-next-line:no-magic-numbers
-    logger.debug(`Render Payload: ${JSON.stringify(renderPayload, null, 2)}`);
-
-    const storageLink = renderPayload.rawStorageLink;
-
-    logger.debug(
-      `Reading from Storage ${storageLink.bucket +
-      delimiter +
-      storageLink.path}`,
-    );
-
-    const bucket = storage.bucket(storageLink.bucket);
-    const sourceFile = bucket.file(storageLink.path);
-
-    const mp4File = bucket.file(
-      sourceFile.name.replace(/\.[^/.]+$/, '') + '-web.mp4',
-    );
-
-    const webmFile = bucket.file(
-      sourceFile.name.replace(/\.[^/.]+$/, '') + '-web.webm',
-    );
-
-    const flacFile = bucket.file(
-      sourceFile.name.replace(/\.[^/.]+$/, '') + '.flac',
-    );
-
-    try {
-      const sourceFilePath = await downloadSourceFile(sourceFile);
-      await flacConversion(flacFile, sourceFilePath);
-      await mp4Conversion(mp4File, sourceFilePath);
-      await webmConversion(webmFile, sourceFilePath);
-      publishResponse({
-        requestPayload: renderPayload,
-        error: undefined,
-        result: [
-          {
-            path: webmFile.name,
-            bucket: bucket.name,
-            version: 'WEBM',
-            videoID: renderPayload.id,
-          },
-          {
-            path: mp4File.name,
-            bucket: bucket.name,
-            version: 'MP4',
-            videoID: renderPayload.id,
-          },
-          {
-            path: flacFile.name,
-            bucket: bucket.name,
-            version: 'FLAC',
-            videoID: renderPayload.id,
-          },
-        ],
-      }).catch((e) => {
-        logger.error(`Error publishing response: ${JSON.stringify(e)}`);
-      });
-    } catch (e) {
-      publishResponse({ renderPayload, error: e })
-        .catch((e) => {
-          logger.error(`Error publishing response: ${JSON.stringify(e)}`);
+      // VideoUploadFileLinkTypeEnum contains VideoUploadFileLinkTypes less Thumbnail
+      Object.keys(VideoUploadFileLinkTypeEnum).map((fileLinkType) => {
+        const hasMaster = storageLinks.find((link) => {
+          return link.fileType === fileLinkType && link.version === 'MASTER';
         });
-    }
-  });
-};
-
-const getBuffer = (obj: any) => {
-  return Buffer.from(JSON.stringify(obj));
-};
-
-const publishResponse = (obj: any) => {
-  // tslint:disable-next-line:no-magic-numbers
-  logger.info(`Published response: ${JSON.stringify(obj, null, 2)}`);
-  return pubSub
-    .topic(RENDER_RESPONSE_TOPIC)
-    .publisher()
-    .publish(getBuffer(obj));
-};
-
-const mp4Conversion = (mp4File: File, sourceFilePath: string) => {
-  return new Promise((resolve, reject) => {
-    const writeStream = mp4File.createWriteStream({
-      contentType: 'video/mp4',
-    });
-
-    const ffmpeg = fluentFfmpeg();
-    ffmpeg.setFfmpegPath(ffmpegPath);
-    ffmpeg
-      .input(sourceFilePath)
-      .inputFormat(sourceFilePath.split('.').pop() as string)
-      .format('mp4')
-      .videoCodec('libx264')
-      .audioCodec('aac')
-      .videoFilter('scale=1280:-2')
-      .outputOptions('-crf 22')
-      .outputOptions('-movflags faststart+frag_keyframe')
-      .outputOptions('-preset slow')
-      .on('start', (cmdLine) => {
-        logger.debug('Started ffmpeg with command: ' + cmdLine);
-      })
-      .on('end', () => {
-        logger.debug('Successfully re-encoded video as mp4.');
-        resolve();
-      })
-      .on('error', (err, stdout, stderr) => {
-        logger.error('An error occured during encoding: ', JSON.stringify(err));
-        reject(err);
-      })
-      .writeToStream(writeStream, { end: true });
-  });
-};
-
-const webmConversion = (webmFile: File, sourceFilePath: string) => {
-  return new Promise((resolve, reject) => {
-    const writeStream = webmFile.createWriteStream({
-      contentType: 'video/webm',
-    });
-    const ffmpeg = fluentFfmpeg();
-    ffmpeg.setFfmpegPath(ffmpegPath);
-    ffmpeg
-      .input(sourceFilePath)
-      .inputFormat(sourceFilePath.split('.').pop() as string)
-      .format('webm')
-      .videoCodec('libvpx')
-      .audioCodec('libvorbis')
-      .videoBitrate('1000')
-      .videoFilter('scale=1280:-2')
-      .outputOptions('-qmin 0')
-      .outputOptions('-qmax 25')
-      .on('start', (cmdLine) => {
-        logger.info('Started ffmpeg with command: ' + cmdLine);
-      })
-      .on('end', () => {
-        logger.info('Successfully re-encoded video to webm.');
-        resolve();
-      })
-      .on('error', (err, stdout, stderr) => {
-        logger.error('An error occured during encoding', JSON.stringify(err));
-        reject(err);
-      })
-      .writeToStream(writeStream, { end: true });
-  });
-};
-
-/**
- * @param  {File} flacFile - The Google Cloud Flac File
- * @param  {string} sourceFilePath - The path to the locally downloaded source video
- */
-const flacConversion = (flacFile: File, sourceFilePath: string) => {
-  const flacOutputPath = '/tmp/ts-wtf/' + flacFile.name;
-  return new Promise((resolve, reject) => {
-    const ffmpeg = fluentFfmpeg();
-
-    ffmpeg.setFfmpegPath(ffmpegPath);
-    ffmpeg
-      .input(sourceFilePath)
-      .inputFormat(sourceFilePath.split('.').pop() as string)
-      .noVideo()
-      .format('flac')
-      .audioChannels(1)
-      .output(flacOutputPath)
-      .on('start', (cmdLine) => {
-        logger.info('Started ffmpeg with command:' + cmdLine);
-      })
-      .on('end', () => {
-        logger.info('Successfully extracted flac audio.');
-        resolve(flacOutputPath);
-      })
-      .on('error', (err, stdout, stderr) => {
-        logger.error('An error occured during encoding', JSON.stringify(err));
-        reject(err);
-      })
-      .run();
-  })
-    .then((outputPath: string) => {
-      const writeStream = flacFile.createWriteStream({
-        contentType: 'audio/flac',
+        const hasWeb = storageLinks.find((link) => {
+          return link.fileType === fileLinkType && link.version === 'WEB';
+        });
+        if (hasMaster && !hasWeb) {
+          encodeFormats.push(fileLinkType as VideoUploadFileLinkType);
+        } else if (!hasMaster && !hasWeb) {
+          transcodeFormats.push(fileLinkType as VideoUploadFileLinkType);
+        }
       });
 
-      const flacFileLocal = fs.createReadStream(outputPath);
+      logger.debug(`Rendering with ${encodeFormats.length} encode and ${transcodeFormats.length} transcode jobs.`);
+      logger.debug(`Encode: ${encodeFormats.join(', ')}`);
+      logger.debug(`Transcode to: ${transcodeFormats.join(', ')}`);
 
-      flacFileLocal.pipe(writeStream);
+      const renderResults: VideoUploadStorageLinkCreateInput[] = [];
+
+      for (const format of transcodeFormats) {
+        try {
+          const storageCreateInput = await this.transcode(format, storageLinks);
+          renderResults.push(storageCreateInput);
+        } catch (e) {
+          logger.error('Rendering error occured! See above.');
+          logger.error(JSON.stringify(e));
+        }
+      }
+
+      for (const format of encodeFormats) {
+        try {
+          const storageCreateInput = await this.encode(format, storageLinks);
+          renderResults.push(storageCreateInput);
+        } catch (e) {
+          logger.error('Rendering error occured! See above.');
+          logger.error(JSON.stringify(e));
+        }
+      }
+
+      const response: IVideoRenderSuccessMessage = {
+        videoUpload,
+        storageLinkCreateInputs: renderResults,
+      };
+
+      this.succeeded(response, timer);
+      resolve();
     });
-};
+  }
+  protected timedOut(payload: IPubSubConsumerPayload): void {
+    const resp: IPubSubConsumerFailedResponse = {
+      requestPayload: payload,
+      error: new Error('Render handler timed out'),
+    };
+    this.failed(resp);
+  }
+  private async encode(format: VideoUploadFileLinkType, storageLinks: VideoUploadStorageLink[])
+  : Promise<VideoUploadStorageLinkCreateInput> {
+    const master = storageLinks.find((link) => { return link.version === 'MASTER' && link.fileType === format; });
+    switch (format) {
+      case 'MP4':
+        return this.encodeMP4(master);
+      case 'WEBM':
+        return this.encodeWebM(master);
+      case 'AUDIO':
+        return this.encodeAudio(master);
+      default:
+        logger.error(`${format} does not match any known encode types.`);
+        throw new Error(`${format} does not match any known encode types.`);
+    }
+  }
+  private async transcode(format: VideoUploadFileLinkType, storageLinks: VideoUploadStorageLink[]): Promise<VideoUploadStorageLinkCreateInput> {
+    let master;
+    switch (format) {
+      case 'MP4':
+        master = storageLinks.find(link => link.version === 'MASTER' && link.fileType === 'WEBM');
+      case 'WEBM':
+        master = storageLinks.find(link => link.version === 'MASTER' && link.fileType === 'MP4');
+      case 'AUDIO':
+        master = storageLinks.find(link => link.version === 'MASTER' && (link.fileType === 'MP4' || link.fileType === 'WEBM'));
+      default:
+        logger.error(`${format} does not match any known transcode types.`);
+        throw new Error(`${format} does not match any known transcode types.`);
+    }
 
-export default renderVideo;
+    if (!master) {
+      logger.error(`No master found for transcode to ${format}! Aborting.`);
+      throw new Error(`No master found for transcode to ${format}! Aborting.`);
+    }
+
+    switch (format) {
+      case 'MP4':
+        return this.transcodeToMP4(master);
+      case 'WEBM':
+        return this.transcodeToWebM(master);
+      case 'AUDIO':
+        return this.transcodeToAudio(master);
+      default:
+        logger.error(`${format} does not match any known transcode types.`);
+        throw new Error(`${format} does not match any known transcode types.`);
+    }
+  }
+  private async stageRender(master: VideoUploadStorageLink): Promise<IFfmpegStage> {
+    const masterLocalPath = await downloadStorageItem(master);
+    const path = `${directoryFromPath(master.path)}${filenameWithoutPathOrExtension(master.path)}-web.mp4`;
+    const renderOutput = createFileInProcessing(directoryFromPath(master.path), filenameWithoutPathOrExtension(master.path) + '-web.mp4');
+    const ffmpeg = fluentFfmpeg({ logger });
+    const inputFormat = filenameWithoutPathOrExtension(master.path).split('.').pop();
+    ffmpeg.setFfmpegPath(ffmpegPath);
+    return { path, ffmpeg, masterLocalPath, renderOutput, inputFormat, start: moment() };
+  }
+  private async encodeMP4(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput> {
+    const stage = await this.stageRender(master);
+    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat } = stage;
+    const writeStream = renderOutput.createWriteStream({ contentType: 'video/mp4' });
+    await new Promise<File>((resolve, reject) => {
+      ffmpeg
+        .input(masterLocalPath)
+        .inputFormat(inputFormat)
+        .format('mp4')
+        .videoCodec('libx264')
+        .audioCodec('aac')
+        .outputOptions('-vprofile high')
+        .outputOptions('-crf 24')
+        .outputOptions('-movflags faststart')
+        .outputOptions('-preset slow')
+        .outputOptions('-map_metadata -1')
+        .on('start', (cmdLine) => {
+          logger.debug('Started ffmpeg with command: ' + cmdLine);
+        })
+        .on('end', () => {
+          logger.debug(`Successfully encoded video as MP4 ${start.toNow()}`);
+          resolve(renderOutput);
+        })
+        .on('error', (err, stdout, stderr) => {
+          logger.error('An error occured during encoding: ', JSON.stringify(err));
+          logger.error(stdout);
+          logger.error(stderr);
+          reject(err);
+        })
+        .pipe(writeStream, { end: true });
+    })
+    .catch((e) => {
+      logger.error(JSON.stringify(e));
+      throw e;
+    });
+
+    return {
+      path,
+      bucket: processingBucketName,
+      version: 'WEB',
+      fileType: 'MP4',
+      videoUpload: { connect: { id: master.videoUpload.id } },
+    };
+  }
+  private async encodeWebM(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput> {
+    const stage = await this.stageRender(master);
+    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat } = stage;
+    const writeStream = renderOutput.createWriteStream({ contentType: 'video/webm' });
+    await new Promise<File>((resolve, reject) => {
+      ffmpeg
+        .input(masterLocalPath)
+        .inputFormat(inputFormat)
+        .format('webm')
+        .videoCodec('libvpx')
+        .audioCodec('libvorbis')
+        .videoBitrate('1000')
+        .videoFilter('scale=1280:-2')
+        .outputOptions('-qmin 0')
+        .outputOptions('-qmax 25')
+        .outputOptions('-map_metadata -1')
+        .on('start', (cmdLine) => {
+          logger.debug('Started ffmpeg with command: ' + cmdLine);
+        })
+        .on('end', () => {
+          logger.debug(`Successfully encoded video as Webm ${start.toNow()}`);
+          resolve(renderOutput);
+        })
+        .on('error', (err, stdout, stderr) => {
+          logger.error('An error occured during encoding: ', JSON.stringify(err));
+          logger.error(stdout);
+          logger.error(stderr);
+          reject(err);
+        })
+        .pipe(writeStream, { end: true });
+    })
+      .catch((e) => {
+        logger.error(JSON.stringify(e));
+        throw e;
+      });
+
+    return {
+      path,
+      bucket: processingBucketName,
+      version: 'WEB',
+      fileType: 'WEBM',
+      videoUpload: { connect: { id: master.videoUpload.id } },
+    };
+  }
+  private async encodeAudio(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput> {
+    const stage = await this.stageRender(master);
+    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat } = stage;
+    const flacOutputPath = `/tmp/ts-wtf/${filenameWithoutPathOrExtension(master.path)}.flac`;
+    await new Promise<string>((resolve, reject) => {
+      ffmpeg
+        .input(masterLocalPath)
+        .inputFormat(inputFormat)
+        .noVideo()
+        .format('flac')
+        .audioChannels(1)
+        .output(flacOutputPath)
+        .on('start', (cmdLine) => {
+          logger.debug('Started ffmpeg with command: ' + cmdLine);
+        })
+        .on('end', () => {
+          logger.debug(`Successfully encoded audio as flac ${start.toNow()}`);
+          resolve(masterLocalPath);
+        })
+        .on('error', (err, stdout, stderr) => {
+          logger.error('An error occured during encoding: ', JSON.stringify(err));
+          logger.error(stdout);
+          logger.error(stderr);
+          reject(err);
+        })
+        .run();
+    })
+      .catch((e) => {
+        logger.error(JSON.stringify(e));
+        throw e;
+      });
+
+    const writeStream = renderOutput.createWriteStream({ contentType: 'audio/flac' });
+    const flacFileLocal = fs.createReadStream(masterLocalPath);
+    flacFileLocal.pipe(writeStream);
+
+    return {
+      path,
+      bucket: processingBucketName,
+      version: 'WEB',
+      fileType: 'AUDIO',
+      videoUpload: { connect: { id: master.videoUpload.id } },
+    };
+  }
+  private async transcodeToMP4(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput> {
+    return this.encodeMP4(master);
+  }
+  private async transcodeToWebM(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput> {
+    return this.encodeWebM(master);
+  }
+  private async transcodeToAudio(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput> {
+    return this.encodeAudio(master);
+  }
+}

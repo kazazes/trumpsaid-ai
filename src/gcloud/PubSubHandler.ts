@@ -11,10 +11,16 @@ export abstract class PubSubHandler {
   protected startTimer(payload: IPubSubConsumerPayload): NodeJS.Timer {
     return setInterval(() => { this.timedOut(payload); }, this.timeout);
   }
-  public abstract requestHandler(message: any): Promise<void>;
+  public abstract requestHandler(message: IPubSubConsumerPayload): Promise<void>;
   protected succeeded(response: IPubSubConsumerSuccessMessage, timer: NodeJS.Timer): void {
     clearTimeout(timer);
     this.pubSubController.publishResponseMessage(response);
+  }
+  protected failed(response: IPubSubConsumerFailedResponse, timer?: NodeJS.Timer): void {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    this.pubSubController.publishFailureMessage(response);
   }
 }
 
