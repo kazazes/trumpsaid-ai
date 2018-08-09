@@ -5,9 +5,6 @@
   },
   "rules": {
     "await-promise": true,
-    "completed-docs": {
-      "severity": "warning"
-    },
     "import-name": false,
     "interface-name": true,
     "max-line-length": [
@@ -22,7 +19,6 @@
     "no-duplicate-imports": true,
     "no-floating-promises": true,
     "no-irregular-whitespace": true,
-    "no-magic-numbers": true,
     "no-return-await": true,
     "no-string-throw": true,
     "no-var-keyword": true,

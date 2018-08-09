@@ -1,7 +1,7 @@
 import Storage, { Bucket } from '@google-cloud/storage';
 import { mkdirSync } from 'mkdir-recursive';
 import moment from 'moment';
-import { VideoStorageLink } from '../graphql/generated/prisma';
+import { VideoUploadStorageLink, VideoUploadStorageLinkCreateInput } from '../graphql/generated/prisma';
 import logger from '../util/logger';
 import secrets from '../util/secrets';
 
@@ -9,7 +9,7 @@ export const storage = Storage({
   projectId: secrets.GOOGLE_PROJECT_ID,
 });
 
-const processingBucketName = 'ts-video-processing';
+export const processingBucketName = 'ts-video-processing';
 
 export const processingBucket = storage.bucket(processingBucketName);
 export const delimiter = '/';
@@ -37,7 +37,7 @@ export const createFile = (bucket: Bucket, path: string, filename: string) => {
 
 export const makeFilePublic = (bucketName: string, path: string) => {
   const bucket = storage.bucket(bucketName);
-  return bucket.file(path).makePublic()
+  bucket.file(path).makePublic()
     .then(() => {
       logger.info(`Made ${bucketName}/${path} public`);
     })
@@ -46,6 +46,12 @@ export const makeFilePublic = (bucketName: string, path: string) => {
     });
 };
 
+ /**
+ * @description Download Google Cloud file locally
+ * @param {Storage.File} sourceFile
+ * @param {boolean} [force] - Force redownload, even file is already on disk
+ * @returns {string} The path.
+ */
 export const downloadSourceFile = async (sourceFile: Storage.File) => {
   // Matches filename part of path
   const idRegex = new RegExp('\/.+\.*$');
@@ -53,10 +59,12 @@ export const downloadSourceFile = async (sourceFile: Storage.File) => {
 
   // Create dir tmpRoot/ObjectID
   const destinationDir = `${tmpRoot}${sourceFile.name.replace(idRegex, '')}/`;
-  mkdirSync(destinationDir);
 
   const destination = `${tmpRoot}${sourceFile.name}`;
-  logger.info(`Downloading ${sourceFile.name} to ${tmpRoot}`);
+
+  mkdirSync(destinationDir);
+
+  logger.debug(`Downloading ${sourceFile.name} to ${tmpRoot}`);
   const start = moment();
 
   const error = await sourceFile.download({
@@ -72,11 +80,45 @@ export const downloadSourceFile = async (sourceFile: Storage.File) => {
   }
 };
 
-export const getReadStream = (source: VideoStorageLink) => {
+export const downloadStorageItem = async (storageItem: VideoUploadStorageLink | VideoUploadStorageLinkCreateInput) => {
+  const file = storage.bucket(storageItem.bucket).file(storageItem.path);
+  return downloadSourceFile(file);
+};
+
+export const downloadNewStorageItems = async (storageItems: VideoUploadStorageLinkCreateInput[]) => {
+  return Promise.all(storageItems.map((item: VideoUploadStorageLinkCreateInput) => {
+    const file = storage.bucket(item.bucket).file(item.path);
+    return downloadSourceFile(file);
+  }))
+  .catch((e) => {
+    logger.error(`Could not download new source links locally`, e);
+  });
+};
+
+export const getReadStream = (source: VideoUploadStorageLink) => {
   return storage.bucket(source.bucket).file(source.path).createReadStream();
 };
 
-export const getFileSize = async(source: VideoStorageLink) => {
+export const getFileSize = async (source: VideoUploadStorageLink) => {
   const metadata = await storage.bucket(source.bucket).file(source.path).getMetadata();
   return metadata[0].size;
+};
+
+export const filenameFromPath = (path: string) => {
+  // TODO: FIX
+  const regex = new RegExp('^(.*/)+');
+  return path.replace(regex, '');
+};
+export const directoryFromPath = (path: string) => {
+  const regex = new RegExp('[^\/]*$');
+  return path.replace(regex, '');
+};
+export const filenameWithoutPathOrExtension = (path: string) => {
+  // FIXME: My RegEx is broken.
+  // const matchExtension = new RegExp('(\.\w+$)');
+  return this.filenameFromPath(path).split('.')[0];
+};
+
+export const getExtension = (path: string) => {
+  return filenameFromPath(path).split('.').pop();
 };

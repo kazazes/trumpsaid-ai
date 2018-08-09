@@ -1,141 +1,128 @@
 import { File } from '@google-cloud/storage';
 import { WriteStream } from 'fs';
-import stringToStream from 'string-to-stream';
-import youtubedl from 'youtube-dl';
-import { VideoUpload } from '../../graphql/generated/prisma';
-import prisma from '../../graphql/prismaContext';
+import youtubedl, { Youtubedl } from 'youtube-dl';
+import { VideoUpload, VideoUploadFileLinkType, VideoUploadFileLinkVersion, VideoUploadStorageLinkCreateInput } from '../../graphql/generated/prisma';
 import logger from '../../util/logger';
-import { createFileInProcessing, deleteFolderInProcessing, delimiter, processingBucket } from '../storageController';
-import pubSubController from './VideoDownloadPubSubController';
+import PubSubHandler, { IPubSubConsumerFailedResponse, IPubSubConsumerPayload, IPubSubConsumerSuccessMessage } from '../PubSubHandler';
+import { createFileInProcessing, deleteFolderInProcessing, delimiter, processingBucketName } from '../storageController';
+import VideoDownloadPubSubController from './VideoDownloadPubSubController';
 
-export const downloadVideoHandler = async (message: any) => {
-  const start = new Date().getMilliseconds();
-  const videoUploadPayload = JSON.parse(
-    Buffer.from(message.data, 'base64').toString(),
-  ) as VideoUpload;
-  logger.info(`Payload:
-    ${JSON.stringify(videoUploadPayload)}
-  `);
+export interface IVideoDownloadResponseMessage extends IPubSubConsumerSuccessMessage {
+  videoUpload: VideoUpload;
+  storageLinkCreateInputs: VideoUploadStorageLinkCreateInput[];
+}
 
-  const exists = await prisma.exists.VideoUpload({ id: videoUploadPayload.id })
-    .catch((e) => {
-      return message.nack();
+export interface IVideoDownloadFailedMessage extends IPubSubConsumerFailedResponse {
+  requestPayload: VideoUpload;
+}
+
+interface IFileWithType {
+  file: File;
+  fileType: VideoUploadFileLinkType;
+}
+
+class VideoDownloadHandler extends PubSubHandler {
+  constructor(timeout: number, controller: VideoDownloadPubSubController) {
+    super(timeout, controller);
+  }
+  protected timedOut(payload: IPubSubConsumerPayload): void {
+    const resp: IPubSubConsumerFailedResponse = {
+      requestPayload: payload,
+      error: new Error('Download handler timed out'),
+    };
+    this.failed(resp);
+  }
+  public async requestHandler(message: IPubSubConsumerPayload) {
+    const timer = this.startTimer(message);
+
+    message.ack();
+
+    const videoUpload = this.pubSubController.parseMessageData(message) as VideoUpload;
+
+    // Delete existing download folder
+    const storagePrefix = videoUpload.id;
+    const path = storagePrefix + delimiter;
+    await deleteFolderInProcessing(path);
+
+    const desiredVersions: VideoUploadFileLinkType[] = ['AUDIO', 'MP4', 'WEBM'];
+    const versions: IFileWithType[] = await Promise.all(desiredVersions.map((version) => {
+      return this.download(videoUpload.submitedUrl, version, path);
+    }));
+
+    const filteredVersions: IFileWithType[] = versions.filter((v) => { return v !== undefined; });
+
+    const storageLinks: VideoUploadStorageLinkCreateInput[] = filteredVersions.map((fileAndType: IFileWithType) => {
+      const file = fileAndType.file;
+      const fileType = fileAndType.fileType;
+      return {
+        fileType,
+        path: file.name,
+        bucket: processingBucketName,
+        videoUpload: { connect: { id: videoUpload.id } },
+        version: 'MASTER' as VideoUploadFileLinkVersion,
+      };
     });
 
-  if (!exists) {
-    logger.debug('Passing on video job, cannot find original');
-    return message.nack();
+    const response: IVideoDownloadResponseMessage = {
+      videoUpload,
+      storageLinkCreateInputs: storageLinks,
+    };
+
+    this.succeeded(response, timer);
   }
 
-  logger.debug(`Attempting to download ${videoUploadPayload.submitedUrl}`);
-  message.ack();
+  private download(url: string, fileType: VideoUploadFileLinkType, path: string) {
+    return new Promise<IFileWithType>((resolve) => {
+      logger.debug(`Attempting to download ${url} - ${fileType}`);
+      let video: Youtubedl;
+      let videoFile: File;
+      let videoFileStream: WriteStream;
+      let contentType: string;
 
-  prisma.mutation.updateVideoUpload({ where: { id: videoUploadPayload.id }, data: { state: 'PROCESSING', status: 'DOWNLOADING' } })
-    .catch((err) => {
-      logger.error(err);
-      throw err;
-    });
+      switch (fileType) {
+        case 'WEBM':
+          video = youtubedl(url, ['-f best[ext=webm]'], {});
+          contentType = 'video/webm';
+          break;
+        case 'MP4':
+          video = youtubedl(url, ['-f best[ext=mp4]'], {});
+          contentType = 'video/mp4';
+          break;
+        case 'AUDIO':
+          video = youtubedl(url, ['-f bestaudio', '--extract-audio', '--audio-quality 0'], {});
+          break;
+        default:
+          video = youtubedl(url, [], {});
+          break;
+      }
 
-  const storagePrefix = videoUploadPayload.id;
-  const path = delimiter + storagePrefix + delimiter;
-
-  const video = youtubedl(videoUploadPayload.submitedUrl, [], {});
-  await deleteFolderInProcessing(path);
-
-  let remoteMeta: any;
-
-  let videoFile: File;
-  let metaFile: File;
-  let metaFileStream: WriteStream;
-  let videoFileStream: WriteStream;
-
-  video.on('info', (info) => {
-    remoteMeta = info;
-    try {
-      videoFile = createFileInProcessing(path, info._filename);
-      metaFile = createFileInProcessing(path, 'info.json');
-
-      metaFileStream = metaFile.createWriteStream({ contentType: 'application/json' });
-      videoFileStream = videoFile.createWriteStream();
-
-      // tslint:disable-next-line:no-magic-numbers
-      stringToStream(JSON.stringify(info, null, 2)).pipe(metaFileStream);
-      video.pipe(videoFileStream);
-      videoFileStream.on('finish', () => {
-        // tslint:disable-next-line:no-magic-numbers
-        const duration = (new Date().getMilliseconds() - start) / 10;
-        videoFile.makePublic()
-          .catch((e) => {
+      video.on('info', (info) => {
+        videoFile = createFileInProcessing(path, info._filename);
+        videoFileStream = videoFile.createWriteStream({ contentType });
+        video.pipe(videoFileStream);
+        videoFileStream.on('finish', () => {
+          videoFile.makePublic().catch((e) => {
             logger.error(`Error making file public: ${JSON.stringify(e)}`);
           });
-        logger.info(`Downloaded in ${duration}s to ${processingBucket.name}/${ videoUploadPayload.id }/${ remoteMeta._filename } and made public`);
-      });
-    } catch (e) {
-      logger.error('Error uploading file: ' + JSON.stringify(e));
-    }
 
-    logger.debug(`Download started for
-      \tVideo: ${videoUploadPayload.submitedUrl}
+          logger.info(`Downloaded ${url}, ${fileType} to ${path}/${info._filename} and made public`);
+
+          resolve({ fileType, file: videoFile });
+        });
+
+        logger.debug(`Download started for
+      \tVideo: ${url}
+      \tType: ${fileType}
       \tSize: ${info.size}
       \tTitle: ${info._filename}`);
-  });
-
-  video.on('end', async () => {
-    // tslint:disable-next-line:no-magic-numbers
-    const fullPath = `${videoUploadPayload.id}/${remoteMeta._filename}`;
-
-    // TODO: Move video response handling to response handler, only ack() if in correct prisma environment
-    try {
-      const storageLink = await prisma.mutation.createVideoStorageLink(
-        { data: { path: fullPath, videoID: videoUploadPayload.id, bucket: processingBucket.name, version: 'RAW' } }, ' { id }');
-      const updated = await prisma.mutation.updateVideoUpload({
-        where: { id: videoUploadPayload.id },
-        data: {
-          rawStorageLink: { connect: storageLink },
-          state: 'PENDING',
-          status: 'READY_TO_RENDER',
-        },
-      });
-      pubSubController
-      .responseTopic
-      .publisher()
-      .publish(Buffer.from(JSON.stringify(updated)))
-      .then((messageId) => {
-        logger.debug(
-          `Published download success to ${JSON.stringify(pubSubController.responseTopic)} as ${messageId}`,
-        );
-      })
-      .catch((err) => {
-        logger.error(err);
-        throw err;
-      });
-    } catch (e) {
-      logger.error('Error finishing download: ' + e);
-    }
-  });
-
-  video.on('error', (err) => {
-    prisma.mutation.updateVideoUpload({ where: { id: videoUploadPayload.id }, data: { state: 'FAILED', status: 'DOWNLOADING' } })
-      .catch((err) => {
-        logger.error(err);
-        throw err;
       });
 
-    const message = { err, trigger: videoUploadPayload };
-    const dataBuffer = Buffer.from(JSON.stringify(message));
-    pubSubController
-      .responseTopic
-      .publisher()
-      .publish(dataBuffer)
-      .then((messageId) => {
-        logger.error(
-          `Failed to download, published err to ${pubSubController.responseTopic} as ${messageId}`,
-        );
-        logger.error(err);
-      })
-      .catch((err) => {
-        logger.error(err);
-        throw err;
+      video.on('error', (err) => {
+        logger.error(`Failed to download ${url}, ${fileType}: \n ${JSON.stringify(err)}`);
+        resolve();
       });
-  });
-};
+    });
+  }
+}
+
+export default VideoDownloadHandler;

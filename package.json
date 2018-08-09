@@ -14,7 +14,7 @@
     "watch-node": "nodemon --inspect dist/server.js --ignore dist/public",
     "watch": "concurrently -k -p \"{name}: \" -n \"📦,⌨️\" -c \"yellow.bold,cyan.bold\" \"webpack --progress --display-error-details --watch\" \"npm run watch-ts\"",
     "test": "jest --forceExit --coverage --verbose",
-    "build-ts": "tsc",
+    "build-ts": "npm run tslint && tsc",
     "watch-ts": "tsc -w",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "post-deploy": "npm install && npm run build-prod && pm2 reload ecosystem.config.js --update-env --env production"

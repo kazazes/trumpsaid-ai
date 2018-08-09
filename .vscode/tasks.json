@@ -5,10 +5,7 @@
       "identifier": "watch",
       "type": "npm",
       "script": "build",
-      "problemMatcher": [
-        "$tsc",
-        "$node-sass"
-      ],
+      "problemMatcher": ["$tsc", "$node-sass"],
       "isBackground": true
     },
     {
@@ -17,16 +14,12 @@
       "label": "tsc: watch",
       "tsconfig": "tsconfig.json",
       "option": "watch",
-      "problemMatcher": [
-        "$tsc-watch"
-      ]
+      "problemMatcher": ["$tsc-watch"]
     },
     {
       "type": "npm",
-      "script": "tslint",
-      "problemMatcher": [
-        "$tslint5"
-      ],
+      "script": "build-ts",
+      "problemMatcher": ["$tslint5", "$tsc"],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -35,16 +28,12 @@
     {
       "type": "npm",
       "script": "build-ts",
-      "problemMatcher": [
-        "$tsc"
-      ]
+      "problemMatcher": ["$tsc"]
     },
     {
       "type": "npm",
       "script": "watch-ts",
-      "problemMatcher": [
-        "$tsc-watch"
-      ],
+      "problemMatcher": ["$tsc-watch"],
       "isBackground": true
     }
   ]

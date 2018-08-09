@@ -1,36 +1,26 @@
 TS-WTF:
   Web Server:
     Backend:
-      ☐ Opportunistic download and render strategy @critical 
-        ☐ Change VideoUpload file links to array of storage objects with version and type, include thumbnail @high @today
-          ☐ Backend @2h @today
-          ☐ Frontend @1h 
-        ☐ Download many formats @high @2h
-        ☐ Encode available @high @2h
-        ☐ Transcode "missing" @1h
-      ☐ Decouple response handlers from processing handlers (no DB mutations in handlers)
-        ☐ Downloader @1h @critical @today  
-        ☐ Thumbnail @30m @high 
-        ☐ Processing/web environment @high 
-          ☐ Web @1h
-          ☐ Web + Processing @10m
-          ☐ Processing (AppEngine) @2h
+      ☐ Worker/web modes @high 
+        ☐ Web App Server @1h
+        ☐ Web + Worker @10m
+        ☐ Worker (AppEngine) @2h
       ☐ Job handling
-        ☐ Job status log
-          ☐ Server @3h
-              ☐ DOWNLOAD
-              ☐ ENCODE
-              ☐ TRANSCODE
-              ☐ USER_INPUT
-              ☐ THUMBNAILS
-              ☐ NLP
-              ☐ SOCIAL
+          ☐ USER_INPUT @20m
+        ☐ Pipeline in job response handlers
+          ☐ Download -> Render @20m
+          ☐ Render -> transcription @20m
+          ☐ Thumbnail -> compressed @20m
           ☐ Frontend @2h
         ☐ PubSub-Prisma Watcher @3h @low
             ☐ Transcript
-        ☐ NLP & NER + tag suggestions @10h
+        ☐ NLP & NER + tag suggestions @10h https://github.com/gerardobort/node-corenlp
+        ☐ Dash rendering @2h @high @today @started(18-08-08 21:10)
+        ☐ Clean prisma model before download and render @20m @today 
+        ☐ Video cutting - modify render @3h @high @today 
+        ☐ Publish fractional updates from workers, render progress in browser @3h @high 
+        ☐ Break down generated transcript for editing @high @2h
     Graph API & Prisma:
-      ☐ Upload pipeline @15h @critical @today
       ☐ Default privilege level @3h 
       ☐ Service worker decoupling @6h
       ☐ People/speaker schema + queries @2h
@@ -40,49 +30,72 @@ TS-WTF:
       ☐ Protect routes, test @5h
   Frontend:
     Admin:
-      ☐ Centralize vue-apollo queries https://www.howtographql.com/vue-apollo/2-queries-loading-links/ @critical @5h
+      ☐ Centralize vue-apollo queries https://www.howtographql.com/vue-apollo/2-queries-loading-links/ @critical @3h
       ☐ Set speaker diarization count in submission @2h @high @today 
       ☐ Re-make upload status display @high @2h
       ☐ Editors @high 
         ☐ Admin dashboards
-          ☐ Users @8h @low 
-          ☐ Submitted Videos @4h @high 
+          ☐ Users @4h @low 
           ☐ Published Videos @8h @low 
     ☐ Design @4h 
     ☐ Clean up Vue @4h @high 
     ☐ Vue search page @10h
-    ☐ Static video pages @12h
+    ☐ Static video pages @10h
   Infrastructure:
     ☐ ELK @1h
-    ☐ ELK/Prisma integration @3h
+    ☐ ELK/Prisma integration @5h
     ☐ ELK/Vue integration @3h
     ☐ Nginx serve static & cache invalidation @2h
 
+Research:
+  ☐ P2P HTML5 Video solution
+  ☐ Tag generation from transcript
+
 Upstream:
-  Metatag generation
-  ELK seeding
-  WebVTT generation
-  CDN distribution
-  Spot.im broadcaster
-  Torrent/download links
-  ELK API
-  Social media publish on publish
-  P2P distribution
-  Web seed solution
-  CDN/Cache layer
-  Video-player support 
-  Tests
-  Unprotected routes
+  ☐ Metatag generation
+  ☐ ELK seeding
+  ☐ WebVTT generation
+  ☐ CDN distribution
+  ☐ Spot.im broadcaster
+  ☐ Torrent/download links
+  ☐ ELK API
+  ☐ Social media publish on publish
+  ☐ P2P distribution
+  ☐ Web seed solution
+  ☐ CDN/Cache layer
+  ☐ Video-player support 
+  ☐ Tests
+  ☐ Unprotected routes
 
-Done:
-  ✔ TRANSCRIPTION @done(18-08-07 09:18) @project(TS-WTF.Web Server.Backend)
-  ✔ Move transcript saving to metadata @critical @today @20m @started(18-08-07 07:00) @done(18-08-07 08:19) @lasted(1h19m46s) @project(TS-WTF.Web Server.Backend)
-  ✔ Handlers @30m @started(18-08-07 07:00) @done(18-08-07 08:19) @lasted(1h19m51s) @project(TS-WTF.Web Server.Backend)
-  ✔ Create abstract storage class @1h @today @done(18-08-07 06:54) @project(TS-WTF.Web Server.Backend)
-  ✔ Prisma @30m @started(18-08-07 06:08) @done(18-08-07 06:20) @lasted(12m57s) @project(TS-WTF.Web Server.Backend)
-  ✔ Prisma @20m @started(18-08-07 06:32) @done(18-08-07 06:53) @lasted(21m46s) @project(TS-WTF.Web Server.Backend)
-  ✔ DB @1h @done(18-08-07 06:54) @project(TS-WTF.Web Server.Backend)
-  ✔ Transcript generation @2.5h @started(18-08-06 13:30) @done(18-08-07 03:20) @lasted(13h50m22s) @project(TS-WTF.Web Server.Backend) @project(TS-WTF)
-  ✔ Add (abstract) remote storage class @20m @today @done(18-08-06 01:31) @project(TS-WTF.Web Server.Prisma) @project(TS-WTF)
-  ✔ Thumbnail generation @today @1h @done(18-08-06 01:32) @project(TS-WTF.Web Server.Backend) @project(TS-WTF)
-
+Archive:
+  ✘ Frontend @2h @cancelled(18-08-08 11:55) @project(TS-WTF.Web Server.Backend)
+  ✘ Submitted Videos @4h @high @cancelled(18-08-08 10:19) @project(TS-WTF.Frontend.Admin)
+  ✔ Upload pipeline @15h @critical @today @done(18-08-08 10:18) @project(TS-WTF.Web Server.Graph API & Prisma)
+  ✔ Decouple response handlers from processing handlers (no DB mutations in handlers) @done(18-08-08 10:16) @project(TS-WTF.Web Server.Backend)
+  ✔ Downloader @1h @critical @today @started(18-08-07 18:59) @done(18-08-07 22:38) @lasted(3h39m27s) @project(TS-WTF.Web Server.Backend)
+  ✔ Thumbnail @30m @high @done(18-08-08 07:15) @project(TS-WTF.Web Server.Backend)
+  ✔ Encode/transcode @done(18-08-08 06:00) @project(TS-WTF.Web Server.Backend)
+  ✔ Job status log @done(18-08-08 10:11) @project(TS-WTF.Web Server.Backend)
+  ✔ Server @3h @done(18-08-08 10:11) @project(TS-WTF.Web Server.Backend)
+  ✔ DOWNLOAD @started(18-08-07 19:56) @done(18-08-07 22:38) @lasted(2h42m21s) @project(TS-WTF.Web Server.Backend)
+  ✔ ENCODE @done(18-08-08 06:01) @project(TS-WTF.Web Server.Backend)
+  ✘ TRANSCODE @cancelled(18-08-08 07:15) @project(TS-WTF.Web Server.Backend)
+  ✔ THUMBNAILS @done(18-08-08 07:15) @project(TS-WTF.Web Server.Backend)
+  ✘ NLP @cancelled(18-08-08 07:15) @project(TS-WTF.Web Server.Backend)
+  ✘ SOCIAL @cancelled(18-08-08 07:15) @project(TS-WTF.Web Server.Backend)
+  ✔ Opportunistic download and render strategy @critical @done(18-08-08 10:10) @project(TS-WTF.Web Server.Backend)
+  ✔ Change VideoUpload file links to array of storage objects with version and type, include thumbnail @high @today @done(18-08-08 10:10) @project(TS-WTF.Web Server.Backend)
+  ✔ Backend @2h @today @done(18-08-08 10:10) @project(TS-WTF.Web Server.Backend)
+  ✔ Download many formats @high @2h @started(18-08-07 19:56) @done(18-08-07 22:38) @lasted(2h42m31s) @project(TS-WTF.Web Server.Backend)
+  ✔ Encode available @high @2h @done(18-08-08 06:00) @project(TS-WTF.Web Server.Backend)
+  ✔ TRANSCRIPTION @done(18-08-07 09:18) @project(TS-WTF.Web Server.Backend) @project(Done)
+  ✔ Move transcript saving to metadata @critical @today @20m @started(18-08-07 07:00) @done(18-08-07 08:19) @lasted(1h19m46s) @project(TS-WTF.Web Server.Backend) @project(Done)
+  ✔ Handlers @30m @started(18-08-07 07:00) @done(18-08-07 08:19) @lasted(1h19m51s) @project(TS-WTF.Web Server.Backend) @project(Done)
+  ✔ Create abstract storage class @1h @today @done(18-08-07 06:54) @project(TS-WTF.Web Server.Backend) @project(Done)
+  ✔ Prisma @30m @started(18-08-07 06:08) @done(18-08-07 06:20) @lasted(12m57s) @project(TS-WTF.Web Server.Backend) @project(Done)
+  ✔ Prisma @20m @started(18-08-07 06:32) @done(18-08-07 06:53) @lasted(21m46s) @project(TS-WTF.Web Server.Backend) @project(Done)
+  ✔ DB @1h @done(18-08-07 06:54) @project(TS-WTF.Web Server.Backend) @project(Done)
+  ✔ Transcript generation @2.5h @started(18-08-06 13:30) @done(18-08-07 03:20) @lasted(13h50m22s) @project(TS-WTF.Web Server.Backend) @project(TS-WTF) @project(Done)
+  ✔ Transcode "missing" @1h @done(18-08-08 06:00) @project(TS-WTF.Web Server.Backend)
+  ✔ Add (abstract) remote storage class @20m @today @done(18-08-06 01:31) @project(TS-WTF.Web Server.Prisma) @project(TS-WTF) @project(Done)
+  ✔ Thumbnail generation @today @1h @done(18-08-06 01:32) @project(TS-WTF.Web Server.Backend) @project(TS-WTF) @project(Done)

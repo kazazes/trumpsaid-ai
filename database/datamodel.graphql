@@ -1,27 +1,8 @@
-interface IVideo {
-  published: Boolean @default(value: "false")
-  advertisingEnabled: Boolean @default(value: "false")
-  views: Int @default(value: "0")
-  webmLink: VideoStorageLink
-  mp4Link: VideoStorageLink
-  source: Source
-}
-
-interface StorageItem {
+interface IStorageItem {
   id: ID! @unique
   videoID: ID!
   path: String!
   bucket: String!
-}
-
-type VideoMetadata {
-  title: String
-  subtitle: String
-  advertisingEnabled: Boolean! @default(value: "false")
-  tags: [Tag!]!
-  sources: [Source!]!
-  dateRecorded: Date
-  views: Int! @default(value: "0")
 }
 
 type User {
@@ -38,56 +19,66 @@ type User {
 
 type VideoUpload implements IVideo {
   id: ID! @unique
+  adminMetadata: VideoUploadAdminMetadata
+    @relation(name: "VideoUploadAdminMetadataRelation", onDelete: CASCADE)
   createdAt: DateTime!
   updatedAt: DateTime!
-  submitedBy: User! @relation(name: "VideoSubmitter")
-  publishedBy: User @relation(name: "VideoPublisher")
-  publishedVideo: Video
-  submitedUrl: String! @unique
-  status: VideoUploadStatus!
-  state: VideoUploadState! @default(value: "PENDING")
-  published: Boolean! @default(value: "false")
-  rawStorageLink: VideoStorageLink
-    @relation(name: "VideoStorageRawRelation", onDelete: CASCADE)
-  webmLink: VideoStorageLink
-    @relation(name: "VideoWebmLinkRelation", onDelete: CASCADE)
-  mp4Link: VideoStorageLink
-    @relation(name: "VideoMp4LinkRelation", onDelete: CASCADE)
-  flacLink: VideoStorageLink
-    @relation(name: "VideoFlacLinkRelation", onDelete: CASCADE)
-  metadata: VideoMetadata
+  metadata: VideoUploadMetadata
     @relation(name: "VideoUploadMetadataRelation", onDelete: CASCADE)
-  thumbnail: Thumbnail
-    @relation(name: "VideoUploadThumbnailRelation", onDelete: CASCADE)
+  publishedBy: User @relation(name: "VideoPublisher")
+  published: Boolean! @default(value: "false")
+  # TODO: publishedVideo: Video
+  statusLog: [VideoUploadStatusLogItem!]!
+    @relation(name: "VideoUploadLogItemRelation")
+  storageLinks: [VideoUploadStorageLink!]!
+    @relation(name: "StorageLinkVideoRelation")
+  submitedBy: User! @relation(name: "VideoSubmitter")
+  submitedUrl: String! @unique
+}
+
+type VideoUploadStorageLink implements IStorageItem {
+  id: ID! @unique
+  videoUpload: VideoUpload! @relation(name: "StorageLinkVideoRelation")
+  path: String!
+  bucket: String!
+  version: VideoUploadFileLinkVersion!
+  fileType: VideoUploadFileLinkType!
+}
+
+type VideoUploadMetadata {
+  id: ID! @unique
+  videoUpload: VideoUpload!
+    @relation(name: "VideoUploadMetadataRelation", onDelete: CASCADE)
+  title: String
+  subtitle: String
+  dateRecorded: Date
+  speakers: Int! @default(value: "2")
   generatedConversation: SpeechAPIConversation
     @relation(name: "SpeechAPIConversationVideoRelation", onDelete: CASCADE)
 }
 
-type Tag {
+type VideoUploadAdminMetadata {
   id: ID! @unique
-  name: String!
-  videos: [Video!]!
+  videoUpload: VideoUpload!
+    @relation(name: "VideoUploadAdminMetadataRelation", onDelete: CASCADE)
+  advertisingEnabled: Boolean! @default(value: "false")
 }
 
-type Source {
-  publication: Publication!
-  url: String!
-  title: String
-  videos: [Video!]!
-  priority: Int! @default(value: "5")
-}
-
-type Video implements IVideo {
+type VideoUploadStatusLogItem {
   id: ID! @unique
-  published: Boolean @default(value: "false")
-  advertisingEnabled: Boolean @default(value: "false")
-  views: Int @default(value: "0")
+  status: VideoUploadLogItemStatus!
+  videoUpload: VideoUpload! @relation(name: "VideoUploadLogItemRelation")
+  event: VideoUploadLogItemEvent!
+  createdAt: DateTime!
+  timesoutAt: Int
+  message: String
 }
 
 type Speaker {
   name: String! @unique
   avatarPath: String!
   title: String!
+  # TODO: Transcript items relation
 }
 
 type Date {
@@ -96,46 +87,34 @@ type Date {
   year: Int!
 }
 
-type Publication {
-  avatarPath: String!
-  name: String!
-}
-
-type VideoStorageLink implements StorageItem {
-  id: ID! @unique
-  videoID: ID!
-  path: String!
-  bucket: String!
-  version: VideoVersion!
-}
-
-type Thumbnail implements StorageItem {
-  id: ID! @unique
-  videoID: ID!
-  path: String!
-  bucket: String!
-}
-
+## Google Cloud Speech API Types
 type SpeechAPIWord {
   id: ID! @unique
   startTime: Int!
   endTime: Int!
   word: String!
   speakerTag: Int!
-  videoUpload: VideoUpload! @relation(name: "SpeechAPIWordVideoRelation")
 }
 
 type SpeechAPIConversationBlock {
   id: ID! @unique
   speakerTag: Int!
   words: [SpeechAPIWord!]!
-  videoUpload: VideoUpload!
-    @relation(name: "SpeechAPIConversationBlockVideoRelation")
+    @relation(
+      name: "SpeechAPIWordToConversationBlockRelation"
+      onDelete: CASCADE
+    )
+  conversation: SpeechAPIConversation!
+    @relation(name: "SpeechAPIConversationBlockToConversationRelation")
 }
 
 type SpeechAPIConversation {
   id: ID! @unique
-  videoUpload: VideoUpload!
+  videoUpload: VideoUploadMetadata!
     @relation(name: "SpeechAPIConversationVideoRelation")
   conversation: [SpeechAPIConversationBlock!]!
+    @relation(
+      name: "SpeechAPIConversationBlockToConversationRelation"
+      onDelete: CASCADE
+    )
 }
