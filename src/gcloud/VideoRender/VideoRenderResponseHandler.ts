@@ -1,3 +1,4 @@
+import { VideoUploadStorageLinkCreateInput } from '../../graphql/generated/prisma';
 import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
 import writeToVideoUploadLog from '../../util/videoUploadLogger';
@@ -27,8 +28,13 @@ export default class VideoRenderResponseHandler extends PubSubResponseHandler {
 
     message.ack();
 
+    const deleted = await this.deleteExistingDuplicateLinkTypes(response.storageLinkCreateInputs, id);
+    if (Number(deleted.count) > 0) {
+      logger.debug(`Deleted ${deleted.count} existing encodes before creating new ones.`);
+    }
+
     await Promise.all(response.storageLinkCreateInputs.map((linkCreateInput) => {
-      logger.debug(`Created ${linkCreateInput.version} storage link on ${id}`);
+      logger.debug(`Created ${linkCreateInput.version}/${linkCreateInput.fileType} storage link on ${id}`);
       makeFilePublic(linkCreateInput.bucket, linkCreateInput.path);
       return prisma.mutation.createVideoUploadStorageLink({ data: linkCreateInput });
     }))
@@ -37,6 +43,20 @@ export default class VideoRenderResponseHandler extends PubSubResponseHandler {
       });
   }
 
+  private async deleteExistingDuplicateLinkTypes(storageLinkCreateInputs: VideoUploadStorageLinkCreateInput[], id: string) {
+    const { storageLinks } = await prisma.query.videoUpload({ where: { id } }, ' { storageLinks { id path version bucket fileType } }');
+    const toDelete = storageLinks.filter((existingLink) => {
+      return storageLinkCreateInputs.find((newLink) => {
+        if (newLink.version === existingLink.version && newLink.fileType === existingLink.fileType) {
+          return true;
+        }
+
+        return false;
+      });
+    }).map(link => link.fileType);
+
+    return prisma.mutation.deleteManyVideoUploadStorageLinks({ where: { id_in: toDelete } });
+  }
   protected async handleError(messageData: IVideoRenderFailedMessage, message: IPubSubConsumerPayload) {
     const messageError: IVideoRenderFailedMessage = messageData;
     const id = messageError.requestPayload.id;

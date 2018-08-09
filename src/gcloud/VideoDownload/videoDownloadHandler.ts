@@ -41,7 +41,7 @@ class VideoDownloadHandler extends PubSubHandler {
 
     // Delete existing download folder
     const storagePrefix = videoUpload.id;
-    const path = delimiter + storagePrefix + delimiter;
+    const path = storagePrefix + delimiter;
     await deleteFolderInProcessing(path);
 
     const desiredVersions: VideoUploadFileLinkType[] = ['AUDIO', 'MP4', 'WEBM'];
@@ -49,14 +49,14 @@ class VideoDownloadHandler extends PubSubHandler {
       return this.download(videoUpload.submitedUrl, version, path);
     }));
 
-    const filteredVersions: IFileWithType[] = versions.filter((v) => { v !== undefined; });
+    const filteredVersions: IFileWithType[] = versions.filter((v) => { return v !== undefined; });
 
     const storageLinks: VideoUploadStorageLinkCreateInput[] = filteredVersions.map((fileAndType: IFileWithType) => {
       const file = fileAndType.file;
       const fileType = fileAndType.fileType;
       return {
         fileType,
-        path: path + file.name,
+        path: file.name,
         bucket: processingBucketName,
         videoUpload: { connect: { id: videoUpload.id } },
         version: 'MASTER' as VideoUploadFileLinkVersion,
@@ -77,13 +77,16 @@ class VideoDownloadHandler extends PubSubHandler {
       let video: Youtubedl;
       let videoFile: File;
       let videoFileStream: WriteStream;
+      let contentType: string;
 
       switch (fileType) {
         case 'WEBM':
           video = youtubedl(url, ['-f best[ext=webm]'], {});
+          contentType = 'video/webm';
           break;
         case 'MP4':
           video = youtubedl(url, ['-f best[ext=mp4]'], {});
+          contentType = 'video/mp4';
           break;
         case 'AUDIO':
           video = youtubedl(url, ['-f bestaudio', '--extract-audio', '--audio-quality 0'], {});
@@ -95,7 +98,7 @@ class VideoDownloadHandler extends PubSubHandler {
 
       video.on('info', (info) => {
         videoFile = createFileInProcessing(path, info._filename);
-        videoFileStream = videoFile.createWriteStream();
+        videoFileStream = videoFile.createWriteStream({ contentType });
         video.pipe(videoFileStream);
         videoFileStream.on('finish', () => {
           videoFile.makePublic().catch((e) => {

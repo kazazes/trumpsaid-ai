@@ -26,51 +26,53 @@ abstract class PubSubController {
       projectId: secrets.GOOGLE_PROJECT_ID,
       keyFilename: 'gc-credentials.json',
     });
+  }
 
+  protected setup() {
     this.consumerTopic = this.pubsub.topic(this.topicSubcriptionNames.consumerTopicName);
     this.consumerSubscription = this.pubsub.subscription(this.topicSubcriptionNames.consumerSubscriptionName);
     this.responderTopic = this.pubsub.topic(this.topicSubcriptionNames.responderTopicName);
     this.responderSubscription = this.pubsub.subscription(this.topicSubcriptionNames.responderSubscriptionName);
   }
   protected addConsumerListener() {
-    this.consumerSubscription.on('message', this.consumerHandler.requestHandler);
+    this.consumerSubscription.on('message', this.consumerHandler.requestHandler.bind(this.consumerHandler));
   }
   protected addResponseListener() {
-    this.responderSubscription.on('message', this.responseHandler.responseHandler);
+    this.responderSubscription.on('message', this.responseHandler.responseHandler.bind(this.responseHandler));
   }
 
   public publishConsumerMessage = (obj: any) => {
-    logger.info(`Published to ${this.consumerTopic}: ${JSON.stringify(obj, null, 2)}`);
+    logger.silly(`Publishing to ${this.topicSubcriptionNames.consumerTopicName}: ${JSON.stringify(obj, null, 2)}`);
     this.consumerTopic
       .publisher()
       .publish(this.getBuffer(obj))
       .catch((err) => {
-        logger.error(
-          `Error publishing to topic ${this.consumerTopic}]\n ${JSON.stringify(err)}`,
+        logger.silly(
+          `Error publishing to ${this.topicSubcriptionNames.consumerTopicName} consumer topic \n ${JSON.stringify(err)}`,
         );
       });
   }
 
   public publishResponseMessage = (obj: IPubSubConsumerSuccessMessage) => {
-    logger.info(`Published to ${this.responderTopic}: ${JSON.stringify(obj, null, 2)}`);
+    logger.silly(`Published to ${this.topicSubcriptionNames.responderTopicName}: ${JSON.stringify(obj, null, 2)}`);
     this.responderTopic
       .publisher()
       .publish(this.getBuffer(obj))
       .catch((err) => {
         logger.error(
-          `Error publishing to topic ${this.responderTopic}]\n ${JSON.stringify(err)}`,
+          `Error publishing to topic ${this.topicSubcriptionNames.responderTopicName}]\n ${JSON.stringify(err)}`,
         );
       });
   }
 
   public publishFailureMessage = (obj: IPubSubConsumerFailedResponse) => {
-    logger.info(`Published failure to ${this.responderTopic}: ${JSON.stringify(obj, null, 2)}`);
+    logger.verbose(`Published failure to ${this.topicSubcriptionNames.responderTopicName}: ${JSON.stringify(obj, null, 2)}`);
     this.responderTopic
       .publisher()
       .publish(this.getBuffer(obj))
       .catch((err) => {
         logger.error(
-          `Error publishing failure to topic ${this.responderTopic}]\n ${JSON.stringify(err)}`,
+          `Error publishing failure to topic ${this.topicSubcriptionNames.responderTopicName}]\n ${JSON.stringify(err)}`,
         );
       });
   }
@@ -80,7 +82,7 @@ abstract class PubSubController {
   }
 
   public parseMessageData(message: any) {
-    return JSON.parse(this.getBuffer(message.data).toString());
+    return JSON.parse(Buffer.from(message.data).toString());
   }
 }
 

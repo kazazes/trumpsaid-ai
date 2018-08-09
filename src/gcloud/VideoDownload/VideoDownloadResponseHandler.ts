@@ -28,6 +28,15 @@ export default class VideoDownloadResponseHandler extends PubSubResponseHandler 
 
     message.ack();
 
+    try {
+      const deleted = await this.deleteExistingVideoSources(id);
+      if (Number(deleted.count) > 0) {
+        logger.debug(`Deleted ${deleted.count} linked video sources before setting new ones.`);
+      }
+    } catch (e) {
+      logger.error(`Failed to delete existing video upload storage links on ${id}.`, e);
+    }
+
     await Promise.all(response.storageLinkCreateInputs.map((linkCreateInput) => {
       logger.debug(`Created ${linkCreateInput.version} storage link on ${id}`);
       makeFilePublic(linkCreateInput.bucket, linkCreateInput.path);
@@ -36,6 +45,10 @@ export default class VideoDownloadResponseHandler extends PubSubResponseHandler 
       .catch((e) => {
         logger.error(`Error setting storage links on ${id}`, e);
       });
+  }
+
+  private deleteExistingVideoSources(videoUploadId: string) {
+    return prisma.mutation.deleteManyVideoUploadStorageLinks({ where: { videoUpload: { id: videoUploadId } } });
   }
 
   protected async handleError(messageData: IVideoDownloadFailedMessage, message: IPubSubConsumerPayload) {

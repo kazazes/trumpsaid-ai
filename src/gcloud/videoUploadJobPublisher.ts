@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { VideoUpload } from '../graphql/generated/prisma';
+import prisma from '../graphql/prismaContext';
 import writeToVideoUploadLog from '../util/videoUploadLogger';
 import VideoDownloadPubSubController from './VideoDownload/VideoDownloadPubSubController';
 import VideoRenderPubSubController from './VideoRender/VideoRenderPubSubController';
@@ -14,9 +15,11 @@ export const publishDownloadJob = (upload: VideoUpload) => {
   downloadController.publishConsumerMessage(upload);
 };
 
-export const publishRenderJob = (upload: VideoUpload) => {
+export const publishRenderJob = async(upload: VideoUpload) => {
   writeToVideoUploadLog(upload, 'STARTED', 'ENCODE', undefined, moment().add(2, 'hours'));
-  renderController.publishConsumerMessage(upload);
+  const populatedUpload = await
+  prisma.query.videoUpload({ where: { id: upload.id } }, '{id storageLinks{ id videoUpload { id }path bucket version fileType } }');
+  renderController.publishConsumerMessage(populatedUpload);
 };
 
 export const publishThumbnailJob = (upload: VideoUpload, timestamp: Number) => {

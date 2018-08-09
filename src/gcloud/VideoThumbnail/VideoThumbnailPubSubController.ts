@@ -12,6 +12,7 @@ export default class VideoThumbnailPubSubController extends PubSubController {
   };
   constructor() {
     super();
+    this.setup();
 
     this.consumerHandler = new VideoThumbnailHandler(300000, this);
     this.responseHandler = new VideoThumbnailResponseHandler(this);

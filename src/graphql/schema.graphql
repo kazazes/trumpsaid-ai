@@ -15,4 +15,5 @@ type Mutation {
   setVideoUploadThumbnail(id: ID, timestamp: Float): VideoUpload
   transcribe(id: ID): VideoUpload
   downloadVideoUploadSources(id: ID): VideoUpload!
+  render(id: ID): VideoUpload!
 }

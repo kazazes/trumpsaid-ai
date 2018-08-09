@@ -6,12 +6,13 @@ import VideoDownloadResponseHandler from './videoDownloadResponseHandler';
 export class VideoDownloadPubSubController extends PubSubController {
   topicSubcriptionNames = {
     consumerTopicName: 'video-download',
-    consumerSubscriptionName: 'video-download-subscription',
+    consumerSubscriptionName: 'node-downloader',
     responderTopicName: 'video-download-response',
-    responderSubscriptionName: 'video-download-response-subscription',
+    responderSubscriptionName: 'node-response',
   };
   constructor(){
     super();
+    this.setup();
 
     this.consumerHandler = new VideoDownloadHandler(1200000, this);
     this.responseHandler = new VideoDownloadResponseHandler(this);

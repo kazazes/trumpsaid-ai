@@ -1,5 +1,4 @@
 import Storage, { Bucket } from '@google-cloud/storage';
-import fs from 'fs';
 import { mkdirSync } from 'mkdir-recursive';
 import moment from 'moment';
 import { VideoUploadStorageLink, VideoUploadStorageLinkCreateInput } from '../graphql/generated/prisma';
@@ -53,7 +52,7 @@ export const makeFilePublic = (bucketName: string, path: string) => {
  * @param {boolean} [force] - Force redownload, even file is already on disk
  * @returns {string} The path.
  */
-export const downloadSourceFile = async (sourceFile: Storage.File, force?: boolean) => {
+export const downloadSourceFile = async (sourceFile: Storage.File) => {
   // Matches filename part of path
   const idRegex = new RegExp('\/.+\.*$');
   const tmpRoot = '/tmp/ts-wtf/';
@@ -62,12 +61,6 @@ export const downloadSourceFile = async (sourceFile: Storage.File, force?: boole
   const destinationDir = `${tmpRoot}${sourceFile.name.replace(idRegex, '')}/`;
 
   const destination = `${tmpRoot}${sourceFile.name}`;
-  if (!force) {
-    const exists = fs.existsSync(destination);
-    if (exists) {
-      return destination;
-    }
-  }
 
   mkdirSync(destinationDir);
 
@@ -87,9 +80,19 @@ export const downloadSourceFile = async (sourceFile: Storage.File, force?: boole
   }
 };
 
-export const downloadStorageItem = async (storageItem: VideoUploadStorageLink | VideoUploadStorageLinkCreateInput, force?: boolean) => {
+export const downloadStorageItem = async (storageItem: VideoUploadStorageLink | VideoUploadStorageLinkCreateInput) => {
   const file = storage.bucket(storageItem.bucket).file(storageItem.path);
-  return downloadSourceFile(file, force);
+  return downloadSourceFile(file);
+};
+
+export const downloadNewStorageItems = async (storageItems: VideoUploadStorageLinkCreateInput[]) => {
+  return Promise.all(storageItems.map((item: VideoUploadStorageLinkCreateInput) => {
+    const file = storage.bucket(item.bucket).file(item.path);
+    return downloadSourceFile(file);
+  }))
+  .catch((e) => {
+    logger.error(`Could not download new source links locally`, e);
+  });
 };
 
 export const getReadStream = (source: VideoUploadStorageLink) => {
@@ -102,7 +105,8 @@ export const getFileSize = async (source: VideoUploadStorageLink) => {
 };
 
 export const filenameFromPath = (path: string) => {
-  const regex = new RegExp('\w+(?:\.\w+)*$');
+  // TODO: FIX
+  const regex = new RegExp('^(.*/)+');
   return path.replace(regex, '');
 };
 export const directoryFromPath = (path: string) => {
@@ -110,6 +114,11 @@ export const directoryFromPath = (path: string) => {
   return path.replace(regex, '');
 };
 export const filenameWithoutPathOrExtension = (path: string) => {
-  const matchExtension = new RegExp('.\w+$');
-  return this.filenameFromPath(path).replace(matchExtension, '');
+  // FIXME: My RegEx is broken.
+  // const matchExtension = new RegExp('(\.\w+$)');
+  return this.filenameFromPath(path).split('.')[0];
+};
+
+export const getExtension = (path: string) => {
+  return filenameFromPath(path).split('.').pop();
 };

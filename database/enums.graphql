@@ -4,6 +4,8 @@ enum Role {
 }
 
 enum VideoUploadLogItemStatus {
+  DISPATCHED
+  UPDATE
   STARTED
   FINISHED
   FAILED

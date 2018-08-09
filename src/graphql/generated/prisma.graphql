@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Wed Aug 08 2018 01:38:47 GMT-0700 (PDT)
+# timestamp: Wed Aug 08 2018 07:01:03 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -2133,14 +2133,12 @@ enum VideoUploadFileLinkVersion {
 
 enum VideoUploadLogItemEvent {
   DOWNLOAD
-  TRANSCODE
   ENCODE
   TRANSCRIPTION
   USER_INPUT
   NLP
   SOCIAL
-  THUMBNAIL_SELECT
-  THUMBNAIL_COMPRESS
+  THUMBNAIL
 }
 
 enum VideoUploadLogItemStatus {

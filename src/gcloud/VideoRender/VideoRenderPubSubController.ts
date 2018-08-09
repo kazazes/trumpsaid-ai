@@ -8,10 +8,11 @@ export default class VideoRenderPubSubController extends PubSubController {
     consumerTopicName: 'video-render',
     consumerSubscriptionName: 'render',
     responderTopicName: 'video-render-response',
-    responderSubscriptionName: 'render-response-subscription',
+    responderSubscriptionName: 'render-response',
   };
   constructor() {
     super();
+    this.setup();
 
     this.consumerHandler = new VideoRenderHandler(7200000, this);
     this.responseHandler = new VideoRenderResponseHandler(this);

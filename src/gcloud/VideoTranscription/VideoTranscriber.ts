@@ -1,6 +1,6 @@
-import { find, findIndex, slice, take } from 'lodash';
+import { findIndex, slice, take } from 'lodash';
 import moment from 'moment';
-import * as mm from 'music-metadata';
+import * as mm from 'music-metadata/lib';
 import {
   SpeechAPIConversation, SpeechAPIConversationBlockCreateInput,
   SpeechAPIConversationCreateInput, SpeechAPIWordCreateInput, VideoUpload, VideoUploadStorageLink,
@@ -26,9 +26,7 @@ export class VideoTranscriber {
   speechAPIConversation: SpeechAPIConversation;
   constructor(video: VideoUpload) {
     this.video = video;
-    this.flacLink = find(video.storageLinks, (link: VideoUploadStorageLink) => {
-      return link.fileType === 'FLAC';
-    });
+    this.flacLink = video.storageLinks.find(link => link.version === 'WEB' && link.fileType === 'AUDIO');
 
     if (!this.flacLink) {
       const err = `Transcriber was passed an upload without a FLAC link.`;
