@@ -466,6 +466,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       fileLinkCreateInputs.push(createInput);
     }
 
+    logger.info(`Generated ${fileLinkCreateInputs.length} MPG DASH files.`);
     return fileLinkCreateInputs;
   }
   private async encodeWebM(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput[]> {

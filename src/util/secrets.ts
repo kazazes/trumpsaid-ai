@@ -11,6 +11,13 @@ if (fs.existsSync('.env')) {
   );
   dotenv.config({ path: '.env.example' });
 }
+
+export enum ServerType {
+  WEB = 'WEB',
+  WEB_WORKER= 'WEB_WORKER',
+  WORKER = 'WORKER',
+}
+
 interface IRequiredSecrets {
   SESSION_SECRET: string;
   REDIS_HOST: string;
@@ -23,6 +30,7 @@ interface IRequiredSecrets {
   PRISMA_SECRET: string;
   AUTH0_AUDIENCE: string;
   GOOGLE_PROJECT_ID: string;
+  SERVER_TYPE: ServerType;
   [key: string]: string;
 }
 
@@ -38,6 +46,7 @@ const requiredSecrets: IRequiredSecrets = {
   PRISMA_SECRET: '',
   AUTH0_AUDIENCE: '',
   GOOGLE_PROJECT_ID: '',
+  SERVER_TYPE: ServerType.WEB_WORKER,
 };
 
 Object.keys(requiredSecrets).map((key) => {

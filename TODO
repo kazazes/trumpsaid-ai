@@ -1,10 +1,6 @@
 TS-WTF:
   Web Server:
     Backend:
-      ☐ Worker/web modes @high 
-        ☐ Web App Server @1h
-        ☐ Web + Worker @10m
-        ☐ Worker (AppEngine) @2h
       ☐ Job handling
           ☐ USER_INPUT @20m
         ☐ Pipeline in job response handlers
@@ -15,9 +11,7 @@ TS-WTF:
         ☐ PubSub-Prisma Watcher @3h @low
             ☐ Transcript
         ☐ NLP & NER + tag suggestions @10h https://github.com/gerardobort/node-corenlp
-        ✔ Dash rendering @2h @high @today @started(18-08-08 21:10) @done(18-08-09 22:39) @lasted(1d1h29m26s)
         ☐ Webm dash rendering @3h
-        ✔ Clean prisma model before download and render @20m @today @done(18-08-09 01:05)
         ☐ Video cutting - modify render @3h @high @today 
         ☐ Publish fractional updates from workers, render progress in browser @3h @high 
         ☐ Break down generated transcript for editing @high @2h
@@ -69,6 +63,12 @@ Upstream:
   ☐ Unprotected routes
 
 Archive:
+  ✔ Dash rendering @2h @high @today @started(18-08-08 21:10) @done(18-08-09 22:39) @lasted(1d1h29m26s) @project(TS-WTF.Web Server.Backend)
+  ✔ Clean prisma model before download and render @20m @today @done(18-08-09 01:05) @project(TS-WTF.Web Server.Backend)
+  ✔ Worker/web modes @high @started(18-08-09 23:18) @done(18-08-09 23:51) @lasted(33m8s) @project(TS-WTF.Web Server.Backend)
+  ✔ Web App Server @1h @done(18-08-09 23:51) @project(TS-WTF.Web Server.Backend)
+  ✔ Web + Worker @10m @done(18-08-09 23:51) @project(TS-WTF.Web Server.Backend)
+  ✔ Worker (AppEngine) @2h @done(18-08-09 23:51) @project(TS-WTF.Web Server.Backend)
   ✘ Frontend @2h @cancelled(18-08-08 11:55) @project(TS-WTF.Web Server.Backend)
   ✘ Submitted Videos @4h @high @cancelled(18-08-08 10:19) @project(TS-WTF.Frontend.Admin)
   ✔ Upload pipeline @15h @critical @today @done(18-08-08 10:18) @project(TS-WTF.Web Server.Graph API & Prisma)

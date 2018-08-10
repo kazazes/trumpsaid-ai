@@ -1,4 +1,3 @@
-import logger from '../../util/logger';
 import PubSubController from '../PubSubController';
 import VideoThumbnailHandler from './VideoThumbnailHandler';
 import VideoThumbnailResponseHandler from './VideoThumbnailResponseHandler';
@@ -19,7 +18,5 @@ export default class VideoThumbnailPubSubController extends PubSubController {
 
     this.addConsumerListener();
     this.addResponseListener();
-
-    logger.debug('Thumbnail PubSub controller activated.');
   }
 }
