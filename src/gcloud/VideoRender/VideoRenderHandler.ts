@@ -1,9 +1,11 @@
 import { File } from '@google-cloud/storage';
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+import sleep from 'await-sleep';
 import fluentFfmpeg, { FfmpegCommand } from 'fluent-ffmpeg';
 import fs from 'fs';
 import * as math from 'mathjs';
 import moment, { Moment } from 'moment';
+import { exec, ls } from 'shelljs';
 import { VideoUpload, VideoUploadFileLinkType, VideoUploadStorageLink, VideoUploadStorageLinkCreateInput } from '../../graphql/generated/prisma';
 import logger from '../../util/logger';
 import { IPubSubConsumerFailedResponse, IPubSubConsumerPayload, IPubSubConsumerSuccessMessage, PubSubHandler } from '../PubSubHandler';
@@ -127,6 +129,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       }
 
       if (process.env.NODE_ENV !== 'production') {
+        await sleep(5000);
         await downloadNewStorageItems(renderResults);
       }
 
@@ -255,11 +258,9 @@ export default class VideoRenderHandler extends PubSubHandler {
       videoUpload: { connect: { id: master.videoUpload.id } },
     };
 
-    const mp4Dash = await this.encodeMP4Dash(masterLocalPath, master);
+    const mp4DashVersions = await this.encodeMP4Dash(masterLocalPath, master);
 
-    // TODO: MPD manifest
-
-    return [mp4CreateInput, ...mp4Dash];
+    return [mp4CreateInput, ...mp4DashVersions];
   }
   private getMetadata(path: string): Promise<any> {
     const ffmpeg = this.getFfmpeg();
@@ -274,7 +275,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       });
     });
   }
-  private async encodeAACAudio(masterPath: string, master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput> {
+  private async encodeAACAudio(masterPath: string, master: VideoUploadStorageLink): Promise<[VideoUploadStorageLinkCreateInput, string]> {
     const stage = await this.stageRender(master, `-web-audio.mp4`, masterPath);
     const { ffmpeg, renderOutput, path, inputFormat } = stage;
     const aacOutputPath = `/tmp/ts-wtf/${directoryFromPath(master.path)}${filenameWithoutPathOrExtension(master.path)}-web-audio.mp4`;
@@ -321,7 +322,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       videoUpload: { connect: { id: master.videoUpload.id } },
     };
 
-    return mp4CreateInput;
+    return [mp4CreateInput, aacOutputPath];
   }
   private async encodeMP4DashWithOptions(masterPath: string, master: VideoUploadStorageLink, format: IMP4DashOption)
   : Promise<[VideoUploadStorageLinkCreateInput, string]> {
@@ -386,6 +387,8 @@ export default class VideoRenderHandler extends PubSubHandler {
     const fpsString = metadata.avg_frame_rate as string;
     const fps = Math.round(Number(math.eval(fpsString)));
     const audioTrack = await this.encodeAACAudio(masterPath, master);
+    const audioTrackCreate = audioTrack[0];
+    const audioTrackPath = audioTrack[1];
     const desiredMP4Formats: IMP4DashOption[] = [
       { fps, bitrate: '5300k', bufferSize: '2650k', height: 1080, scaleHeight: 1080 },
       { fps, bitrate: '2400k', bufferSize: '1200k', height: 720, scaleHeight: 720 },
@@ -405,7 +408,65 @@ export default class VideoRenderHandler extends PubSubHandler {
       dashLocalPaths.push(dash[1]);
     }
 
-    return [audioTrack, ...dashLinkCreateInputs];
+    const mp4DashInit = await this.generateMPD(dashLinkCreateInputs, dashLocalPaths, audioTrackPath);
+
+    return [audioTrackCreate, ...dashLinkCreateInputs, ...mp4DashInit];
+  }
+  private async generateMPD(
+    dashLinkCreateInputs: VideoUploadStorageLinkCreateInput[], dashLocalPaths: string[], audioTrackPath: string):
+    Promise<VideoUploadStorageLinkCreateInput[]> {
+    const outputDir = directoryFromPath(dashLocalPaths[0]);
+    const localMPDOutput = `${outputDir}${filenameWithoutPathOrExtension(dashLocalPaths[0])}-web.mpd`;
+    await new Promise((resolve, reject) => {
+      dashLocalPaths.push(audioTrackPath);
+      const fileArgs = dashLocalPaths.join(' ');
+      const cmdLineOpts = ['-dash 1000', '-rap', '-frag-rap', '-profile onDemand', `-out ${localMPDOutput} ${fileArgs}`];
+      exec(`mp4box ${cmdLineOpts.join(' ')}`, { silent: false }, (code, stdout, stderr) => {
+        if (code !== 0) {
+          logger.error(code.toString());
+          logger.error(stderr);
+          return reject(stderr);
+        }
+
+        resolve();
+      });
+    });
+
+    const lsOutputDir = ls(outputDir).filter((filename) => {
+      return (filename.indexOf('mpd') > 0 || filename.indexOf('dashinit') > 0);
+    });
+
+    const hasMPD = lsOutputDir.find(filename => filename.indexOf('mpd') > 0);
+
+    if (!hasMPD) {
+      const error = 'No MPD file found. MP4Box command failed.';
+      logger.error(error);
+      throw new Error(error);
+    }
+
+    const fileLinkCreateInputs: VideoUploadStorageLinkCreateInput[] = [];
+    const remoteDirectory = directoryFromPath(dashLinkCreateInputs[0].path);
+    for (const fileToUpload of lsOutputDir) {
+      const fileUploadLocalPath = `${outputDir}${fileToUpload}`;
+      const isMPD = fileUploadLocalPath.indexOf('.mpd') > 0;
+      const remoteFile = createFileInProcessing(remoteDirectory, fileToUpload);
+      const contentType = isMPD ? 'application/dash+xml' : 'video/mp4';
+      const writeStream = remoteFile.createWriteStream({ contentType });
+      const localDashStream = fs.createReadStream(fileUploadLocalPath);
+
+      const createInput: VideoUploadStorageLinkCreateInput = {
+        path: remoteDirectory + fileToUpload,
+        bucket: processingBucketName,
+        version: 'WEB',
+        fileType: isMPD ? 'MP4_DASH_MANIFEST': 'MP4_DASH',
+        videoUpload: dashLinkCreateInputs[0].videoUpload,
+      };
+
+      localDashStream.pipe(writeStream, { end: true });
+      fileLinkCreateInputs.push(createInput);
+    }
+
+    return fileLinkCreateInputs;
   }
   private async encodeWebM(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput[]> {
     const stage = await this.stageRender(master, '-web.webm');

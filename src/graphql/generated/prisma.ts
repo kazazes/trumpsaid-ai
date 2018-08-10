@@ -2277,6 +2277,7 @@ enum VideoUploadFileLinkType {
   WEBM
   MP4
   MP4_DASH
+  MP4_DASH_MANIFEST
   AUDIO
   THUMBNAIL
 }
@@ -3596,6 +3597,7 @@ export type VideoUploadStatusLogItemOrderByInput =   'id_ASC' |
 export type VideoUploadFileLinkType =   'WEBM' |
   'MP4' |
   'MP4_DASH' |
+  'MP4_DASH_MANIFEST' |
   'AUDIO' |
   'THUMBNAIL'
 
