@@ -34,6 +34,7 @@ enum AdminRole {
 enum VideoUploadFileLinkType {
   WEBM
   MP4
+  MP4_DASH
   AUDIO
   THUMBNAIL
 }
