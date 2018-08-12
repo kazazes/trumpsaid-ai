@@ -1,8 +1,7 @@
 import { findIndex, slice, take } from 'lodash';
 import moment from 'moment';
 import * as mm from 'music-metadata/lib';
-import {
-  SpeechAPIConversation, SpeechAPIConversationBlockCreateInput,
+import { SpeechAPIConversation, SpeechAPIConversationBlockCreateInput,
   SpeechAPIConversationCreateInput, SpeechAPIWordCreateInput, VideoUpload, VideoUploadStorageLink,
 } from '../../graphql/generated/prisma';
 import prisma from '../../graphql/prismaContext';
@@ -23,22 +22,24 @@ export class VideoTranscriber {
   sampleRateHertz: number;
   flacLink: VideoUploadStorageLink;
   video: VideoUpload;
+  videoID: string;
   speechAPIConversation: SpeechAPIConversation;
   constructor(video: VideoUpload) {
-    this.video = video;
-    this.flacLink = video.storageLinks.find(link => link.version === 'WEB' && link.fileType === 'AUDIO');
+    this.videoID = video.id;
+  }
 
+  public async recognize() {
+    this.video = await prisma.query.videoUpload(
+      { where: { id: this.videoID } },
+      ' { id storageLinks { id version fileType bucket path } metadata { id speakers generatedConversation { id } } } ');
+    this.flacLink = this.video.storageLinks.find(link => link.version === 'WEB' && link.fileType === 'AUDIO');
     if (!this.flacLink) {
       const err = `Transcriber was passed an upload without a FLAC link.`;
       logger.error(err);
       writeToVideoUploadLog(this.video, 'FAILED', 'TRANSCRIPTION', err);
       throw new Error(err);
     }
-
     this.uri = `gs://${this.flacLink.bucket}/${this.flacLink.path}`;
-  }
-
-  public async recognize() {
     logger.info(`Starting transcription job for ${this.video.id}.`);
     writeToVideoUploadLog(this.video, 'STARTED', 'TRANSCRIPTION', null, moment().add(30, 'minutes'));
 
@@ -64,6 +65,7 @@ export class VideoTranscriber {
       useEnhanced: true,
       enableWordTimeOffsets: true,
       enableWordConfidence: true,
+      diarizationSpeakerCount: this.video.metadata.speakers,
       metadata: {
         interactionType: 1, // "Discussion" https://cloud.google.com/nodejs/docs/reference/speech/2.0.x/google.cloud.speech.v1p1beta1#.InteractionType
         industryNaicsCodeOfAudio: 813940, // Political orgs. https://www.naics.com/naics-code-description/?code=813940
@@ -89,8 +91,12 @@ export class VideoTranscriber {
 
   private async storeConversation(conversation: IWord[][]) {
     const video = this.video;
+    if (video.metadata.generatedConversation) {
+      await prisma.mutation.deleteSpeechAPIConversation({ where: { id: video.metadata.generatedConversation.id } });
+    }
+
     const speechConversationCreateInput: SpeechAPIConversationCreateInput = {
-      videoUpload: { connect: { id: video.id } },
+      videoUploadMetadata: { connect: { id: video.metadata.id } },
     };
 
     this.speechAPIConversation = await prisma.mutation

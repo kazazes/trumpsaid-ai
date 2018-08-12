@@ -23,7 +23,7 @@ type VideoUpload implements IVideo {
     @relation(name: "VideoUploadAdminMetadataRelation", onDelete: CASCADE)
   createdAt: DateTime!
   updatedAt: DateTime!
-  metadata: VideoUploadMetadata
+  metadata: VideoUploadMetadata!
     @relation(name: "VideoUploadMetadataRelation", onDelete: CASCADE)
   publishedBy: User @relation(name: "VideoPublisher")
   published: Boolean! @default(value: "false")
@@ -47,12 +47,14 @@ type VideoUploadStorageLink implements IStorageItem {
 
 type VideoUploadMetadata {
   id: ID! @unique
-  videoUpload: VideoUpload!
+  videoUpload: VideoUpload! @unique
     @relation(name: "VideoUploadMetadataRelation", onDelete: CASCADE)
   title: String
   subtitle: String
   dateRecorded: Date
   speakers: Int! @default(value: "2")
+  renderStart: Float! @default(value: "0")
+  renderEnd: Float! @default(value: "0")
   generatedConversation: SpeechAPIConversation
     @relation(name: "SpeechAPIConversationVideoRelation", onDelete: CASCADE)
 }
@@ -110,7 +112,7 @@ type SpeechAPIConversationBlock {
 
 type SpeechAPIConversation {
   id: ID! @unique
-  videoUpload: VideoUploadMetadata!
+  videoUploadMetadata: VideoUploadMetadata!
     @relation(name: "SpeechAPIConversationVideoRelation")
   conversation: [SpeechAPIConversationBlock!]!
     @relation(

@@ -1,3 +1,4 @@
+import sleep from 'await-sleep';
 import { VideoUploadStorageLinkCreateInput } from '../../graphql/generated/prisma';
 import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
@@ -5,6 +6,7 @@ import writeToVideoUploadLog from '../../util/videoUploadLogger';
 import { IPubSubConsumerPayload } from '../PubSubHandler';
 import { PubSubResponseHandler } from '../PubSubResponseHandler';
 import { makeFilePublic } from '../storageController';
+import { VideoTranscriber } from '../VideoTranscription/VideoTranscriber';
 import { IVideoRenderFailedMessage, IVideoRenderSuccessMessage } from './VideoRenderHandler';
 import VideoRenderPubSubController from './VideoRenderPubSubController';
 
@@ -33,14 +35,22 @@ export default class VideoRenderResponseHandler extends PubSubResponseHandler {
       logger.debug(`Deleted ${deleted.count} existing encodes before creating new ones.`);
     }
 
-    await Promise.all(response.storageLinkCreateInputs.map((linkCreateInput) => {
+    await Promise.all(response.storageLinkCreateInputs.map(async (linkCreateInput) => {
       logger.debug(`Created ${linkCreateInput.version}/${linkCreateInput.fileType} storage link on ${id}`);
+      await sleep(5000);
       makeFilePublic(linkCreateInput.bucket, linkCreateInput.path);
       return prisma.mutation.createVideoUploadStorageLink({ data: linkCreateInput });
     }))
       .catch((e) => {
         logger.error(`Error setting storage links on ${id}`, e);
       });
+
+    // If Audio Web in response, trigger transcribe
+    if (response.storageLinkCreateInputs.filter(link => link.fileType === 'AUDIO' && link.version === 'WEB').length > 0) {
+      // TODO: Move transcription to PubSub
+      new VideoTranscriber(response.videoUpload).recognize()
+        .catch(e => logger.error(`Error while transcribing:\n ${e}`));
+    }
   }
 
   private async deleteExistingDuplicateLinkTypes(storageLinkCreateInputs: VideoUploadStorageLinkCreateInput[], id: string) {

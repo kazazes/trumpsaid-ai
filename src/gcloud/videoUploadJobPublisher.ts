@@ -4,6 +4,7 @@ import prisma from '../graphql/prismaContext';
 import writeToVideoUploadLog from '../util/videoUploadLogger';
 import VideoDownloadPubSubController from './VideoDownload/VideoDownloadPubSubController';
 import VideoRenderPubSubController from './VideoRender/VideoRenderPubSubController';
+import { IThumbnailRequest } from './VideoThumbnail/VideoThumbnailHandler';
 import VideoThumbnailPubSubController from './VideoThumbnail/VideoThumbnailPubSubController';
 
 const downloadController = new VideoDownloadPubSubController();
@@ -18,12 +19,14 @@ export const publishDownloadJob = (upload: VideoUpload) => {
 export const publishRenderJob = async(upload: VideoUpload) => {
   writeToVideoUploadLog(upload, 'STARTED', 'ENCODE', undefined, moment().add(2, 'hours'));
   const populatedUpload = await
-  prisma.query.videoUpload({ where: { id: upload.id } }, '{id storageLinks{ id videoUpload { id }path bucket version fileType } }');
+  prisma.query.videoUpload(
+    { where: { id: upload.id } },
+    '{ id storageLinks{ id videoUpload { id metadata { renderStart renderEnd } } path bucket version fileType } }');
   renderController.publishConsumerMessage(populatedUpload);
 };
 
-export const publishThumbnailJob = (upload: VideoUpload, timestamp: Number) => {
+export const publishThumbnailJob = (upload: VideoUpload, timestamp: number) => {
   writeToVideoUploadLog(upload, 'STARTED', 'THUMBNAIL', JSON.stringify({ timestamp }), moment().add(5, 'minutes'));
-  const request = { upload, timestamp };
+  const request: IThumbnailRequest = { upload, timestamp };
   thumbnailController.publishConsumerMessage(request);
 };

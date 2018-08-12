@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Thu Aug 09 2018 21:39:25 GMT-0700 (PDT)
+# timestamp: Sat Aug 11 2018 22:07:31 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -640,7 +640,7 @@ input SpeakerWhereUniqueInput {
 
 type SpeechAPIConversation implements Node {
   id: ID!
-  videoUpload(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
+  videoUploadMetadata(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
   conversation(where: SpeechAPIConversationBlockWhereInput, orderBy: SpeechAPIConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIConversationBlock!]
 }
 
@@ -864,7 +864,7 @@ type SpeechAPIConversationConnection {
 }
 
 input SpeechAPIConversationCreateInput {
-  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
+  videoUploadMetadata: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
   conversation: SpeechAPIConversationBlockCreateManyWithoutConversationInput
 }
 
@@ -873,16 +873,16 @@ input SpeechAPIConversationCreateOneWithoutConversationInput {
   connect: SpeechAPIConversationWhereUniqueInput
 }
 
-input SpeechAPIConversationCreateOneWithoutVideoUploadInput {
-  create: SpeechAPIConversationCreateWithoutVideoUploadInput
+input SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput {
+  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
   connect: SpeechAPIConversationWhereUniqueInput
 }
 
 input SpeechAPIConversationCreateWithoutConversationInput {
-  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
+  videoUploadMetadata: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
 }
 
-input SpeechAPIConversationCreateWithoutVideoUploadInput {
+input SpeechAPIConversationCreateWithoutVideoUploadMetadataInput {
   conversation: SpeechAPIConversationBlockCreateManyWithoutConversationInput
 }
 
@@ -948,7 +948,7 @@ input SpeechAPIConversationSubscriptionWhereInput {
 }
 
 input SpeechAPIConversationUpdateInput {
-  videoUpload: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
+  videoUploadMetadata: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
   conversation: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
 }
 
@@ -960,20 +960,20 @@ input SpeechAPIConversationUpdateOneWithoutConversationInput {
   upsert: SpeechAPIConversationUpsertWithoutConversationInput
 }
 
-input SpeechAPIConversationUpdateOneWithoutVideoUploadInput {
-  create: SpeechAPIConversationCreateWithoutVideoUploadInput
+input SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput {
+  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
   connect: SpeechAPIConversationWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
-  upsert: SpeechAPIConversationUpsertWithoutVideoUploadInput
+  update: SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput
+  upsert: SpeechAPIConversationUpsertWithoutVideoUploadMetadataInput
 }
 
 input SpeechAPIConversationUpdateWithoutConversationDataInput {
-  videoUpload: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
+  videoUploadMetadata: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
 }
 
-input SpeechAPIConversationUpdateWithoutVideoUploadDataInput {
+input SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput {
   conversation: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
 }
 
@@ -982,9 +982,9 @@ input SpeechAPIConversationUpsertWithoutConversationInput {
   create: SpeechAPIConversationCreateWithoutConversationInput!
 }
 
-input SpeechAPIConversationUpsertWithoutVideoUploadInput {
-  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput!
-  create: SpeechAPIConversationCreateWithoutVideoUploadInput!
+input SpeechAPIConversationUpsertWithoutVideoUploadMetadataInput {
+  update: SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput!
+  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput!
 }
 
 input SpeechAPIConversationWhereInput {
@@ -1036,7 +1036,7 @@ input SpeechAPIConversationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  videoUpload: VideoUploadMetadataWhereInput
+  videoUploadMetadata: VideoUploadMetadataWhereInput
   conversation_every: SpeechAPIConversationBlockWhereInput
   conversation_some: SpeechAPIConversationBlockWhereInput
   conversation_none: SpeechAPIConversationBlockWhereInput
@@ -1843,7 +1843,7 @@ type VideoUpload implements Node {
   adminMetadata(where: VideoUploadAdminMetadataWhereInput): VideoUploadAdminMetadata
   createdAt: DateTime!
   updatedAt: DateTime!
-  metadata(where: VideoUploadMetadataWhereInput): VideoUploadMetadata
+  metadata(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
   publishedBy(where: UserWhereInput): User
   published: Boolean!
   statusLog(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStatusLogItem!]
@@ -2043,7 +2043,7 @@ input VideoUploadCreateInput {
   published: Boolean
   submitedUrl: String!
   adminMetadata: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
   publishedBy: UserCreateOneInput
   statusLog: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
   storageLinks: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
@@ -2073,7 +2073,7 @@ input VideoUploadCreateOneWithoutStorageLinksInput {
 input VideoUploadCreateWithoutAdminMetadataInput {
   published: Boolean
   submitedUrl: String!
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
   publishedBy: UserCreateOneInput
   statusLog: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
   storageLinks: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
@@ -2094,7 +2094,7 @@ input VideoUploadCreateWithoutStatusLogInput {
   published: Boolean
   submitedUrl: String!
   adminMetadata: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
   publishedBy: UserCreateOneInput
   storageLinks: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
   submitedBy: UserCreateOneInput!
@@ -2104,7 +2104,7 @@ input VideoUploadCreateWithoutStorageLinksInput {
   published: Boolean
   submitedUrl: String!
   adminMetadata: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
   publishedBy: UserCreateOneInput
   statusLog: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
   submitedBy: UserCreateOneInput!
@@ -2159,6 +2159,8 @@ type VideoUploadMetadata implements Node {
   subtitle: String
   dateRecorded(where: DateWhereInput): Date
   speakers: Int!
+  renderStart: Float!
+  renderEnd: Float!
   generatedConversation(where: SpeechAPIConversationWhereInput): SpeechAPIConversation
 }
 
@@ -2176,9 +2178,11 @@ input VideoUploadMetadataCreateInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   videoUpload: VideoUploadCreateOneWithoutMetadataInput!
   dateRecorded: DateCreateOneInput
-  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput
 }
 
 input VideoUploadMetadataCreateOneWithoutGeneratedConversationInput {
@@ -2195,6 +2199,8 @@ input VideoUploadMetadataCreateWithoutGeneratedConversationInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   videoUpload: VideoUploadCreateOneWithoutMetadataInput!
   dateRecorded: DateCreateOneInput
 }
@@ -2203,8 +2209,10 @@ input VideoUploadMetadataCreateWithoutVideoUploadInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   dateRecorded: DateCreateOneInput
-  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput
 }
 
 """An edge in a connection."""
@@ -2225,6 +2233,10 @@ enum VideoUploadMetadataOrderByInput {
   subtitle_DESC
   speakers_ASC
   speakers_DESC
+  renderStart_ASC
+  renderStart_DESC
+  renderEnd_ASC
+  renderEnd_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2236,6 +2248,8 @@ type VideoUploadMetadataPreviousValues {
   title: String
   subtitle: String
   speakers: Int!
+  renderStart: Float!
+  renderEnd: Float!
 }
 
 type VideoUploadMetadataSubscriptionPayload {
@@ -2281,9 +2295,11 @@ input VideoUploadMetadataUpdateInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   videoUpload: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded: DateUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput
 }
 
 input VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput {
@@ -2297,7 +2313,6 @@ input VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput {
 input VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
   create: VideoUploadMetadataCreateWithoutVideoUploadInput
   connect: VideoUploadMetadataWhereUniqueInput
-  disconnect: Boolean
   delete: Boolean
   update: VideoUploadMetadataUpdateWithoutVideoUploadDataInput
   upsert: VideoUploadMetadataUpsertWithoutVideoUploadInput
@@ -2307,6 +2322,8 @@ input VideoUploadMetadataUpdateWithoutGeneratedConversationDataInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   videoUpload: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded: DateUpdateOneInput
 }
@@ -2315,8 +2332,10 @@ input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   dateRecorded: DateUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput
 }
 
 input VideoUploadMetadataUpsertWithoutGeneratedConversationInput {
@@ -2480,6 +2499,50 @@ input VideoUploadMetadataWhereInput {
 
   """All values greater than or equal the given value."""
   speakers_gte: Int
+  renderStart: Float
+
+  """All values that are not equal to given value."""
+  renderStart_not: Float
+
+  """All values that are contained in given list."""
+  renderStart_in: [Float!]
+
+  """All values that are not contained in given list."""
+  renderStart_not_in: [Float!]
+
+  """All values less than the given value."""
+  renderStart_lt: Float
+
+  """All values less than or equal the given value."""
+  renderStart_lte: Float
+
+  """All values greater than the given value."""
+  renderStart_gt: Float
+
+  """All values greater than or equal the given value."""
+  renderStart_gte: Float
+  renderEnd: Float
+
+  """All values that are not equal to given value."""
+  renderEnd_not: Float
+
+  """All values that are contained in given list."""
+  renderEnd_in: [Float!]
+
+  """All values that are not contained in given list."""
+  renderEnd_not_in: [Float!]
+
+  """All values less than the given value."""
+  renderEnd_lt: Float
+
+  """All values less than or equal the given value."""
+  renderEnd_lte: Float
+
+  """All values greater than the given value."""
+  renderEnd_gt: Float
+
+  """All values greater than or equal the given value."""
+  renderEnd_gte: Float
   videoUpload: VideoUploadWhereInput
   dateRecorded: DateWhereInput
   generatedConversation: SpeechAPIConversationWhereInput
