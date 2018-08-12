@@ -794,7 +794,7 @@ input SpeakerWhereUniqueInput {
 
 type SpeechAPIConversation implements Node {
   id: ID!
-  videoUpload(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
+  videoUploadMetadata(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
   conversation(where: SpeechAPIConversationBlockWhereInput, orderBy: SpeechAPIConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIConversationBlock!]
 }
 
@@ -1018,7 +1018,7 @@ type SpeechAPIConversationConnection {
 }
 
 input SpeechAPIConversationCreateInput {
-  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
+  videoUploadMetadata: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
   conversation: SpeechAPIConversationBlockCreateManyWithoutConversationInput
 }
 
@@ -1027,16 +1027,16 @@ input SpeechAPIConversationCreateOneWithoutConversationInput {
   connect: SpeechAPIConversationWhereUniqueInput
 }
 
-input SpeechAPIConversationCreateOneWithoutVideoUploadInput {
-  create: SpeechAPIConversationCreateWithoutVideoUploadInput
+input SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput {
+  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
   connect: SpeechAPIConversationWhereUniqueInput
 }
 
 input SpeechAPIConversationCreateWithoutConversationInput {
-  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
+  videoUploadMetadata: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
 }
 
-input SpeechAPIConversationCreateWithoutVideoUploadInput {
+input SpeechAPIConversationCreateWithoutVideoUploadMetadataInput {
   conversation: SpeechAPIConversationBlockCreateManyWithoutConversationInput
 }
 
@@ -1102,7 +1102,7 @@ input SpeechAPIConversationSubscriptionWhereInput {
 }
 
 input SpeechAPIConversationUpdateInput {
-  videoUpload: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
+  videoUploadMetadata: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
   conversation: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
 }
 
@@ -1114,20 +1114,20 @@ input SpeechAPIConversationUpdateOneWithoutConversationInput {
   upsert: SpeechAPIConversationUpsertWithoutConversationInput
 }
 
-input SpeechAPIConversationUpdateOneWithoutVideoUploadInput {
-  create: SpeechAPIConversationCreateWithoutVideoUploadInput
+input SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput {
+  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
   connect: SpeechAPIConversationWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
-  upsert: SpeechAPIConversationUpsertWithoutVideoUploadInput
+  update: SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput
+  upsert: SpeechAPIConversationUpsertWithoutVideoUploadMetadataInput
 }
 
 input SpeechAPIConversationUpdateWithoutConversationDataInput {
-  videoUpload: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
+  videoUploadMetadata: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
 }
 
-input SpeechAPIConversationUpdateWithoutVideoUploadDataInput {
+input SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput {
   conversation: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
 }
 
@@ -1136,9 +1136,9 @@ input SpeechAPIConversationUpsertWithoutConversationInput {
   create: SpeechAPIConversationCreateWithoutConversationInput!
 }
 
-input SpeechAPIConversationUpsertWithoutVideoUploadInput {
-  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput!
-  create: SpeechAPIConversationCreateWithoutVideoUploadInput!
+input SpeechAPIConversationUpsertWithoutVideoUploadMetadataInput {
+  update: SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput!
+  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput!
 }
 
 input SpeechAPIConversationWhereInput {
@@ -1190,7 +1190,7 @@ input SpeechAPIConversationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  videoUpload: VideoUploadMetadataWhereInput
+  videoUploadMetadata: VideoUploadMetadataWhereInput
   conversation_every: SpeechAPIConversationBlockWhereInput
   conversation_some: SpeechAPIConversationBlockWhereInput
   conversation_none: SpeechAPIConversationBlockWhereInput
@@ -2336,7 +2336,7 @@ input VideoUploadMetadataCreateInput {
   renderEnd: Float
   videoUpload: VideoUploadCreateOneWithoutMetadataInput!
   dateRecorded: DateCreateOneInput
-  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput
 }
 
 input VideoUploadMetadataCreateOneWithoutGeneratedConversationInput {
@@ -2366,7 +2366,7 @@ input VideoUploadMetadataCreateWithoutVideoUploadInput {
   renderStart: Float
   renderEnd: Float
   dateRecorded: DateCreateOneInput
-  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput
 }
 
 """An edge in a connection."""
@@ -2453,7 +2453,7 @@ input VideoUploadMetadataUpdateInput {
   renderEnd: Float
   videoUpload: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded: DateUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput
 }
 
 input VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput {
@@ -2489,7 +2489,7 @@ input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   renderStart: Float
   renderEnd: Float
   dateRecorded: DateUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput
 }
 
 input VideoUploadMetadataUpsertWithoutGeneratedConversationInput {
@@ -3834,7 +3834,7 @@ export interface VideoUploadMetadataCreateInput {
   renderEnd?: Float
   videoUpload: VideoUploadCreateOneWithoutMetadataInput
   dateRecorded?: DateCreateOneInput
-  generatedConversation?: SpeechAPIConversationCreateOneWithoutVideoUploadInput
+  generatedConversation?: SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput
 }
 
 export interface VideoUploadWhereInput {
@@ -4105,7 +4105,7 @@ export interface VideoUploadMetadataCreateWithoutVideoUploadInput {
   renderStart?: Float
   renderEnd?: Float
   dateRecorded?: DateCreateOneInput
-  generatedConversation?: SpeechAPIConversationCreateOneWithoutVideoUploadInput
+  generatedConversation?: SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput
 }
 
 export interface VideoUploadAdminMetadataSubscriptionWhereInput {
@@ -4151,8 +4151,8 @@ export interface VideoUploadSubscriptionWhereInput {
   node?: VideoUploadWhereInput
 }
 
-export interface SpeechAPIConversationCreateOneWithoutVideoUploadInput {
-  create?: SpeechAPIConversationCreateWithoutVideoUploadInput
+export interface SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput {
+  create?: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
   connect?: SpeechAPIConversationWhereUniqueInput
 }
 
@@ -4231,7 +4231,7 @@ export interface VideoUploadMetadataWhereInput {
   generatedConversation?: SpeechAPIConversationWhereInput
 }
 
-export interface SpeechAPIConversationCreateWithoutVideoUploadInput {
+export interface SpeechAPIConversationCreateWithoutVideoUploadMetadataInput {
   conversation?: SpeechAPIConversationBlockCreateManyWithoutConversationInput
 }
 
@@ -4359,7 +4359,7 @@ export interface VideoUploadStatusLogItemCreateWithoutVideoUploadInput {
 }
 
 export interface SpeechAPIConversationUpdateWithoutConversationDataInput {
-  videoUpload?: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
+  videoUploadMetadata?: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
 }
 
 export interface VideoUploadStorageLinkCreateManyWithoutVideoUploadInput {
@@ -4824,7 +4824,7 @@ export interface SpeechAPIWordUpdateInput {
 }
 
 export interface SpeechAPIConversationCreateWithoutConversationInput {
-  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput
+  videoUploadMetadata: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput
 }
 
 export interface VideoUploadMetadataWhereUniqueInput {
@@ -4851,12 +4851,12 @@ export interface VideoUploadMetadataCreateWithoutGeneratedConversationInput {
 }
 
 export interface SpeechAPIConversationUpdateInput {
-  videoUpload?: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
+  videoUploadMetadata?: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
   conversation?: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
 }
 
 export interface SpeechAPIConversationCreateInput {
-  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput
+  videoUploadMetadata: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput
   conversation?: SpeechAPIConversationBlockCreateManyWithoutConversationInput
 }
 
@@ -4924,7 +4924,7 @@ export interface VideoUploadMetadataUpdateInput {
   renderEnd?: Float
   videoUpload?: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded?: DateUpdateOneInput
-  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
+  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput
 }
 
 export interface VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
@@ -4950,7 +4950,7 @@ export interface VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   renderStart?: Float
   renderEnd?: Float
   dateRecorded?: DateUpdateOneInput
-  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
+  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput
 }
 
 export interface VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput {
@@ -5005,7 +5005,7 @@ export interface SpeechAPIConversationWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  videoUpload?: VideoUploadMetadataWhereInput
+  videoUploadMetadata?: VideoUploadMetadataWhereInput
   conversation_every?: SpeechAPIConversationBlockWhereInput
   conversation_some?: SpeechAPIConversationBlockWhereInput
   conversation_none?: SpeechAPIConversationBlockWhereInput
@@ -5022,20 +5022,20 @@ export interface DateUpdateInput {
   year?: Int
 }
 
-export interface SpeechAPIConversationUpdateOneWithoutVideoUploadInput {
-  create?: SpeechAPIConversationCreateWithoutVideoUploadInput
+export interface SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput {
+  create?: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
   connect?: SpeechAPIConversationWhereUniqueInput
   disconnect?: Boolean
   delete?: Boolean
-  update?: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
-  upsert?: SpeechAPIConversationUpsertWithoutVideoUploadInput
+  update?: SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput
+  upsert?: SpeechAPIConversationUpsertWithoutVideoUploadMetadataInput
 }
 
 export interface VideoUploadStatusLogItemWhereUniqueInput {
   id?: ID_Input
 }
 
-export interface SpeechAPIConversationUpdateWithoutVideoUploadDataInput {
+export interface SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput {
   conversation?: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
 }
 
@@ -5215,9 +5215,9 @@ export interface VideoUploadMetadataUpsertWithoutVideoUploadInput {
   create: VideoUploadMetadataCreateWithoutVideoUploadInput
 }
 
-export interface SpeechAPIConversationUpsertWithoutVideoUploadInput {
-  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
-  create: SpeechAPIConversationCreateWithoutVideoUploadInput
+export interface SpeechAPIConversationUpsertWithoutVideoUploadMetadataInput {
+  update: SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput
+  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
 }
 
 export interface SpeechAPIConversationBlockUpsertWithWhereUniqueWithoutConversationInput {
@@ -5713,7 +5713,7 @@ export interface SpeechAPIConversationBlockEdge {
 
 export interface SpeechAPIConversation extends Node {
   id: ID_Output
-  videoUpload: VideoUploadMetadata
+  videoUploadMetadata: VideoUploadMetadata
   conversation?: SpeechAPIConversationBlock[]
 }
 

@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Sat Aug 11 2018 19:12:57 GMT-0700 (PDT)
+# timestamp: Sat Aug 11 2018 22:07:31 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -640,7 +640,7 @@ input SpeakerWhereUniqueInput {
 
 type SpeechAPIConversation implements Node {
   id: ID!
-  videoUpload(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
+  videoUploadMetadata(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
   conversation(where: SpeechAPIConversationBlockWhereInput, orderBy: SpeechAPIConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIConversationBlock!]
 }
 
@@ -864,7 +864,7 @@ type SpeechAPIConversationConnection {
 }
 
 input SpeechAPIConversationCreateInput {
-  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
+  videoUploadMetadata: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
   conversation: SpeechAPIConversationBlockCreateManyWithoutConversationInput
 }
 
@@ -873,16 +873,16 @@ input SpeechAPIConversationCreateOneWithoutConversationInput {
   connect: SpeechAPIConversationWhereUniqueInput
 }
 
-input SpeechAPIConversationCreateOneWithoutVideoUploadInput {
-  create: SpeechAPIConversationCreateWithoutVideoUploadInput
+input SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput {
+  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
   connect: SpeechAPIConversationWhereUniqueInput
 }
 
 input SpeechAPIConversationCreateWithoutConversationInput {
-  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
+  videoUploadMetadata: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
 }
 
-input SpeechAPIConversationCreateWithoutVideoUploadInput {
+input SpeechAPIConversationCreateWithoutVideoUploadMetadataInput {
   conversation: SpeechAPIConversationBlockCreateManyWithoutConversationInput
 }
 
@@ -948,7 +948,7 @@ input SpeechAPIConversationSubscriptionWhereInput {
 }
 
 input SpeechAPIConversationUpdateInput {
-  videoUpload: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
+  videoUploadMetadata: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
   conversation: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
 }
 
@@ -960,20 +960,20 @@ input SpeechAPIConversationUpdateOneWithoutConversationInput {
   upsert: SpeechAPIConversationUpsertWithoutConversationInput
 }
 
-input SpeechAPIConversationUpdateOneWithoutVideoUploadInput {
-  create: SpeechAPIConversationCreateWithoutVideoUploadInput
+input SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput {
+  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
   connect: SpeechAPIConversationWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
-  upsert: SpeechAPIConversationUpsertWithoutVideoUploadInput
+  update: SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput
+  upsert: SpeechAPIConversationUpsertWithoutVideoUploadMetadataInput
 }
 
 input SpeechAPIConversationUpdateWithoutConversationDataInput {
-  videoUpload: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
+  videoUploadMetadata: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
 }
 
-input SpeechAPIConversationUpdateWithoutVideoUploadDataInput {
+input SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput {
   conversation: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
 }
 
@@ -982,9 +982,9 @@ input SpeechAPIConversationUpsertWithoutConversationInput {
   create: SpeechAPIConversationCreateWithoutConversationInput!
 }
 
-input SpeechAPIConversationUpsertWithoutVideoUploadInput {
-  update: SpeechAPIConversationUpdateWithoutVideoUploadDataInput!
-  create: SpeechAPIConversationCreateWithoutVideoUploadInput!
+input SpeechAPIConversationUpsertWithoutVideoUploadMetadataInput {
+  update: SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput!
+  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput!
 }
 
 input SpeechAPIConversationWhereInput {
@@ -1036,7 +1036,7 @@ input SpeechAPIConversationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  videoUpload: VideoUploadMetadataWhereInput
+  videoUploadMetadata: VideoUploadMetadataWhereInput
   conversation_every: SpeechAPIConversationBlockWhereInput
   conversation_some: SpeechAPIConversationBlockWhereInput
   conversation_none: SpeechAPIConversationBlockWhereInput
@@ -2182,7 +2182,7 @@ input VideoUploadMetadataCreateInput {
   renderEnd: Float
   videoUpload: VideoUploadCreateOneWithoutMetadataInput!
   dateRecorded: DateCreateOneInput
-  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput
 }
 
 input VideoUploadMetadataCreateOneWithoutGeneratedConversationInput {
@@ -2212,7 +2212,7 @@ input VideoUploadMetadataCreateWithoutVideoUploadInput {
   renderStart: Float
   renderEnd: Float
   dateRecorded: DateCreateOneInput
-  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput
 }
 
 """An edge in a connection."""
@@ -2299,7 +2299,7 @@ input VideoUploadMetadataUpdateInput {
   renderEnd: Float
   videoUpload: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded: DateUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput
 }
 
 input VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput {
@@ -2335,7 +2335,7 @@ input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   renderStart: Float
   renderEnd: Float
   dateRecorded: DateUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
+  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput
 }
 
 input VideoUploadMetadataUpsertWithoutGeneratedConversationInput {

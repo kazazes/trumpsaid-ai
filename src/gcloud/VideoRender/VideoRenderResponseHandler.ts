@@ -6,6 +6,7 @@ import writeToVideoUploadLog from '../../util/videoUploadLogger';
 import { IPubSubConsumerPayload } from '../PubSubHandler';
 import { PubSubResponseHandler } from '../PubSubResponseHandler';
 import { makeFilePublic } from '../storageController';
+import { VideoTranscriber } from '../VideoTranscription/VideoTranscriber';
 import { IVideoRenderFailedMessage, IVideoRenderSuccessMessage } from './VideoRenderHandler';
 import VideoRenderPubSubController from './VideoRenderPubSubController';
 
@@ -43,6 +44,13 @@ export default class VideoRenderResponseHandler extends PubSubResponseHandler {
       .catch((e) => {
         logger.error(`Error setting storage links on ${id}`, e);
       });
+
+    // If Audio Web in response, trigger transcribe
+    if (response.storageLinkCreateInputs.filter(link => link.fileType === 'AUDIO' && link.version === 'WEB').length > 0) {
+      // TODO: Move transcription to PubSub
+      new VideoTranscriber(response.videoUpload).recognize()
+        .catch(e => logger.error(`Error while transcribing:\n ${e}`));
+    }
   }
 
   private async deleteExistingDuplicateLinkTypes(storageLinkCreateInputs: VideoUploadStorageLinkCreateInput[], id: string) {

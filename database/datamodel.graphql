@@ -112,7 +112,7 @@ type SpeechAPIConversationBlock {
 
 type SpeechAPIConversation {
   id: ID! @unique
-  videoUpload: VideoUploadMetadata!
+  videoUploadMetadata: VideoUploadMetadata!
     @relation(name: "SpeechAPIConversationVideoRelation")
   conversation: [SpeechAPIConversationBlock!]!
     @relation(

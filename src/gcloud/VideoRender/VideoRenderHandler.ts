@@ -113,9 +113,9 @@ export default class VideoRenderHandler extends PubSubHandler {
 
       for (const format of transcodeFormats) {
         try {
-          const storageCreateInput = await this.transcode(format, storageLinks);
-          storageCreateInput.forEach(createInput => renderResults.push(createInput));
-          this.update({ videoUpload, storageLinkCreateInputs: storageCreateInput });
+          const storageCreateInputs = await this.transcode(format, storageLinks);
+          storageCreateInputs.forEach(createInput => renderResults.push(createInput));
+          this.update({ videoUpload, storageLinkCreateInputs: storageCreateInputs });
         } catch (e) {
           logger.error('Rendering error occured! See above.');
           logger.error(JSON.stringify(e));
@@ -124,9 +124,9 @@ export default class VideoRenderHandler extends PubSubHandler {
 
       for (const format of encodeFormats) {
         try {
-          const storageCreateInput = await this.encode(format, storageLinks);
-          storageCreateInput.forEach(createInput => renderResults.push(createInput));
-          this.update({ videoUpload, storageLinkCreateInputs: storageCreateInput });
+          const storageCreateInputs = await this.encode(format, storageLinks);
+          storageCreateInputs.forEach(createInput => renderResults.push(createInput));
+          this.update({ videoUpload, storageLinkCreateInputs: storageCreateInputs });
         } catch (e) {
           logger.error('Rendering error occured! See above.');
           logger.error(JSON.stringify(e));
