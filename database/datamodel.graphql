@@ -29,9 +29,9 @@ type VideoUpload implements IVideo {
   published: Boolean! @default(value: "false")
   # TODO: publishedVideo: Video
   statusLog: [VideoUploadStatusLogItem!]!
-    @relation(name: "VideoUploadLogItemRelation")
+    @relation(name: "VideoUploadLogItemRelation", onDelete: CASCADE)
   storageLinks: [VideoUploadStorageLink!]!
-    @relation(name: "StorageLinkVideoRelation")
+    @relation(name: "StorageLinkVideoRelation", onDelete: CASCADE)
   submitedBy: User! @relation(name: "VideoSubmitter")
   submitedUrl: String! @unique
 }
@@ -48,21 +48,21 @@ type VideoUploadStorageLink implements IStorageItem {
 type VideoUploadMetadata {
   id: ID! @unique
   videoUpload: VideoUpload! @unique
-    @relation(name: "VideoUploadMetadataRelation", onDelete: CASCADE)
+    @relation(name: "VideoUploadMetadataRelation")
   title: String
   subtitle: String
   dateRecorded: Date
   speakers: Int! @default(value: "2")
   renderStart: Float! @default(value: "0")
   renderEnd: Float! @default(value: "0")
-  conversations: [VideoConversation!]!
+  conversations: [VideoConversation!]! @relation(name: "VideoUploadConversationsRelation", onDelete: CASCADE)
 }
 
 type VideoConversation {
   id: ID! @unique
   createdAt: DateTime!
   createdBy: User
-  blocks: [ConversationBlock!]!
+  blocks: [ConversationBlock!]! @relation(name: "ConversationBlockRelation", onDelete: CASCADE)
 }
 
 type ConversationBlock {
@@ -75,7 +75,7 @@ type ConversationBlock {
 type VideoUploadAdminMetadata {
   id: ID! @unique
   videoUpload: VideoUpload!
-    @relation(name: "VideoUploadAdminMetadataRelation", onDelete: CASCADE)
+    @relation(name: "VideoUploadAdminMetadataRelation")
   advertisingEnabled: Boolean! @default(value: "false")
 }
 

@@ -12,20 +12,20 @@ export default {
       window.localStorage.setItem('access_token', token);
       window.location.replace('/admin');
     }
-  }
+  },
 };
 
-function getQueryParam(param: string) {
+const getQueryParam = (param: string) => {
   location.search
     .substr(1)
     .split('&')
-    .some(function(item) {
-      // returns first occurence and stops
-      item.split('=')[0] == param && (param = item.split('=')[1]);
+    .some((item) => {
+      // tslint:disable-next-line:no-parameter-reassignment
+      item.split('=')[0] === param && (param = item.split('=')[1]);
       return true;
     });
   return param;
-}
+};
 </script>
 
 <style lang="scss">

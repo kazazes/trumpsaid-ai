@@ -21,8 +21,8 @@
   </div>
 </template>
 <script lang="ts">
-import Vue from "vue";
-import { every } from "lodash";
+import { every } from 'lodash';
+import Vue from 'vue';
 
 interface IWindowWithVideoJS extends Window {
   videojs: any;
@@ -33,33 +33,46 @@ interface IVideoSource {
   type: String;
 }
 
-(window as IWindowWithVideoJS).videojs = require("video.js");
+if (!window.videojs) {
+  (window as IWindowWithVideoJS).videojs = require('video.js').default;
+}
 
 export default Vue.extend({
-  name: "VideoPlayer",
+  name: 'VideoPlayer',
+  computed: {
+    player: {
+      get() {
+        return videojs(this.$props.id);
+      },
+    },
+  },
   mounted() {
-    (window as IWindowWithVideoJS).videojs.default(this.id);
+    const player = videojs(this.$props.id);
+    const that = this;
+    player.on('loadedmetadata', () => {
+      that.$emit('playerLoaded');
+    });
   },
   props: {
     sources: {
       type: Array,
-      validator: (sources: Array<IVideoSource>) => {
+      validator: (sources: IVideoSource[]) => {
         return every(sources, (src: IVideoSource) => {
           return src.src !== undefined && src.type !== undefined;
         });
-      }
+      },
     },
     id: String,
     preload: {
       type: String,
-      default: "auto"
+      default: 'auto',
     },
     poster: String,
     dataSetup: {
       type: String,
-      default: () => "{}"
-    }
-  }
+      default: () => '{}',
+    },
+  },
 });
 </script>
 <style>

@@ -495,7 +495,6 @@ export default class VideoRenderHandler extends PubSubHandler {
         .outputOption('-quality good')
         .outputOption('-speed 0')
         .videoBitrate('1000')
-        .videoFilter('scale=1280:-2')
         .seekInput(renderStart)
         .outputOptions(`-to ${renderEnd}`)
         .outputOptions('-qmin 0')

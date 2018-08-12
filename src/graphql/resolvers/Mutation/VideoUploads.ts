@@ -24,11 +24,12 @@ export default {
       },
     };
 
-    const upload = await ctx.db.mutation.createVideoUpload({ data }, info);
+    const upload = await ctx.db.mutation.createVideoUpload({ data }, ' { id submitedUrl }');
+    publishDownloadJob(upload);
 
     return upload;
   },
-  addInitialUploadMetadata: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
+  setInitialUploadMetadata: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
     let upload = await ctx.db.mutation.updateVideoUpload(
       {
         data: { metadata: { update: {
@@ -61,19 +62,6 @@ export default {
     const upload = await ctx.db.query.videoUpload({ where: { id: args.id } });
     publishDownloadJob(upload);
     return upload;
-  },
-  setVideoUploadThumbnail: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
-    const upload = await ctx.db.query.videoUpload(
-      { where: { id: args.id } },
-      `{ id submitedUrl submitedBy { displayName avatar } status state rawStorageLink { videoID path bucket } }`);
-
-    if (upload) {
-      publishThumbnailJob(upload, args.timestamp);
-      return upload;
-    }
-
-    return new ApolloError('No video with that ID');
-
   },
   transcribe: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
     // TODO: Set to processing, dispatch transcription job

@@ -1,21 +1,20 @@
 <template>
-  <div class="animated fadeIn">
-      
+  <div class='animated fadeIn'>
   </div>
 </template>
 
-<script>
-import { Callout } from "@coreui/vue";
+<script lang='ts'>
+import { Callout } from '@coreui/vue';
 
 export default {
-  name: "dashboard",
+  name: 'dashboard',
   components: {
-    Callout
+    Callout,
   },
-  data: function() {
+  data() {
     return {};
   },
-  methods: {}
+  methods: {},
 };
 </script>
 

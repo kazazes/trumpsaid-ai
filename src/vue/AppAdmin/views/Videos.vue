@@ -2,11 +2,11 @@
   <router-view></router-view>
 </template>
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 export default Vue.extend({
-  name: "VideoSubmission",
-  data: function() {
+  name: 'VideoSubmission',
+  data() {
     return {};
-  }
+  },
 });
 </script>

@@ -1,85 +1,42 @@
 <template>
   <div class="wrapper">
+    <b-nav style="margin: -1.5rem -1.9rem; padding: 0 1.5rem;" class="mb-4 bg-light">
+      <div class="my-2 mx-2">
+        <b-btn @click="deleteUpload">Delete Upload</b-btn>
+      </div>
+    </b-nav>
     <div class="animated fadeIn">
       <b-card no-body header="Video Processing">
         <b-list-group flush>
-          <b-list-group-item :variant="videoUpload.status == 'AWAITING_PROCESSING' ? 'info' : 'dark'">
+          <b-list-group-item :variant="isDownloading ? 'primary': 'success'">
             <div class="d-flex align-items-center">
-              <span class="list-group-step-title">Step 1:</span>
-              <span class="mr-4">Download. Review the submited video before initiating processing.</span>
-              <div v-if="videoUpload.status === 'AWAITING_PROCESSING'">
-                <b-button class="mr-4" :href="videoUpload.submitedUrl" target="_blank" variant="info">Review Video</b-button>
-                <b-button class="mr-4" @click="startProcessing">Start Processing</b-button>
-              </div>
+              <span>1.&nbsp;</span>
+              <span class="mr-4">Wait for the submited video to download.</span>
             </div>
           </b-list-group-item>
-          <b-list-group-item :variant="videoUpload.status == 'READY_TO_RENDER' ? 'info' : 'dark'">
+          <b-list-group-item :variant="needsInitialMetadata && !isDownloading ? 'info' : 'success'">
             <div class="d-flex align-items-center ">
-              <span class="list-group-step-title">Step 2:</span>
-              <span>Render. Before rendering, verify that the video was downloaded correctly.</span>
+              <span>2.&nbsp;</span>
+              <span class="mr-4">Give me some details.</span>
             </div>
           </b-list-group-item>
-          <b-list-group-item :variant="videoUpload.status == 'NEEDS_THUMBNAILS' ? 'info' : 'dark'">
+          <b-list-group-item :variant="awaitingTranscription ? 'info' : 'success'">
             <div class="d-flex align-items-center ">
-              <span class="list-group-step-title">Step 3:</span>
-              <span>Choose thumbnail.</span>
-            </div>
-          </b-list-group-item>
-          <b-list-group-item :variant="videoUpload.status === 'NEEDS_REVIEW' ? 'info' : 'dark'">
-            <div class="d-flex align-items-center ">
-              <span class="list-group-step-title">Step 4:</span>
-              <span>Review the output videos and thumbnail.</span>
+              <span>3.&nbsp;</span>
+              <span class="mr-4">Give me a second to work some magic...</span>
             </div>
           </b-list-group-item>
         </b-list-group>
       </b-card>
-      <b-col v-if="$apollo.loading || loading">
+      <b-col v-if="loading">
         <Spinner></Spinner>
       </b-col>
-      <b-card v-else-if="videoUpload.status === 'DOWNLOADING'" class="text-center">
+      <b-card v-else-if="isDownloading" class="text-center">
         <h5>Downloading...</h5>
         <Spinner></Spinner>
       </b-card>
-      <b-card v-else-if="videoUpload.status === 'READY_TO_RENDER'" header="Raw video">
-        <b-row>
-          <b-col md="6">
-            <VideoPlayer id="rawVideoDownload" :sources="getSource(videoUpload.rawStorageLink)" preload="auto" data-setup="{}"></VideoPlayer>
-          </b-col>
-          <b-col md="6" class="text-center">
-            <p v-if="videoUpload.state === 'PENDING'">Before publishing, the video must be rendered for the web. Confirm the video was downloaded correctly before rendering.</p>
-            <p v-else-if="videoUpload.state === 'PROCESSING'">Video is rendering, this will take a while.</p>
-            <div class="text-center mt-5">
-              <b-button v-if="videoUpload.state === 'PENDING'" @click="startProcessing()">Render Video</b-button>
-              <Spinner v-else-if="videoUpload.state === 'PROCESSING'"></Spinner>
-            </div>
-          </b-col>
-        </b-row>
-      </b-card>
-      <b-card v-else-if="videoUpload.status === 'NEEDS_THUMBNAILS'">
-        <b-row>
-          <b-col md="6">
-            <VideoPlayer id="rawVideo" :sources="getSource(videoUpload.rawStorageLink)" preload="auto" data-setup="{}"></VideoPlayer>
-          </b-col>
-          <b-col md="6" class="text-center">
-            <p>Find a thumbnail frame, pause, then process.</p>
-            <b-button @click="selectThumbnail" id="select-thumbnail" :disabled="selectThumbnailDisabled">Use frame as thumbnail</b-button>
-          </b-col>
-        </b-row>
-      </b-card>
-      <b-card v-else-if="videoUpload.status === 'NEEDS_REVIEW'">
-        <b-row>
-          <b-col md="6">
-            <h5>MP4 Version</h5>
-            <VideoPlayer id="mp4Video" :sources="getSource(videoUpload.mp4Link)" :poster="getPoster(videoUpload)" preload="auto" data-setup="{}"></VideoPlayer>
-          </b-col>
-          <b-col md="6">
-            <h5>Webm Version</h5>
-            <VideoPlayer id="webmVideo" :sources="getSource(videoUpload.webmLink)" :poster="getPoster(videoUpload)" preload="auto" data-setup="{}"></VideoPlayer>
-          </b-col>
-          <b-col class="text-center mt-3">
-            <b-button variant="success" @click="transcribe">Approve</b-button>
-          </b-col>
-        </b-row>
+      <b-card v-else-if="needsInitialMetadata" header="Raw video">
+        <VideoSubmissionInitialMetadata :videoUpload="videoUpload"></VideoSubmissionInitialMetadata>
       </b-card>
       <b-row>
         <b-col sm="12" class="text-center mb-2">
@@ -87,7 +44,7 @@
         </b-col>
         <b-collapse id="debug-info" class="mt-2">
           <b-card header="Debug Info" header-tag="header">
-            <pre>{{ formatedUpload() }}</pre>
+            <pre>{{ formatedUpload }}</pre>
           </b-card>
         </b-collapse>
       </b-row>
@@ -97,227 +54,88 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import gql from 'graphql-tag';
+import { VideoUpload, VideoUploadStorageLink } from '../../../graphql/generated/prisma';
+import { DELETE_VIDEO_UPLOAD, VIDEO_UPLOAD_DETAILS } from '../constants/graphql.ts';
+import VideoSubmissionInitialMetadata from './VideoSubmissionInitialMetadata.vue';
+
+// tslint:disable-next-line:variable-name
 const Spinner = require('vue-simple-spinner');
-import VideoPlayer from '../views/VideoPlayer.vue';
-
-import {
-  VideoUpload,
-  VideoUploadState,
-  VideoStorageLink
-} from '../../../graphql/generated/prisma';
-
-interface IWindowWithVideoJS extends Window {
-  videojs: any;
-}
 
 export default Vue.extend({
   name: 'VideoSubmission',
   components: {
     Spinner,
-    VideoPlayer
+    VideoSubmissionInitialMetadata,
   },
-  data: function() {
+  data: () => {
     return {
-      videoUpload: {},
+      videoUpload: { storageLinks: [], metadata: { conversations: [] } },
       selectThumbnailDisabled: false,
-      loading: false
+      loading: this.isDownloading || this.awaitingTranscription,
     };
   },
   methods: {
-    formatedUpload() {
-      return JSON.stringify(this.videoUpload, null, 2);
-    },
-    getPoster(video: VideoUpload) {
-      const storageLink = video.thumbnail;
-      const linkUrl = `https://storage.googleapis.com/${
-        storageLink.bucket
-      }/${encodeURI(storageLink.path)}`;
-      return linkUrl;
-    },
-    selectThumbnail() {
-      this.selectThumbnailDisabled = true;
-      const player = (window as IWindowWithVideoJS).videojs.default('rawVideo');
-      if (!player.paused()) {
-        return this.$notify({
-          type: 'warn',
-          title: 'Pause video',
-          text: 'You must pause the video before selecting a thumbnail.'
-        });
-      }
-
-      setTimeout(() => {
-        const timestamp = player.currentTime();
-        console.log('Setting thumbnail to frame at ' + timestamp);
-        this.$apollo.mutate({
-          mutation: gql`
-            mutation($id: ID!, $timestamp: Float!) {
-              setVideoUploadThumbnail(id: $id, timestamp: $timestamp) {
-                id
-                state
-                status
-              }
-            }
-          `,
-          variables: {
-            id: this.videoUpload.id,
-            timestamp
-          }
-        });
-      }, 500);
-    },
-    getSource(storageLink: VideoStorageLink) {
-      const linkUrl = `https://storage.googleapis.com/${
-        storageLink.bucket
-      }/${encodeURI(storageLink.path)}`;
-      return [{ src: linkUrl, type: 'video/mp4' }];
-    },
-    performAction(id: string, state: VideoUploadState) {
-      switch (state) {
-        case 'PENDING':
-          this.startProcessing(id);
-          break;
-        case 'PROCESSING':
-          this.$notify({
-            type: 'info',
-            title: 'Video is processing'
-          });
-          break;
-        default:
-          break;
-      }
-    },
-    async deleteUpload(itemId: string) {
+    async deleteUpload() {
       if (window.confirm('Are you you want to delete this video?')) {
         await this.$apollo.mutate({
-          mutation: gql`
-            mutation($id: ID!) {
-              deleteVideoUpload(id: $id) {
-                id
-              }
-            }
-          `,
+          mutation: DELETE_VIDEO_UPLOAD,
           variables: {
-            id: itemId
-          }
+            id: this.videoUpload.id,
+          },
         });
-
-        this.$apollo.queries.videoUploads.refresh();
 
         this.$notify({
           type: 'danger',
-          title: 'Video deleted'
+          title: 'Video deleted',
         });
+
+        this.$router.push('/videos/submissions/all');
       }
     },
-    async startProcessing() {
-      await this.$apollo.mutate({
-        mutation: gql`
-          mutation($id: ID!) {
-            startProcessingPipeline(id: $id) {
-              id
-              status
-              state
-            }
-          }
-        `,
-        variables: {
-          id: this.videoUpload.id
-        }
-      });
-
-      this.$notify({
-        type: 'success',
-        title: 'Video processing...'
-      });
+  },
+  computed: {
+    formatedUpload: {
+      get() {
+        return JSON.stringify(this.videoUpload, null, 2);
+      },
     },
-    async transcribe() {
-      await this.$apollo.mutate({
-        mutation: gql`
-          mutation($id: ID!) {
-            transcribe(id: $id) {
-              state
-              status
-            }
-          }
-        `,
-        variables: {
-          id: this.videoUpload.id
-        }
-      });
-
-      this.$notify({
-        type: 'success',
-        title: 'Video processing...'
-      });
-    }
+    isDownloading:{
+      get() {
+        return this.firstMaster === undefined;
+      },
+    },
+    needsInitialMetadata:{
+      get() {
+        return this.videoUpload.metadata.renderEnd === 0;
+      },
+    },
+    firstMaster: {
+      get() {
+        return this.videoUpload.storageLinks.find(
+        (link: VideoUploadStorageLink) => { return link.version === 'MASTER' && (link.fileType === 'MP4' || link.fileType === 'WEBM'); });
+      },
+    },
+    awaitingTranscription: {
+      get(){
+        return this.videoUpload.metadata.conversations.length === 0;
+      },
+    },
+    awaitingTranscriptionReview: {
+      get(){
+        return this.videoUpload.metadata.conversations.length === 0;
+      },
+    },
   },
   apollo: {
     videoUpload: {
-      query: gql`
-        query videoUpload($videoSubmissionId: ID!) {
-          videoUpload(id: $videoSubmissionId) {
-            id
-            submitedBy {
-              id
-              displayName
-              avatar
-            }
-            status
-            state
-            submitedUrl
-            rawStorageLink {
-              id
-              path
-              bucket
-            }
-            webmLink {
-              id
-              path
-              bucket
-            }
-            mp4Link {
-              id
-              path
-              bucket
-            }
-            thumbnail {
-              id
-              path
-              bucket
-            }
-            metadata {
-              title
-              subtitle
-              advertisingEnabled
-              tags(orderBy: name_ASC) {
-                name
-              }
-              sources {
-                publication {
-                  avatarPath
-                  name
-                }
-                url
-                title
-                priority
-              }
-              dateRecorded {
-                month
-                day
-                year
-              }
-            }
-          }
-        }
-      `,
+      query: VIDEO_UPLOAD_DETAILS,
       variables() {
         return {
-          videoSubmissionId: this.$route.params.submissionId
+          videoSubmissionId: this.$route.params.submissionId,
         };
       },
-      pollInterval: 1000
-    }
-  }
+      pollInterval: 1000,
+    },
+  },
 });
 </script>

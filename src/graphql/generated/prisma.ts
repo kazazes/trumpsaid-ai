@@ -9,28 +9,28 @@ export interface Query {
     videoUploadMetadatas: <T = VideoUploadMetadata[]>(args: { where?: VideoUploadMetadataWhereInput, orderBy?: VideoUploadMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadAdminMetadatas: <T = VideoUploadAdminMetadata[]>(args: { where?: VideoUploadAdminMetadataWhereInput, orderBy?: VideoUploadAdminMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStatusLogItems: <T = VideoUploadStatusLogItem[]>(args: { where?: VideoUploadStatusLogItemWhereInput, orderBy?: VideoUploadStatusLogItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    dates: <T = Date[]>(args: { where?: DateWhereInput, orderBy?: DateOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     conversationBlocks: <T = ConversationBlock[]>(args: { where?: ConversationBlockWhereInput, orderBy?: ConversationBlockOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    speakers: <T = Speaker[]>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    dates: <T = Date[]>(args: { where?: DateWhereInput, orderBy?: DateOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoConversations: <T = VideoConversation[]>(args: { where?: VideoConversationWhereInput, orderBy?: VideoConversationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    speakers: <T = Speaker[]>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUpload: <T = VideoUpload | null>(args: { where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStorageLink: <T = VideoUploadStorageLink | null>(args: { where: VideoUploadStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadMetadata: <T = VideoUploadMetadata | null>(args: { where: VideoUploadMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadAdminMetadata: <T = VideoUploadAdminMetadata | null>(args: { where: VideoUploadAdminMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStatusLogItem: <T = VideoUploadStatusLogItem | null>(args: { where: VideoUploadStatusLogItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    speaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoConversation: <T = VideoConversation | null>(args: { where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    speaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadsConnection: <T = VideoUploadConnection>(args: { where?: VideoUploadWhereInput, orderBy?: VideoUploadOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStorageLinksConnection: <T = VideoUploadStorageLinkConnection>(args: { where?: VideoUploadStorageLinkWhereInput, orderBy?: VideoUploadStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadMetadatasConnection: <T = VideoUploadMetadataConnection>(args: { where?: VideoUploadMetadataWhereInput, orderBy?: VideoUploadMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadAdminMetadatasConnection: <T = VideoUploadAdminMetadataConnection>(args: { where?: VideoUploadAdminMetadataWhereInput, orderBy?: VideoUploadAdminMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStatusLogItemsConnection: <T = VideoUploadStatusLogItemConnection>(args: { where?: VideoUploadStatusLogItemWhereInput, orderBy?: VideoUploadStatusLogItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    datesConnection: <T = DateConnection>(args: { where?: DateWhereInput, orderBy?: DateOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     conversationBlocksConnection: <T = ConversationBlockConnection>(args: { where?: ConversationBlockWhereInput, orderBy?: ConversationBlockOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    speakersConnection: <T = SpeakerConnection>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    datesConnection: <T = DateConnection>(args: { where?: DateWhereInput, orderBy?: DateOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoConversationsConnection: <T = VideoConversationConnection>(args: { where?: VideoConversationWhereInput, orderBy?: VideoConversationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    speakersConnection: <T = SpeakerConnection>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
@@ -41,54 +41,54 @@ export interface Mutation {
     createVideoUploadMetadata: <T = VideoUploadMetadata>(args: { data: VideoUploadMetadataCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata>(args: { data: VideoUploadAdminMetadataCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem>(args: { data: VideoUploadStatusLogItemCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createDate: <T = Date>(args: { data: DateCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createConversationBlock: <T = ConversationBlock>(args: { data: ConversationBlockCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createSpeaker: <T = Speaker>(args: { data: SpeakerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createDate: <T = Date>(args: { data: DateCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideoConversation: <T = VideoConversation>(args: { data: VideoConversationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createSpeaker: <T = Speaker>(args: { data: SpeakerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUpload: <T = VideoUpload | null>(args: { data: VideoUploadUpdateInput, where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUploadStorageLink: <T = VideoUploadStorageLink | null>(args: { data: VideoUploadStorageLinkUpdateInput, where: VideoUploadStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUploadMetadata: <T = VideoUploadMetadata | null>(args: { data: VideoUploadMetadataUpdateInput, where: VideoUploadMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata | null>(args: { data: VideoUploadAdminMetadataUpdateInput, where: VideoUploadAdminMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem | null>(args: { data: VideoUploadStatusLogItemUpdateInput, where: VideoUploadStatusLogItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateSpeaker: <T = Speaker | null>(args: { data: SpeakerUpdateInput, where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoConversation: <T = VideoConversation | null>(args: { data: VideoConversationUpdateInput, where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateSpeaker: <T = Speaker | null>(args: { data: SpeakerUpdateInput, where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUpload: <T = VideoUpload | null>(args: { where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUploadStorageLink: <T = VideoUploadStorageLink | null>(args: { where: VideoUploadStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUploadMetadata: <T = VideoUploadMetadata | null>(args: { where: VideoUploadMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata | null>(args: { where: VideoUploadAdminMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem | null>(args: { where: VideoUploadStatusLogItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteSpeaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoConversation: <T = VideoConversation | null>(args: { where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteSpeaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUpload: <T = VideoUpload>(args: { where: VideoUploadWhereUniqueInput, create: VideoUploadCreateInput, update: VideoUploadUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUploadStorageLink: <T = VideoUploadStorageLink>(args: { where: VideoUploadStorageLinkWhereUniqueInput, create: VideoUploadStorageLinkCreateInput, update: VideoUploadStorageLinkUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUploadMetadata: <T = VideoUploadMetadata>(args: { where: VideoUploadMetadataWhereUniqueInput, create: VideoUploadMetadataCreateInput, update: VideoUploadMetadataUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata>(args: { where: VideoUploadAdminMetadataWhereUniqueInput, create: VideoUploadAdminMetadataCreateInput, update: VideoUploadAdminMetadataUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem>(args: { where: VideoUploadStatusLogItemWhereUniqueInput, create: VideoUploadStatusLogItemCreateInput, update: VideoUploadStatusLogItemUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertSpeaker: <T = Speaker>(args: { where: SpeakerWhereUniqueInput, create: SpeakerCreateInput, update: SpeakerUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoConversation: <T = VideoConversation>(args: { where: VideoConversationWhereUniqueInput, create: VideoConversationCreateInput, update: VideoConversationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertSpeaker: <T = Speaker>(args: { where: SpeakerWhereUniqueInput, create: SpeakerCreateInput, update: SpeakerUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploads: <T = BatchPayload>(args: { data: VideoUploadUpdateInput, where?: VideoUploadWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploadStorageLinks: <T = BatchPayload>(args: { data: VideoUploadStorageLinkUpdateInput, where?: VideoUploadStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploadMetadatas: <T = BatchPayload>(args: { data: VideoUploadMetadataUpdateInput, where?: VideoUploadMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploadAdminMetadatas: <T = BatchPayload>(args: { data: VideoUploadAdminMetadataUpdateInput, where?: VideoUploadAdminMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploadStatusLogItems: <T = BatchPayload>(args: { data: VideoUploadStatusLogItemUpdateInput, where?: VideoUploadStatusLogItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyDates: <T = BatchPayload>(args: { data: DateUpdateInput, where?: DateWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyConversationBlocks: <T = BatchPayload>(args: { data: ConversationBlockUpdateInput, where?: ConversationBlockWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManySpeakers: <T = BatchPayload>(args: { data: SpeakerUpdateInput, where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyDates: <T = BatchPayload>(args: { data: DateUpdateInput, where?: DateWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoConversations: <T = BatchPayload>(args: { data: VideoConversationUpdateInput, where?: VideoConversationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManySpeakers: <T = BatchPayload>(args: { data: SpeakerUpdateInput, where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploads: <T = BatchPayload>(args: { where?: VideoUploadWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploadStorageLinks: <T = BatchPayload>(args: { where?: VideoUploadStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploadMetadatas: <T = BatchPayload>(args: { where?: VideoUploadMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploadAdminMetadatas: <T = BatchPayload>(args: { where?: VideoUploadAdminMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploadStatusLogItems: <T = BatchPayload>(args: { where?: VideoUploadStatusLogItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyDates: <T = BatchPayload>(args: { where?: DateWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyConversationBlocks: <T = BatchPayload>(args: { where?: ConversationBlockWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManySpeakers: <T = BatchPayload>(args: { where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyDates: <T = BatchPayload>(args: { where?: DateWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoConversations: <T = BatchPayload>(args: { where?: VideoConversationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManySpeakers: <T = BatchPayload>(args: { where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
@@ -98,10 +98,10 @@ export interface Subscription {
     videoUploadMetadata: <T = VideoUploadMetadataSubscriptionPayload | null>(args: { where?: VideoUploadMetadataSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     videoUploadAdminMetadata: <T = VideoUploadAdminMetadataSubscriptionPayload | null>(args: { where?: VideoUploadAdminMetadataSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     videoUploadStatusLogItem: <T = VideoUploadStatusLogItemSubscriptionPayload | null>(args: { where?: VideoUploadStatusLogItemSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    date: <T = DateSubscriptionPayload | null>(args: { where?: DateSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     conversationBlock: <T = ConversationBlockSubscriptionPayload | null>(args: { where?: ConversationBlockSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    speaker: <T = SpeakerSubscriptionPayload | null>(args: { where?: SpeakerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    date: <T = DateSubscriptionPayload | null>(args: { where?: DateSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     videoConversation: <T = VideoConversationSubscriptionPayload | null>(args: { where?: VideoConversationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    speaker: <T = SpeakerSubscriptionPayload | null>(args: { where?: SpeakerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
 
@@ -111,10 +111,10 @@ export interface Exists {
   VideoUploadMetadata: (where?: VideoUploadMetadataWhereInput) => Promise<boolean>
   VideoUploadAdminMetadata: (where?: VideoUploadAdminMetadataWhereInput) => Promise<boolean>
   VideoUploadStatusLogItem: (where?: VideoUploadStatusLogItemWhereInput) => Promise<boolean>
-  Date: (where?: DateWhereInput) => Promise<boolean>
   ConversationBlock: (where?: ConversationBlockWhereInput) => Promise<boolean>
-  Speaker: (where?: SpeakerWhereInput) => Promise<boolean>
+  Date: (where?: DateWhereInput) => Promise<boolean>
   VideoConversation: (where?: VideoConversationWhereInput) => Promise<boolean>
+  Speaker: (where?: SpeakerWhereInput) => Promise<boolean>
   User: (where?: UserWhereInput) => Promise<boolean>
 }
 
@@ -396,9 +396,9 @@ input ConversationBlockWhereInput {
   """All values not ending with the given string."""
   content_not_ends_with: String
   speaker: SpeakerWhereInput
-  _MagicalBackRelation_ConversationBlockToVideoConversation_every: VideoConversationWhereInput
-  _MagicalBackRelation_ConversationBlockToVideoConversation_some: VideoConversationWhereInput
-  _MagicalBackRelation_ConversationBlockToVideoConversation_none: VideoConversationWhereInput
+  _MagicalBackRelation_ConversationBlockRelation_every: VideoConversationWhereInput
+  _MagicalBackRelation_ConversationBlockRelation_some: VideoConversationWhereInput
+  _MagicalBackRelation_ConversationBlockRelation_none: VideoConversationWhereInput
 }
 
 type Date {
@@ -615,54 +615,54 @@ type Mutation {
   createVideoUploadMetadata(data: VideoUploadMetadataCreateInput!): VideoUploadMetadata!
   createVideoUploadAdminMetadata(data: VideoUploadAdminMetadataCreateInput!): VideoUploadAdminMetadata!
   createVideoUploadStatusLogItem(data: VideoUploadStatusLogItemCreateInput!): VideoUploadStatusLogItem!
-  createDate(data: DateCreateInput!): Date!
   createConversationBlock(data: ConversationBlockCreateInput!): ConversationBlock!
-  createSpeaker(data: SpeakerCreateInput!): Speaker!
+  createDate(data: DateCreateInput!): Date!
   createVideoConversation(data: VideoConversationCreateInput!): VideoConversation!
+  createSpeaker(data: SpeakerCreateInput!): Speaker!
   createUser(data: UserCreateInput!): User!
   updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateVideoUploadStorageLink(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   updateVideoUploadMetadata(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   updateVideoUploadAdminMetadata(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   updateVideoUploadStatusLogItem(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
-  updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
   updateVideoConversation(data: VideoConversationUpdateInput!, where: VideoConversationWhereUniqueInput!): VideoConversation
+  updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   deleteVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   deleteVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   deleteVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
-  deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
   deleteVideoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
+  deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
   deleteUser(where: UserWhereUniqueInput!): User
   upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!, create: VideoUploadStorageLinkCreateInput!, update: VideoUploadStorageLinkUpdateInput!): VideoUploadStorageLink!
   upsertVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!, create: VideoUploadMetadataCreateInput!, update: VideoUploadMetadataUpdateInput!): VideoUploadMetadata!
   upsertVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!, create: VideoUploadAdminMetadataCreateInput!, update: VideoUploadAdminMetadataUpdateInput!): VideoUploadAdminMetadata!
   upsertVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!, create: VideoUploadStatusLogItemCreateInput!, update: VideoUploadStatusLogItemUpdateInput!): VideoUploadStatusLogItem!
-  upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
   upsertVideoConversation(where: VideoConversationWhereUniqueInput!, create: VideoConversationCreateInput!, update: VideoConversationUpdateInput!): VideoConversation!
+  upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
   updateManyVideoUploadStorageLinks(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereInput): BatchPayload!
   updateManyVideoUploadMetadatas(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereInput): BatchPayload!
   updateManyVideoUploadAdminMetadatas(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   updateManyVideoUploadStatusLogItems(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereInput): BatchPayload!
-  updateManyDates(data: DateUpdateInput!, where: DateWhereInput): BatchPayload!
   updateManyConversationBlocks(data: ConversationBlockUpdateInput!, where: ConversationBlockWhereInput): BatchPayload!
-  updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
+  updateManyDates(data: DateUpdateInput!, where: DateWhereInput): BatchPayload!
   updateManyVideoConversations(data: VideoConversationUpdateInput!, where: VideoConversationWhereInput): BatchPayload!
+  updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
   deleteManyVideoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput): BatchPayload!
   deleteManyVideoUploadMetadatas(where: VideoUploadMetadataWhereInput): BatchPayload!
   deleteManyVideoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   deleteManyVideoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput): BatchPayload!
-  deleteManyDates(where: DateWhereInput): BatchPayload!
   deleteManyConversationBlocks(where: ConversationBlockWhereInput): BatchPayload!
-  deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
+  deleteManyDates(where: DateWhereInput): BatchPayload!
   deleteManyVideoConversations(where: VideoConversationWhereInput): BatchPayload!
+  deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
@@ -699,28 +699,28 @@ type Query {
   videoUploadMetadatas(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadMetadata]!
   videoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadAdminMetadata]!
   videoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStatusLogItem]!
-  dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date]!
   conversationBlocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock]!
-  speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
+  dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date]!
   videoConversations(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoConversation]!
+  speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   videoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   videoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
-  speaker(where: SpeakerWhereUniqueInput!): Speaker
   videoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
+  speaker(where: SpeakerWhereUniqueInput!): Speaker
   user(where: UserWhereUniqueInput!): User
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
   videoUploadStorageLinksConnection(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStorageLinkConnection!
   videoUploadMetadatasConnection(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadMetadataConnection!
   videoUploadAdminMetadatasConnection(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadAdminMetadataConnection!
   videoUploadStatusLogItemsConnection(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStatusLogItemConnection!
-  datesConnection(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DateConnection!
   conversationBlocksConnection(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConversationBlockConnection!
-  speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
+  datesConnection(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DateConnection!
   videoConversationsConnection(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConversationConnection!
+  speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
@@ -1001,10 +1001,10 @@ type Subscription {
   videoUploadMetadata(where: VideoUploadMetadataSubscriptionWhereInput): VideoUploadMetadataSubscriptionPayload
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataSubscriptionWhereInput): VideoUploadAdminMetadataSubscriptionPayload
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemSubscriptionWhereInput): VideoUploadStatusLogItemSubscriptionPayload
-  date(where: DateSubscriptionWhereInput): DateSubscriptionPayload
   conversationBlock(where: ConversationBlockSubscriptionWhereInput): ConversationBlockSubscriptionPayload
-  speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
+  date(where: DateSubscriptionWhereInput): DateSubscriptionPayload
   videoConversation(where: VideoConversationSubscriptionWhereInput): VideoConversationSubscriptionPayload
+  speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -1682,9 +1682,9 @@ input VideoConversationWhereInput {
   blocks_every: ConversationBlockWhereInput
   blocks_some: ConversationBlockWhereInput
   blocks_none: ConversationBlockWhereInput
-  _MagicalBackRelation_VideoConversationToVideoUploadMetadata_every: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_VideoConversationToVideoUploadMetadata_some: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_VideoConversationToVideoUploadMetadata_none: VideoUploadMetadataWhereInput
+  _MagicalBackRelation_VideoUploadConversationsRelation_every: VideoUploadMetadataWhereInput
+  _MagicalBackRelation_VideoUploadConversationsRelation_some: VideoUploadMetadataWhereInput
+  _MagicalBackRelation_VideoUploadConversationsRelation_none: VideoUploadMetadataWhereInput
 }
 
 input VideoConversationWhereUniqueInput {
@@ -3701,22 +3701,6 @@ export interface VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput {
   message?: String
 }
 
-export interface VideoConversationSubscriptionWhereInput {
-  AND?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
-  OR?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
-  NOT?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoConversationWhereInput
-}
-
-export interface VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput {
-  where: VideoUploadStatusLogItemWhereUniqueInput
-  data: VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput
-}
-
 export interface SpeakerSubscriptionWhereInput {
   AND?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
   OR?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
@@ -3726,6 +3710,22 @@ export interface SpeakerSubscriptionWhereInput {
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
   node?: SpeakerWhereInput
+}
+
+export interface VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput {
+  where: VideoUploadStatusLogItemWhereUniqueInput
+  data: VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput
+}
+
+export interface VideoConversationSubscriptionWhereInput {
+  AND?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
+  OR?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
+  NOT?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoConversationWhereInput
 }
 
 export interface VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput {
@@ -3859,15 +3859,15 @@ export interface VideoUploadMetadataUpsertWithoutVideoUploadInput {
   create: VideoUploadMetadataCreateWithoutVideoUploadInput
 }
 
-export interface DateSubscriptionWhereInput {
-  AND?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  OR?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  NOT?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+export interface ConversationBlockSubscriptionWhereInput {
+  AND?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
+  OR?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
+  NOT?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: DateWhereInput
+  node?: ConversationBlockWhereInput
 }
 
 export interface VideoUploadCreateInput {
@@ -3983,10 +3983,9 @@ export interface VideoUploadMetadataCreateWithoutVideoUploadInput {
   conversations?: VideoConversationCreateManyInput
 }
 
-export interface SpeakerUpdateDataInput {
-  name?: String
-  avatarPath?: String
-  title?: String
+export interface SpeakerUpsertNestedInput {
+  update: SpeakerUpdateDataInput
+  create: SpeakerCreateInput
 }
 
 export interface DateCreateOneInput {
@@ -4012,8 +4011,8 @@ export interface VideoConversationCreateManyInput {
   connect?: VideoConversationWhereUniqueInput[] | VideoConversationWhereUniqueInput
 }
 
-export interface SpeakerWhereUniqueInput {
-  name?: String
+export interface VideoConversationWhereUniqueInput {
+  id?: ID_Input
 }
 
 export interface VideoConversationCreateInput {
@@ -4031,11 +4030,13 @@ export interface UserCreateOneInput {
   connect?: UserWhereUniqueInput
 }
 
-export interface ConversationBlockUpdateInput {
-  start?: Float
-  end?: Float
-  content?: String
-  speaker?: SpeakerUpdateOneInput
+export interface SpeakerUpdateOneInput {
+  create?: SpeakerCreateInput
+  connect?: SpeakerWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: SpeakerUpdateDataInput
+  upsert?: SpeakerUpsertNestedInput
 }
 
 export interface UserCreateInput {
@@ -4064,10 +4065,9 @@ export interface UserCreateadminRolesInput {
   set?: AdminRole[] | AdminRole
 }
 
-export interface SpeakerUpdateInput {
-  name?: String
-  avatarPath?: String
-  title?: String
+export interface VideoConversationUpdateInput {
+  createdBy?: UserUpdateOneInput
+  blocks?: ConversationBlockUpdateManyInput
 }
 
 export interface ConversationBlockCreateManyInput {
@@ -4228,15 +4228,15 @@ export interface VideoUploadCreateWithoutStorageLinksInput {
   submitedBy: UserCreateOneInput
 }
 
-export interface ConversationBlockSubscriptionWhereInput {
-  AND?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
-  OR?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
-  NOT?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
+export interface DateSubscriptionWhereInput {
+  AND?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  OR?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  NOT?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: ConversationBlockWhereInput
+  node?: DateWhereInput
 }
 
 export interface VideoUploadMetadataCreateInput {
@@ -4287,9 +4287,10 @@ export interface VideoUploadCreateWithoutMetadataInput {
   submitedBy: UserCreateOneInput
 }
 
-export interface SpeakerUpsertNestedInput {
-  update: SpeakerUpdateDataInput
-  create: SpeakerCreateInput
+export interface DateUpdateInput {
+  month?: Int
+  day?: Int
+  year?: Int
 }
 
 export interface VideoUploadStatusLogItemWhereInput {
@@ -4359,8 +4360,8 @@ export interface ConversationBlockUpdateManyInput {
   create?: ConversationBlockCreateInput[] | ConversationBlockCreateInput
 }
 
-export interface VideoConversationWhereUniqueInput {
-  id?: ID_Input
+export interface SpeakerWhereUniqueInput {
+  name?: String
 }
 
 export interface UserUpsertNestedInput {
@@ -4368,10 +4369,11 @@ export interface UserUpsertNestedInput {
   create: UserCreateInput
 }
 
-export interface DateUpdateInput {
-  month?: Int
-  day?: Int
-  year?: Int
+export interface ConversationBlockUpdateInput {
+  start?: Float
+  end?: Float
+  content?: String
+  speaker?: SpeakerUpdateOneInput
 }
 
 export interface VideoUploadStatusLogItemCreateInput {
@@ -4482,9 +4484,9 @@ export interface ConversationBlockWhereInput {
   content_ends_with?: String
   content_not_ends_with?: String
   speaker?: SpeakerWhereInput
-  _MagicalBackRelation_ConversationBlockToVideoConversation_every?: VideoConversationWhereInput
-  _MagicalBackRelation_ConversationBlockToVideoConversation_some?: VideoConversationWhereInput
-  _MagicalBackRelation_ConversationBlockToVideoConversation_none?: VideoConversationWhereInput
+  _MagicalBackRelation_ConversationBlockRelation_every?: VideoConversationWhereInput
+  _MagicalBackRelation_ConversationBlockRelation_some?: VideoConversationWhereInput
+  _MagicalBackRelation_ConversationBlockRelation_none?: VideoConversationWhereInput
 }
 
 export interface VideoUploadAdminMetadataUpsertWithoutVideoUploadInput {
@@ -4526,13 +4528,10 @@ export interface VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   conversations?: VideoConversationUpdateManyInput
 }
 
-export interface SpeakerUpdateOneInput {
-  create?: SpeakerCreateInput
-  connect?: SpeakerWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: SpeakerUpdateDataInput
-  upsert?: SpeakerUpsertNestedInput
+export interface SpeakerUpdateDataInput {
+  name?: String
+  avatarPath?: String
+  title?: String
 }
 
 export interface DateUpdateOneInput {
@@ -4661,9 +4660,10 @@ export interface VideoUploadMetadataWhereInput {
   conversations_none?: VideoConversationWhereInput
 }
 
-export interface VideoConversationUpdateInput {
-  createdBy?: UserUpdateOneInput
-  blocks?: ConversationBlockUpdateManyInput
+export interface SpeakerUpdateInput {
+  name?: String
+  avatarPath?: String
+  title?: String
 }
 
 export interface UserUpdateDataInput {
@@ -4738,9 +4738,9 @@ export interface VideoConversationWhereInput {
   blocks_every?: ConversationBlockWhereInput
   blocks_some?: ConversationBlockWhereInput
   blocks_none?: ConversationBlockWhereInput
-  _MagicalBackRelation_VideoConversationToVideoUploadMetadata_every?: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_VideoConversationToVideoUploadMetadata_some?: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_VideoConversationToVideoUploadMetadata_none?: VideoUploadMetadataWhereInput
+  _MagicalBackRelation_VideoUploadConversationsRelation_every?: VideoUploadMetadataWhereInput
+  _MagicalBackRelation_VideoUploadConversationsRelation_some?: VideoUploadMetadataWhereInput
+  _MagicalBackRelation_VideoUploadConversationsRelation_none?: VideoUploadMetadataWhereInput
 }
 
 export interface VideoUploadUpdateOneWithoutStorageLinksInput {
@@ -4812,10 +4812,9 @@ export interface VideoUpload extends Node {
   submitedUrl: String
 }
 
-export interface SpeakerPreviousValues {
-  name: String
-  avatarPath: String
-  title: String
+export interface VideoConversationPreviousValues {
+  id: ID_Output
+  createdAt: DateTime
 }
 
 export interface AggregateUser {
@@ -4845,8 +4844,8 @@ export interface UserConnection {
  * An edge in a connection.
 
  */
-export interface VideoConversationEdge {
-  node: VideoConversation
+export interface SpeakerEdge {
+  node: Speaker
   cursor: String
 }
 
@@ -4862,38 +4861,39 @@ export interface VideoUploadMetadata extends Node {
   conversations?: VideoConversation[]
 }
 
-export interface AggregateSpeaker {
+export interface AggregateVideoConversation {
   count: Int
 }
 
-export interface VideoConversationPreviousValues {
-  id: ID_Output
-  createdAt: DateTime
+export interface SpeakerPreviousValues {
+  name: String
+  avatarPath: String
+  title: String
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface SpeakerConnection {
+export interface VideoConversationConnection {
   pageInfo: PageInfo
-  edges: SpeakerEdge[]
-  aggregate: AggregateSpeaker
+  edges: VideoConversationEdge[]
+  aggregate: AggregateVideoConversation
 }
 
-export interface VideoConversationSubscriptionPayload {
+export interface SpeakerSubscriptionPayload {
   mutation: MutationType
-  node?: VideoConversation
+  node?: Speaker
   updatedFields?: String[]
-  previousValues?: VideoConversationPreviousValues
+  previousValues?: SpeakerPreviousValues
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface ConversationBlockEdge {
-  node: ConversationBlock
+export interface DateEdge {
+  node: Date
   cursor: String
 }
 
@@ -4904,7 +4904,7 @@ export interface VideoUploadSubscriptionPayload {
   previousValues?: VideoUploadPreviousValues
 }
 
-export interface AggregateDate {
+export interface AggregateConversationBlock {
   count: Int
 }
 
@@ -4920,10 +4920,10 @@ export interface VideoUploadPreviousValues {
  * A connection to a list of items.
 
  */
-export interface DateConnection {
+export interface ConversationBlockConnection {
   pageInfo: PageInfo
-  edges: DateEdge[]
-  aggregate: AggregateDate
+  edges: ConversationBlockEdge[]
+  aggregate: AggregateConversationBlock
 }
 
 export interface VideoUploadStorageLink extends Node {
@@ -5057,10 +5057,10 @@ export interface VideoUploadAdminMetadataPreviousValues {
  * A connection to a list of items.
 
  */
-export interface VideoConversationConnection {
+export interface SpeakerConnection {
   pageInfo: PageInfo
-  edges: VideoConversationEdge[]
-  aggregate: AggregateVideoConversation
+  edges: SpeakerEdge[]
+  aggregate: AggregateSpeaker
 }
 
 export interface Speaker {
@@ -5069,7 +5069,7 @@ export interface Speaker {
   title: String
 }
 
-export interface AggregateConversationBlock {
+export interface AggregateDate {
   count: Int
 }
 
@@ -5084,8 +5084,8 @@ export interface VideoUploadStatusLogItemSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface DateEdge {
-  node: Date
+export interface ConversationBlockEdge {
+  node: ConversationBlock
   cursor: String
 }
 
@@ -5119,11 +5119,11 @@ export interface AggregateVideoUploadMetadata {
   count: Int
 }
 
-export interface DateSubscriptionPayload {
+export interface ConversationBlockSubscriptionPayload {
   mutation: MutationType
-  node?: Date
+  node?: ConversationBlock
   updatedFields?: String[]
-  previousValues?: DatePreviousValues
+  previousValues?: ConversationBlockPreviousValues
 }
 
 /*
@@ -5135,10 +5135,10 @@ export interface VideoUploadStorageLinkEdge {
   cursor: String
 }
 
-export interface DatePreviousValues {
-  month: Int
-  day: Int
-  year: Int
+export interface ConversationBlockPreviousValues {
+  start: Float
+  end: Float
+  content: String
 }
 
 export interface UserSubscriptionPayload {
@@ -5164,8 +5164,8 @@ export interface User extends Node {
  * An edge in a connection.
 
  */
-export interface SpeakerEdge {
-  node: Speaker
+export interface VideoConversationEdge {
+  node: VideoConversation
   cursor: String
 }
 
@@ -5173,11 +5173,11 @@ export interface AggregateVideoUploadStatusLogItem {
   count: Int
 }
 
-export interface SpeakerSubscriptionPayload {
+export interface VideoConversationSubscriptionPayload {
   mutation: MutationType
-  node?: Speaker
+  node?: VideoConversation
   updatedFields?: String[]
-  previousValues?: SpeakerPreviousValues
+  previousValues?: VideoConversationPreviousValues
 }
 
 export interface VideoConversation extends Node {
@@ -5187,17 +5187,17 @@ export interface VideoConversation extends Node {
   blocks?: ConversationBlock[]
 }
 
-export interface ConversationBlockPreviousValues {
-  start: Float
-  end: Float
-  content: String
+export interface DatePreviousValues {
+  month: Int
+  day: Int
+  year: Int
 }
 
-export interface ConversationBlockSubscriptionPayload {
+export interface DateSubscriptionPayload {
   mutation: MutationType
-  node?: ConversationBlock
+  node?: Date
   updatedFields?: String[]
-  previousValues?: ConversationBlockPreviousValues
+  previousValues?: DatePreviousValues
 }
 
 /*
@@ -5213,13 +5213,13 @@ export interface VideoUploadAdminMetadataEdge {
  * A connection to a list of items.
 
  */
-export interface ConversationBlockConnection {
+export interface DateConnection {
   pageInfo: PageInfo
-  edges: ConversationBlockEdge[]
-  aggregate: AggregateConversationBlock
+  edges: DateEdge[]
+  aggregate: AggregateDate
 }
 
-export interface AggregateVideoConversation {
+export interface AggregateSpeaker {
   count: Int
 }
 

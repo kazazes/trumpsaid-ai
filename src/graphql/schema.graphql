@@ -11,8 +11,7 @@ type Query {
 type Mutation {
   createVideoUpload(url: String): VideoUpload
   deleteVideoUpload(id: ID): VideoUpload
-  setVideoUploadThumbnail(id: ID, timestamp: Float): VideoUpload
   transcribe(id: ID): VideoUpload
   downloadVideoUploadSources(id: ID): VideoUpload!
-  addInitialUploadMetadata(id: ID, renderStart: Float, renderEnd: Float, numberOfSpeakers: Int, thumbnailTimestamp: Float): VideoUpload!
+  setInitialUploadMetadata(id: ID, renderStart: Float, renderEnd: Float, numberOfSpeakers: Int, thumbnailTimestamp: Float): VideoUpload!
 }

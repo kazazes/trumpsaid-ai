@@ -1,28 +1,18 @@
 TS-WTF:
   Web Server:
     Backend:
-      ☐ Job handling
-          ☐ USER_INPUT @20m
-        ☐ PubSub-Prisma Watcher @3h @low
-            ☐ Transcript
-        ☐ NLP & NER + tag suggestions @10h https://github.com/gerardobort/node-corenlp
-        ☐ Webm dash rendering @3h
-        ☐ Only render webm up to source file resolution
-        ☐ Publish fractional updates from workers, render progress in browser @3h @high 
-        ☐ Break down generated transcript for editing @high @2h
+      ☐ NLP & NER + tag suggestions @10h https://github.com/gerardobort/node-corenlp
+      ☐ Webm dash rendering @3h
+      ☐ Publish fractional updates from workers, render progress in browser @3h @high 
     Graph API & Prisma:
       ☐ Default privilege level @3h 
       ☐ Service worker decoupling @6h
       ☐ People/speaker schema + queries @2h
-      ☐ Transcript schema @1h
       ☐ News schema @30m
       ☐ Final video model @40m
       ☐ Protect routes, test @5h
   Frontend:
     Admin:
-      ☐ Centralize vue-apollo queries https://www.howtographql.com/vue-apollo/2-queries-loading-links/ @critical @3h
-      ☐ Set speaker diarization count in submission @2h @high @today 
-      ☐ Re-make upload status display @high @2h
       ☐ Editors @high 
         ☐ Admin dashboards
           ☐ Users @4h @low 
@@ -58,6 +48,16 @@ Upstream:
   ☐ Unprotected routes
 
 Archive:
+  ✔ Centralize vue-apollo queries https://www.howtographql.com/vue-apollo/2-queries-loading-links/ @critical @3h @started(18-08-12 01:24) @done(18-08-12 06:39) @lasted(5h15m11s) @project(TS-WTF.Frontend.Admin)
+  ✔ Re-make upload status display @high @2h @done(18-08-12 06:39) @project(TS-WTF.Frontend.Admin)
+  ✔ Set speaker diarization count in submission @2h @high @today @done(18-08-12 01:18) @project(TS-WTF.Frontend.Admin)
+  ✔ Job handling @done(18-08-12 01:18) @project(TS-WTF.Web Server.Backend)
+  ✔ USER_INPUT @20m @done(18-08-12 01:18) @project(TS-WTF.Web Server.Backend)
+  ✔ Transcript schema @1h @done(18-08-12 01:17) @project(TS-WTF.Web Server.Graph API & Prisma)
+  ✔ Only render webm up to source file resolution @done(18-08-12 01:17) @project(TS-WTF.Web Server.Backend)
+  ✔ Break down generated transcript for editing @high @2h @done(18-08-12 01:16) @project(TS-WTF.Web Server.Backend)
+  ✔ PubSub-Prisma Watcher @3h @low @done(18-08-11 23:28) @project(TS-WTF.Web Server.Backend)
+  ✔ Transcript @done(18-08-11 23:28) @project(TS-WTF.Web Server.Backend)
   ✔ Video cutting - modify render @3h @high @today @done(18-08-11 19:57) @project(TS-WTF.Web Server.Backend)
   ✔ Pipeline in job response handlers @critical @today @started(18-08-11 20:00) @done(18-08-11 22:53) @lasted(2h53m21s) @project(TS-WTF.Web Server.Backend)
   ✔ Download -> Render @20m @done(18-08-11 22:53) @project(TS-WTF.Web Server.Backend)

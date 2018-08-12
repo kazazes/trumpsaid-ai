@@ -17,55 +17,48 @@
 </b-modal>
 </template>
 <script lang="ts">
-import gql from 'graphql-tag';
+import { CREATE_VIDEO_UPLOAD } from '../constants/graphql.ts';
 
 export default {
   name: 'VideoSubmitModal',
-  data: function() {
+  data: () => {
     return {
       videoUrl: '',
-      buttonsDisabled: false
+      buttonsDisabled: false,
     };
   },
   methods: {
-    onSubmit: async function(bvEvt: Event) {
+    async onSubmit(bvEvt: Event) {
       this.buttonsDisabled = true;
       bvEvt.preventDefault();
       try {
         const result = await this.$apollo.mutate({
-          mutation: gql`
-            mutation($url: String!) {
-              createVideoUpload(url: $url) {
-                id
-                status
-              }
-            }
-          `,
+          mutation: CREATE_VIDEO_UPLOAD,
           variables: {
-            url: this.videoUrl
-          }
+            url: this.videoUrl,
+          },
         });
 
         this.$notify({
           type: 'success',
           title: 'Video submited',
-          text: 'Video submited succesfully.'
+          text: 'Video submited succesfully.',
         });
 
         this.buttonsDisabled = false;
         this.$refs.submitVideoModal.hide();
         this.$router.push({
-          path: `/videos/submissions/${result.data.createVideoUpload.id}`
+          path: `/videos/submissions/${result.data.createVideoUpload.id}`,
         });
       } catch (err) {
         this.buttonsDisabled = false;
         this.$notify({
           type: 'error',
           title: 'Error submiting video',
-          text: err.message
+          text: err.message,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>

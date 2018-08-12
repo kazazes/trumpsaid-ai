@@ -78,11 +78,17 @@ export class VideoTranscriber {
 
     const response = fullData[0] as ILongRunningRecognizeResponse;
     const lastResult = response.results[response.results.length - 1]; // Last result is the most complete
-    const lastWords = lastResult.alternatives[0].words;
-    const conversation = this.wordsToConversation(lastWords);
-    await this.storeConversation(conversation);
-    writeToVideoUploadLog(this.video, 'FINISHED', 'TRANSCRIPTION');
-    logger.info(`Set GC Speech API conversation on video ${this.video.id}`);
+    if (!lastResult.alternatives[0]) {
+      // no transcription returned
+      this.storeConversation([]);
+      logger.warn(`No transcription received back for ${this.video.id}, setting an empty one.`);
+    } else {
+      const lastWords = lastResult.alternatives[0].words;
+      const conversation = this.wordsToConversation(lastWords);
+      await this.storeConversation(conversation);
+      writeToVideoUploadLog(this.video, 'FINISHED', 'TRANSCRIPTION');
+      logger.info(`Set GC Speech API conversation on video ${this.video.id}`);
+    }
   }
 
   private async storeConversation(apiConversation: IWord[][]) {

@@ -44,29 +44,29 @@
   </div>
 </template>
 
-<script>
-import nav from "../_nav";
+<script lang='ts'>
 import {
+  Aside as AppAside,
+  AsideToggler,
+  Breadcrumb,
+  Footer as TheFooter,
   Header as AppHeader,
-  SidebarToggler,
   Sidebar as AppSidebar,
   SidebarFooter,
   SidebarForm,
   SidebarHeader,
   SidebarMinimizer,
   SidebarNav,
-  Aside as AppAside,
-  AsideToggler,
-  Footer as TheFooter,
-  Breadcrumb
-} from "@coreui/vue";
-import DefaultHeaderDropdownNotif from "./DefaultHeaderDropdownNotif";
-import DefaultHeaderDropdownAccnt from "./DefaultHeaderDropdownAccnt";
-import DefaultHeaderDropdownMssgs from "./DefaultHeaderDropdownMssgs";
-import DefaultHeaderDropdownTasks from "./DefaultHeaderDropdownTasks";
+  SidebarToggler,
+} from '@coreui/vue';
+import nav from '../_nav';
+import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt';
+import DefaultHeaderDropdownMssgs from './DefaultHeaderDropdownMssgs';
+import DefaultHeaderDropdownNotif from './DefaultHeaderDropdownNotif';
+import DefaultHeaderDropdownTasks from './DefaultHeaderDropdownTasks';
 
 export default {
-  name: "DefaultContainer",
+  name: 'DefaultContainer',
   components: {
     AsideToggler,
     AppHeader,
@@ -83,11 +83,11 @@ export default {
     SidebarToggler,
     SidebarHeader,
     SidebarNav,
-    SidebarMinimizer
+    SidebarMinimizer,
   },
   data() {
     return {
-      nav: nav.items
+      nav: nav.items,
     };
   },
   computed: {
@@ -99,9 +99,9 @@ export default {
     },
     list() {
       return this.$route.matched.filter(
-        route => route.name || route.meta.label
+        route => route.name || route.meta.label,
       );
-    }
-  }
+    },
+  },
 };
 </script>

@@ -11,9 +11,10 @@ const downloadController = new VideoDownloadPubSubController();
 const renderController = new VideoRenderPubSubController();
 const thumbnailController = new VideoThumbnailPubSubController();
 
-export const publishDownloadJob = (upload: VideoUpload) => {
+export const publishDownloadJob = async(upload: VideoUpload) => {
   writeToVideoUploadLog(upload, 'STARTED', 'DOWNLOAD', undefined, moment().add(20, 'minutes'));
-  downloadController.publishConsumerMessage(upload);
+  const populatedUpload = await prisma.query.videoUpload({ where: { id: upload.id } }, ' { id submitedUrl }');
+  downloadController.publishConsumerMessage(populatedUpload);
 };
 
 export const publishRenderJob = async(upload: VideoUpload) => {
