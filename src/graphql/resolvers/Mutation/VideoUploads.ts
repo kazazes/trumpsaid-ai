@@ -15,14 +15,28 @@ export default {
     const data: VideoUploadCreateInput = {
       submitedBy: { connect: { id: ctx.user.id } },
       submitedUrl: args.url,
+      metadata: {
+        create: {
+          renderStart: 0,
+          renderEnd: 0,
+        },
+      },
     };
 
     const upload = await ctx.db.mutation.createVideoUpload({ data }, info);
 
     return upload;
   },
-  render: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
-    const upload = await ctx.db.query.videoUpload({ where: { id: args.id } });
+  renderAndTranscribe: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
+    const upload = await ctx.db.mutation.updateVideoUpload(
+      {
+        data: { metadata: { update: {
+          renderStart: args.renderStart,
+          renderEnd: args.renderEnd,
+          speakers: args.numberOfSpeakers } } },
+        where: { id: args.id },
+      },
+      ' { id metadata { renderStart renderEnd speakers } submitedUrl storageLinks { id path bucket version fileType } }');
     try {
       await publishRenderJob(upload);
       return upload;

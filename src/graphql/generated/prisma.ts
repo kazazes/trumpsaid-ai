@@ -1997,7 +1997,7 @@ type VideoUpload implements Node {
   adminMetadata(where: VideoUploadAdminMetadataWhereInput): VideoUploadAdminMetadata
   createdAt: DateTime!
   updatedAt: DateTime!
-  metadata(where: VideoUploadMetadataWhereInput): VideoUploadMetadata
+  metadata(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
   publishedBy(where: UserWhereInput): User
   published: Boolean!
   statusLog(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStatusLogItem!]
@@ -2197,7 +2197,7 @@ input VideoUploadCreateInput {
   published: Boolean
   submitedUrl: String!
   adminMetadata: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
   publishedBy: UserCreateOneInput
   statusLog: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
   storageLinks: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
@@ -2227,7 +2227,7 @@ input VideoUploadCreateOneWithoutStorageLinksInput {
 input VideoUploadCreateWithoutAdminMetadataInput {
   published: Boolean
   submitedUrl: String!
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
   publishedBy: UserCreateOneInput
   statusLog: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
   storageLinks: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
@@ -2248,7 +2248,7 @@ input VideoUploadCreateWithoutStatusLogInput {
   published: Boolean
   submitedUrl: String!
   adminMetadata: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
   publishedBy: UserCreateOneInput
   storageLinks: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
   submitedBy: UserCreateOneInput!
@@ -2258,7 +2258,7 @@ input VideoUploadCreateWithoutStorageLinksInput {
   published: Boolean
   submitedUrl: String!
   adminMetadata: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
   publishedBy: UserCreateOneInput
   statusLog: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
   submitedBy: UserCreateOneInput!
@@ -2313,6 +2313,8 @@ type VideoUploadMetadata implements Node {
   subtitle: String
   dateRecorded(where: DateWhereInput): Date
   speakers: Int!
+  renderStart: Float!
+  renderEnd: Float!
   generatedConversation(where: SpeechAPIConversationWhereInput): SpeechAPIConversation
 }
 
@@ -2330,6 +2332,8 @@ input VideoUploadMetadataCreateInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   videoUpload: VideoUploadCreateOneWithoutMetadataInput!
   dateRecorded: DateCreateOneInput
   generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadInput
@@ -2349,6 +2353,8 @@ input VideoUploadMetadataCreateWithoutGeneratedConversationInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   videoUpload: VideoUploadCreateOneWithoutMetadataInput!
   dateRecorded: DateCreateOneInput
 }
@@ -2357,6 +2363,8 @@ input VideoUploadMetadataCreateWithoutVideoUploadInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   dateRecorded: DateCreateOneInput
   generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadInput
 }
@@ -2379,6 +2387,10 @@ enum VideoUploadMetadataOrderByInput {
   subtitle_DESC
   speakers_ASC
   speakers_DESC
+  renderStart_ASC
+  renderStart_DESC
+  renderEnd_ASC
+  renderEnd_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2390,6 +2402,8 @@ type VideoUploadMetadataPreviousValues {
   title: String
   subtitle: String
   speakers: Int!
+  renderStart: Float!
+  renderEnd: Float!
 }
 
 type VideoUploadMetadataSubscriptionPayload {
@@ -2435,6 +2449,8 @@ input VideoUploadMetadataUpdateInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   videoUpload: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded: DateUpdateOneInput
   generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
@@ -2451,7 +2467,6 @@ input VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput {
 input VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
   create: VideoUploadMetadataCreateWithoutVideoUploadInput
   connect: VideoUploadMetadataWhereUniqueInput
-  disconnect: Boolean
   delete: Boolean
   update: VideoUploadMetadataUpdateWithoutVideoUploadDataInput
   upsert: VideoUploadMetadataUpsertWithoutVideoUploadInput
@@ -2461,6 +2476,8 @@ input VideoUploadMetadataUpdateWithoutGeneratedConversationDataInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   videoUpload: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded: DateUpdateOneInput
 }
@@ -2469,6 +2486,8 @@ input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   title: String
   subtitle: String
   speakers: Int
+  renderStart: Float
+  renderEnd: Float
   dateRecorded: DateUpdateOneInput
   generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
 }
@@ -2634,6 +2653,50 @@ input VideoUploadMetadataWhereInput {
 
   """All values greater than or equal the given value."""
   speakers_gte: Int
+  renderStart: Float
+
+  """All values that are not equal to given value."""
+  renderStart_not: Float
+
+  """All values that are contained in given list."""
+  renderStart_in: [Float!]
+
+  """All values that are not contained in given list."""
+  renderStart_not_in: [Float!]
+
+  """All values less than the given value."""
+  renderStart_lt: Float
+
+  """All values less than or equal the given value."""
+  renderStart_lte: Float
+
+  """All values greater than the given value."""
+  renderStart_gt: Float
+
+  """All values greater than or equal the given value."""
+  renderStart_gte: Float
+  renderEnd: Float
+
+  """All values that are not equal to given value."""
+  renderEnd_not: Float
+
+  """All values that are contained in given list."""
+  renderEnd_in: [Float!]
+
+  """All values that are not contained in given list."""
+  renderEnd_not_in: [Float!]
+
+  """All values less than the given value."""
+  renderEnd_lt: Float
+
+  """All values less than or equal the given value."""
+  renderEnd_lte: Float
+
+  """All values greater than the given value."""
+  renderEnd_gt: Float
+
+  """All values greater than or equal the given value."""
+  renderEnd_gte: Float
   videoUpload: VideoUploadWhereInput
   dateRecorded: DateWhereInput
   generatedConversation: SpeechAPIConversationWhereInput
@@ -3594,12 +3657,8 @@ export type VideoUploadStatusLogItemOrderByInput =   'id_ASC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
-export type VideoUploadFileLinkType =   'WEBM' |
-  'MP4' |
-  'MP4_DASH' |
-  'MP4_DASH_MANIFEST' |
-  'AUDIO' |
-  'THUMBNAIL'
+export type VideoUploadFileLinkVersion =   'WEB' |
+  'MASTER'
 
 export type AdminRole =   'CREATE_UPLOAD' |
   'LIST_UPLOADS' |
@@ -3651,8 +3710,14 @@ export type SpeechAPIConversationOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type Role =   'USER' |
-  'ADMIN'
+export type SpeechAPIConversationBlockOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'speakerTag_ASC' |
+  'speakerTag_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
 
 export type VideoUploadAdminMetadataOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3663,14 +3728,8 @@ export type VideoUploadAdminMetadataOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type SpeechAPIConversationBlockOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'speakerTag_ASC' |
-  'speakerTag_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
+export type Role =   'USER' |
+  'ADMIN'
 
 export type VideoUploadStorageLinkOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3687,19 +3746,12 @@ export type VideoUploadStorageLinkOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type VideoUploadFileLinkVersion =   'WEB' |
-  'MASTER'
-
-export type VideoUploadOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'published_ASC' |
-  'published_DESC' |
-  'submitedUrl_ASC' |
-  'submitedUrl_DESC'
+export type VideoUploadFileLinkType =   'WEBM' |
+  'MP4' |
+  'MP4_DASH' |
+  'MP4_DASH_MANIFEST' |
+  'AUDIO' |
+  'THUMBNAIL'
 
 export type VideoUploadLogItemEvent =   'DOWNLOAD' |
   'ENCODE' |
@@ -3716,6 +3768,17 @@ export type VideoUploadLogItemStatus =   'DISPATCHED' |
   'FAILED' |
   'TIMED_OUT'
 
+export type VideoUploadOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'published_ASC' |
+  'published_DESC' |
+  'submitedUrl_ASC' |
+  'submitedUrl_DESC'
+
 export type MutationType =   'CREATED' |
   'UPDATED' |
   'DELETED'
@@ -3728,6 +3791,10 @@ export type VideoUploadMetadataOrderByInput =   'id_ASC' |
   'subtitle_DESC' |
   'speakers_ASC' |
   'speakers_DESC' |
+  'renderStart_ASC' |
+  'renderStart_DESC' |
+  'renderEnd_ASC' |
+  'renderEnd_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -3763,6 +3830,8 @@ export interface VideoUploadMetadataCreateInput {
   title?: String
   subtitle?: String
   speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
   videoUpload: VideoUploadCreateOneWithoutMetadataInput
   dateRecorded?: DateCreateOneInput
   generatedConversation?: SpeechAPIConversationCreateOneWithoutVideoUploadInput
@@ -3893,11 +3962,9 @@ export interface VideoUploadStorageLinkWhereInput {
   videoUpload?: VideoUploadWhereInput
 }
 
-export interface VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput {
-  status?: VideoUploadLogItemStatus
-  event?: VideoUploadLogItemEvent
-  timesoutAt?: Int
-  message?: String
+export interface VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput {
+  where: VideoUploadStatusLogItemWhereUniqueInput
+  data: VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput
 }
 
 export interface UserUpdateDataInput {
@@ -3911,9 +3978,13 @@ export interface UserUpdateDataInput {
   adminRoles?: UserUpdateadminRolesInput
 }
 
-export interface VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput {
-  where: VideoUploadStatusLogItemWhereUniqueInput
-  data: VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput
+export interface VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput {
+  create?: VideoUploadStatusLogItemCreateWithoutVideoUploadInput[] | VideoUploadStatusLogItemCreateWithoutVideoUploadInput
+  connect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
+  disconnect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
+  delete?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
+  update?: VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput
+  upsert?: VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput
 }
 
 export interface SpeechAPIConversationCreateOneWithoutConversationInput {
@@ -3921,15 +3992,9 @@ export interface SpeechAPIConversationCreateOneWithoutConversationInput {
   connect?: SpeechAPIConversationWhereUniqueInput
 }
 
-export interface VideoUploadCreateInput {
-  published?: Boolean
-  submitedUrl: String
-  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata?: VideoUploadMetadataCreateOneWithoutVideoUploadInput
-  publishedBy?: UserCreateOneInput
-  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
-  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
-  submitedBy: UserCreateOneInput
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput
+  create: UserCreateInput
 }
 
 export interface UserSubscriptionWhereInput {
@@ -3943,15 +4008,68 @@ export interface UserSubscriptionWhereInput {
   node?: UserWhereInput
 }
 
+export interface VideoUploadCreateInput {
+  published?: Boolean
+  submitedUrl: String
+  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  publishedBy?: UserCreateOneInput
+  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
+  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
+  submitedBy: UserCreateOneInput
+}
+
+export interface SpeechAPIConversationSubscriptionWhereInput {
+  AND?: SpeechAPIConversationSubscriptionWhereInput[] | SpeechAPIConversationSubscriptionWhereInput
+  OR?: SpeechAPIConversationSubscriptionWhereInput[] | SpeechAPIConversationSubscriptionWhereInput
+  NOT?: SpeechAPIConversationSubscriptionWhereInput[] | SpeechAPIConversationSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: SpeechAPIConversationWhereInput
+}
+
 export interface VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput {
   create?: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
   connect?: VideoUploadAdminMetadataWhereUniqueInput
 }
 
-export interface VideoUploadStatusLogItemWhereInput {
-  AND?: VideoUploadStatusLogItemWhereInput[] | VideoUploadStatusLogItemWhereInput
-  OR?: VideoUploadStatusLogItemWhereInput[] | VideoUploadStatusLogItemWhereInput
-  NOT?: VideoUploadStatusLogItemWhereInput[] | VideoUploadStatusLogItemWhereInput
+export interface SpeechAPIConversationBlockSubscriptionWhereInput {
+  AND?: SpeechAPIConversationBlockSubscriptionWhereInput[] | SpeechAPIConversationBlockSubscriptionWhereInput
+  OR?: SpeechAPIConversationBlockSubscriptionWhereInput[] | SpeechAPIConversationBlockSubscriptionWhereInput
+  NOT?: SpeechAPIConversationBlockSubscriptionWhereInput[] | SpeechAPIConversationBlockSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: SpeechAPIConversationBlockWhereInput
+}
+
+export interface VideoUploadAdminMetadataCreateWithoutVideoUploadInput {
+  advertisingEnabled?: Boolean
+}
+
+export interface SpeakerSubscriptionWhereInput {
+  AND?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
+  OR?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
+  NOT?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: SpeakerWhereInput
+}
+
+export interface VideoUploadMetadataCreateOneWithoutVideoUploadInput {
+  create?: VideoUploadMetadataCreateWithoutVideoUploadInput
+  connect?: VideoUploadMetadataWhereUniqueInput
+}
+
+export interface SpeechAPIConversationBlockWhereInput {
+  AND?: SpeechAPIConversationBlockWhereInput[] | SpeechAPIConversationBlockWhereInput
+  OR?: SpeechAPIConversationBlockWhereInput[] | SpeechAPIConversationBlockWhereInput
+  NOT?: SpeechAPIConversationBlockWhereInput[] | SpeechAPIConversationBlockWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -3966,49 +4084,465 @@ export interface VideoUploadStatusLogItemWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  status?: VideoUploadLogItemStatus
-  status_not?: VideoUploadLogItemStatus
-  status_in?: VideoUploadLogItemStatus[] | VideoUploadLogItemStatus
-  status_not_in?: VideoUploadLogItemStatus[] | VideoUploadLogItemStatus
-  event?: VideoUploadLogItemEvent
-  event_not?: VideoUploadLogItemEvent
-  event_in?: VideoUploadLogItemEvent[] | VideoUploadLogItemEvent
-  event_not_in?: VideoUploadLogItemEvent[] | VideoUploadLogItemEvent
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  timesoutAt?: Int
-  timesoutAt_not?: Int
-  timesoutAt_in?: Int[] | Int
-  timesoutAt_not_in?: Int[] | Int
-  timesoutAt_lt?: Int
-  timesoutAt_lte?: Int
-  timesoutAt_gt?: Int
-  timesoutAt_gte?: Int
-  message?: String
-  message_not?: String
-  message_in?: String[] | String
-  message_not_in?: String[] | String
-  message_lt?: String
-  message_lte?: String
-  message_gt?: String
-  message_gte?: String
-  message_contains?: String
-  message_not_contains?: String
-  message_starts_with?: String
-  message_not_starts_with?: String
-  message_ends_with?: String
-  message_not_ends_with?: String
+  speakerTag?: Int
+  speakerTag_not?: Int
+  speakerTag_in?: Int[] | Int
+  speakerTag_not_in?: Int[] | Int
+  speakerTag_lt?: Int
+  speakerTag_lte?: Int
+  speakerTag_gt?: Int
+  speakerTag_gte?: Int
+  words_every?: SpeechAPIWordWhereInput
+  words_some?: SpeechAPIWordWhereInput
+  words_none?: SpeechAPIWordWhereInput
+  conversation?: SpeechAPIConversationWhereInput
+}
+
+export interface VideoUploadMetadataCreateWithoutVideoUploadInput {
+  title?: String
+  subtitle?: String
+  speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
+  dateRecorded?: DateCreateOneInput
+  generatedConversation?: SpeechAPIConversationCreateOneWithoutVideoUploadInput
+}
+
+export interface VideoUploadAdminMetadataSubscriptionWhereInput {
+  AND?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
+  OR?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
+  NOT?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoUploadAdminMetadataWhereInput
+}
+
+export interface DateCreateOneInput {
+  create?: DateCreateInput
+}
+
+export interface VideoUploadMetadataSubscriptionWhereInput {
+  AND?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
+  OR?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
+  NOT?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoUploadMetadataWhereInput
+}
+
+export interface DateCreateInput {
+  month: Int
+  day: Int
+  year: Int
+}
+
+export interface VideoUploadSubscriptionWhereInput {
+  AND?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
+  OR?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
+  NOT?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoUploadWhereInput
+}
+
+export interface SpeechAPIConversationCreateOneWithoutVideoUploadInput {
+  create?: SpeechAPIConversationCreateWithoutVideoUploadInput
+  connect?: SpeechAPIConversationWhereUniqueInput
+}
+
+export interface VideoUploadMetadataWhereInput {
+  AND?: VideoUploadMetadataWhereInput[] | VideoUploadMetadataWhereInput
+  OR?: VideoUploadMetadataWhereInput[] | VideoUploadMetadataWhereInput
+  NOT?: VideoUploadMetadataWhereInput[] | VideoUploadMetadataWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
+  subtitle?: String
+  subtitle_not?: String
+  subtitle_in?: String[] | String
+  subtitle_not_in?: String[] | String
+  subtitle_lt?: String
+  subtitle_lte?: String
+  subtitle_gt?: String
+  subtitle_gte?: String
+  subtitle_contains?: String
+  subtitle_not_contains?: String
+  subtitle_starts_with?: String
+  subtitle_not_starts_with?: String
+  subtitle_ends_with?: String
+  subtitle_not_ends_with?: String
+  speakers?: Int
+  speakers_not?: Int
+  speakers_in?: Int[] | Int
+  speakers_not_in?: Int[] | Int
+  speakers_lt?: Int
+  speakers_lte?: Int
+  speakers_gt?: Int
+  speakers_gte?: Int
+  renderStart?: Float
+  renderStart_not?: Float
+  renderStart_in?: Float[] | Float
+  renderStart_not_in?: Float[] | Float
+  renderStart_lt?: Float
+  renderStart_lte?: Float
+  renderStart_gt?: Float
+  renderStart_gte?: Float
+  renderEnd?: Float
+  renderEnd_not?: Float
+  renderEnd_in?: Float[] | Float
+  renderEnd_not_in?: Float[] | Float
+  renderEnd_lt?: Float
+  renderEnd_lte?: Float
+  renderEnd_gt?: Float
+  renderEnd_gte?: Float
+  videoUpload?: VideoUploadWhereInput
+  dateRecorded?: DateWhereInput
+  generatedConversation?: SpeechAPIConversationWhereInput
+}
+
+export interface SpeechAPIConversationCreateWithoutVideoUploadInput {
+  conversation?: SpeechAPIConversationBlockCreateManyWithoutConversationInput
+}
+
+export interface VideoUploadAdminMetadataWhereInput {
+  AND?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
+  OR?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
+  NOT?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  advertisingEnabled?: Boolean
+  advertisingEnabled_not?: Boolean
   videoUpload?: VideoUploadWhereInput
 }
 
-export interface VideoUploadAdminMetadataCreateWithoutVideoUploadInput {
+export interface SpeechAPIConversationBlockCreateManyWithoutConversationInput {
+  create?: SpeechAPIConversationBlockCreateWithoutConversationInput[] | SpeechAPIConversationBlockCreateWithoutConversationInput
+  connect?: SpeechAPIConversationBlockWhereUniqueInput[] | SpeechAPIConversationBlockWhereUniqueInput
+}
+
+export interface UserUpdateInput {
+  email?: String
+  auth0Id?: String
+  role?: Role
+  displayName?: String
+  avatar?: String
+  givenName?: String
+  familyName?: String
+  adminRoles?: UserUpdateadminRolesInput
+}
+
+export interface SpeechAPIConversationBlockCreateWithoutConversationInput {
+  speakerTag: Int
+  words?: SpeechAPIWordCreateManyInput
+}
+
+export interface VideoUploadStorageLinkWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface SpeechAPIWordCreateManyInput {
+  create?: SpeechAPIWordCreateInput[] | SpeechAPIWordCreateInput
+  connect?: SpeechAPIWordWhereUniqueInput[] | SpeechAPIWordWhereUniqueInput
+}
+
+export interface VideoUploadAdminMetadataWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface SpeechAPIWordCreateInput {
+  startTime: Int
+  endTime: Int
+  word: String
+  speakerTag: Int
+}
+
+export interface SpeakerWhereUniqueInput {
+  name?: String
+}
+
+export interface UserCreateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface SpeechAPIConversationWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserCreateInput {
+  email?: String
+  auth0Id?: String
+  role?: Role
+  displayName?: String
+  avatar?: String
+  givenName?: String
+  familyName?: String
+  adminRoles?: UserCreateadminRolesInput
+}
+
+export interface SpeechAPIWordWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserCreateadminRolesInput {
+  set?: AdminRole[] | AdminRole
+}
+
+export interface SpeechAPIConversationUpsertWithoutConversationInput {
+  update: SpeechAPIConversationUpdateWithoutConversationDataInput
+  create: SpeechAPIConversationCreateWithoutConversationInput
+}
+
+export interface VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput {
+  create?: VideoUploadStatusLogItemCreateWithoutVideoUploadInput[] | VideoUploadStatusLogItemCreateWithoutVideoUploadInput
+  connect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
+}
+
+export interface VideoUploadMetadataUpdateWithoutGeneratedConversationDataInput {
+  title?: String
+  subtitle?: String
+  speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
+  videoUpload?: VideoUploadUpdateOneWithoutMetadataInput
+  dateRecorded?: DateUpdateOneInput
+}
+
+export interface VideoUploadStatusLogItemCreateWithoutVideoUploadInput {
+  status: VideoUploadLogItemStatus
+  event: VideoUploadLogItemEvent
+  timesoutAt?: Int
+  message?: String
+}
+
+export interface SpeechAPIConversationUpdateWithoutConversationDataInput {
+  videoUpload?: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
+}
+
+export interface VideoUploadStorageLinkCreateManyWithoutVideoUploadInput {
+  create?: VideoUploadStorageLinkCreateWithoutVideoUploadInput[] | VideoUploadStorageLinkCreateWithoutVideoUploadInput
+  connect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
+}
+
+export interface SpeechAPIConversationBlockUpdateInput {
+  speakerTag?: Int
+  words?: SpeechAPIWordUpdateManyInput
+  conversation?: SpeechAPIConversationUpdateOneWithoutConversationInput
+}
+
+export interface VideoUploadStorageLinkCreateWithoutVideoUploadInput {
+  path: String
+  bucket: String
+  version: VideoUploadFileLinkVersion
+  fileType: VideoUploadFileLinkType
+}
+
+export interface VideoUploadUpsertWithoutStatusLogInput {
+  update: VideoUploadUpdateWithoutStatusLogDataInput
+  create: VideoUploadCreateWithoutStatusLogInput
+}
+
+export interface VideoUploadStorageLinkCreateInput {
+  path: String
+  bucket: String
+  version: VideoUploadFileLinkVersion
+  fileType: VideoUploadFileLinkType
+  videoUpload: VideoUploadCreateOneWithoutStorageLinksInput
+}
+
+export interface VideoUploadUpdateOneWithoutStatusLogInput {
+  create?: VideoUploadCreateWithoutStatusLogInput
+  connect?: VideoUploadWhereUniqueInput
+  delete?: Boolean
+  update?: VideoUploadUpdateWithoutStatusLogDataInput
+  upsert?: VideoUploadUpsertWithoutStatusLogInput
+}
+
+export interface VideoUploadCreateOneWithoutStorageLinksInput {
+  create?: VideoUploadCreateWithoutStorageLinksInput
+  connect?: VideoUploadWhereUniqueInput
+}
+
+export interface VideoUploadUpsertWithoutAdminMetadataInput {
+  update: VideoUploadUpdateWithoutAdminMetadataDataInput
+  create: VideoUploadCreateWithoutAdminMetadataInput
+}
+
+export interface VideoUploadCreateWithoutStorageLinksInput {
+  published?: Boolean
+  submitedUrl: String
+  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  publishedBy?: UserCreateOneInput
+  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
+  submitedBy: UserCreateOneInput
+}
+
+export interface VideoUploadUpdateOneWithoutAdminMetadataInput {
+  create?: VideoUploadCreateWithoutAdminMetadataInput
+  connect?: VideoUploadWhereUniqueInput
+  delete?: Boolean
+  update?: VideoUploadUpdateWithoutAdminMetadataDataInput
+  upsert?: VideoUploadUpsertWithoutAdminMetadataInput
+}
+
+export interface UserUpdateadminRolesInput {
+  set?: AdminRole[] | AdminRole
+}
+
+export interface VideoUploadUpsertWithoutMetadataInput {
+  update: VideoUploadUpdateWithoutMetadataDataInput
+  create: VideoUploadCreateWithoutMetadataInput
+}
+
+export interface VideoUploadCreateOneWithoutMetadataInput {
+  create?: VideoUploadCreateWithoutMetadataInput
+  connect?: VideoUploadWhereUniqueInput
+}
+
+export interface VideoUploadUpdateOneWithoutMetadataInput {
+  create?: VideoUploadCreateWithoutMetadataInput
+  connect?: VideoUploadWhereUniqueInput
+  delete?: Boolean
+  update?: VideoUploadUpdateWithoutMetadataDataInput
+  upsert?: VideoUploadUpsertWithoutMetadataInput
+}
+
+export interface VideoUploadCreateWithoutMetadataInput {
+  published?: Boolean
+  submitedUrl: String
+  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
+  publishedBy?: UserCreateOneInput
+  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
+  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
+  submitedBy: UserCreateOneInput
+}
+
+export interface VideoUploadUpsertWithoutStorageLinksInput {
+  update: VideoUploadUpdateWithoutStorageLinksDataInput
+  create: VideoUploadCreateWithoutStorageLinksInput
+}
+
+export interface VideoUploadAdminMetadataCreateInput {
   advertisingEnabled?: Boolean
+  videoUpload: VideoUploadCreateOneWithoutAdminMetadataInput
+}
+
+export interface VideoUploadUpdateOneWithoutStorageLinksInput {
+  create?: VideoUploadCreateWithoutStorageLinksInput
+  connect?: VideoUploadWhereUniqueInput
+  delete?: Boolean
+  update?: VideoUploadUpdateWithoutStorageLinksDataInput
+  upsert?: VideoUploadUpsertWithoutStorageLinksInput
+}
+
+export interface VideoUploadCreateOneWithoutAdminMetadataInput {
+  create?: VideoUploadCreateWithoutAdminMetadataInput
+  connect?: VideoUploadWhereUniqueInput
+}
+
+export interface VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput {
+  where: VideoUploadStorageLinkWhereUniqueInput
+  update: VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput
+  create: VideoUploadStorageLinkCreateWithoutVideoUploadInput
+}
+
+export interface VideoUploadCreateWithoutAdminMetadataInput {
+  published?: Boolean
+  submitedUrl: String
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  publishedBy?: UserCreateOneInput
+  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
+  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
+  submitedBy: UserCreateOneInput
+}
+
+export interface VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput {
+  where: VideoUploadStorageLinkWhereUniqueInput
+  data: VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput
+}
+
+export interface VideoUploadStatusLogItemCreateInput {
+  status: VideoUploadLogItemStatus
+  event: VideoUploadLogItemEvent
+  timesoutAt?: Int
+  message?: String
+  videoUpload: VideoUploadCreateOneWithoutStatusLogInput
+}
+
+export interface VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput {
+  where: VideoUploadStatusLogItemWhereUniqueInput
+  update: VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput
+  create: VideoUploadStatusLogItemCreateWithoutVideoUploadInput
+}
+
+export interface VideoUploadCreateOneWithoutStatusLogInput {
+  create?: VideoUploadCreateWithoutStatusLogInput
+  connect?: VideoUploadWhereUniqueInput
+}
+
+export interface SpeechAPIWordSubscriptionWhereInput {
+  AND?: SpeechAPIWordSubscriptionWhereInput[] | SpeechAPIWordSubscriptionWhereInput
+  OR?: SpeechAPIWordSubscriptionWhereInput[] | SpeechAPIWordSubscriptionWhereInput
+  NOT?: SpeechAPIWordSubscriptionWhereInput[] | SpeechAPIWordSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: SpeechAPIWordWhereInput
+}
+
+export interface VideoUploadCreateWithoutStatusLogInput {
+  published?: Boolean
+  submitedUrl: String
+  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  publishedBy?: UserCreateOneInput
+  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
+  submitedBy: UserCreateOneInput
 }
 
 export interface UserWhereInput {
@@ -4125,34 +4659,27 @@ export interface UserWhereInput {
   _MagicalBackRelation_VideoPublisher_none?: VideoUploadWhereInput
 }
 
-export interface VideoUploadMetadataCreateOneWithoutVideoUploadInput {
-  create?: VideoUploadMetadataCreateWithoutVideoUploadInput
-  connect?: VideoUploadMetadataWhereUniqueInput
+export interface SpeakerCreateInput {
+  name: String
+  avatarPath: String
+  title: String
 }
 
-export interface SpeakerSubscriptionWhereInput {
-  AND?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
-  OR?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
-  NOT?: SpeakerSubscriptionWhereInput[] | SpeakerSubscriptionWhereInput
+export interface VideoUploadStatusLogItemSubscriptionWhereInput {
+  AND?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
+  OR?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
+  NOT?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: SpeakerWhereInput
+  node?: VideoUploadStatusLogItemWhereInput
 }
 
-export interface VideoUploadMetadataCreateWithoutVideoUploadInput {
-  title?: String
-  subtitle?: String
-  speakers?: Int
-  dateRecorded?: DateCreateOneInput
-  generatedConversation?: SpeechAPIConversationCreateOneWithoutVideoUploadInput
-}
-
-export interface SpeechAPIConversationBlockWhereInput {
-  AND?: SpeechAPIConversationBlockWhereInput[] | SpeechAPIConversationBlockWhereInput
-  OR?: SpeechAPIConversationBlockWhereInput[] | SpeechAPIConversationBlockWhereInput
-  NOT?: SpeechAPIConversationBlockWhereInput[] | SpeechAPIConversationBlockWhereInput
+export interface VideoUploadStatusLogItemWhereInput {
+  AND?: VideoUploadStatusLogItemWhereInput[] | VideoUploadStatusLogItemWhereInput
+  OR?: VideoUploadStatusLogItemWhereInput[] | VideoUploadStatusLogItemWhereInput
+  NOT?: VideoUploadStatusLogItemWhereInput[] | VideoUploadStatusLogItemWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -4167,52 +4694,45 @@ export interface SpeechAPIConversationBlockWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  speakerTag?: Int
-  speakerTag_not?: Int
-  speakerTag_in?: Int[] | Int
-  speakerTag_not_in?: Int[] | Int
-  speakerTag_lt?: Int
-  speakerTag_lte?: Int
-  speakerTag_gt?: Int
-  speakerTag_gte?: Int
-  words_every?: SpeechAPIWordWhereInput
-  words_some?: SpeechAPIWordWhereInput
-  words_none?: SpeechAPIWordWhereInput
-  conversation?: SpeechAPIConversationWhereInput
-}
-
-export interface DateCreateOneInput {
-  create?: DateCreateInput
-}
-
-export interface SpeechAPIConversationWhereInput {
-  AND?: SpeechAPIConversationWhereInput[] | SpeechAPIConversationWhereInput
-  OR?: SpeechAPIConversationWhereInput[] | SpeechAPIConversationWhereInput
-  NOT?: SpeechAPIConversationWhereInput[] | SpeechAPIConversationWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  videoUpload?: VideoUploadMetadataWhereInput
-  conversation_every?: SpeechAPIConversationBlockWhereInput
-  conversation_some?: SpeechAPIConversationBlockWhereInput
-  conversation_none?: SpeechAPIConversationBlockWhereInput
-}
-
-export interface DateCreateInput {
-  month: Int
-  day: Int
-  year: Int
+  status?: VideoUploadLogItemStatus
+  status_not?: VideoUploadLogItemStatus
+  status_in?: VideoUploadLogItemStatus[] | VideoUploadLogItemStatus
+  status_not_in?: VideoUploadLogItemStatus[] | VideoUploadLogItemStatus
+  event?: VideoUploadLogItemEvent
+  event_not?: VideoUploadLogItemEvent
+  event_in?: VideoUploadLogItemEvent[] | VideoUploadLogItemEvent
+  event_not_in?: VideoUploadLogItemEvent[] | VideoUploadLogItemEvent
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  timesoutAt?: Int
+  timesoutAt_not?: Int
+  timesoutAt_in?: Int[] | Int
+  timesoutAt_not_in?: Int[] | Int
+  timesoutAt_lt?: Int
+  timesoutAt_lte?: Int
+  timesoutAt_gt?: Int
+  timesoutAt_gte?: Int
+  message?: String
+  message_not?: String
+  message_in?: String[] | String
+  message_not_in?: String[] | String
+  message_lt?: String
+  message_lte?: String
+  message_gt?: String
+  message_gte?: String
+  message_contains?: String
+  message_not_contains?: String
+  message_starts_with?: String
+  message_not_starts_with?: String
+  message_ends_with?: String
+  message_not_ends_with?: String
+  videoUpload?: VideoUploadWhereInput
 }
 
 export interface DateWhereInput {
@@ -4246,11 +4766,6 @@ export interface DateWhereInput {
   _MagicalBackRelation_DateToVideoUploadMetadata_every?: VideoUploadMetadataWhereInput
   _MagicalBackRelation_DateToVideoUploadMetadata_some?: VideoUploadMetadataWhereInput
   _MagicalBackRelation_DateToVideoUploadMetadata_none?: VideoUploadMetadataWhereInput
-}
-
-export interface SpeechAPIConversationCreateOneWithoutVideoUploadInput {
-  create?: SpeechAPIConversationCreateWithoutVideoUploadInput
-  connect?: SpeechAPIConversationWhereUniqueInput
 }
 
 export interface SpeakerWhereInput {
@@ -4301,96 +4816,6 @@ export interface SpeakerWhereInput {
   title_not_ends_with?: String
 }
 
-export interface SpeechAPIConversationCreateWithoutVideoUploadInput {
-  conversation?: SpeechAPIConversationBlockCreateManyWithoutConversationInput
-}
-
-export interface VideoUploadStorageLinkSubscriptionWhereInput {
-  AND?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
-  OR?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
-  NOT?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoUploadStorageLinkWhereInput
-}
-
-export interface SpeechAPIConversationBlockCreateManyWithoutConversationInput {
-  create?: SpeechAPIConversationBlockCreateWithoutConversationInput[] | SpeechAPIConversationBlockCreateWithoutConversationInput
-  connect?: SpeechAPIConversationBlockWhereUniqueInput[] | SpeechAPIConversationBlockWhereUniqueInput
-}
-
-export interface VideoUploadSubscriptionWhereInput {
-  AND?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
-  OR?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
-  NOT?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoUploadWhereInput
-}
-
-export interface SpeechAPIConversationBlockCreateWithoutConversationInput {
-  speakerTag: Int
-  words?: SpeechAPIWordCreateManyInput
-}
-
-export interface VideoUploadWhereUniqueInput {
-  id?: ID_Input
-  submitedUrl?: String
-}
-
-export interface SpeechAPIWordCreateManyInput {
-  create?: SpeechAPIWordCreateInput[] | SpeechAPIWordCreateInput
-  connect?: SpeechAPIWordWhereUniqueInput[] | SpeechAPIWordWhereUniqueInput
-}
-
-export interface VideoUploadMetadataWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface SpeechAPIWordCreateInput {
-  startTime: Int
-  endTime: Int
-  word: String
-  speakerTag: Int
-}
-
-export interface VideoUploadStatusLogItemWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserCreateOneInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-}
-
-export interface SpeechAPIConversationBlockWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserCreateInput {
-  email?: String
-  auth0Id?: String
-  role?: Role
-  displayName?: String
-  avatar?: String
-  givenName?: String
-  familyName?: String
-  adminRoles?: UserCreateadminRolesInput
-}
-
-export interface UserWhereUniqueInput {
-  id?: ID_Input
-  auth0Id?: String
-}
-
-export interface UserCreateadminRolesInput {
-  set?: AdminRole[] | AdminRole
-}
-
 export interface SpeechAPIWordUpdateInput {
   startTime?: Int
   endTime?: Int
@@ -4398,9 +4823,31 @@ export interface SpeechAPIWordUpdateInput {
   speakerTag?: Int
 }
 
-export interface VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput {
-  create?: VideoUploadStatusLogItemCreateWithoutVideoUploadInput[] | VideoUploadStatusLogItemCreateWithoutVideoUploadInput
-  connect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
+export interface SpeechAPIConversationCreateWithoutConversationInput {
+  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput
+}
+
+export interface VideoUploadMetadataWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface VideoUploadMetadataCreateOneWithoutGeneratedConversationInput {
+  create?: VideoUploadMetadataCreateWithoutGeneratedConversationInput
+  connect?: VideoUploadMetadataWhereUniqueInput
+}
+
+export interface SpeechAPIConversationBlockWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface VideoUploadMetadataCreateWithoutGeneratedConversationInput {
+  title?: String
+  subtitle?: String
+  speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
+  videoUpload: VideoUploadCreateOneWithoutMetadataInput
+  dateRecorded?: DateCreateOneInput
 }
 
 export interface SpeechAPIConversationUpdateInput {
@@ -4408,21 +4855,9 @@ export interface SpeechAPIConversationUpdateInput {
   conversation?: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
 }
 
-export interface VideoUploadStatusLogItemCreateWithoutVideoUploadInput {
-  status: VideoUploadLogItemStatus
-  event: VideoUploadLogItemEvent
-  timesoutAt?: Int
-  message?: String
-}
-
-export interface VideoUploadMetadataUpsertWithoutGeneratedConversationInput {
-  update: VideoUploadMetadataUpdateWithoutGeneratedConversationDataInput
-  create: VideoUploadMetadataCreateWithoutGeneratedConversationInput
-}
-
-export interface VideoUploadStorageLinkCreateManyWithoutVideoUploadInput {
-  create?: VideoUploadStorageLinkCreateWithoutVideoUploadInput[] | VideoUploadStorageLinkCreateWithoutVideoUploadInput
-  connect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
+export interface SpeechAPIConversationCreateInput {
+  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput
+  conversation?: SpeechAPIConversationBlockCreateManyWithoutConversationInput
 }
 
 export interface VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput {
@@ -4433,27 +4868,15 @@ export interface VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput {
   upsert?: VideoUploadMetadataUpsertWithoutGeneratedConversationInput
 }
 
-export interface VideoUploadStorageLinkCreateWithoutVideoUploadInput {
-  path: String
-  bucket: String
-  version: VideoUploadFileLinkVersion
-  fileType: VideoUploadFileLinkType
-}
-
-export interface SpeechAPIConversationUpdateOneWithoutConversationInput {
-  create?: SpeechAPIConversationCreateWithoutConversationInput
-  connect?: SpeechAPIConversationWhereUniqueInput
-  delete?: Boolean
-  update?: SpeechAPIConversationUpdateWithoutConversationDataInput
-  upsert?: SpeechAPIConversationUpsertWithoutConversationInput
-}
-
-export interface VideoUploadStorageLinkCreateInput {
-  path: String
-  bucket: String
-  version: VideoUploadFileLinkVersion
-  fileType: VideoUploadFileLinkType
-  videoUpload: VideoUploadCreateOneWithoutStorageLinksInput
+export interface VideoUploadUpdateInput {
+  published?: Boolean
+  submitedUrl?: String
+  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
+  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
+  publishedBy?: UserUpdateOneInput
+  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
+  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
+  submitedBy?: UserUpdateOneInput
 }
 
 export interface SpeakerUpdateInput {
@@ -4462,9 +4885,172 @@ export interface SpeakerUpdateInput {
   title?: String
 }
 
-export interface VideoUploadCreateOneWithoutStorageLinksInput {
-  create?: VideoUploadCreateWithoutStorageLinksInput
-  connect?: VideoUploadWhereUniqueInput
+export interface VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput {
+  create?: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
+  connect?: VideoUploadAdminMetadataWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput
+  upsert?: VideoUploadAdminMetadataUpsertWithoutVideoUploadInput
+}
+
+export interface VideoUploadStatusLogItemUpdateInput {
+  status?: VideoUploadLogItemStatus
+  event?: VideoUploadLogItemEvent
+  timesoutAt?: Int
+  message?: String
+  videoUpload?: VideoUploadUpdateOneWithoutStatusLogInput
+}
+
+export interface VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput {
+  advertisingEnabled?: Boolean
+}
+
+export interface VideoUploadAdminMetadataUpdateInput {
+  advertisingEnabled?: Boolean
+  videoUpload?: VideoUploadUpdateOneWithoutAdminMetadataInput
+}
+
+export interface VideoUploadAdminMetadataUpsertWithoutVideoUploadInput {
+  update: VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput
+  create: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
+}
+
+export interface VideoUploadMetadataUpdateInput {
+  title?: String
+  subtitle?: String
+  speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
+  videoUpload?: VideoUploadUpdateOneWithoutMetadataInput
+  dateRecorded?: DateUpdateOneInput
+  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
+}
+
+export interface VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
+  create?: VideoUploadMetadataCreateWithoutVideoUploadInput
+  connect?: VideoUploadMetadataWhereUniqueInput
+  delete?: Boolean
+  update?: VideoUploadMetadataUpdateWithoutVideoUploadDataInput
+  upsert?: VideoUploadMetadataUpsertWithoutVideoUploadInput
+}
+
+export interface VideoUploadStorageLinkUpdateInput {
+  path?: String
+  bucket?: String
+  version?: VideoUploadFileLinkVersion
+  fileType?: VideoUploadFileLinkType
+  videoUpload?: VideoUploadUpdateOneWithoutStorageLinksInput
+}
+
+export interface VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
+  title?: String
+  subtitle?: String
+  speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
+  dateRecorded?: DateUpdateOneInput
+  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
+}
+
+export interface VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput {
+  create?: VideoUploadStorageLinkCreateWithoutVideoUploadInput[] | VideoUploadStorageLinkCreateWithoutVideoUploadInput
+  connect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
+  disconnect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
+  delete?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
+  update?: VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput
+  upsert?: VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput
+}
+
+export interface DateUpdateOneInput {
+  create?: DateCreateInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: DateUpdateDataInput
+  upsert?: DateUpsertNestedInput
+}
+
+export interface DateSubscriptionWhereInput {
+  AND?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  OR?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  NOT?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: DateWhereInput
+}
+
+export interface DateUpdateDataInput {
+  month?: Int
+  day?: Int
+  year?: Int
+}
+
+export interface SpeechAPIConversationWhereInput {
+  AND?: SpeechAPIConversationWhereInput[] | SpeechAPIConversationWhereInput
+  OR?: SpeechAPIConversationWhereInput[] | SpeechAPIConversationWhereInput
+  NOT?: SpeechAPIConversationWhereInput[] | SpeechAPIConversationWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  videoUpload?: VideoUploadMetadataWhereInput
+  conversation_every?: SpeechAPIConversationBlockWhereInput
+  conversation_some?: SpeechAPIConversationBlockWhereInput
+  conversation_none?: SpeechAPIConversationBlockWhereInput
+}
+
+export interface DateUpsertNestedInput {
+  update: DateUpdateDataInput
+  create: DateCreateInput
+}
+
+export interface DateUpdateInput {
+  month?: Int
+  day?: Int
+  year?: Int
+}
+
+export interface SpeechAPIConversationUpdateOneWithoutVideoUploadInput {
+  create?: SpeechAPIConversationCreateWithoutVideoUploadInput
+  connect?: SpeechAPIConversationWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
+  upsert?: SpeechAPIConversationUpsertWithoutVideoUploadInput
+}
+
+export interface VideoUploadStatusLogItemWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface SpeechAPIConversationUpdateWithoutVideoUploadDataInput {
+  conversation?: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
+}
+
+export interface VideoUploadMetadataUpsertWithoutGeneratedConversationInput {
+  update: VideoUploadMetadataUpdateWithoutGeneratedConversationDataInput
+  create: VideoUploadMetadataCreateWithoutGeneratedConversationInput
+}
+
+export interface SpeechAPIConversationBlockUpdateManyWithoutConversationInput {
+  create?: SpeechAPIConversationBlockCreateWithoutConversationInput[] | SpeechAPIConversationBlockCreateWithoutConversationInput
+  connect?: SpeechAPIConversationBlockWhereUniqueInput[] | SpeechAPIConversationBlockWhereUniqueInput
+  disconnect?: SpeechAPIConversationBlockWhereUniqueInput[] | SpeechAPIConversationBlockWhereUniqueInput
+  delete?: SpeechAPIConversationBlockWhereUniqueInput[] | SpeechAPIConversationBlockWhereUniqueInput
+  update?: SpeechAPIConversationBlockUpdateWithWhereUniqueWithoutConversationInput[] | SpeechAPIConversationBlockUpdateWithWhereUniqueWithoutConversationInput
+  upsert?: SpeechAPIConversationBlockUpsertWithWhereUniqueWithoutConversationInput[] | SpeechAPIConversationBlockUpsertWithWhereUniqueWithoutConversationInput
 }
 
 export interface VideoUploadUpdateWithoutStatusLogDataInput {
@@ -4477,61 +5063,9 @@ export interface VideoUploadUpdateWithoutStatusLogDataInput {
   submitedBy?: UserUpdateOneInput
 }
 
-export interface VideoUploadCreateWithoutStorageLinksInput {
-  published?: Boolean
-  submitedUrl: String
-  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata?: VideoUploadMetadataCreateOneWithoutVideoUploadInput
-  publishedBy?: UserCreateOneInput
-  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
-  submitedBy: UserCreateOneInput
-}
-
-export interface VideoUploadStatusLogItemUpdateInput {
-  status?: VideoUploadLogItemStatus
-  event?: VideoUploadLogItemEvent
-  timesoutAt?: Int
-  message?: String
-  videoUpload?: VideoUploadUpdateOneWithoutStatusLogInput
-}
-
-export interface VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput {
-  create?: VideoUploadStatusLogItemCreateWithoutVideoUploadInput[] | VideoUploadStatusLogItemCreateWithoutVideoUploadInput
-  connect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
-  disconnect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
-  delete?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
-  update?: VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput
-  upsert?: VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput
-}
-
-export interface VideoUploadUpdateWithoutAdminMetadataDataInput {
-  published?: Boolean
-  submitedUrl?: String
-  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy?: UserUpdateOneInput
-  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
-  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
-  submitedBy?: UserUpdateOneInput
-}
-
-export interface VideoUploadCreateOneWithoutMetadataInput {
-  create?: VideoUploadCreateWithoutMetadataInput
-  connect?: VideoUploadWhereUniqueInput
-}
-
-export interface VideoUploadAdminMetadataUpdateInput {
-  advertisingEnabled?: Boolean
-  videoUpload?: VideoUploadUpdateOneWithoutAdminMetadataInput
-}
-
-export interface VideoUploadCreateWithoutMetadataInput {
-  published?: Boolean
-  submitedUrl: String
-  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  publishedBy?: UserCreateOneInput
-  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
-  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
-  submitedBy: UserCreateOneInput
+export interface SpeechAPIConversationBlockUpdateWithWhereUniqueWithoutConversationInput {
+  where: SpeechAPIConversationBlockWhereUniqueInput
+  data: SpeechAPIConversationBlockUpdateWithoutConversationDataInput
 }
 
 export interface VideoUploadUpdateWithoutMetadataDataInput {
@@ -4544,59 +5078,9 @@ export interface VideoUploadUpdateWithoutMetadataDataInput {
   submitedBy?: UserUpdateOneInput
 }
 
-export interface VideoUploadAdminMetadataCreateInput {
-  advertisingEnabled?: Boolean
-  videoUpload: VideoUploadCreateOneWithoutAdminMetadataInput
-}
-
-export interface VideoUploadMetadataUpdateInput {
-  title?: String
-  subtitle?: String
-  speakers?: Int
-  videoUpload?: VideoUploadUpdateOneWithoutMetadataInput
-  dateRecorded?: DateUpdateOneInput
-  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
-}
-
-export interface VideoUploadCreateOneWithoutAdminMetadataInput {
-  create?: VideoUploadCreateWithoutAdminMetadataInput
-  connect?: VideoUploadWhereUniqueInput
-}
-
-export interface VideoUploadUpdateWithoutStorageLinksDataInput {
-  published?: Boolean
-  submitedUrl?: String
-  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
-  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy?: UserUpdateOneInput
-  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
-  submitedBy?: UserUpdateOneInput
-}
-
-export interface VideoUploadCreateWithoutAdminMetadataInput {
-  published?: Boolean
-  submitedUrl: String
-  metadata?: VideoUploadMetadataCreateOneWithoutVideoUploadInput
-  publishedBy?: UserCreateOneInput
-  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
-  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
-  submitedBy: UserCreateOneInput
-}
-
-export interface VideoUploadStorageLinkUpdateInput {
-  path?: String
-  bucket?: String
-  version?: VideoUploadFileLinkVersion
-  fileType?: VideoUploadFileLinkType
-  videoUpload?: VideoUploadUpdateOneWithoutStorageLinksInput
-}
-
-export interface VideoUploadStatusLogItemCreateInput {
-  status: VideoUploadLogItemStatus
-  event: VideoUploadLogItemEvent
-  timesoutAt?: Int
-  message?: String
-  videoUpload: VideoUploadCreateOneWithoutStatusLogInput
+export interface SpeechAPIConversationBlockUpdateWithoutConversationDataInput {
+  speakerTag?: Int
+  words?: SpeechAPIWordUpdateManyInput
 }
 
 export interface VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput {
@@ -4606,61 +5090,13 @@ export interface VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput {
   fileType?: VideoUploadFileLinkType
 }
 
-export interface VideoUploadCreateOneWithoutStatusLogInput {
-  create?: VideoUploadCreateWithoutStatusLogInput
-  connect?: VideoUploadWhereUniqueInput
-}
-
-export interface VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput {
-  create?: VideoUploadStorageLinkCreateWithoutVideoUploadInput[] | VideoUploadStorageLinkCreateWithoutVideoUploadInput
-  connect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
-  disconnect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
-  delete?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
-  update?: VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput
-  upsert?: VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput
-}
-
-export interface VideoUploadCreateWithoutStatusLogInput {
-  published?: Boolean
-  submitedUrl: String
-  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata?: VideoUploadMetadataCreateOneWithoutVideoUploadInput
-  publishedBy?: UserCreateOneInput
-  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
-  submitedBy: UserCreateOneInput
-}
-
-export interface SpeechAPIWordSubscriptionWhereInput {
-  AND?: SpeechAPIWordSubscriptionWhereInput[] | SpeechAPIWordSubscriptionWhereInput
-  OR?: SpeechAPIWordSubscriptionWhereInput[] | SpeechAPIWordSubscriptionWhereInput
-  NOT?: SpeechAPIWordSubscriptionWhereInput[] | SpeechAPIWordSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: SpeechAPIWordWhereInput
-}
-
-export interface SpeakerCreateInput {
-  name: String
-  avatarPath: String
-  title: String
-}
-
-export interface SpeechAPIConversationSubscriptionWhereInput {
-  AND?: SpeechAPIConversationSubscriptionWhereInput[] | SpeechAPIConversationSubscriptionWhereInput
-  OR?: SpeechAPIConversationSubscriptionWhereInput[] | SpeechAPIConversationSubscriptionWhereInput
-  NOT?: SpeechAPIConversationSubscriptionWhereInput[] | SpeechAPIConversationSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: SpeechAPIConversationWhereInput
-}
-
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput
-  create: UserCreateInput
+export interface SpeechAPIWordUpdateManyInput {
+  create?: SpeechAPIWordCreateInput[] | SpeechAPIWordCreateInput
+  connect?: SpeechAPIWordWhereUniqueInput[] | SpeechAPIWordWhereUniqueInput
+  disconnect?: SpeechAPIWordWhereUniqueInput[] | SpeechAPIWordWhereUniqueInput
+  delete?: SpeechAPIWordWhereUniqueInput[] | SpeechAPIWordWhereUniqueInput
+  update?: SpeechAPIWordUpdateWithWhereUniqueNestedInput[] | SpeechAPIWordUpdateWithWhereUniqueNestedInput
+  upsert?: SpeechAPIWordUpsertWithWhereUniqueNestedInput[] | SpeechAPIWordUpsertWithWhereUniqueNestedInput
 }
 
 export interface SpeechAPIWordWhereInput {
@@ -4724,357 +5160,14 @@ export interface SpeechAPIWordWhereInput {
   _MagicalBackRelation_SpeechAPIWordToConversationBlockRelation_none?: SpeechAPIConversationBlockWhereInput
 }
 
-export interface UserUpdateadminRolesInput {
-  set?: AdminRole[] | AdminRole
-}
-
-export interface VideoUploadAdminMetadataSubscriptionWhereInput {
-  AND?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
-  OR?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
-  NOT?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoUploadAdminMetadataWhereInput
-}
-
-export interface SpeechAPIConversationCreateWithoutConversationInput {
-  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput
-}
-
-export interface VideoUploadMetadataWhereInput {
-  AND?: VideoUploadMetadataWhereInput[] | VideoUploadMetadataWhereInput
-  OR?: VideoUploadMetadataWhereInput[] | VideoUploadMetadataWhereInput
-  NOT?: VideoUploadMetadataWhereInput[] | VideoUploadMetadataWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  title?: String
-  title_not?: String
-  title_in?: String[] | String
-  title_not_in?: String[] | String
-  title_lt?: String
-  title_lte?: String
-  title_gt?: String
-  title_gte?: String
-  title_contains?: String
-  title_not_contains?: String
-  title_starts_with?: String
-  title_not_starts_with?: String
-  title_ends_with?: String
-  title_not_ends_with?: String
-  subtitle?: String
-  subtitle_not?: String
-  subtitle_in?: String[] | String
-  subtitle_not_in?: String[] | String
-  subtitle_lt?: String
-  subtitle_lte?: String
-  subtitle_gt?: String
-  subtitle_gte?: String
-  subtitle_contains?: String
-  subtitle_not_contains?: String
-  subtitle_starts_with?: String
-  subtitle_not_starts_with?: String
-  subtitle_ends_with?: String
-  subtitle_not_ends_with?: String
-  speakers?: Int
-  speakers_not?: Int
-  speakers_in?: Int[] | Int
-  speakers_not_in?: Int[] | Int
-  speakers_lt?: Int
-  speakers_lte?: Int
-  speakers_gt?: Int
-  speakers_gte?: Int
-  videoUpload?: VideoUploadWhereInput
-  dateRecorded?: DateWhereInput
-  generatedConversation?: SpeechAPIConversationWhereInput
-}
-
-export interface VideoUploadMetadataCreateOneWithoutGeneratedConversationInput {
-  create?: VideoUploadMetadataCreateWithoutGeneratedConversationInput
-  connect?: VideoUploadMetadataWhereUniqueInput
-}
-
-export interface DateUpdateInput {
-  month?: Int
-  day?: Int
-  year?: Int
-}
-
-export interface VideoUploadMetadataCreateWithoutGeneratedConversationInput {
-  title?: String
-  subtitle?: String
-  speakers?: Int
-  videoUpload: VideoUploadCreateOneWithoutMetadataInput
-  dateRecorded?: DateCreateOneInput
-}
-
-export interface VideoUploadAdminMetadataWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface SpeechAPIConversationCreateInput {
-  videoUpload: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput
-  conversation?: SpeechAPIConversationBlockCreateManyWithoutConversationInput
-}
-
-export interface SpeechAPIConversationWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface VideoUploadUpdateInput {
-  published?: Boolean
-  submitedUrl?: String
-  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
-  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy?: UserUpdateOneInput
-  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
-  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
-  submitedBy?: UserUpdateOneInput
-}
-
-export interface UserUpdateInput {
-  email?: String
-  auth0Id?: String
-  role?: Role
-  displayName?: String
-  avatar?: String
-  givenName?: String
-  familyName?: String
-  adminRoles?: UserUpdateadminRolesInput
-}
-
-export interface VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput {
-  create?: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
-  connect?: VideoUploadAdminMetadataWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput
-  upsert?: VideoUploadAdminMetadataUpsertWithoutVideoUploadInput
-}
-
-export interface VideoUploadMetadataUpdateWithoutGeneratedConversationDataInput {
-  title?: String
-  subtitle?: String
-  speakers?: Int
-  videoUpload?: VideoUploadUpdateOneWithoutMetadataInput
-  dateRecorded?: DateUpdateOneInput
-}
-
-export interface VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput {
-  advertisingEnabled?: Boolean
-}
-
-export interface SpeechAPIConversationBlockUpdateInput {
-  speakerTag?: Int
-  words?: SpeechAPIWordUpdateManyInput
-  conversation?: SpeechAPIConversationUpdateOneWithoutConversationInput
-}
-
-export interface VideoUploadAdminMetadataUpsertWithoutVideoUploadInput {
-  update: VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput
-  create: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
-}
-
-export interface VideoUploadUpdateOneWithoutStatusLogInput {
-  create?: VideoUploadCreateWithoutStatusLogInput
-  connect?: VideoUploadWhereUniqueInput
-  delete?: Boolean
-  update?: VideoUploadUpdateWithoutStatusLogDataInput
-  upsert?: VideoUploadUpsertWithoutStatusLogInput
-}
-
-export interface VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
-  create?: VideoUploadMetadataCreateWithoutVideoUploadInput
-  connect?: VideoUploadMetadataWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: VideoUploadMetadataUpdateWithoutVideoUploadDataInput
-  upsert?: VideoUploadMetadataUpsertWithoutVideoUploadInput
-}
-
-export interface VideoUploadUpdateOneWithoutAdminMetadataInput {
-  create?: VideoUploadCreateWithoutAdminMetadataInput
-  connect?: VideoUploadWhereUniqueInput
-  delete?: Boolean
-  update?: VideoUploadUpdateWithoutAdminMetadataDataInput
-  upsert?: VideoUploadUpsertWithoutAdminMetadataInput
-}
-
-export interface VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
-  title?: String
-  subtitle?: String
-  speakers?: Int
-  dateRecorded?: DateUpdateOneInput
-  generatedConversation?: SpeechAPIConversationUpdateOneWithoutVideoUploadInput
-}
-
-export interface VideoUploadUpdateOneWithoutMetadataInput {
-  create?: VideoUploadCreateWithoutMetadataInput
-  connect?: VideoUploadWhereUniqueInput
-  delete?: Boolean
-  update?: VideoUploadUpdateWithoutMetadataDataInput
-  upsert?: VideoUploadUpsertWithoutMetadataInput
-}
-
-export interface DateUpdateOneInput {
-  create?: DateCreateInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: DateUpdateDataInput
-  upsert?: DateUpsertNestedInput
-}
-
-export interface VideoUploadUpdateOneWithoutStorageLinksInput {
-  create?: VideoUploadCreateWithoutStorageLinksInput
-  connect?: VideoUploadWhereUniqueInput
-  delete?: Boolean
-  update?: VideoUploadUpdateWithoutStorageLinksDataInput
-  upsert?: VideoUploadUpsertWithoutStorageLinksInput
-}
-
-export interface DateUpdateDataInput {
-  month?: Int
-  day?: Int
-  year?: Int
-}
-
-export interface VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput {
-  where: VideoUploadStorageLinkWhereUniqueInput
-  data: VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput
-}
-
-export interface DateUpsertNestedInput {
-  update: DateUpdateDataInput
-  create: DateCreateInput
-}
-
-export interface DateSubscriptionWhereInput {
-  AND?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  OR?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  NOT?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: DateWhereInput
-}
-
-export interface SpeechAPIConversationUpdateOneWithoutVideoUploadInput {
-  create?: SpeechAPIConversationCreateWithoutVideoUploadInput
-  connect?: SpeechAPIConversationWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: SpeechAPIConversationUpdateWithoutVideoUploadDataInput
-  upsert?: SpeechAPIConversationUpsertWithoutVideoUploadInput
-}
-
-export interface VideoUploadStatusLogItemSubscriptionWhereInput {
-  AND?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
-  OR?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
-  NOT?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoUploadStatusLogItemWhereInput
-}
-
-export interface SpeechAPIConversationUpdateWithoutVideoUploadDataInput {
-  conversation?: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
-}
-
-export interface VideoUploadAdminMetadataWhereInput {
-  AND?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
-  OR?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
-  NOT?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  advertisingEnabled?: Boolean
-  advertisingEnabled_not?: Boolean
-  videoUpload?: VideoUploadWhereInput
-}
-
-export interface SpeechAPIConversationBlockUpdateManyWithoutConversationInput {
-  create?: SpeechAPIConversationBlockCreateWithoutConversationInput[] | SpeechAPIConversationBlockCreateWithoutConversationInput
-  connect?: SpeechAPIConversationBlockWhereUniqueInput[] | SpeechAPIConversationBlockWhereUniqueInput
-  disconnect?: SpeechAPIConversationBlockWhereUniqueInput[] | SpeechAPIConversationBlockWhereUniqueInput
-  delete?: SpeechAPIConversationBlockWhereUniqueInput[] | SpeechAPIConversationBlockWhereUniqueInput
-  update?: SpeechAPIConversationBlockUpdateWithWhereUniqueWithoutConversationInput[] | SpeechAPIConversationBlockUpdateWithWhereUniqueWithoutConversationInput
-  upsert?: SpeechAPIConversationBlockUpsertWithWhereUniqueWithoutConversationInput[] | SpeechAPIConversationBlockUpsertWithWhereUniqueWithoutConversationInput
-}
-
-export interface SpeakerWhereUniqueInput {
-  name?: String
-}
-
-export interface SpeechAPIConversationBlockUpdateWithWhereUniqueWithoutConversationInput {
-  where: SpeechAPIConversationBlockWhereUniqueInput
-  data: SpeechAPIConversationBlockUpdateWithoutConversationDataInput
-}
-
-export interface SpeechAPIConversationUpsertWithoutConversationInput {
-  update: SpeechAPIConversationUpdateWithoutConversationDataInput
-  create: SpeechAPIConversationCreateWithoutConversationInput
-}
-
-export interface SpeechAPIConversationBlockUpdateWithoutConversationDataInput {
-  speakerTag?: Int
-  words?: SpeechAPIWordUpdateManyInput
-}
-
-export interface VideoUploadUpsertWithoutStatusLogInput {
-  update: VideoUploadUpdateWithoutStatusLogDataInput
-  create: VideoUploadCreateWithoutStatusLogInput
-}
-
-export interface SpeechAPIWordUpdateManyInput {
-  create?: SpeechAPIWordCreateInput[] | SpeechAPIWordCreateInput
-  connect?: SpeechAPIWordWhereUniqueInput[] | SpeechAPIWordWhereUniqueInput
-  disconnect?: SpeechAPIWordWhereUniqueInput[] | SpeechAPIWordWhereUniqueInput
-  delete?: SpeechAPIWordWhereUniqueInput[] | SpeechAPIWordWhereUniqueInput
-  update?: SpeechAPIWordUpdateWithWhereUniqueNestedInput[] | SpeechAPIWordUpdateWithWhereUniqueNestedInput
-  upsert?: SpeechAPIWordUpsertWithWhereUniqueNestedInput[] | SpeechAPIWordUpsertWithWhereUniqueNestedInput
-}
-
-export interface VideoUploadUpsertWithoutMetadataInput {
-  update: VideoUploadUpdateWithoutMetadataDataInput
-  create: VideoUploadCreateWithoutMetadataInput
-}
-
 export interface SpeechAPIWordUpdateWithWhereUniqueNestedInput {
   where: SpeechAPIWordWhereUniqueInput
   data: SpeechAPIWordUpdateDataInput
 }
 
-export interface VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput {
-  where: VideoUploadStorageLinkWhereUniqueInput
-  update: VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput
-  create: VideoUploadStorageLinkCreateWithoutVideoUploadInput
+export interface VideoUploadWhereUniqueInput {
+  id?: ID_Input
+  submitedUrl?: String
 }
 
 export interface SpeechAPIWordUpdateDataInput {
@@ -5084,15 +5177,12 @@ export interface SpeechAPIWordUpdateDataInput {
   speakerTag?: Int
 }
 
-export interface SpeechAPIConversationBlockSubscriptionWhereInput {
-  AND?: SpeechAPIConversationBlockSubscriptionWhereInput[] | SpeechAPIConversationBlockSubscriptionWhereInput
-  OR?: SpeechAPIConversationBlockSubscriptionWhereInput[] | SpeechAPIConversationBlockSubscriptionWhereInput
-  NOT?: SpeechAPIConversationBlockSubscriptionWhereInput[] | SpeechAPIConversationBlockSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: SpeechAPIConversationBlockWhereInput
+export interface SpeechAPIConversationUpdateOneWithoutConversationInput {
+  create?: SpeechAPIConversationCreateWithoutConversationInput
+  connect?: SpeechAPIConversationWhereUniqueInput
+  delete?: Boolean
+  update?: SpeechAPIConversationUpdateWithoutConversationDataInput
+  upsert?: SpeechAPIConversationUpsertWithoutConversationInput
 }
 
 export interface SpeechAPIWordUpsertWithWhereUniqueNestedInput {
@@ -5101,12 +5191,14 @@ export interface SpeechAPIWordUpsertWithWhereUniqueNestedInput {
   create: SpeechAPIWordCreateInput
 }
 
-export interface VideoUploadStorageLinkWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface SpeechAPIConversationUpdateWithoutConversationDataInput {
-  videoUpload?: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
+export interface VideoUploadUpdateWithoutStorageLinksDataInput {
+  published?: Boolean
+  submitedUrl?: String
+  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
+  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
+  publishedBy?: UserUpdateOneInput
+  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
+  submitedBy?: UserUpdateOneInput
 }
 
 export interface UserUpdateOneInput {
@@ -5134,35 +5226,37 @@ export interface SpeechAPIConversationBlockUpsertWithWhereUniqueWithoutConversat
   create: SpeechAPIConversationBlockCreateWithoutConversationInput
 }
 
-export interface VideoUploadUpsertWithoutAdminMetadataInput {
-  update: VideoUploadUpdateWithoutAdminMetadataDataInput
-  create: VideoUploadCreateWithoutAdminMetadataInput
+export interface VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput {
+  status?: VideoUploadLogItemStatus
+  event?: VideoUploadLogItemEvent
+  timesoutAt?: Int
+  message?: String
 }
 
-export interface SpeechAPIWordWhereUniqueInput {
+export interface VideoUploadUpdateWithoutAdminMetadataDataInput {
+  published?: Boolean
+  submitedUrl?: String
+  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
+  publishedBy?: UserUpdateOneInput
+  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
+  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
+  submitedBy?: UserUpdateOneInput
+}
+
+export interface UserWhereUniqueInput {
   id?: ID_Input
+  auth0Id?: String
 }
 
-export interface VideoUploadMetadataSubscriptionWhereInput {
-  AND?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
-  OR?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
-  NOT?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
+export interface VideoUploadStorageLinkSubscriptionWhereInput {
+  AND?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
+  OR?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
+  NOT?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: VideoUploadMetadataWhereInput
-}
-
-export interface VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput {
-  where: VideoUploadStatusLogItemWhereUniqueInput
-  update: VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput
-  create: VideoUploadStatusLogItemCreateWithoutVideoUploadInput
-}
-
-export interface VideoUploadUpsertWithoutStorageLinksInput {
-  update: VideoUploadUpdateWithoutStorageLinksDataInput
-  create: VideoUploadCreateWithoutStorageLinksInput
+  node?: VideoUploadStorageLinkWhereInput
 }
 
 /*
@@ -5173,10 +5267,6 @@ export interface Node {
   id: ID_Output
 }
 
-export interface BatchPayload {
-  count: Long
-}
-
 export interface SpeechAPIWordPreviousValues {
   id: ID_Output
   startTime: Int
@@ -5185,20 +5275,8 @@ export interface SpeechAPIWordPreviousValues {
   speakerTag: Int
 }
 
-/*
- * A connection to a list of items.
-
- */
-export interface VideoUploadConnection {
-  pageInfo: PageInfo
-  edges: VideoUploadEdge[]
-  aggregate: AggregateVideoUpload
-}
-
-export interface Date {
-  month: Int
-  day: Int
-  year: Int
+export interface BatchPayload {
+  count: Long
 }
 
 export interface VideoUpload extends Node {
@@ -5206,7 +5284,7 @@ export interface VideoUpload extends Node {
   adminMetadata?: VideoUploadAdminMetadata
   createdAt: DateTime
   updatedAt: DateTime
-  metadata?: VideoUploadMetadata
+  metadata: VideoUploadMetadata
   publishedBy?: User
   published: Boolean
   statusLog?: VideoUploadStatusLogItem[]
@@ -5215,14 +5293,45 @@ export interface VideoUpload extends Node {
   submitedUrl: String
 }
 
+export interface SpeechAPIWordSubscriptionPayload {
+  mutation: MutationType
+  node?: SpeechAPIWord
+  updatedFields?: String[]
+  previousValues?: SpeechAPIWordPreviousValues
+}
+
+export interface DatePreviousValues {
+  month: Int
+  day: Int
+  year: Int
+}
+
 export interface VideoUploadAdminMetadata extends Node {
   id: ID_Output
   videoUpload: VideoUpload
   advertisingEnabled: Boolean
 }
 
+/*
+ * An edge in a connection.
+
+ */
+export interface SpeechAPIWordEdge {
+  node: SpeechAPIWord
+  cursor: String
+}
+
 export interface AggregateSpeechAPIWord {
   count: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface UserEdge {
+  node: User
+  cursor: String
 }
 
 /*
@@ -5235,34 +5344,24 @@ export interface SpeechAPIWordConnection {
   aggregate: AggregateSpeechAPIWord
 }
 
-export interface SpeechAPIWordSubscriptionPayload {
-  mutation: MutationType
-  node?: SpeechAPIWord
-  updatedFields?: String[]
-  previousValues?: SpeechAPIWordPreviousValues
+export interface AggregateDate {
+  count: Int
+}
+
+export interface Speaker {
+  name: String
+  avatarPath: String
+  title: String
 }
 
 /*
- * An edge in a connection.
+ * A connection to a list of items.
 
  */
-export interface UserEdge {
-  node: User
-  cursor: String
-}
-
-export interface VideoUploadMetadata extends Node {
-  id: ID_Output
-  videoUpload: VideoUpload
-  title?: String
-  subtitle?: String
-  dateRecorded?: Date
-  speakers: Int
-  generatedConversation?: SpeechAPIConversation
-}
-
-export interface AggregateDate {
-  count: Int
+export interface DateConnection {
+  pageInfo: PageInfo
+  edges: DateEdge[]
+  aggregate: AggregateDate
 }
 
 export interface UserPreviousValues {
@@ -5278,23 +5377,6 @@ export interface UserPreviousValues {
 }
 
 /*
- * A connection to a list of items.
-
- */
-export interface DateConnection {
-  pageInfo: PageInfo
-  edges: DateEdge[]
-  aggregate: AggregateDate
-}
-
-export interface VideoUploadSubscriptionPayload {
-  mutation: MutationType
-  node?: VideoUpload
-  updatedFields?: String[]
-  previousValues?: VideoUploadPreviousValues
-}
-
-/*
  * An edge in a connection.
 
  */
@@ -5303,22 +5385,22 @@ export interface SpeechAPIConversationEdge {
   cursor: String
 }
 
-export interface VideoUploadPreviousValues {
-  id: ID_Output
-  createdAt: DateTime
-  updatedAt: DateTime
-  published: Boolean
-  submitedUrl: String
+export interface UserSubscriptionPayload {
+  mutation: MutationType
+  node?: User
+  updatedFields?: String[]
+  previousValues?: UserPreviousValues
 }
 
 export interface AggregateSpeechAPIConversationBlock {
   count: Int
 }
 
-export interface Speaker {
-  name: String
-  avatarPath: String
-  title: String
+export interface VideoUploadSubscriptionPayload {
+  mutation: MutationType
+  node?: VideoUpload
+  updatedFields?: String[]
+  previousValues?: VideoUploadPreviousValues
 }
 
 /*
@@ -5331,11 +5413,12 @@ export interface SpeechAPIConversationBlockConnection {
   aggregate: AggregateSpeechAPIConversationBlock
 }
 
-export interface VideoUploadStorageLinkSubscriptionPayload {
-  mutation: MutationType
-  node?: VideoUploadStorageLink
-  updatedFields?: String[]
-  previousValues?: VideoUploadStorageLinkPreviousValues
+export interface VideoUploadPreviousValues {
+  id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
+  published: Boolean
+  submitedUrl: String
 }
 
 /*
@@ -5347,23 +5430,27 @@ export interface SpeakerEdge {
   cursor: String
 }
 
-export interface VideoUploadStorageLinkPreviousValues {
+export interface VideoUploadMetadata extends Node {
   id: ID_Output
-  path: String
-  bucket: String
-  version: VideoUploadFileLinkVersion
-  fileType: VideoUploadFileLinkType
+  videoUpload: VideoUpload
+  title?: String
+  subtitle?: String
+  dateRecorded?: Date
+  speakers: Int
+  renderStart: Float
+  renderEnd: Float
+  generatedConversation?: SpeechAPIConversation
 }
 
 export interface AggregateVideoUploadStatusLogItem {
   count: Int
 }
 
-export interface UserSubscriptionPayload {
+export interface VideoUploadStorageLinkSubscriptionPayload {
   mutation: MutationType
-  node?: User
+  node?: VideoUploadStorageLink
   updatedFields?: String[]
-  previousValues?: UserPreviousValues
+  previousValues?: VideoUploadStorageLinkPreviousValues
 }
 
 /*
@@ -5376,11 +5463,12 @@ export interface VideoUploadStatusLogItemConnection {
   aggregate: AggregateVideoUploadStatusLogItem
 }
 
-export interface VideoUploadMetadataSubscriptionPayload {
-  mutation: MutationType
-  node?: VideoUploadMetadata
-  updatedFields?: String[]
-  previousValues?: VideoUploadMetadataPreviousValues
+export interface VideoUploadStorageLinkPreviousValues {
+  id: ID_Output
+  path: String
+  bucket: String
+  version: VideoUploadFileLinkVersion
+  fileType: VideoUploadFileLinkType
 }
 
 /*
@@ -5392,17 +5480,6 @@ export interface VideoUploadAdminMetadataEdge {
   cursor: String
 }
 
-export interface VideoUploadMetadataPreviousValues {
-  id: ID_Output
-  title?: String
-  subtitle?: String
-  speakers: Int
-}
-
-export interface AggregateVideoUploadMetadata {
-  count: Int
-}
-
 export interface VideoUploadStorageLink extends Node {
   id: ID_Output
   videoUpload: VideoUpload
@@ -5410,6 +5487,17 @@ export interface VideoUploadStorageLink extends Node {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
+}
+
+export interface AggregateVideoUploadMetadata {
+  count: Int
+}
+
+export interface VideoUploadMetadataSubscriptionPayload {
+  mutation: MutationType
+  node?: VideoUploadMetadata
+  updatedFields?: String[]
+  previousValues?: VideoUploadMetadataPreviousValues
 }
 
 /*
@@ -5422,11 +5510,13 @@ export interface VideoUploadMetadataConnection {
   aggregate: AggregateVideoUploadMetadata
 }
 
-export interface VideoUploadAdminMetadataSubscriptionPayload {
-  mutation: MutationType
-  node?: VideoUploadAdminMetadata
-  updatedFields?: String[]
-  previousValues?: VideoUploadAdminMetadataPreviousValues
+export interface VideoUploadMetadataPreviousValues {
+  id: ID_Output
+  title?: String
+  subtitle?: String
+  speakers: Int
+  renderStart: Float
+  renderEnd: Float
 }
 
 /*
@@ -5438,15 +5528,6 @@ export interface VideoUploadStorageLinkEdge {
   cursor: String
 }
 
-export interface VideoUploadAdminMetadataPreviousValues {
-  id: ID_Output
-  advertisingEnabled: Boolean
-}
-
-export interface AggregateVideoUpload {
-  count: Int
-}
-
 export interface VideoUploadStatusLogItem extends Node {
   id: ID_Output
   status: VideoUploadLogItemStatus
@@ -5455,6 +5536,17 @@ export interface VideoUploadStatusLogItem extends Node {
   createdAt: DateTime
   timesoutAt?: Int
   message?: String
+}
+
+export interface AggregateVideoUpload {
+  count: Int
+}
+
+export interface VideoUploadAdminMetadataSubscriptionPayload {
+  mutation: MutationType
+  node?: VideoUploadAdminMetadata
+  updatedFields?: String[]
+  previousValues?: VideoUploadAdminMetadataPreviousValues
 }
 
 /*
@@ -5468,33 +5560,13 @@ export interface PageInfo {
   endCursor?: String
 }
 
-export interface VideoUploadStatusLogItemSubscriptionPayload {
-  mutation: MutationType
-  node?: VideoUploadStatusLogItem
-  updatedFields?: String[]
-  previousValues?: VideoUploadStatusLogItemPreviousValues
+export interface VideoUploadAdminMetadataPreviousValues {
+  id: ID_Output
+  advertisingEnabled: Boolean
 }
 
 export interface AggregateUser {
   count: Int
-}
-
-export interface VideoUploadStatusLogItemPreviousValues {
-  id: ID_Output
-  status: VideoUploadLogItemStatus
-  event: VideoUploadLogItemEvent
-  createdAt: DateTime
-  timesoutAt?: Int
-  message?: String
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface DateEdge {
-  node: Date
-  cursor: String
 }
 
 export interface User extends Node {
@@ -5510,6 +5582,22 @@ export interface User extends Node {
 }
 
 /*
+ * An edge in a connection.
+
+ */
+export interface DateEdge {
+  node: Date
+  cursor: String
+}
+
+export interface VideoUploadStatusLogItemSubscriptionPayload {
+  mutation: MutationType
+  node?: VideoUploadStatusLogItem
+  updatedFields?: String[]
+  previousValues?: VideoUploadStatusLogItemPreviousValues
+}
+
+/*
  * A connection to a list of items.
 
  */
@@ -5519,21 +5607,25 @@ export interface SpeechAPIConversationConnection {
   aggregate: AggregateSpeechAPIConversation
 }
 
-export interface SpeakerSubscriptionPayload {
-  mutation: MutationType
-  node?: Speaker
-  updatedFields?: String[]
-  previousValues?: SpeakerPreviousValues
+export interface VideoUploadStatusLogItemPreviousValues {
+  id: ID_Output
+  status: VideoUploadLogItemStatus
+  event: VideoUploadLogItemEvent
+  createdAt: DateTime
+  timesoutAt?: Int
+  message?: String
 }
 
 export interface AggregateSpeaker {
   count: Int
 }
 
-export interface SpeakerPreviousValues {
-  name: String
-  avatarPath: String
-  title: String
+export interface SpeechAPIWord extends Node {
+  id: ID_Output
+  startTime: Int
+  endTime: Int
+  word: String
+  speakerTag: Int
 }
 
 /*
@@ -5545,12 +5637,11 @@ export interface VideoUploadStatusLogItemEdge {
   cursor: String
 }
 
-export interface SpeechAPIWord extends Node {
-  id: ID_Output
-  startTime: Int
-  endTime: Int
-  word: String
-  speakerTag: Int
+export interface SpeakerSubscriptionPayload {
+  mutation: MutationType
+  node?: Speaker
+  updatedFields?: String[]
+  previousValues?: SpeakerPreviousValues
 }
 
 /*
@@ -5563,20 +5654,21 @@ export interface VideoUploadAdminMetadataConnection {
   aggregate: AggregateVideoUploadAdminMetadata
 }
 
-export interface SpeechAPIConversationBlockSubscriptionPayload {
-  mutation: MutationType
-  node?: SpeechAPIConversationBlock
-  updatedFields?: String[]
-  previousValues?: SpeechAPIConversationBlockPreviousValues
+export interface SpeakerPreviousValues {
+  name: String
+  avatarPath: String
+  title: String
 }
 
 export interface AggregateVideoUploadStorageLink {
   count: Int
 }
 
-export interface SpeechAPIConversationBlockPreviousValues {
+export interface SpeechAPIConversationBlock extends Node {
   id: ID_Output
   speakerTag: Int
+  words?: SpeechAPIWord[]
+  conversation: SpeechAPIConversation
 }
 
 /*
@@ -5588,11 +5680,11 @@ export interface VideoUploadEdge {
   cursor: String
 }
 
-export interface SpeechAPIConversationBlock extends Node {
-  id: ID_Output
-  speakerTag: Int
-  words?: SpeechAPIWord[]
-  conversation: SpeechAPIConversation
+export interface SpeechAPIConversationBlockSubscriptionPayload {
+  mutation: MutationType
+  node?: SpeechAPIConversationBlock
+  updatedFields?: String[]
+  previousValues?: SpeechAPIConversationBlockPreviousValues
 }
 
 /*
@@ -5605,11 +5697,9 @@ export interface UserConnection {
   aggregate: AggregateUser
 }
 
-export interface SpeechAPIConversationSubscriptionPayload {
-  mutation: MutationType
-  node?: SpeechAPIConversation
-  updatedFields?: String[]
-  previousValues?: SpeechAPIConversationPreviousValues
+export interface SpeechAPIConversationBlockPreviousValues {
+  id: ID_Output
+  speakerTag: Int
 }
 
 /*
@@ -5621,14 +5711,24 @@ export interface SpeechAPIConversationBlockEdge {
   cursor: String
 }
 
+export interface SpeechAPIConversation extends Node {
+  id: ID_Output
+  videoUpload: VideoUploadMetadata
+  conversation?: SpeechAPIConversationBlock[]
+}
+
 export interface AggregateVideoUploadAdminMetadata {
   count: Int
 }
 
-export interface DatePreviousValues {
-  month: Int
-  day: Int
-  year: Int
+/*
+ * A connection to a list of items.
+
+ */
+export interface VideoUploadStorageLinkConnection {
+  pageInfo: PageInfo
+  edges: VideoUploadStorageLinkEdge[]
+  aggregate: AggregateVideoUploadStorageLink
 }
 
 export interface DateSubscriptionPayload {
@@ -5638,14 +5738,31 @@ export interface DateSubscriptionPayload {
   previousValues?: DatePreviousValues
 }
 
-export interface SpeechAPIConversation extends Node {
-  id: ID_Output
-  videoUpload: VideoUploadMetadata
-  conversation?: SpeechAPIConversationBlock[]
+export interface Date {
+  month: Int
+  day: Int
+  year: Int
 }
 
 export interface SpeechAPIConversationPreviousValues {
   id: ID_Output
+}
+
+export interface SpeechAPIConversationSubscriptionPayload {
+  mutation: MutationType
+  node?: SpeechAPIConversation
+  updatedFields?: String[]
+  previousValues?: SpeechAPIConversationPreviousValues
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface VideoUploadConnection {
+  pageInfo: PageInfo
+  edges: VideoUploadEdge[]
+  aggregate: AggregateVideoUpload
 }
 
 /*
@@ -5672,25 +5789,6 @@ export interface AggregateSpeechAPIConversation {
 }
 
 /*
- * An edge in a connection.
-
- */
-export interface SpeechAPIWordEdge {
-  node: SpeechAPIWord
-  cursor: String
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface VideoUploadStorageLinkConnection {
-  pageInfo: PageInfo
-  edges: VideoUploadStorageLinkEdge[]
-  aggregate: AggregateVideoUploadStorageLink
-}
-
-/*
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
 */
@@ -5712,9 +5810,14 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 */
 export type String = string
 
-export type DateTime = Date | string
-
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number
+
+export type DateTime = Date | string
+
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
+*/
+export type Float = number

@@ -3,6 +3,7 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 import sleep from 'await-sleep';
 import fluentFfmpeg, { FfmpegCommand } from 'fluent-ffmpeg';
 import fs from 'fs';
+import FormatTimestamp from 'hh-mm-ss';
 import * as math from 'mathjs';
 import moment, { Moment } from 'moment';
 import { exec, ls } from 'shelljs';
@@ -20,6 +21,8 @@ interface IFfmpegStage {
   start: Moment;
   path: string;
   inputFormat: string;
+  renderStart: string;
+  renderEnd: string;
 }
 
 export interface IVideoRenderSuccessMessage extends IPubSubConsumerSuccessMessage {
@@ -209,7 +212,10 @@ export default class VideoRenderHandler extends PubSubHandler {
     const path = `${remoteDirectory}${strippedFilename}${extension}`;
     const renderOutput = createFileInProcessing(remoteDirectory, strippedFilename + extension);
     const ffmpeg = this.getFfmpeg();
-    return { path, ffmpeg, masterLocalPath, renderOutput, inputFormat, start: moment() };
+    const renderStart = FormatTimestamp.fromS(master.videoUpload.metadata.renderStart, 'hh:mm:ss');
+    const end = master.videoUpload.metadata.renderEnd;
+    const renderEnd = FormatTimestamp.fromS(end > 0 ? end : 7200, 'hh:mm:ss');
+    return { path, ffmpeg, masterLocalPath, renderOutput, inputFormat, renderStart, renderEnd, start: moment() };
   }
   private getFfmpeg(): FfmpegCommand {
     const ffmpeg = fluentFfmpeg({ logger });
@@ -217,7 +223,7 @@ export default class VideoRenderHandler extends PubSubHandler {
   }
   private async encodeMP4(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput[]> {
     const stage = await this.stageRender(master, '-web.mp4');
-    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat } = stage;
+    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat, renderEnd, renderStart } = stage;
     await new Promise<File>((resolve, reject) => {
       ffmpeg
         .input(masterLocalPath)
@@ -225,6 +231,8 @@ export default class VideoRenderHandler extends PubSubHandler {
         .format('mp4')
         .videoCodec('libx264')
         .audioCodec('aac')
+        .seekInput(renderStart)
+        .outputOptions(`-to ${renderEnd}`)
         .outputOptions('-vprofile high')
         .outputOptions('-crf 24')
         .outputOptions('-movflags faststart+frag_keyframe+empty_moov')
@@ -277,12 +285,14 @@ export default class VideoRenderHandler extends PubSubHandler {
   }
   private async encodeAACAudio(masterPath: string, master: VideoUploadStorageLink): Promise<[VideoUploadStorageLinkCreateInput, string]> {
     const stage = await this.stageRender(master, `-web-audio.mp4`, masterPath);
-    const { ffmpeg, renderOutput, path, inputFormat } = stage;
+    const { ffmpeg, renderOutput, path, inputFormat, renderStart, renderEnd } = stage;
     const aacOutputPath = `/tmp/ts-wtf/${directoryFromPath(master.path)}${filenameWithoutPathOrExtension(master.path)}-web-audio.mp4`;
 
     await new Promise<string>((resolve, reject) => {
       ffmpeg
       .input(masterPath)
+      .seekInput(renderStart)
+      .outputOptions(`-to ${renderEnd}`)
       .inputFormat(inputFormat)
       .outputFormat('mp4')
       .audioCodec('aac')
@@ -327,7 +337,7 @@ export default class VideoRenderHandler extends PubSubHandler {
   private async encodeMP4DashWithOptions(masterPath: string, master: VideoUploadStorageLink, format: IMP4DashOption)
   : Promise<[VideoUploadStorageLinkCreateInput, string]> {
     const stage = await this.stageRender(master, `-web-${format.height}.mp4`, masterPath);
-    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat } = stage;
+    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat, renderEnd, renderStart } = stage;
     const mp4DashOutputPath = `/tmp/ts-wtf/${directoryFromPath(master.path)}${filenameWithoutPathOrExtension(master.path)}-web-${format.height}.mp4`;
     await new Promise<string>((resolve, reject) => {
       ffmpeg
@@ -336,6 +346,8 @@ export default class VideoRenderHandler extends PubSubHandler {
         .noAudio()
         .format('mp4')
         .videoCodec('libx264')
+        .seekInput(renderStart)
+        .outputOptions(`-to ${renderEnd}`)
         .outputOptions(`-x264opts keyint=${format.fps.toFixed(0)}:min-keyint=${format.fps}:no-scenecut`)
         .videoBitrate(format.bitrate)
         .outputOptions(`-maxrate ${format.bitrate}`)
@@ -471,7 +483,7 @@ export default class VideoRenderHandler extends PubSubHandler {
   }
   private async encodeWebM(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput[]> {
     const stage = await this.stageRender(master, '-web.webm');
-    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat } = stage;
+    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat, renderEnd, renderStart } = stage;
     const writeStream = renderOutput.createWriteStream({ contentType: 'video/webm', resumable: false });
     await new Promise<File>((resolve, reject) => {
       ffmpeg
@@ -482,6 +494,8 @@ export default class VideoRenderHandler extends PubSubHandler {
         .audioCodec('libvorbis')
         .videoBitrate('1000')
         .videoFilter('scale=1280:-2')
+        .seekInput(renderStart)
+        .outputOptions(`-to ${renderEnd}`)
         .outputOptions('-qmin 0')
         .outputOptions('-qmax 25')
         .outputOptions('-map_metadata -1')
@@ -515,12 +529,14 @@ export default class VideoRenderHandler extends PubSubHandler {
   }
   private async encodeAudio(master: VideoUploadStorageLink): Promise<VideoUploadStorageLinkCreateInput[]> {
     const stage = await this.stageRender(master, '-web.flac');
-    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat } = stage;
+    const { ffmpeg, renderOutput, masterLocalPath, path, start, inputFormat, renderEnd, renderStart } = stage;
     const flacOutputPath = `/tmp/ts-wtf/${directoryFromPath(master.path)}${filenameWithoutPathOrExtension(master.path)}.flac`;
     await new Promise<string>((resolve, reject) => {
       ffmpeg
         .input(masterLocalPath)
         .inputFormat(inputFormat)
+        .seekInput(renderStart)
+        .outputOptions(`-to ${renderEnd}`)
         .noVideo()
         .format('flac')
         .audioChannels(1)
