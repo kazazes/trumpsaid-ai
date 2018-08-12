@@ -1,9 +1,7 @@
 import { findIndex, slice, take } from 'lodash';
 import moment from 'moment';
 import * as mm from 'music-metadata/lib';
-import { SpeechAPIConversation, SpeechAPIConversationBlockCreateInput,
-  SpeechAPIConversationCreateInput, SpeechAPIWordCreateInput, VideoUpload, VideoUploadStorageLink,
-} from '../../graphql/generated/prisma';
+import { ConversationBlockCreateInput, VideoConversationCreateInput, VideoUpload, VideoUploadStorageLink } from '../../graphql/generated/prisma';
 import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
 import secrets from '../../util/secrets';
@@ -23,7 +21,6 @@ export class VideoTranscriber {
   flacLink: VideoUploadStorageLink;
   video: VideoUpload;
   videoID: string;
-  speechAPIConversation: SpeechAPIConversation;
   constructor(video: VideoUpload) {
     this.videoID = video.id;
   }
@@ -31,7 +28,7 @@ export class VideoTranscriber {
   public async recognize() {
     this.video = await prisma.query.videoUpload(
       { where: { id: this.videoID } },
-      ' { id storageLinks { id version fileType bucket path } metadata { id speakers generatedConversation { id } } } ');
+      ' { id storageLinks { id version fileType bucket path } metadata { id speakers conversations { id } } } ');
     this.flacLink = this.video.storageLinks.find(link => link.version === 'WEB' && link.fileType === 'AUDIO');
     if (!this.flacLink) {
       const err = `Transcriber was passed an upload without a FLAC link.`;
@@ -51,8 +48,7 @@ export class VideoTranscriber {
 
     audioReadStream.destroy();
 
-    // tslint:disable-next-line:no-magic-numbers
-    logger.debug(`Audio of video ${this.video.id} metadata:\n ${JSON.stringify(metadata, null, 2)}`);
+    logger.silly(`Audio of video ${this.video.id} metadata:\n ${JSON.stringify(metadata, null, 2)}`);
     logger.info(`Dispatching transcription job for ${this.video.id}.`);
 
     const speechApiConfig = {
@@ -81,7 +77,7 @@ export class VideoTranscriber {
     const fullData = await clientData[0].promise();
 
     const response = fullData[0] as ILongRunningRecognizeResponse;
-    const lastResult = response.results[response.results.length - 1];
+    const lastResult = response.results[response.results.length - 1]; // Last result is the most complete
     const lastWords = lastResult.alternatives[0].words;
     const conversation = this.wordsToConversation(lastWords);
     await this.storeConversation(conversation);
@@ -89,39 +85,28 @@ export class VideoTranscriber {
     logger.info(`Set GC Speech API conversation on video ${this.video.id}`);
   }
 
-  private async storeConversation(conversation: IWord[][]) {
-    const video = this.video;
-    if (video.metadata.generatedConversation) {
-      await prisma.mutation.deleteSpeechAPIConversation({ where: { id: video.metadata.generatedConversation.id } });
-    }
+  private async storeConversation(apiConversation: IWord[][]) {
+    const mappedBlocks: ConversationBlockCreateInput[] = [];
 
-    const speechConversationCreateInput: SpeechAPIConversationCreateInput = {
-      videoUploadMetadata: { connect: { id: video.metadata.id } },
+    apiConversation.map((rawBlock) => {
+      const content = rawBlock.map(word => word.word).join(' ');
+
+      const blockCreateInput: ConversationBlockCreateInput = {
+        content,
+        start: rawBlock[0].startTime.seconds.toNumber(),
+        end: rawBlock[rawBlock.length - 1].endTime.seconds.toNumber(),
+        speaker: undefined,
+      };
+
+      mappedBlocks.push(blockCreateInput);
+    });
+
+    const mappedConversation: VideoConversationCreateInput = {
+      blocks: { create: mappedBlocks },
     };
 
-    this.speechAPIConversation = await prisma.mutation
-      .createSpeechAPIConversation({ data: speechConversationCreateInput });
-
-    const conversationMappedToGraph: Promise<any>[] =
-      conversation.map((rawBlock) => {
-        const wordCreateInput: SpeechAPIWordCreateInput[] = rawBlock.map((word) => {
-          return {
-            startTime: word.startTime.nanos,
-            endTime: word.endTime.nanos,
-            word: word.word,
-            speakerTag: word.speakerTag,
-          };
-        });
-        const convoBlockCreateInput: SpeechAPIConversationBlockCreateInput = {
-          speakerTag: rawBlock[0].speakerTag,
-          words: { create: wordCreateInput },
-          conversation: { connect: { id: this.speechAPIConversation.id } },
-        };
-
-        return prisma.mutation.createSpeechAPIConversationBlock({ data: convoBlockCreateInput });
-      });
-
-    return Promise.all(conversationMappedToGraph);
+    return prisma.mutation.updateVideoUploadMetadata(
+      { where: { id: this.video.metadata.id  }, data: { conversations: { create: mappedConversation } } });
   }
 
   private wordsToConversation(words: IWord[]) {
@@ -146,33 +131,33 @@ export class VideoTranscriber {
   }
 }
 
-export interface IStartTime {
-  nanos: number;
-  seconds: string;
+interface IStartTime {
+  nanos: Long;
+  seconds: Long;
 }
 
-export interface IEndTime {
-  nanos: number;
-  seconds: string;
+interface IEndTime {
+  nanos: Long;
+  seconds: Long;
 }
 
-export interface IWord {
+interface IWord {
   startTime: IStartTime;
   endTime: IEndTime;
   word: string;
   speakerTag: number;
 }
 
-export interface IAlternative {
+interface IAlternative {
   transcript: string;
   confidence: number;
   words: IWord[];
 }
 
-export interface IResult {
+interface IResult {
   alternatives: IAlternative[];
 }
 
-export interface ILongRunningRecognizeResponse {
+interface ILongRunningRecognizeResponse {
   results: IResult[];
 }
