@@ -55,8 +55,21 @@ type VideoUploadMetadata {
   speakers: Int! @default(value: "2")
   renderStart: Float! @default(value: "0")
   renderEnd: Float! @default(value: "0")
-  generatedConversation: SpeechAPIConversation
-    @relation(name: "SpeechAPIConversationVideoRelation", onDelete: CASCADE)
+  conversations: [VideoConversation!]!
+}
+
+type VideoConversation {
+  id: ID! @unique
+  createdAt: DateTime!
+  createdBy: User
+  blocks: [ConversationBlock!]!
+}
+
+type ConversationBlock {
+  speaker: Speaker
+  start: Float!
+  end: Float!
+  content: String!
 }
 
 type VideoUploadAdminMetadata {
@@ -87,36 +100,4 @@ type Date {
   month: Int!
   day: Int!
   year: Int!
-}
-
-## Google Cloud Speech API Types
-type SpeechAPIWord {
-  id: ID! @unique
-  startTime: Int!
-  endTime: Int!
-  word: String!
-  speakerTag: Int!
-}
-
-type SpeechAPIConversationBlock {
-  id: ID! @unique
-  speakerTag: Int!
-  words: [SpeechAPIWord!]!
-    @relation(
-      name: "SpeechAPIWordToConversationBlockRelation"
-      onDelete: CASCADE
-    )
-  conversation: SpeechAPIConversation!
-    @relation(name: "SpeechAPIConversationBlockToConversationRelation")
-}
-
-type SpeechAPIConversation {
-  id: ID! @unique
-  videoUploadMetadata: VideoUploadMetadata!
-    @relation(name: "SpeechAPIConversationVideoRelation")
-  conversation: [SpeechAPIConversationBlock!]!
-    @relation(
-      name: "SpeechAPIConversationBlockToConversationRelation"
-      onDelete: CASCADE
-    )
 }

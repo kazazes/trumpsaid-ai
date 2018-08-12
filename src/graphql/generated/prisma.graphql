@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Sat Aug 11 2018 22:07:31 GMT-0700 (PDT)
+# timestamp: Sun Aug 12 2018 00:50:47 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -10,6 +10,10 @@ enum AdminRole {
   DELETE_UPLOADS
 }
 
+type AggregateConversationBlock {
+  count: Int!
+}
+
 type AggregateDate {
   count: Int!
 }
@@ -18,19 +22,11 @@ type AggregateSpeaker {
   count: Int!
 }
 
-type AggregateSpeechAPIConversation {
-  count: Int!
-}
-
-type AggregateSpeechAPIConversationBlock {
-  count: Int!
-}
-
-type AggregateSpeechAPIWord {
-  count: Int!
-}
-
 type AggregateUser {
+  count: Int!
+}
+
+type AggregateVideoConversation {
   count: Int!
 }
 
@@ -57,6 +53,213 @@ type AggregateVideoUploadStorageLink {
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
+}
+
+type ConversationBlock {
+  speaker(where: SpeakerWhereInput): Speaker
+  start: Float!
+  end: Float!
+  content: String!
+}
+
+"""A connection to a list of items."""
+type ConversationBlockConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ConversationBlockEdge]!
+  aggregate: AggregateConversationBlock!
+}
+
+input ConversationBlockCreateInput {
+  start: Float!
+  end: Float!
+  content: String!
+  speaker: SpeakerCreateOneInput
+}
+
+input ConversationBlockCreateManyInput {
+  create: [ConversationBlockCreateInput!]
+}
+
+"""An edge in a connection."""
+type ConversationBlockEdge {
+  """The item at the end of the edge."""
+  node: ConversationBlock!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ConversationBlockOrderByInput {
+  start_ASC
+  start_DESC
+  end_ASC
+  end_DESC
+  content_ASC
+  content_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ConversationBlockPreviousValues {
+  start: Float!
+  end: Float!
+  content: String!
+}
+
+type ConversationBlockSubscriptionPayload {
+  mutation: MutationType!
+  node: ConversationBlock
+  updatedFields: [String!]
+  previousValues: ConversationBlockPreviousValues
+}
+
+input ConversationBlockSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ConversationBlockSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ConversationBlockSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ConversationBlockSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ConversationBlockWhereInput
+}
+
+input ConversationBlockUpdateInput {
+  start: Float
+  end: Float
+  content: String
+  speaker: SpeakerUpdateOneInput
+}
+
+input ConversationBlockUpdateManyInput {
+  create: [ConversationBlockCreateInput!]
+}
+
+input ConversationBlockWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ConversationBlockWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ConversationBlockWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ConversationBlockWhereInput!]
+  start: Float
+
+  """All values that are not equal to given value."""
+  start_not: Float
+
+  """All values that are contained in given list."""
+  start_in: [Float!]
+
+  """All values that are not contained in given list."""
+  start_not_in: [Float!]
+
+  """All values less than the given value."""
+  start_lt: Float
+
+  """All values less than or equal the given value."""
+  start_lte: Float
+
+  """All values greater than the given value."""
+  start_gt: Float
+
+  """All values greater than or equal the given value."""
+  start_gte: Float
+  end: Float
+
+  """All values that are not equal to given value."""
+  end_not: Float
+
+  """All values that are contained in given list."""
+  end_in: [Float!]
+
+  """All values that are not contained in given list."""
+  end_not_in: [Float!]
+
+  """All values less than the given value."""
+  end_lt: Float
+
+  """All values less than or equal the given value."""
+  end_lte: Float
+
+  """All values greater than the given value."""
+  end_gt: Float
+
+  """All values greater than or equal the given value."""
+  end_gte: Float
+  content: String
+
+  """All values that are not equal to given value."""
+  content_not: String
+
+  """All values that are contained in given list."""
+  content_in: [String!]
+
+  """All values that are not contained in given list."""
+  content_not_in: [String!]
+
+  """All values less than the given value."""
+  content_lt: String
+
+  """All values less than or equal the given value."""
+  content_lte: String
+
+  """All values greater than the given value."""
+  content_gt: String
+
+  """All values greater than or equal the given value."""
+  content_gte: String
+
+  """All values containing the given string."""
+  content_contains: String
+
+  """All values not containing the given string."""
+  content_not_contains: String
+
+  """All values starting with the given string."""
+  content_starts_with: String
+
+  """All values not starting with the given string."""
+  content_not_starts_with: String
+
+  """All values ending with the given string."""
+  content_ends_with: String
+
+  """All values not ending with the given string."""
+  content_not_ends_with: String
+  speaker: SpeakerWhereInput
+  _MagicalBackRelation_ConversationBlockToVideoConversation_every: VideoConversationWhereInput
+  _MagicalBackRelation_ConversationBlockToVideoConversation_some: VideoConversationWhereInput
+  _MagicalBackRelation_ConversationBlockToVideoConversation_none: VideoConversationWhereInput
 }
 
 type Date {
@@ -273,64 +476,55 @@ type Mutation {
   createVideoUploadMetadata(data: VideoUploadMetadataCreateInput!): VideoUploadMetadata!
   createVideoUploadAdminMetadata(data: VideoUploadAdminMetadataCreateInput!): VideoUploadAdminMetadata!
   createVideoUploadStatusLogItem(data: VideoUploadStatusLogItemCreateInput!): VideoUploadStatusLogItem!
-  createSpeaker(data: SpeakerCreateInput!): Speaker!
-  createSpeechAPIConversationBlock(data: SpeechAPIConversationBlockCreateInput!): SpeechAPIConversationBlock!
-  createSpeechAPIConversation(data: SpeechAPIConversationCreateInput!): SpeechAPIConversation!
   createDate(data: DateCreateInput!): Date!
+  createConversationBlock(data: ConversationBlockCreateInput!): ConversationBlock!
+  createSpeaker(data: SpeakerCreateInput!): Speaker!
+  createVideoConversation(data: VideoConversationCreateInput!): VideoConversation!
   createUser(data: UserCreateInput!): User!
-  createSpeechAPIWord(data: SpeechAPIWordCreateInput!): SpeechAPIWord!
   updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateVideoUploadStorageLink(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   updateVideoUploadMetadata(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   updateVideoUploadAdminMetadata(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   updateVideoUploadStatusLogItem(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
-  updateSpeechAPIConversationBlock(data: SpeechAPIConversationBlockUpdateInput!, where: SpeechAPIConversationBlockWhereUniqueInput!): SpeechAPIConversationBlock
-  updateSpeechAPIConversation(data: SpeechAPIConversationUpdateInput!, where: SpeechAPIConversationWhereUniqueInput!): SpeechAPIConversation
+  updateVideoConversation(data: VideoConversationUpdateInput!, where: VideoConversationWhereUniqueInput!): VideoConversation
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateSpeechAPIWord(data: SpeechAPIWordUpdateInput!, where: SpeechAPIWordWhereUniqueInput!): SpeechAPIWord
   deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   deleteVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   deleteVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   deleteVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
-  deleteSpeechAPIConversationBlock(where: SpeechAPIConversationBlockWhereUniqueInput!): SpeechAPIConversationBlock
-  deleteSpeechAPIConversation(where: SpeechAPIConversationWhereUniqueInput!): SpeechAPIConversation
+  deleteVideoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
   deleteUser(where: UserWhereUniqueInput!): User
-  deleteSpeechAPIWord(where: SpeechAPIWordWhereUniqueInput!): SpeechAPIWord
   upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!, create: VideoUploadStorageLinkCreateInput!, update: VideoUploadStorageLinkUpdateInput!): VideoUploadStorageLink!
   upsertVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!, create: VideoUploadMetadataCreateInput!, update: VideoUploadMetadataUpdateInput!): VideoUploadMetadata!
   upsertVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!, create: VideoUploadAdminMetadataCreateInput!, update: VideoUploadAdminMetadataUpdateInput!): VideoUploadAdminMetadata!
   upsertVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!, create: VideoUploadStatusLogItemCreateInput!, update: VideoUploadStatusLogItemUpdateInput!): VideoUploadStatusLogItem!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
-  upsertSpeechAPIConversationBlock(where: SpeechAPIConversationBlockWhereUniqueInput!, create: SpeechAPIConversationBlockCreateInput!, update: SpeechAPIConversationBlockUpdateInput!): SpeechAPIConversationBlock!
-  upsertSpeechAPIConversation(where: SpeechAPIConversationWhereUniqueInput!, create: SpeechAPIConversationCreateInput!, update: SpeechAPIConversationUpdateInput!): SpeechAPIConversation!
+  upsertVideoConversation(where: VideoConversationWhereUniqueInput!, create: VideoConversationCreateInput!, update: VideoConversationUpdateInput!): VideoConversation!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertSpeechAPIWord(where: SpeechAPIWordWhereUniqueInput!, create: SpeechAPIWordCreateInput!, update: SpeechAPIWordUpdateInput!): SpeechAPIWord!
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
   updateManyVideoUploadStorageLinks(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereInput): BatchPayload!
   updateManyVideoUploadMetadatas(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereInput): BatchPayload!
   updateManyVideoUploadAdminMetadatas(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   updateManyVideoUploadStatusLogItems(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereInput): BatchPayload!
-  updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
-  updateManySpeechAPIConversationBlocks(data: SpeechAPIConversationBlockUpdateInput!, where: SpeechAPIConversationBlockWhereInput): BatchPayload!
-  updateManySpeechAPIConversations(data: SpeechAPIConversationUpdateInput!, where: SpeechAPIConversationWhereInput): BatchPayload!
   updateManyDates(data: DateUpdateInput!, where: DateWhereInput): BatchPayload!
+  updateManyConversationBlocks(data: ConversationBlockUpdateInput!, where: ConversationBlockWhereInput): BatchPayload!
+  updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
+  updateManyVideoConversations(data: VideoConversationUpdateInput!, where: VideoConversationWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  updateManySpeechAPIWords(data: SpeechAPIWordUpdateInput!, where: SpeechAPIWordWhereInput): BatchPayload!
   deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
   deleteManyVideoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput): BatchPayload!
   deleteManyVideoUploadMetadatas(where: VideoUploadMetadataWhereInput): BatchPayload!
   deleteManyVideoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   deleteManyVideoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput): BatchPayload!
-  deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
-  deleteManySpeechAPIConversationBlocks(where: SpeechAPIConversationBlockWhereInput): BatchPayload!
-  deleteManySpeechAPIConversations(where: SpeechAPIConversationWhereInput): BatchPayload!
   deleteManyDates(where: DateWhereInput): BatchPayload!
+  deleteManyConversationBlocks(where: ConversationBlockWhereInput): BatchPayload!
+  deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
+  deleteManyVideoConversations(where: VideoConversationWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManySpeechAPIWords(where: SpeechAPIWordWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -366,33 +560,29 @@ type Query {
   videoUploadMetadatas(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadMetadata]!
   videoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadAdminMetadata]!
   videoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStatusLogItem]!
-  speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
-  speechAPIConversationBlocks(where: SpeechAPIConversationBlockWhereInput, orderBy: SpeechAPIConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIConversationBlock]!
-  speechAPIConversations(where: SpeechAPIConversationWhereInput, orderBy: SpeechAPIConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIConversation]!
   dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date]!
+  conversationBlocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock]!
+  speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
+  videoConversations(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoConversation]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  speechAPIWords(where: SpeechAPIWordWhereInput, orderBy: SpeechAPIWordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIWord]!
   videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   videoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   videoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
   speaker(where: SpeakerWhereUniqueInput!): Speaker
-  speechAPIConversationBlock(where: SpeechAPIConversationBlockWhereUniqueInput!): SpeechAPIConversationBlock
-  speechAPIConversation(where: SpeechAPIConversationWhereUniqueInput!): SpeechAPIConversation
+  videoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
   user(where: UserWhereUniqueInput!): User
-  speechAPIWord(where: SpeechAPIWordWhereUniqueInput!): SpeechAPIWord
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
   videoUploadStorageLinksConnection(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStorageLinkConnection!
   videoUploadMetadatasConnection(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadMetadataConnection!
   videoUploadAdminMetadatasConnection(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadAdminMetadataConnection!
   videoUploadStatusLogItemsConnection(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStatusLogItemConnection!
-  speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
-  speechAPIConversationBlocksConnection(where: SpeechAPIConversationBlockWhereInput, orderBy: SpeechAPIConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeechAPIConversationBlockConnection!
-  speechAPIConversationsConnection(where: SpeechAPIConversationWhereInput, orderBy: SpeechAPIConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeechAPIConversationConnection!
   datesConnection(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DateConnection!
+  conversationBlocksConnection(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConversationBlockConnection!
+  speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
+  videoConversationsConnection(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConversationConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  speechAPIWordsConnection(where: SpeechAPIWordWhereInput, orderBy: SpeechAPIWordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeechAPIWordConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -426,6 +616,11 @@ input SpeakerCreateInput {
   name: String!
   avatarPath: String!
   title: String!
+}
+
+input SpeakerCreateOneInput {
+  create: SpeakerCreateInput
+  connect: SpeakerWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -497,10 +692,30 @@ input SpeakerSubscriptionWhereInput {
   node: SpeakerWhereInput
 }
 
+input SpeakerUpdateDataInput {
+  name: String
+  avatarPath: String
+  title: String
+}
+
 input SpeakerUpdateInput {
   name: String
   avatarPath: String
   title: String
+}
+
+input SpeakerUpdateOneInput {
+  create: SpeakerCreateInput
+  connect: SpeakerWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: SpeakerUpdateDataInput
+  upsert: SpeakerUpsertNestedInput
+}
+
+input SpeakerUpsertNestedInput {
+  update: SpeakerUpdateDataInput!
+  create: SpeakerCreateInput!
 }
 
 input SpeakerWhereInput {
@@ -632,719 +847,13 @@ input SpeakerWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
+  _MagicalBackRelation_ConversationBlockToSpeaker_every: ConversationBlockWhereInput
+  _MagicalBackRelation_ConversationBlockToSpeaker_some: ConversationBlockWhereInput
+  _MagicalBackRelation_ConversationBlockToSpeaker_none: ConversationBlockWhereInput
 }
 
 input SpeakerWhereUniqueInput {
   name: String
-}
-
-type SpeechAPIConversation implements Node {
-  id: ID!
-  videoUploadMetadata(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
-  conversation(where: SpeechAPIConversationBlockWhereInput, orderBy: SpeechAPIConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIConversationBlock!]
-}
-
-type SpeechAPIConversationBlock implements Node {
-  id: ID!
-  speakerTag: Int!
-  words(where: SpeechAPIWordWhereInput, orderBy: SpeechAPIWordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SpeechAPIWord!]
-  conversation(where: SpeechAPIConversationWhereInput): SpeechAPIConversation!
-}
-
-"""A connection to a list of items."""
-type SpeechAPIConversationBlockConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [SpeechAPIConversationBlockEdge]!
-  aggregate: AggregateSpeechAPIConversationBlock!
-}
-
-input SpeechAPIConversationBlockCreateInput {
-  speakerTag: Int!
-  words: SpeechAPIWordCreateManyInput
-  conversation: SpeechAPIConversationCreateOneWithoutConversationInput!
-}
-
-input SpeechAPIConversationBlockCreateManyWithoutConversationInput {
-  create: [SpeechAPIConversationBlockCreateWithoutConversationInput!]
-  connect: [SpeechAPIConversationBlockWhereUniqueInput!]
-}
-
-input SpeechAPIConversationBlockCreateWithoutConversationInput {
-  speakerTag: Int!
-  words: SpeechAPIWordCreateManyInput
-}
-
-"""An edge in a connection."""
-type SpeechAPIConversationBlockEdge {
-  """The item at the end of the edge."""
-  node: SpeechAPIConversationBlock!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum SpeechAPIConversationBlockOrderByInput {
-  id_ASC
-  id_DESC
-  speakerTag_ASC
-  speakerTag_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type SpeechAPIConversationBlockPreviousValues {
-  id: ID!
-  speakerTag: Int!
-}
-
-type SpeechAPIConversationBlockSubscriptionPayload {
-  mutation: MutationType!
-  node: SpeechAPIConversationBlock
-  updatedFields: [String!]
-  previousValues: SpeechAPIConversationBlockPreviousValues
-}
-
-input SpeechAPIConversationBlockSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [SpeechAPIConversationBlockSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [SpeechAPIConversationBlockSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [SpeechAPIConversationBlockSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: SpeechAPIConversationBlockWhereInput
-}
-
-input SpeechAPIConversationBlockUpdateInput {
-  speakerTag: Int
-  words: SpeechAPIWordUpdateManyInput
-  conversation: SpeechAPIConversationUpdateOneWithoutConversationInput
-}
-
-input SpeechAPIConversationBlockUpdateManyWithoutConversationInput {
-  create: [SpeechAPIConversationBlockCreateWithoutConversationInput!]
-  connect: [SpeechAPIConversationBlockWhereUniqueInput!]
-  disconnect: [SpeechAPIConversationBlockWhereUniqueInput!]
-  delete: [SpeechAPIConversationBlockWhereUniqueInput!]
-  update: [SpeechAPIConversationBlockUpdateWithWhereUniqueWithoutConversationInput!]
-  upsert: [SpeechAPIConversationBlockUpsertWithWhereUniqueWithoutConversationInput!]
-}
-
-input SpeechAPIConversationBlockUpdateWithoutConversationDataInput {
-  speakerTag: Int
-  words: SpeechAPIWordUpdateManyInput
-}
-
-input SpeechAPIConversationBlockUpdateWithWhereUniqueWithoutConversationInput {
-  where: SpeechAPIConversationBlockWhereUniqueInput!
-  data: SpeechAPIConversationBlockUpdateWithoutConversationDataInput!
-}
-
-input SpeechAPIConversationBlockUpsertWithWhereUniqueWithoutConversationInput {
-  where: SpeechAPIConversationBlockWhereUniqueInput!
-  update: SpeechAPIConversationBlockUpdateWithoutConversationDataInput!
-  create: SpeechAPIConversationBlockCreateWithoutConversationInput!
-}
-
-input SpeechAPIConversationBlockWhereInput {
-  """Logical AND on all given filters."""
-  AND: [SpeechAPIConversationBlockWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [SpeechAPIConversationBlockWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [SpeechAPIConversationBlockWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  speakerTag: Int
-
-  """All values that are not equal to given value."""
-  speakerTag_not: Int
-
-  """All values that are contained in given list."""
-  speakerTag_in: [Int!]
-
-  """All values that are not contained in given list."""
-  speakerTag_not_in: [Int!]
-
-  """All values less than the given value."""
-  speakerTag_lt: Int
-
-  """All values less than or equal the given value."""
-  speakerTag_lte: Int
-
-  """All values greater than the given value."""
-  speakerTag_gt: Int
-
-  """All values greater than or equal the given value."""
-  speakerTag_gte: Int
-  words_every: SpeechAPIWordWhereInput
-  words_some: SpeechAPIWordWhereInput
-  words_none: SpeechAPIWordWhereInput
-  conversation: SpeechAPIConversationWhereInput
-}
-
-input SpeechAPIConversationBlockWhereUniqueInput {
-  id: ID
-}
-
-"""A connection to a list of items."""
-type SpeechAPIConversationConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [SpeechAPIConversationEdge]!
-  aggregate: AggregateSpeechAPIConversation!
-}
-
-input SpeechAPIConversationCreateInput {
-  videoUploadMetadata: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
-  conversation: SpeechAPIConversationBlockCreateManyWithoutConversationInput
-}
-
-input SpeechAPIConversationCreateOneWithoutConversationInput {
-  create: SpeechAPIConversationCreateWithoutConversationInput
-  connect: SpeechAPIConversationWhereUniqueInput
-}
-
-input SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput {
-  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
-  connect: SpeechAPIConversationWhereUniqueInput
-}
-
-input SpeechAPIConversationCreateWithoutConversationInput {
-  videoUploadMetadata: VideoUploadMetadataCreateOneWithoutGeneratedConversationInput!
-}
-
-input SpeechAPIConversationCreateWithoutVideoUploadMetadataInput {
-  conversation: SpeechAPIConversationBlockCreateManyWithoutConversationInput
-}
-
-"""An edge in a connection."""
-type SpeechAPIConversationEdge {
-  """The item at the end of the edge."""
-  node: SpeechAPIConversation!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum SpeechAPIConversationOrderByInput {
-  id_ASC
-  id_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type SpeechAPIConversationPreviousValues {
-  id: ID!
-}
-
-type SpeechAPIConversationSubscriptionPayload {
-  mutation: MutationType!
-  node: SpeechAPIConversation
-  updatedFields: [String!]
-  previousValues: SpeechAPIConversationPreviousValues
-}
-
-input SpeechAPIConversationSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [SpeechAPIConversationSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [SpeechAPIConversationSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [SpeechAPIConversationSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: SpeechAPIConversationWhereInput
-}
-
-input SpeechAPIConversationUpdateInput {
-  videoUploadMetadata: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
-  conversation: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
-}
-
-input SpeechAPIConversationUpdateOneWithoutConversationInput {
-  create: SpeechAPIConversationCreateWithoutConversationInput
-  connect: SpeechAPIConversationWhereUniqueInput
-  delete: Boolean
-  update: SpeechAPIConversationUpdateWithoutConversationDataInput
-  upsert: SpeechAPIConversationUpsertWithoutConversationInput
-}
-
-input SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput {
-  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput
-  connect: SpeechAPIConversationWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput
-  upsert: SpeechAPIConversationUpsertWithoutVideoUploadMetadataInput
-}
-
-input SpeechAPIConversationUpdateWithoutConversationDataInput {
-  videoUploadMetadata: VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput
-}
-
-input SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput {
-  conversation: SpeechAPIConversationBlockUpdateManyWithoutConversationInput
-}
-
-input SpeechAPIConversationUpsertWithoutConversationInput {
-  update: SpeechAPIConversationUpdateWithoutConversationDataInput!
-  create: SpeechAPIConversationCreateWithoutConversationInput!
-}
-
-input SpeechAPIConversationUpsertWithoutVideoUploadMetadataInput {
-  update: SpeechAPIConversationUpdateWithoutVideoUploadMetadataDataInput!
-  create: SpeechAPIConversationCreateWithoutVideoUploadMetadataInput!
-}
-
-input SpeechAPIConversationWhereInput {
-  """Logical AND on all given filters."""
-  AND: [SpeechAPIConversationWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [SpeechAPIConversationWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [SpeechAPIConversationWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  videoUploadMetadata: VideoUploadMetadataWhereInput
-  conversation_every: SpeechAPIConversationBlockWhereInput
-  conversation_some: SpeechAPIConversationBlockWhereInput
-  conversation_none: SpeechAPIConversationBlockWhereInput
-}
-
-input SpeechAPIConversationWhereUniqueInput {
-  id: ID
-}
-
-type SpeechAPIWord implements Node {
-  id: ID!
-  startTime: Int!
-  endTime: Int!
-  word: String!
-  speakerTag: Int!
-}
-
-"""A connection to a list of items."""
-type SpeechAPIWordConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [SpeechAPIWordEdge]!
-  aggregate: AggregateSpeechAPIWord!
-}
-
-input SpeechAPIWordCreateInput {
-  startTime: Int!
-  endTime: Int!
-  word: String!
-  speakerTag: Int!
-}
-
-input SpeechAPIWordCreateManyInput {
-  create: [SpeechAPIWordCreateInput!]
-  connect: [SpeechAPIWordWhereUniqueInput!]
-}
-
-"""An edge in a connection."""
-type SpeechAPIWordEdge {
-  """The item at the end of the edge."""
-  node: SpeechAPIWord!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum SpeechAPIWordOrderByInput {
-  id_ASC
-  id_DESC
-  startTime_ASC
-  startTime_DESC
-  endTime_ASC
-  endTime_DESC
-  word_ASC
-  word_DESC
-  speakerTag_ASC
-  speakerTag_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type SpeechAPIWordPreviousValues {
-  id: ID!
-  startTime: Int!
-  endTime: Int!
-  word: String!
-  speakerTag: Int!
-}
-
-type SpeechAPIWordSubscriptionPayload {
-  mutation: MutationType!
-  node: SpeechAPIWord
-  updatedFields: [String!]
-  previousValues: SpeechAPIWordPreviousValues
-}
-
-input SpeechAPIWordSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [SpeechAPIWordSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [SpeechAPIWordSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [SpeechAPIWordSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: SpeechAPIWordWhereInput
-}
-
-input SpeechAPIWordUpdateDataInput {
-  startTime: Int
-  endTime: Int
-  word: String
-  speakerTag: Int
-}
-
-input SpeechAPIWordUpdateInput {
-  startTime: Int
-  endTime: Int
-  word: String
-  speakerTag: Int
-}
-
-input SpeechAPIWordUpdateManyInput {
-  create: [SpeechAPIWordCreateInput!]
-  connect: [SpeechAPIWordWhereUniqueInput!]
-  disconnect: [SpeechAPIWordWhereUniqueInput!]
-  delete: [SpeechAPIWordWhereUniqueInput!]
-  update: [SpeechAPIWordUpdateWithWhereUniqueNestedInput!]
-  upsert: [SpeechAPIWordUpsertWithWhereUniqueNestedInput!]
-}
-
-input SpeechAPIWordUpdateWithWhereUniqueNestedInput {
-  where: SpeechAPIWordWhereUniqueInput!
-  data: SpeechAPIWordUpdateDataInput!
-}
-
-input SpeechAPIWordUpsertWithWhereUniqueNestedInput {
-  where: SpeechAPIWordWhereUniqueInput!
-  update: SpeechAPIWordUpdateDataInput!
-  create: SpeechAPIWordCreateInput!
-}
-
-input SpeechAPIWordWhereInput {
-  """Logical AND on all given filters."""
-  AND: [SpeechAPIWordWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [SpeechAPIWordWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [SpeechAPIWordWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  startTime: Int
-
-  """All values that are not equal to given value."""
-  startTime_not: Int
-
-  """All values that are contained in given list."""
-  startTime_in: [Int!]
-
-  """All values that are not contained in given list."""
-  startTime_not_in: [Int!]
-
-  """All values less than the given value."""
-  startTime_lt: Int
-
-  """All values less than or equal the given value."""
-  startTime_lte: Int
-
-  """All values greater than the given value."""
-  startTime_gt: Int
-
-  """All values greater than or equal the given value."""
-  startTime_gte: Int
-  endTime: Int
-
-  """All values that are not equal to given value."""
-  endTime_not: Int
-
-  """All values that are contained in given list."""
-  endTime_in: [Int!]
-
-  """All values that are not contained in given list."""
-  endTime_not_in: [Int!]
-
-  """All values less than the given value."""
-  endTime_lt: Int
-
-  """All values less than or equal the given value."""
-  endTime_lte: Int
-
-  """All values greater than the given value."""
-  endTime_gt: Int
-
-  """All values greater than or equal the given value."""
-  endTime_gte: Int
-  word: String
-
-  """All values that are not equal to given value."""
-  word_not: String
-
-  """All values that are contained in given list."""
-  word_in: [String!]
-
-  """All values that are not contained in given list."""
-  word_not_in: [String!]
-
-  """All values less than the given value."""
-  word_lt: String
-
-  """All values less than or equal the given value."""
-  word_lte: String
-
-  """All values greater than the given value."""
-  word_gt: String
-
-  """All values greater than or equal the given value."""
-  word_gte: String
-
-  """All values containing the given string."""
-  word_contains: String
-
-  """All values not containing the given string."""
-  word_not_contains: String
-
-  """All values starting with the given string."""
-  word_starts_with: String
-
-  """All values not starting with the given string."""
-  word_not_starts_with: String
-
-  """All values ending with the given string."""
-  word_ends_with: String
-
-  """All values not ending with the given string."""
-  word_not_ends_with: String
-  speakerTag: Int
-
-  """All values that are not equal to given value."""
-  speakerTag_not: Int
-
-  """All values that are contained in given list."""
-  speakerTag_in: [Int!]
-
-  """All values that are not contained in given list."""
-  speakerTag_not_in: [Int!]
-
-  """All values less than the given value."""
-  speakerTag_lt: Int
-
-  """All values less than or equal the given value."""
-  speakerTag_lte: Int
-
-  """All values greater than the given value."""
-  speakerTag_gt: Int
-
-  """All values greater than or equal the given value."""
-  speakerTag_gte: Int
-  _MagicalBackRelation_SpeechAPIWordToConversationBlockRelation_every: SpeechAPIConversationBlockWhereInput
-  _MagicalBackRelation_SpeechAPIWordToConversationBlockRelation_some: SpeechAPIConversationBlockWhereInput
-  _MagicalBackRelation_SpeechAPIWordToConversationBlockRelation_none: SpeechAPIConversationBlockWhereInput
-}
-
-input SpeechAPIWordWhereUniqueInput {
-  id: ID
 }
 
 type Subscription {
@@ -1353,12 +862,11 @@ type Subscription {
   videoUploadMetadata(where: VideoUploadMetadataSubscriptionWhereInput): VideoUploadMetadataSubscriptionPayload
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataSubscriptionWhereInput): VideoUploadAdminMetadataSubscriptionPayload
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemSubscriptionWhereInput): VideoUploadStatusLogItemSubscriptionPayload
-  speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
-  speechAPIConversationBlock(where: SpeechAPIConversationBlockSubscriptionWhereInput): SpeechAPIConversationBlockSubscriptionPayload
-  speechAPIConversation(where: SpeechAPIConversationSubscriptionWhereInput): SpeechAPIConversationSubscriptionPayload
   date(where: DateSubscriptionWhereInput): DateSubscriptionPayload
+  conversationBlock(where: ConversationBlockSubscriptionWhereInput): ConversationBlockSubscriptionPayload
+  speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
+  videoConversation(where: VideoConversationSubscriptionWhereInput): VideoConversationSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  speechAPIWord(where: SpeechAPIWordSubscriptionWhereInput): SpeechAPIWordSubscriptionPayload
 }
 
 type User implements Node {
@@ -1831,11 +1339,217 @@ input UserWhereInput {
   _MagicalBackRelation_VideoPublisher_every: VideoUploadWhereInput
   _MagicalBackRelation_VideoPublisher_some: VideoUploadWhereInput
   _MagicalBackRelation_VideoPublisher_none: VideoUploadWhereInput
+  _MagicalBackRelation_UserToVideoConversation_every: VideoConversationWhereInput
+  _MagicalBackRelation_UserToVideoConversation_some: VideoConversationWhereInput
+  _MagicalBackRelation_UserToVideoConversation_none: VideoConversationWhereInput
 }
 
 input UserWhereUniqueInput {
   id: ID
   auth0Id: String
+}
+
+type VideoConversation implements Node {
+  id: ID!
+  createdAt: DateTime!
+  createdBy(where: UserWhereInput): User
+  blocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock!]
+}
+
+"""A connection to a list of items."""
+type VideoConversationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [VideoConversationEdge]!
+  aggregate: AggregateVideoConversation!
+}
+
+input VideoConversationCreateInput {
+  createdBy: UserCreateOneInput
+  blocks: ConversationBlockCreateManyInput
+}
+
+input VideoConversationCreateManyInput {
+  create: [VideoConversationCreateInput!]
+  connect: [VideoConversationWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type VideoConversationEdge {
+  """The item at the end of the edge."""
+  node: VideoConversation!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum VideoConversationOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type VideoConversationPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+}
+
+type VideoConversationSubscriptionPayload {
+  mutation: MutationType!
+  node: VideoConversation
+  updatedFields: [String!]
+  previousValues: VideoConversationPreviousValues
+}
+
+input VideoConversationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VideoConversationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VideoConversationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VideoConversationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: VideoConversationWhereInput
+}
+
+input VideoConversationUpdateDataInput {
+  createdBy: UserUpdateOneInput
+  blocks: ConversationBlockUpdateManyInput
+}
+
+input VideoConversationUpdateInput {
+  createdBy: UserUpdateOneInput
+  blocks: ConversationBlockUpdateManyInput
+}
+
+input VideoConversationUpdateManyInput {
+  create: [VideoConversationCreateInput!]
+  connect: [VideoConversationWhereUniqueInput!]
+  disconnect: [VideoConversationWhereUniqueInput!]
+  delete: [VideoConversationWhereUniqueInput!]
+  update: [VideoConversationUpdateWithWhereUniqueNestedInput!]
+  upsert: [VideoConversationUpsertWithWhereUniqueNestedInput!]
+}
+
+input VideoConversationUpdateWithWhereUniqueNestedInput {
+  where: VideoConversationWhereUniqueInput!
+  data: VideoConversationUpdateDataInput!
+}
+
+input VideoConversationUpsertWithWhereUniqueNestedInput {
+  where: VideoConversationWhereUniqueInput!
+  update: VideoConversationUpdateDataInput!
+  create: VideoConversationCreateInput!
+}
+
+input VideoConversationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VideoConversationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VideoConversationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VideoConversationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  createdBy: UserWhereInput
+  blocks_every: ConversationBlockWhereInput
+  blocks_some: ConversationBlockWhereInput
+  blocks_none: ConversationBlockWhereInput
+  _MagicalBackRelation_VideoConversationToVideoUploadMetadata_every: VideoUploadMetadataWhereInput
+  _MagicalBackRelation_VideoConversationToVideoUploadMetadata_some: VideoUploadMetadataWhereInput
+  _MagicalBackRelation_VideoConversationToVideoUploadMetadata_none: VideoUploadMetadataWhereInput
+}
+
+input VideoConversationWhereUniqueInput {
+  id: ID
 }
 
 type VideoUpload implements Node {
@@ -2161,7 +1875,7 @@ type VideoUploadMetadata implements Node {
   speakers: Int!
   renderStart: Float!
   renderEnd: Float!
-  generatedConversation(where: SpeechAPIConversationWhereInput): SpeechAPIConversation
+  conversations(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoConversation!]
 }
 
 """A connection to a list of items."""
@@ -2182,27 +1896,12 @@ input VideoUploadMetadataCreateInput {
   renderEnd: Float
   videoUpload: VideoUploadCreateOneWithoutMetadataInput!
   dateRecorded: DateCreateOneInput
-  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput
-}
-
-input VideoUploadMetadataCreateOneWithoutGeneratedConversationInput {
-  create: VideoUploadMetadataCreateWithoutGeneratedConversationInput
-  connect: VideoUploadMetadataWhereUniqueInput
+  conversations: VideoConversationCreateManyInput
 }
 
 input VideoUploadMetadataCreateOneWithoutVideoUploadInput {
   create: VideoUploadMetadataCreateWithoutVideoUploadInput
   connect: VideoUploadMetadataWhereUniqueInput
-}
-
-input VideoUploadMetadataCreateWithoutGeneratedConversationInput {
-  title: String
-  subtitle: String
-  speakers: Int
-  renderStart: Float
-  renderEnd: Float
-  videoUpload: VideoUploadCreateOneWithoutMetadataInput!
-  dateRecorded: DateCreateOneInput
 }
 
 input VideoUploadMetadataCreateWithoutVideoUploadInput {
@@ -2212,7 +1911,7 @@ input VideoUploadMetadataCreateWithoutVideoUploadInput {
   renderStart: Float
   renderEnd: Float
   dateRecorded: DateCreateOneInput
-  generatedConversation: SpeechAPIConversationCreateOneWithoutVideoUploadMetadataInput
+  conversations: VideoConversationCreateManyInput
 }
 
 """An edge in a connection."""
@@ -2299,15 +1998,7 @@ input VideoUploadMetadataUpdateInput {
   renderEnd: Float
   videoUpload: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded: DateUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput
-}
-
-input VideoUploadMetadataUpdateOneWithoutGeneratedConversationInput {
-  create: VideoUploadMetadataCreateWithoutGeneratedConversationInput
-  connect: VideoUploadMetadataWhereUniqueInput
-  delete: Boolean
-  update: VideoUploadMetadataUpdateWithoutGeneratedConversationDataInput
-  upsert: VideoUploadMetadataUpsertWithoutGeneratedConversationInput
+  conversations: VideoConversationUpdateManyInput
 }
 
 input VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
@@ -2318,16 +2009,6 @@ input VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
   upsert: VideoUploadMetadataUpsertWithoutVideoUploadInput
 }
 
-input VideoUploadMetadataUpdateWithoutGeneratedConversationDataInput {
-  title: String
-  subtitle: String
-  speakers: Int
-  renderStart: Float
-  renderEnd: Float
-  videoUpload: VideoUploadUpdateOneWithoutMetadataInput
-  dateRecorded: DateUpdateOneInput
-}
-
 input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   title: String
   subtitle: String
@@ -2335,12 +2016,7 @@ input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   renderStart: Float
   renderEnd: Float
   dateRecorded: DateUpdateOneInput
-  generatedConversation: SpeechAPIConversationUpdateOneWithoutVideoUploadMetadataInput
-}
-
-input VideoUploadMetadataUpsertWithoutGeneratedConversationInput {
-  update: VideoUploadMetadataUpdateWithoutGeneratedConversationDataInput!
-  create: VideoUploadMetadataCreateWithoutGeneratedConversationInput!
+  conversations: VideoConversationUpdateManyInput
 }
 
 input VideoUploadMetadataUpsertWithoutVideoUploadInput {
@@ -2545,7 +2221,9 @@ input VideoUploadMetadataWhereInput {
   renderEnd_gte: Float
   videoUpload: VideoUploadWhereInput
   dateRecorded: DateWhereInput
-  generatedConversation: SpeechAPIConversationWhereInput
+  conversations_every: VideoConversationWhereInput
+  conversations_some: VideoConversationWhereInput
+  conversations_none: VideoConversationWhereInput
 }
 
 input VideoUploadMetadataWhereUniqueInput {
