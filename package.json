@@ -14,7 +14,7 @@
     "watch-node": "nodemon --inspect dist/server.js --ignore dist/public",
     "watch": "concurrently -k -p \"{name}: \" -n \"📦,⌨️\" -c \"yellow.bold,cyan.bold\" \"webpack --progress --display-error-details --watch\" \"npm run watch-ts\"",
     "test": "jest --forceExit --coverage --verbose",
-    "build-ts": "npm run tslint; tsc",
+    "build-ts": "npm run tslint && tsc",
     "watch-ts": "tsc -w",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "post-deploy": "npm install && npm run build-prod && pm2 reload ecosystem.config.js --update-env --env production"
@@ -69,6 +69,7 @@
     "graphql-shield": "^2.2.6",
     "graphql-yoga": "1.14.12",
     "hasha": "^3.0.0",
+    "hh-mm-ss": "^1.2.0",
     "jsonwebtoken": "^8.3.0",
     "jwks-rsa": "^1.3.0",
     "lodash": "^4.17.10",

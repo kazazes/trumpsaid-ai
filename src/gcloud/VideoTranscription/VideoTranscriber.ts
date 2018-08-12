@@ -91,7 +91,7 @@ export class VideoTranscriber {
 
   private async storeConversation(conversation: IWord[][]) {
     const video = this.video;
-    if (video.metadata.generatedConversation.id) {
+    if (video.metadata.generatedConversation) {
       await prisma.mutation.deleteSpeechAPIConversation({ where: { id: video.metadata.generatedConversation.id } });
     }
 

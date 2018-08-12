@@ -6,6 +6,7 @@ import fs from 'fs';
 import FormatTimestamp from 'hh-mm-ss';
 import * as math from 'mathjs';
 import moment, { Moment } from 'moment';
+import { cpus } from 'os';
 import { exec, ls } from 'shelljs';
 import { VideoUpload, VideoUploadFileLinkType, VideoUploadStorageLink, VideoUploadStorageLinkCreateInput } from '../../graphql/generated/prisma';
 import logger from '../../util/logger';
@@ -378,10 +379,7 @@ export default class VideoRenderHandler extends PubSubHandler {
 
     const writeStream = renderOutput.createWriteStream({ contentType: 'video/mp4', resumable: false });
     const mp4FileLocal = fs.createReadStream(mp4DashOutputPath);
-    mp4FileLocal.pipe(writeStream, { end: true })
-    .on('end', () => {
-      debugger;
-    });
+    mp4FileLocal.pipe(writeStream, { end: true });
 
     const mp4CreateInput: VideoUploadStorageLinkCreateInput = {
       path,
@@ -428,11 +426,12 @@ export default class VideoRenderHandler extends PubSubHandler {
     dashLinkCreateInputs: VideoUploadStorageLinkCreateInput[], dashLocalPaths: string[], audioTrackPath: string):
     Promise<VideoUploadStorageLinkCreateInput[]> {
     const outputDir = directoryFromPath(dashLocalPaths[0]);
-    const localMPDOutput = `${outputDir}${filenameWithoutPathOrExtension(dashLocalPaths[0])}-web.mpd`;
+    const localMPDOutput = `'${outputDir}${filenameWithoutPathOrExtension(dashLocalPaths[0])}-web.mpd'`;
     await new Promise((resolve, reject) => {
       dashLocalPaths.push(audioTrackPath);
-      const fileArgs = dashLocalPaths.join(' ');
+      const fileArgs = dashLocalPaths.map(localPath => `'${localPath}'`).join(' ');
       const cmdLineOpts = ['-dash 1000', '-rap', '-frag-rap', '-profile onDemand', `-out ${localMPDOutput} ${fileArgs}`];
+      logger.debug(`Starting mp4box with command: mp4box ${cmdLineOpts.join(' ')}`);
       exec(`mp4box ${cmdLineOpts.join(' ')}`, { silent: false }, (code, stdout, stderr) => {
         if (code !== 0) {
           logger.error(code.toString());
@@ -492,6 +491,9 @@ export default class VideoRenderHandler extends PubSubHandler {
         .format('webm')
         .videoCodec('libvpx')
         .audioCodec('libvorbis')
+        .outputOption(`-threads ${cpus().length}`)
+        .outputOption('-quality good')
+        .outputOption('-speed 0')
         .videoBitrate('1000')
         .videoFilter('scale=1280:-2')
         .seekInput(renderStart)
