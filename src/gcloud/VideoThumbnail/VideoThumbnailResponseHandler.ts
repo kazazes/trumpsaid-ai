@@ -28,6 +28,8 @@ export default class VideoThumbnailResponseHandler extends PubSubResponseHandler
 
     message.ack();
 
+    await prisma.mutation.deleteManyVideoUploadStorageLinks({ where: { videoUpload: { id }, fileType: 'THUMBNAIL' } });
+
     await Promise.all(response.storageLinkCreateInputs.map(async (linkCreateInput) => {
       logger.debug(`Created ${linkCreateInput.version}/${linkCreateInput.fileType} storage link on ${id}`);
       await sleep(3000);
