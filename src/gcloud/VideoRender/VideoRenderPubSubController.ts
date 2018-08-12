@@ -1,4 +1,3 @@
-import logger from '../../util/logger';
 import PubSubController from '../PubSubController';
 import VideoRenderHandler from './VideoRenderHandler';
 import VideoRenderResponseHandler from './VideoRenderResponseHandler';
@@ -19,7 +18,5 @@ export default class VideoRenderPubSubController extends PubSubController {
 
     this.addConsumerListener();
     this.addResponseListener();
-
-    logger.debug('Render PubSub controller activated.');
   }
 }

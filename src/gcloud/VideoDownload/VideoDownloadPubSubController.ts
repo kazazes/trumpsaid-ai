@@ -1,4 +1,3 @@
-import logger from '../../util/logger';
 import PubSubController from '../PubSubController';
 import VideoDownloadHandler from './videoDownloadHandler';
 import VideoDownloadResponseHandler from './videoDownloadResponseHandler';
@@ -19,8 +18,6 @@ export class VideoDownloadPubSubController extends PubSubController {
 
     this.addConsumerListener();
     this.addResponseListener();
-
-    logger.debug('Started Video Download PubSub controller');
   }
 }
 

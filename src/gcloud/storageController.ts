@@ -1,4 +1,6 @@
 import Storage, { Bucket } from '@google-cloud/storage';
+import { existsSync } from 'fs';
+import hasha from 'hasha';
 import { mkdirSync } from 'mkdir-recursive';
 import moment from 'moment';
 import { VideoUploadStorageLink, VideoUploadStorageLinkCreateInput } from '../graphql/generated/prisma';
@@ -59,13 +61,23 @@ export const downloadSourceFile = async (sourceFile: Storage.File) => {
 
   // Create dir tmpRoot/ObjectID
   const destinationDir = `${tmpRoot}${sourceFile.name.replace(idRegex, '')}/`;
-
   const destination = `${tmpRoot}${sourceFile.name}`;
-
-  mkdirSync(destinationDir);
 
   logger.debug(`Downloading ${sourceFile.name} to ${tmpRoot}`);
   const start = moment();
+
+  if (existsSync(destination)) {
+    const remoteMetadata = await sourceFile.getMetadata();
+    const fileMetadata = remoteMetadata[0];
+    const remoteMD5 = fileMetadata.md5Hash;
+    const localMD5 = hasha.fromFileSync(destination, { algorithm: 'md5', encoding: 'base64' });
+    if (remoteMD5 === localMD5) {
+      logger.verbose(`Remote MD5 matches local file, skipping.`);
+      return destination;
+    }
+  }
+
+  mkdirSync(destinationDir);
 
   const error = await sourceFile.download({
     destination,
@@ -87,12 +99,17 @@ export const downloadStorageItem = async (storageItem: VideoUploadStorageLink | 
 
 export const downloadNewStorageItems = async (storageItems: VideoUploadStorageLinkCreateInput[]) => {
   return Promise.all(storageItems.map((item: VideoUploadStorageLinkCreateInput) => {
-    const file = storage.bucket(item.bucket).file(item.path);
-    return downloadSourceFile(file);
+    return downloadNewStorageItem(item);
   }))
   .catch((e) => {
     logger.error(`Could not download new source links locally`, e);
+    return Promise.reject();
   });
+};
+
+export const downloadNewStorageItem = async (storageItem: VideoUploadStorageLinkCreateInput) => {
+  const file = storage.bucket(storageItem.bucket).file(storageItem.path);
+  return downloadSourceFile(file);
 };
 
 export const getReadStream = (source: VideoUploadStorageLink) => {

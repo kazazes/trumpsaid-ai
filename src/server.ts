@@ -1,6 +1,7 @@
 import errorhandler from 'errorhandler';
 import app from './app';
 import logger from './util/logger';
+import secrets, { ServerType } from './util/secrets';
 import { testServerConnections } from './util/testServerConnections';
 
 let server;
@@ -9,10 +10,9 @@ export default server;
 const startServer = async () => {
   await testServerConnections();
 
-  /**
-   * Error Handler. Provides full stack - remove for production
-   */
-  app.use(errorhandler());
+  if (process.env.NODE_ENV !== 'production') {
+    app.use(errorhandler());
+  }
 
   /**
    * Start Express server.
@@ -23,5 +23,7 @@ const startServer = async () => {
   });
 };
 
+if (secrets.SERVER_TYPE !== ServerType.WORKER) {
 // tslint:disable-next-line:no-floating-promises
-startServer();
+  startServer();
+}

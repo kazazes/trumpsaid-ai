@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Wed Aug 08 2018 07:01:03 GMT-0700 (PDT)
+# timestamp: Thu Aug 09 2018 21:39:25 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -2122,6 +2122,8 @@ type VideoUploadEdge {
 enum VideoUploadFileLinkType {
   WEBM
   MP4
+  MP4_DASH
+  MP4_DASH_MANIFEST
   AUDIO
   THUMBNAIL
 }
@@ -2142,6 +2144,8 @@ enum VideoUploadLogItemEvent {
 }
 
 enum VideoUploadLogItemStatus {
+  DISPATCHED
+  UPDATE
   STARTED
   FINISHED
   FAILED
