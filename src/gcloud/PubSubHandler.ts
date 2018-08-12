@@ -14,6 +14,11 @@ export abstract class PubSubHandler {
   public abstract requestHandler(message: IPubSubConsumerPayload): Promise<void>;
   protected succeeded(response: IPubSubConsumerSuccessMessage, timer: NodeJS.Timer): void {
     clearTimeout(timer);
+    if (response) {
+      this.pubSubController.publishResponseMessage(response);
+    }
+  }
+  protected update(response: IPubSubConsumerUpdateMessage): void {
     this.pubSubController.publishResponseMessage(response);
   }
   protected failed(response: IPubSubConsumerFailedResponse, timer?: NodeJS.Timer): void {
@@ -30,6 +35,10 @@ export interface IPubSubConsumerFailedResponse {
 }
 
 export interface IPubSubConsumerSuccessMessage {
+
+}
+
+export interface IPubSubConsumerUpdateMessage {
 
 }
 

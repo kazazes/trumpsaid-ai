@@ -1,3 +1,4 @@
+import sleep from 'await-sleep';
 import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
 import writeToVideoUploadLog from '../../util/videoUploadLogger';
@@ -27,8 +28,9 @@ export default class VideoThumbnailResponseHandler extends PubSubResponseHandler
 
     message.ack();
 
-    await Promise.all(response.storageLinkCreateInputs.map((linkCreateInput) => {
+    await Promise.all(response.storageLinkCreateInputs.map(async (linkCreateInput) => {
       logger.debug(`Created ${linkCreateInput.version}/${linkCreateInput.fileType} storage link on ${id}`);
+      await sleep(3000);
       makeFilePublic(linkCreateInput.bucket, linkCreateInput.path);
       return prisma.mutation.createVideoUploadStorageLink({ data: linkCreateInput });
     }))

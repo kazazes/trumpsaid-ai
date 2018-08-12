@@ -5,6 +5,7 @@ import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '../..
 import logger from '../../../util/logger';
 import { IApolloContext } from '../../apollo';
 import { VideoUploadCreateInput } from '../../generated/prisma';
+import prisma from '../../prismaContext';
 
 export default {
   createVideoUpload: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
@@ -27,8 +28,8 @@ export default {
 
     return upload;
   },
-  renderAndTranscribe: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
-    const upload = await ctx.db.mutation.updateVideoUpload(
+  addInitialUploadMetadata: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
+    let upload = await ctx.db.mutation.updateVideoUpload(
       {
         data: { metadata: { update: {
           renderStart: args.renderStart,
@@ -36,9 +37,17 @@ export default {
           speakers: args.numberOfSpeakers } } },
         where: { id: args.id },
       },
-      ' { id metadata { renderStart renderEnd speakers } submitedUrl storageLinks { id path bucket version fileType } }');
+      ' { id metadata { renderStart renderEnd speakers } submitedUrl storageLinks { id path bucket version fileType videoUpload { id } } }');
+
+    const webStorageLinks = upload.storageLinks.filter(link => link.version === 'WEB').map(link => link.id);
+    await prisma.mutation.deleteManyVideoUploadStorageLinks({ where: { id_in: webStorageLinks } });
+    upload = await ctx.db.query.videoUpload(
+      { where: { id: args.id } },
+      ' { id metadata { renderStart renderEnd speakers } submitedUrl storageLinks { id path bucket version fileType videoUpload { id } } }');
+
     try {
       await publishRenderJob(upload);
+      await publishThumbnailJob(upload, args.thumbnailTimestamp);
       return upload;
     } catch (error) {
       logger.error(error);

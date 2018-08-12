@@ -115,6 +115,7 @@ export default class VideoRenderHandler extends PubSubHandler {
         try {
           const storageCreateInput = await this.transcode(format, storageLinks);
           storageCreateInput.forEach(createInput => renderResults.push(createInput));
+          this.update({ videoUpload, storageLinkCreateInputs: storageCreateInput });
         } catch (e) {
           logger.error('Rendering error occured! See above.');
           logger.error(JSON.stringify(e));
@@ -125,6 +126,7 @@ export default class VideoRenderHandler extends PubSubHandler {
         try {
           const storageCreateInput = await this.encode(format, storageLinks);
           storageCreateInput.forEach(createInput => renderResults.push(createInput));
+          this.update({ videoUpload, storageLinkCreateInputs: storageCreateInput });
         } catch (e) {
           logger.error('Rendering error occured! See above.');
           logger.error(JSON.stringify(e));
@@ -136,12 +138,7 @@ export default class VideoRenderHandler extends PubSubHandler {
         await downloadNewStorageItems(renderResults);
       }
 
-      const response: IVideoRenderSuccessMessage = {
-        videoUpload,
-        storageLinkCreateInputs: renderResults,
-      };
-
-      this.succeeded(response, timer);
+      this.succeeded(undefined, timer);
       resolve();
     });
   }
@@ -381,7 +378,10 @@ export default class VideoRenderHandler extends PubSubHandler {
 
     const writeStream = renderOutput.createWriteStream({ contentType: 'video/mp4', resumable: false });
     const mp4FileLocal = fs.createReadStream(mp4DashOutputPath);
-    mp4FileLocal.pipe(writeStream, { end: true });
+    mp4FileLocal.pipe(writeStream, { end: true })
+    .on('end', () => {
+      debugger;
+    });
 
     const mp4CreateInput: VideoUploadStorageLinkCreateInput = {
       path,

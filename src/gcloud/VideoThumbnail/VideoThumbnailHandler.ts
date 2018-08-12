@@ -10,7 +10,7 @@ import { createFileInProcessing, directoryFromPath, downloadStorageItem, filenam
 import VideoThumbnailPubSubController from './VideoThumbnailPubSubController';
 
 export interface IThumbnailRequest extends IPubSubConsumerPayload {
-  videoUpload: VideoUpload;
+  upload: VideoUpload;
   timestamp: number;
 }
 
@@ -40,16 +40,16 @@ export default class VideoThumbnailHandler extends PubSubHandler {
 
     message.ack();
 
-    const { videoUpload, timestamp } = this.pubSubController.parseMessageData(message) as IThumbnailRequest;
+    const { upload, timestamp } = this.pubSubController.parseMessageData(message) as IThumbnailRequest;
 
-    const masterLink = videoUpload.storageLinks.find(v => v.version === 'MASTER' && (v.fileType === 'MP4' || v.fileType === 'WEBM'));
+    const masterLink = upload.storageLinks.find(v => v.version === 'MASTER' && (v.fileType === 'MP4' || v.fileType === 'WEBM'));
 
     try {
       const masterThumbnailCreateInput = await this.generateThumbnail(masterLink, timestamp);
       await sleep(1500);
       const compressedThumbnailCreateInput = await this.compressThumbnail(masterThumbnailCreateInput);
       const response: IThumbnailResponseMessage = {
-        videoUpload,
+        videoUpload: upload,
         storageLinkCreateInputs: [masterThumbnailCreateInput, compressedThumbnailCreateInput],
       };
 
@@ -58,7 +58,7 @@ export default class VideoThumbnailHandler extends PubSubHandler {
       const resp: IThumbnailFailedMessage = {
         timestamp,
         error: e,
-        requestPayload: videoUpload,
+        requestPayload: upload,
       };
 
       this.failed(resp, timer);
