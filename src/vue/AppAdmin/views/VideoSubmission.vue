@@ -54,7 +54,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { VideoUpload, VideoUploadStorageLink } from '../../../graphql/generated/prisma';
+import { VideoUploadStorageLink } from '../../../graphql/generated/prisma';
 import { DELETE_VIDEO_UPLOAD, VIDEO_UPLOAD_DETAILS } from '../constants/graphql.ts';
 import VideoSubmissionInitialMetadata from './VideoSubmissionInitialMetadata.vue';
 

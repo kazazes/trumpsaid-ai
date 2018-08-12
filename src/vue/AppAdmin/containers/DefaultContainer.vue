@@ -99,7 +99,7 @@ export default {
     },
     list() {
       return this.$route.matched.filter(
-        route => route.name || route.meta.label,
+        (route: any) => { return route.name || route.meta.label; },
       );
     },
   },

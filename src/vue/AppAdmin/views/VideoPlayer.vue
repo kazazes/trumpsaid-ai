@@ -22,19 +22,14 @@
 </template>
 <script lang="ts">
 import { every } from 'lodash';
+import { default as videojs } from 'video.js';
 import Vue from 'vue';
 
-interface IWindowWithVideoJS extends Window {
-  videojs: any;
-}
+(window as any).videojs = videojs;
 
 interface IVideoSource {
   src: String;
   type: String;
-}
-
-if (!window.videojs) {
-  (window as IWindowWithVideoJS).videojs = require('video.js').default;
 }
 
 export default Vue.extend({

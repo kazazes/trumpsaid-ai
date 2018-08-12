@@ -118,7 +118,7 @@ export default Vue.extend({
       }/${encodeURI(storageLink.path)}`;
       return linkUrl;
     },
-    setToPlayerTime(prop) {
+    setToPlayerTime(prop: string) {
       const player = this.$refs.masterPlayer.player;
 
       if (!player.paused()) {
