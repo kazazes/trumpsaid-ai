@@ -10,7 +10,7 @@ services:
       - ./cloud-sql-credentials.json:/config
     restart: always
   prisma:
-    image: prismagraphql/prisma:1.11
+    image: prismagraphql/prisma:1.13
     container_name: prisma
     depends_on:
       - cloudsql-proxy
