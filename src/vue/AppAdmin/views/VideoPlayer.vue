@@ -43,6 +43,7 @@ export default Vue.extend({
   },
   mounted() {
     const player = videojs(this.$props.id);
+    // tslint:disable-next-line:no-this-assignment
     const that = this;
     player.on('loadedmetadata', () => {
       that.$emit('playerLoaded');

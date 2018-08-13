@@ -60,10 +60,10 @@ import {
   SidebarToggler,
 } from '@coreui/vue';
 import nav from '../_nav';
-import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt';
-import DefaultHeaderDropdownMssgs from './DefaultHeaderDropdownMssgs';
-import DefaultHeaderDropdownNotif from './DefaultHeaderDropdownNotif';
-import DefaultHeaderDropdownTasks from './DefaultHeaderDropdownTasks';
+import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt.vue';
+import DefaultHeaderDropdownMssgs from './DefaultHeaderDropdownMssgs.vue';
+import DefaultHeaderDropdownNotif from './DefaultHeaderDropdownNotif.vue';
+import DefaultHeaderDropdownTasks from './DefaultHeaderDropdownTasks.vue';
 
 export default {
   name: 'DefaultContainer',

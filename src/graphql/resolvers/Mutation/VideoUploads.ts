@@ -25,7 +25,7 @@ export default {
     };
 
     const upload = await ctx.db.mutation.createVideoUpload({ data }, ' { id submitedUrl }');
-    publishDownloadJob(upload);
+    await publishDownloadJob(upload);
 
     return upload;
   },
@@ -48,7 +48,7 @@ export default {
 
     try {
       await publishRenderJob(upload);
-      await publishThumbnailJob(upload, args.thumbnailTimestamp);
+      publishThumbnailJob(upload, args.thumbnailTimestamp);
       return upload;
     } catch (error) {
       logger.error(error);
@@ -60,7 +60,7 @@ export default {
   },
   downloadVideoUploadSources: async(obj: any, args: any, ctx: IApolloContext, info: any) => {
     const upload = await ctx.db.query.videoUpload({ where: { id: args.id } });
-    publishDownloadJob(upload);
+    await publishDownloadJob(upload);
     return upload;
   },
   transcribe: async (obj: any, args: any, ctx: IApolloContext, info: any) => {

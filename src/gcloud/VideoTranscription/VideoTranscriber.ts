@@ -80,7 +80,7 @@ export class VideoTranscriber {
     const lastResult = response.results[response.results.length - 1]; // Last result is the most complete
     if (!lastResult.alternatives[0]) {
       // no transcription returned
-      this.storeConversation([]);
+      await this.storeConversation([]);
       logger.warn(`No transcription received back for ${this.video.id}, setting an empty one.`);
     } else {
       const lastWords = lastResult.alternatives[0].words;
