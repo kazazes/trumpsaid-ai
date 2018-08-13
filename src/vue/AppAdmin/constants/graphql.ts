@@ -41,6 +41,9 @@ query videoUpload($videoSubmissionId: ID!) {
       renderEnd
       conversations {
         id
+        createdBy {
+          id
+        }
         blocks {
           speaker {
             name
@@ -76,6 +79,16 @@ mutation($id: ID!, $thumbnailTimestamp: Float!, $renderStart: Float!, $renderEnd
     id: $id, thumbnailTimestamp: $thumbnailTimestamp, renderEnd: $renderEnd,
     renderStart: $renderStart, numberOfSpeakers: $numberOfSpeakers) {
       id
+  }
+}
+`;
+
+export const LIST_SPEAKERS = gql`
+query {
+  allSpeakers {
+    name
+    avatarPath
+    title
   }
 }
 `;

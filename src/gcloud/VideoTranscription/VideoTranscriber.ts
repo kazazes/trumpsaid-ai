@@ -99,8 +99,8 @@ export class VideoTranscriber {
 
       const blockCreateInput: ConversationBlockCreateInput = {
         content,
-        start: rawBlock[0].startTime.seconds.toNumber(),
-        end: rawBlock[rawBlock.length - 1].endTime.seconds.toNumber(),
+        start: rawBlock[0].startTime.seconds.toNumber() + rawBlock[0].startTime.nanos / 1000000000,
+        end: rawBlock[rawBlock.length - 1].endTime.seconds.toNumber() + rawBlock[rawBlock.length - 1].endTime.nanos / 1000000000,
         speaker: undefined,
       };
 
@@ -138,12 +138,12 @@ export class VideoTranscriber {
 }
 
 interface IStartTime {
-  nanos: Long;
+  nanos: number;
   seconds: Long;
 }
 
 interface IEndTime {
-  nanos: Long;
+  nanos: number;
   seconds: Long;
 }
 

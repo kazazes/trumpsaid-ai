@@ -396,9 +396,6 @@ input ConversationBlockWhereInput {
   """All values not ending with the given string."""
   content_not_ends_with: String
   speaker: SpeakerWhereInput
-  _MagicalBackRelation_ConversationBlockRelation_every: VideoConversationWhereInput
-  _MagicalBackRelation_ConversationBlockRelation_some: VideoConversationWhereInput
-  _MagicalBackRelation_ConversationBlockRelation_none: VideoConversationWhereInput
 }
 
 type Date {
@@ -598,9 +595,6 @@ input DateWhereInput {
 
   """All values greater than or equal the given value."""
   year_gte: Int
-  _MagicalBackRelation_DateToVideoUploadMetadata_every: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_DateToVideoUploadMetadata_some: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_DateToVideoUploadMetadata_none: VideoUploadMetadataWhereInput
 }
 
 """
@@ -735,10 +729,11 @@ enum Role {
   ADMIN
 }
 
-type Speaker {
+type Speaker implements Node {
+  id: ID!
   name: String!
-  avatarPath: String!
-  title: String!
+  avatarPath: String
+  title: String
 }
 
 """A connection to a list of items."""
@@ -753,8 +748,8 @@ type SpeakerConnection {
 
 input SpeakerCreateInput {
   name: String!
-  avatarPath: String!
-  title: String!
+  avatarPath: String
+  title: String
 }
 
 input SpeakerCreateOneInput {
@@ -772,14 +767,14 @@ type SpeakerEdge {
 }
 
 enum SpeakerOrderByInput {
+  id_ASC
+  id_DESC
   name_ASC
   name_DESC
   avatarPath_ASC
   avatarPath_DESC
   title_ASC
   title_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -787,9 +782,10 @@ enum SpeakerOrderByInput {
 }
 
 type SpeakerPreviousValues {
+  id: ID!
   name: String!
-  avatarPath: String!
-  title: String!
+  avatarPath: String
+  title: String
 }
 
 type SpeakerSubscriptionPayload {
@@ -866,6 +862,46 @@ input SpeakerWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [SpeakerWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   name: String
 
   """All values that are not equal to given value."""
@@ -986,12 +1022,10 @@ input SpeakerWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
-  _MagicalBackRelation_ConversationBlockToSpeaker_every: ConversationBlockWhereInput
-  _MagicalBackRelation_ConversationBlockToSpeaker_some: ConversationBlockWhereInput
-  _MagicalBackRelation_ConversationBlockToSpeaker_none: ConversationBlockWhereInput
 }
 
 input SpeakerWhereUniqueInput {
+  id: ID
   name: String
 }
 
@@ -1472,15 +1506,6 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   familyName_not_ends_with: String
-  _MagicalBackRelation_VideoSubmitter_every: VideoUploadWhereInput
-  _MagicalBackRelation_VideoSubmitter_some: VideoUploadWhereInput
-  _MagicalBackRelation_VideoSubmitter_none: VideoUploadWhereInput
-  _MagicalBackRelation_VideoPublisher_every: VideoUploadWhereInput
-  _MagicalBackRelation_VideoPublisher_some: VideoUploadWhereInput
-  _MagicalBackRelation_VideoPublisher_none: VideoUploadWhereInput
-  _MagicalBackRelation_UserToVideoConversation_every: VideoConversationWhereInput
-  _MagicalBackRelation_UserToVideoConversation_some: VideoConversationWhereInput
-  _MagicalBackRelation_UserToVideoConversation_none: VideoConversationWhereInput
 }
 
 input UserWhereUniqueInput {
@@ -1492,6 +1517,7 @@ type VideoConversation implements Node {
   id: ID!
   createdAt: DateTime!
   createdBy(where: UserWhereInput): User
+  draft: Boolean
   blocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock!]
 }
 
@@ -1506,6 +1532,7 @@ type VideoConversationConnection {
 }
 
 input VideoConversationCreateInput {
+  draft: Boolean
   createdBy: UserCreateOneInput
   blocks: ConversationBlockCreateManyInput
 }
@@ -1529,6 +1556,8 @@ enum VideoConversationOrderByInput {
   id_DESC
   createdAt_ASC
   createdAt_DESC
+  draft_ASC
+  draft_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -1536,6 +1565,7 @@ enum VideoConversationOrderByInput {
 type VideoConversationPreviousValues {
   id: ID!
   createdAt: DateTime!
+  draft: Boolean
 }
 
 type VideoConversationSubscriptionPayload {
@@ -1578,11 +1608,13 @@ input VideoConversationSubscriptionWhereInput {
 }
 
 input VideoConversationUpdateDataInput {
+  draft: Boolean
   createdBy: UserUpdateOneInput
   blocks: ConversationBlockUpdateManyInput
 }
 
 input VideoConversationUpdateInput {
+  draft: Boolean
   createdBy: UserUpdateOneInput
   blocks: ConversationBlockUpdateManyInput
 }
@@ -1678,13 +1710,14 @@ input VideoConversationWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  draft: Boolean
+
+  """All values that are not equal to given value."""
+  draft_not: Boolean
   createdBy: UserWhereInput
   blocks_every: ConversationBlockWhereInput
   blocks_some: ConversationBlockWhereInput
   blocks_none: ConversationBlockWhereInput
-  _MagicalBackRelation_VideoUploadConversationsRelation_every: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_VideoUploadConversationsRelation_some: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_VideoUploadConversationsRelation_none: VideoUploadMetadataWhereInput
 }
 
 input VideoConversationWhereUniqueInput {
@@ -3369,6 +3402,8 @@ export type VideoConversationOrderByInput =   'id_ASC' |
   'id_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC' |
+  'draft_ASC' |
+  'draft_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
@@ -3446,14 +3481,14 @@ export type VideoUploadAdminMetadataOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type SpeakerOrderByInput =   'name_ASC' |
+export type SpeakerOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'name_ASC' |
   'name_DESC' |
   'avatarPath_ASC' |
   'avatarPath_DESC' |
   'title_ASC' |
   'title_DESC' |
-  'id_ASC' |
-  'id_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -3618,6 +3653,20 @@ export interface SpeakerWhereInput {
   AND?: SpeakerWhereInput[] | SpeakerWhereInput
   OR?: SpeakerWhereInput[] | SpeakerWhereInput
   NOT?: SpeakerWhereInput[] | SpeakerWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
   name?: String
   name_not?: String
   name_in?: String[] | String
@@ -3660,9 +3709,6 @@ export interface SpeakerWhereInput {
   title_not_starts_with?: String
   title_ends_with?: String
   title_not_ends_with?: String
-  _MagicalBackRelation_ConversationBlockToSpeaker_every?: ConversationBlockWhereInput
-  _MagicalBackRelation_ConversationBlockToSpeaker_some?: ConversationBlockWhereInput
-  _MagicalBackRelation_ConversationBlockToSpeaker_none?: ConversationBlockWhereInput
 }
 
 export interface VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput {
@@ -3843,15 +3889,6 @@ export interface UserWhereInput {
   familyName_not_starts_with?: String
   familyName_ends_with?: String
   familyName_not_ends_with?: String
-  _MagicalBackRelation_VideoSubmitter_every?: VideoUploadWhereInput
-  _MagicalBackRelation_VideoSubmitter_some?: VideoUploadWhereInput
-  _MagicalBackRelation_VideoSubmitter_none?: VideoUploadWhereInput
-  _MagicalBackRelation_VideoPublisher_every?: VideoUploadWhereInput
-  _MagicalBackRelation_VideoPublisher_some?: VideoUploadWhereInput
-  _MagicalBackRelation_VideoPublisher_none?: VideoUploadWhereInput
-  _MagicalBackRelation_UserToVideoConversation_every?: VideoConversationWhereInput
-  _MagicalBackRelation_UserToVideoConversation_some?: VideoConversationWhereInput
-  _MagicalBackRelation_UserToVideoConversation_none?: VideoConversationWhereInput
 }
 
 export interface VideoUploadMetadataUpsertWithoutVideoUploadInput {
@@ -3909,9 +3946,6 @@ export interface DateWhereInput {
   year_lte?: Int
   year_gt?: Int
   year_gte?: Int
-  _MagicalBackRelation_DateToVideoUploadMetadata_every?: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_DateToVideoUploadMetadata_some?: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_DateToVideoUploadMetadata_none?: VideoUploadMetadataWhereInput
 }
 
 export interface VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput {
@@ -4016,6 +4050,7 @@ export interface VideoConversationWhereUniqueInput {
 }
 
 export interface VideoConversationCreateInput {
+  draft?: Boolean
   createdBy?: UserCreateOneInput
   blocks?: ConversationBlockCreateManyInput
 }
@@ -4066,6 +4101,7 @@ export interface UserCreateadminRolesInput {
 }
 
 export interface VideoConversationUpdateInput {
+  draft?: Boolean
   createdBy?: UserUpdateOneInput
   blocks?: ConversationBlockUpdateManyInput
 }
@@ -4116,8 +4152,8 @@ export interface VideoUploadUpdateWithoutAdminMetadataDataInput {
 
 export interface SpeakerCreateInput {
   name: String
-  avatarPath: String
-  title: String
+  avatarPath?: String
+  title?: String
 }
 
 export interface VideoUploadAdminMetadataUpdateInput {
@@ -4361,6 +4397,7 @@ export interface ConversationBlockUpdateManyInput {
 }
 
 export interface SpeakerWhereUniqueInput {
+  id?: ID_Input
   name?: String
 }
 
@@ -4484,9 +4521,6 @@ export interface ConversationBlockWhereInput {
   content_ends_with?: String
   content_not_ends_with?: String
   speaker?: SpeakerWhereInput
-  _MagicalBackRelation_ConversationBlockRelation_every?: VideoConversationWhereInput
-  _MagicalBackRelation_ConversationBlockRelation_some?: VideoConversationWhereInput
-  _MagicalBackRelation_ConversationBlockRelation_none?: VideoConversationWhereInput
 }
 
 export interface VideoUploadAdminMetadataUpsertWithoutVideoUploadInput {
@@ -4687,6 +4721,7 @@ export interface UserUpdateOneInput {
 }
 
 export interface VideoConversationUpdateDataInput {
+  draft?: Boolean
   createdBy?: UserUpdateOneInput
   blocks?: ConversationBlockUpdateManyInput
 }
@@ -4734,13 +4769,12 @@ export interface VideoConversationWhereInput {
   createdAt_lte?: DateTime
   createdAt_gt?: DateTime
   createdAt_gte?: DateTime
+  draft?: Boolean
+  draft_not?: Boolean
   createdBy?: UserWhereInput
   blocks_every?: ConversationBlockWhereInput
   blocks_some?: ConversationBlockWhereInput
   blocks_none?: ConversationBlockWhereInput
-  _MagicalBackRelation_VideoUploadConversationsRelation_every?: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_VideoUploadConversationsRelation_some?: VideoUploadMetadataWhereInput
-  _MagicalBackRelation_VideoUploadConversationsRelation_none?: VideoUploadMetadataWhereInput
 }
 
 export interface VideoUploadUpdateOneWithoutStorageLinksInput {
@@ -4815,6 +4849,7 @@ export interface VideoUpload extends Node {
 export interface VideoConversationPreviousValues {
   id: ID_Output
   createdAt: DateTime
+  draft?: Boolean
 }
 
 export interface AggregateUser {
@@ -4866,9 +4901,10 @@ export interface AggregateVideoConversation {
 }
 
 export interface SpeakerPreviousValues {
+  id: ID_Output
   name: String
-  avatarPath: String
-  title: String
+  avatarPath?: String
+  title?: String
 }
 
 /*
@@ -5063,10 +5099,11 @@ export interface SpeakerConnection {
   aggregate: AggregateSpeaker
 }
 
-export interface Speaker {
+export interface Speaker extends Node {
+  id: ID_Output
   name: String
-  avatarPath: String
-  title: String
+  avatarPath?: String
+  title?: String
 }
 
 export interface AggregateDate {
@@ -5184,6 +5221,7 @@ export interface VideoConversation extends Node {
   id: ID_Output
   createdAt: DateTime
   createdBy?: User
+  draft?: Boolean
   blocks?: ConversationBlock[]
 }
 

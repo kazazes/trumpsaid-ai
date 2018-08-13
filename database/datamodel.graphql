@@ -62,6 +62,7 @@ type VideoConversation {
   id: ID! @unique
   createdAt: DateTime!
   createdBy: User
+  draft: Boolean! @default(value: false)
   blocks: [ConversationBlock!]! @relation(name: "ConversationBlockRelation", onDelete: CASCADE)
 }
 
@@ -90,9 +91,10 @@ type VideoUploadStatusLogItem {
 }
 
 type Speaker {
+  id: ID! @unique
   name: String! @unique
-  avatarPath: String!
-  title: String!
+  avatarPath: String
+  title: String
   # TODO: Transcript items relation
 }
 

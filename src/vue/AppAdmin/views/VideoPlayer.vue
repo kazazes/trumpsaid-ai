@@ -26,7 +26,7 @@ import { default as videojs } from 'video.js';
 import Vue from 'vue';
 
 (window as any).videojs = videojs;
-
+const abLoopPlugin = require('videojs-abloop/dist/videojs-abloop.min.js');
 interface IVideoSource {
   src: String;
   type: String;
@@ -40,13 +40,35 @@ export default Vue.extend({
         return videojs(this.$props.id);
       },
     },
+    currentTime: {
+      get() {
+        if (this.player) {
+          return this.player.currentTime();
+        }
+      },
+      set(time: number) {
+        if (this.player) {
+          this.player.currentTime(time);
+        }
+      },
+    },
   },
+  data() { return { }; },
   mounted() {
-    const player = videojs(this.$props.id);
+    const player = videojs(this.$props.id, {
+      plugins: {
+        abLoopPlugin: {},
+      },
+    });
     // tslint:disable-next-line:no-this-assignment
     const that = this;
     player.on('loadedmetadata', () => {
       that.$emit('playerLoaded');
+    });
+
+    player.on('timeupdate', () => {
+      that.$forceUpdate();
+      that.$emit('playerTimeUpdate');
     });
   },
   props: {

@@ -6,6 +6,7 @@ type Query {
   videoUploads: [VideoUpload!]
   videoUpload(id: ID): VideoUpload!
   me: User
+  allSpeakers: [Speaker]
 }
 
 type Mutation {

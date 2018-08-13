@@ -2,32 +2,10 @@
   <div class="wrapper">
     <b-nav style="margin: -1.5rem -1.9rem; padding: 0 1.5rem;" class="mb-4 bg-light">
       <div class="my-2 mx-2">
-        <b-btn @click="deleteUpload">Delete Upload</b-btn>
+        <b-btn size="sm" @click="deleteUpload" variant="outline-danger"><i class="icon icon-trash"></i>&nbsp;Delete Upload</b-btn>
       </div>
     </b-nav>
     <div class="animated fadeIn">
-      <b-card no-body header="Video Processing">
-        <b-list-group flush>
-          <b-list-group-item :variant="isDownloading ? 'primary': 'success'">
-            <div class="d-flex align-items-center">
-              <span>1.&nbsp;</span>
-              <span class="mr-4">Wait for the submited video to download.</span>
-            </div>
-          </b-list-group-item>
-          <b-list-group-item :variant="needsInitialMetadata && !isDownloading ? 'info' : 'success'">
-            <div class="d-flex align-items-center ">
-              <span>2.&nbsp;</span>
-              <span class="mr-4">Give me some details.</span>
-            </div>
-          </b-list-group-item>
-          <b-list-group-item :variant="awaitingTranscription ? 'info' : 'success'">
-            <div class="d-flex align-items-center ">
-              <span>3.&nbsp;</span>
-              <span class="mr-4">Give me a second to work some magic...</span>
-            </div>
-          </b-list-group-item>
-        </b-list-group>
-      </b-card>
       <b-col v-if="loading">
         <Spinner></Spinner>
       </b-col>
@@ -38,6 +16,13 @@
       <b-card v-else-if="needsInitialMetadata" header="Raw video">
         <VideoSubmissionInitialMetadata :videoUpload="videoUpload"></VideoSubmissionInitialMetadata>
       </b-card>
+      <b-card v-else-if="awaitingTranscription" class="text-center">
+        <h5>Doing some magic...</h5>
+        <Spinner></Spinner>
+      </b-card>
+      <div v-else-if="awaitingTranscriptionReview" style="margin: -1.5rem -30px 0 -30px" class="bg-white">
+        <VideoTranscriptEditor :videoUpload="videoUpload"></VideoTranscriptEditor>
+      </div>
       <b-row>
         <b-col sm="12" class="text-center mb-2">
           <b-button v-b-toggle.debug-info>Toggle Debug Info</b-button>
@@ -57,6 +42,7 @@ import Vue from 'vue';
 import { VideoUploadStorageLink } from '../../../graphql/generated/prisma';
 import { DELETE_VIDEO_UPLOAD, VIDEO_UPLOAD_DETAILS } from '../constants/graphql.ts';
 import VideoSubmissionInitialMetadata from './VideoSubmissionInitialMetadata.vue';
+import VideoTranscriptEditor from './VideoTranscriptEditor.vue';
 
 // tslint:disable-next-line:variable-name
 const Spinner = require('vue-simple-spinner');
@@ -66,10 +52,11 @@ export default Vue.extend({
   components: {
     Spinner,
     VideoSubmissionInitialMetadata,
+    VideoTranscriptEditor,
   },
   data: () => {
     return {
-      videoUpload: { storageLinks: [], metadata: { conversations: [] } },
+      videoUpload: { storageLinks: [], metadata: { conversations: [{ createdBy: null }] } },
       selectThumbnailDisabled: false,
       loading: this.isDownloading || this.awaitingTranscription,
     };
@@ -116,13 +103,14 @@ export default Vue.extend({
       },
     },
     awaitingTranscription: {
-      get(){
+      get() {
         return this.videoUpload.metadata.conversations.length === 0;
       },
     },
     awaitingTranscriptionReview: {
-      get(){
-        return this.videoUpload.metadata.conversations.length === 0;
+      get() {
+        const firstConvo = this.videoUpload.metadata.conversations[0];
+        return !this.awaitingTranscription && firstConvo !== undefined && firstConvo.createdBy === null;
       },
     },
   },
