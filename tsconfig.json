@@ -9,6 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
+    "noImplicitThis": true,
     "sourceMap": true,
     "typeRoots": ["node_modules/@types", "src/types"],
     "outDir": "dist",
@@ -20,5 +21,5 @@
     }
   },
   "include": ["src/**/**/*"],
-  "exclude": ["node_modules", "src/vue"]
+  "exclude": ["node_modules"]
 }

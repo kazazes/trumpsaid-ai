@@ -26,7 +26,8 @@ import { default as videojs } from 'video.js';
 import Vue from 'vue';
 
 (window as any).videojs = videojs;
-const abLoopPlugin = require('videojs-abloop/dist/videojs-abloop.min.js');
+require('videojs-abloop/dist/videojs-abloop.min.js');
+
 interface IVideoSource {
   src: String;
   type: String;

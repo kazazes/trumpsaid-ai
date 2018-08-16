@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import { ApolloProperty } from 'vue-apollo/types/vue-apollo';
+import { VueApolloComponentOption } from 'vue-apollo/types/options';
 
 declare module '*.vue' {
   import Vue from 'vue'
@@ -13,13 +15,13 @@ declare module 'vue/types' {
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $apollo: object
+    $apollo: ApolloProperty<any>
     apollo: object
   }
 }
 
 declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {
-    apollo?: object;
+    apollo?: VueApolloComponentOption<V>;
   }
 }

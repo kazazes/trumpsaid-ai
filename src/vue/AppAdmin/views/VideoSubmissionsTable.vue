@@ -47,8 +47,9 @@ export default {
     Spinner,
   },
   data: () => {
+    const videoUploads: VideoUpload[] = [];
     return {
-      videoUploads: [] as [VideoUpload],
+      videoUploads,
       fields: [
         { key: 'name', label: 'Submittor' },
         { key: 'createdAt', label: 'Submited' },
@@ -61,7 +62,6 @@ export default {
   },
   methods: {
     presentDetailPage(submission: VideoUpload) {
-      console.log(JSON.stringify(submission));
       this.$router.push({
         path: `/videos/submissions/${submission.id}`,
       });

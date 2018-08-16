@@ -4,8 +4,15 @@
       <VideoPlayer id="master" ref="transcribePlayer" v-on:playerTimeUpdate="playerTimeUpdated" v-on:playerLoaded="playerMetadataUpdated" :poster="getPoster(this.videoUpload)" :sources="getSource(getFirstWebVersion())" preload="auto" data-setup="{}"></VideoPlayer>
     </b-col>
     <b-col md="12">
-      <div class="text-center">
-        <b-btn size="sm" class="my-2" v-b-modal.newSpeakerModal><i class="icon icon-plus"></i>&nbsp;Add Speaker</b-btn>
+      <div class="my-2">
+        <b-btn size="sm" class="mx-2" v-b-modal.newSpeakerModal variant="primary" :disabled="editorDisabled"><i class="icon icon-plus"></i>&nbsp;Add Speaker</b-btn>
+        <div class="pull-right">
+          <b-button-group>
+            <b-btn size="sm" variant="primary" @click="handleSaveDraft" :disabled="editorDisabled">Save Draft</b-btn>
+            <b-btn size="sm" variant="warning" @click="handleRestoreDraft" :disabled="editorDisabled || !draftSaved">Restore Draft</b-btn>
+          </b-button-group>
+          <b-btn size="sm" variant="success" class="mr-2" @click="handleSubmitTranscript" :disabled="editorDisabled"><i class="icon icon-speech"></i>&nbsp;Submit Transcript</b-btn>
+        </div>
         <b-modal id="newSpeakerModal" ref="newSpeakerModal" size="sm" hide-header centered @ok="handleAddSpeakerOk">
           <form @submit.stop.prevent="handleAddSpeakerSubmit">
             <label for="speakerName">Speaker's name:</label>
@@ -13,6 +20,8 @@
           </form>
         </b-modal>
       </div>
+    </b-col>
+    <b-col md="12">
       <table class="table table-sm mx-2">
         <thead>
           <th class="time">Start</th>
@@ -28,8 +37,8 @@
                 {{ item.start | formatTimestamp }}  
               </a>
               <b-button-group size="sm" style="width: 100%;" class="my-1">
-                <b-btn @click="timeButtonPressed('start', 0.1, item, index)" variant="outline-primary">+0.1</b-btn>
-                <b-btn @click="timeButtonPressed('start', -0.1, item, index)" variant="outline-info">-0.1</b-btn>
+                <b-btn :disabled="editorDisabled" @click="timeButtonPressed('start', 0.1, item, index)" variant="outline-primary">+0.1</b-btn>
+                <b-btn :disabled="editorDisabled" @click="timeButtonPressed('start', -0.1, item, index)" variant="outline-info">-0.1</b-btn>
               </b-button-group> 
             </td>
             <td class="time"> 
@@ -37,13 +46,13 @@
                 {{ item.end | formatTimestamp }}
               </a>
               <b-button-group size="sm" style="width: 100%;" class="my-1">
-                <b-btn @click="timeButtonPressed('end', 0.1, item, index)" variant="outline-primary">+0.1</b-btn>
-                <b-btn @click="timeButtonPressed('end', -0.1, item, index)" variant="outline-info">-0.1</b-btn>
+                <b-btn :disabled="editorDisabled" @click="timeButtonPressed('end', 0.1, item, index)" variant="outline-primary">+0.1</b-btn>
+                <b-btn :disabled="editorDisabled" @click="timeButtonPressed('end', -0.1, item, index)" variant="outline-info">-0.1</b-btn>
               </b-button-group> 
             </td>
             <td class="speaker">
               <div class="form-inline mt-2">
-                <select v-model="item.speaker" class="form-control form-control-sm">
+                <select :disabled="editorDisabled" v-model="item.speaker" class="form-control form-control-sm">
                   <option v-if="item.speaker" selected>
                     {{ item.speaker.name }}
                   </option>
@@ -59,17 +68,17 @@
             </td>
             <td>
               <div class="form-inline mt-2">
-                <textarea v-model="item.content" rows="1" class="form-control" style="width: 100%">
+                <textarea :disabled="editorDisabled" v-model="item.content" rows="1" class="form-control" style="width: 100%">
                   {{ item.content }}
                 </textarea>
               </div>
             </td>
             <td class="actionButtons">
               <b-button-group size="sm" class="mt-2 mr-3 pull-right">
-                <b-button  v-if="index < editableTranscript.length - 1" @click="mergeDownPressed(item, index)" variant="outline-primary"><i class="icon icon-arrow-down"></i>&nbsp; Merge</b-button>
+                <b-button :disabled="editorDisabled" v-if="index < editableTranscript.length - 1" @click="mergeDownPressed(index, item)" variant="outline-primary"><i class="icon icon-arrow-down"></i>&nbsp; Merge</b-button>
                 <b-button @click="loopPressed(index, item)" variant="outline-secondary" :pressed="(looping && loopIndex === index)"><i class="icon icon-refresh"></i></b-button>
-                <b-button @click="addBlockPressed(index, item)" variant="outline-secondary"><i class="icon icon-plus"></i></b-button>
-                <b-button @click="deleteBlockPressed(index, item)" variant="outline-danger"><i class="icon icon-trash"></i></b-button>
+                <b-button :disabled="editorDisabled" @click="addBlockPressed(index, item)" variant="outline-secondary"><i class="icon icon-plus"></i></b-button>
+                <b-button :disabled="editorDisabled" @click="deleteBlockPressed(index, item)" variant="outline-danger"><i class="icon icon-trash"></i></b-button>
               </b-button-group>
             </td>
           </tr>
@@ -94,14 +103,14 @@ table .speaker {
 <script lang="ts">
 import autosize from 'autosize';
 import timestampFormat from 'hh-mm-ss';
-import { pullAt } from 'lodash';
-import abloop from 'videojs-abloop/dist/videojs-abloop.min.js';
+import { pullAt, uniq } from 'lodash';
 import Vue from 'vue';
-import { VideoUpload, VideoUploadStorageLink } from '../../../graphql/generated/prisma';
-import { LIST_SPEAKERS } from '../constants/graphql.ts';
+import { ConversationBlock, ConversationBlockCreateInput, Speaker, SpeakerCreateInput,
+VideoConversationCreateInput, VideoUpload, VideoUploadStorageLink } from '../../../graphql/generated/prisma';
+import { CREATE_CONVERSATION, LIST_SPEAKERS } from '../constants/graphql.ts';
 import VideoPlayer from './VideoPlayer.vue';
 
-window.autosize = autosize;
+(window as any).autosize = autosize;
 
 export default Vue.extend({
   name: 'VideoTranscriptEditor',
@@ -109,16 +118,19 @@ export default Vue.extend({
     VideoPlayer,
   },
   data() {
+    const editableTranscript: ConversationBlock[] = [];
+    const newSpeakers: Speaker[] = [];
+    const allSpeakers: Speaker[] = [];
     return {
+      allSpeakers,
+      newSpeakers,
+      editableTranscript,
       playerTime: 0,
       playerDuration: 0,
-      editableTranscript: undefined,
-      editedTranscript: undefined,
-      newSpeakers: [],
-      allSpeakers: [],
       newSpeakerInput: '',
       looping: false,
       loopIndex: 0,
+      editorDisabled: false,
     };
   },
   computed: {
@@ -128,9 +140,17 @@ export default Vue.extend({
         return allSpeakers;
       },
     },
+    draftSaved: {
+      get() {
+        const draft = localStorage.getItem(this.videoUpload.id + '.transcript.draft');
+        if (draft && draft.length > 0) {
+          return true;
+        }
+      },
+    },
   },
   mounted() {
-    this.editableTranscript =  JSON.parse(JSON.stringify(this.videoUpload.metadata.conversations[0].blocks));
+    this.editableTranscript = JSON.parse(JSON.stringify(this.videoUpload.metadata.conversations[0].blocks));
   },
   updated() {
     autosize(document.querySelectorAll('textarea'));
@@ -144,7 +164,134 @@ export default Vue.extend({
     },
   },
   methods: {
-    loopPressed(index, item) {
+    handleSaveDraft() {
+      try {
+        localStorage.setItem(this.videoUpload.id + '.transcript.draft', JSON.stringify(this.editableTranscript));
+      } catch (e) {
+        return this.$notify({
+          type: 'error',
+          title: 'Something went wrong.',
+        });
+      }
+
+      this.$forceUpdate();
+
+      return this.$notify({
+        type: 'success',
+        title: 'Saved draft.',
+      });
+    },
+    handleRestoreDraft() {
+      const rawDraft = localStorage.getItem(this.videoUpload.id + '.transcript.draft');
+      this.editableTranscript = JSON.parse(rawDraft);
+      Vue.nextTick()
+        .then(() => {
+          autosize.update(document.querySelectorAll('textarea'));
+        });
+    },
+    async handleSubmitTranscript() {
+      const validTranscript = this.validateTranscript();
+      if (!validTranscript) {
+        return;
+      }
+      this.editorDisabled = true;
+      const copy = JSON.parse(JSON.stringify(this.editableTranscript));
+
+      const blocks: ConversationBlockCreateInput[] = copy.map((block) => {
+        const speaker = { connect: { name: block.speaker.name } };
+        return {
+          speaker,
+          start: block.start,
+          end: block.end,
+          content: block.content,
+        };
+      });
+
+      try {
+        await this.$apollo.mutate({
+          mutation: CREATE_CONVERSATION,
+          variables: {
+            blocks,
+            videoId: this.videoUpload.id,
+          },
+        });
+      } catch (e) {
+        return this.$notify({
+          type: 'error',
+          title: 'Something went wrong.',
+        });
+      }
+
+      this.$router.push(`/videos/submissions/${this.videoUpload.id}/review`);
+    },
+    validateTranscript() {
+      const noSpeaker = this.editableTranscript.find((block: ConversationBlock) => {
+        if (block.speaker === null) {
+          return true;
+        }
+
+        return false;
+      });
+
+      const emptyContent = this.editableTranscript.find((block: ConversationBlock) => {
+        if (block.content.trim().length < 1) {
+          return true;
+        }
+
+        return false;
+      });
+
+      if (noSpeaker) {
+        this.$notify({
+          type: 'error',
+          title: 'Please select a speaker for all blocks!',
+        });
+      }
+
+      if (emptyContent) {
+        this.$notify({
+          type: 'error',
+          title: 'Some of your conversation blocks are empty.',
+        });
+      }
+
+      if (noSpeaker || emptyContent) {
+        return false;
+      }
+      return true;
+    },
+    addBlockPressed(index: number, item: any) {
+      const next = index < this.editableTranscript.length - 1 ? this.editableTranscript[index + 1] : false;
+      const target = this.editableTranscript[index];
+
+      // const targetStart = target.end;
+      const targetEnd = target.end + 0.1;
+
+      if (targetEnd > next.start) {
+        return this.$notify({
+          type: 'error',
+          title: 'You must have at least .1 second free to insert a section.',
+        });
+      }
+
+      if (targetEnd > this.playerDuration) {
+        return this.$notify({
+          type: 'error',
+          title: 'Not enough room in the track!',
+        });
+      }
+
+      let copy = JSON.parse(JSON.stringify(this.editableTranscript));
+      const insert = { content: '', speaker: null, start: target.end, end: targetEnd };
+      copy = [...copy.slice(0, index + 1), insert, ...copy.slice(index + 1)];
+      this.editableTranscript = copy;
+    },
+    deleteBlockPressed(index: number, item: any) {
+      const copy = JSON.parse(JSON.stringify(this.editableTranscript));
+      pullAt(copy, index);
+      this.editableTranscript = copy;
+    },
+    loopPressed(index: number, item: any) {
       if (this.looping && this.loopIndex === index) {
         this.looping = false;
         this.$refs.transcribePlayer.player.abLoopPlugin.disable();
@@ -169,7 +316,7 @@ export default Vue.extend({
     seekTo(time: number){
       this.$refs.transcribePlayer.player.currentTime(time);
     },
-    timeButtonPressed(key: string, change: number, item, index) {
+    timeButtonPressed(key: string, change: number, item: any, index: number) {
       if (this.playerDuration === 0) {
         return;
       }
@@ -188,7 +335,6 @@ export default Vue.extend({
       }
 
       if (targetTime > this.playerDuration) {
-        debugger;
         return this.$notify({
           type: 'error',
           title: ' Timestamp must be within video\'s duration!',
@@ -219,7 +365,7 @@ export default Vue.extend({
       copy[index][key] = targetTime;
       this.editableTranscript = copy;
     },
-    mergeDownPressed(item, index) {
+    mergeDownPressed(index: number, item: any) {
       const copy = JSON.parse(JSON.stringify(this.editableTranscript));
       const next = copy[index + 1];
       const target = copy[index];
@@ -236,7 +382,7 @@ export default Vue.extend({
           autosize.update(document.querySelectorAll('textarea'));
         });
     },
-    handleAddSpeakerOk(evt) {
+    handleAddSpeakerOk(evt: any) {
       evt.preventDefault();
       if (!this.newSpeakerInput) {
         return this.$notify({
@@ -245,7 +391,7 @@ export default Vue.extend({
         });
       }
 
-      const speakerNameExists = this.speakers.find((speaker) => { return speaker.name === this.newSpeakerInput; });
+      const speakerNameExists = this.speakers.find((speaker: Speaker) => { return speaker.name === this.newSpeakerInput; });
       if (speakerNameExists !== undefined) {
         return this.$notify({
           type: 'error',

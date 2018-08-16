@@ -9,6 +9,7 @@ const Videos = () => import('../views/Videos.vue');
 const VideoSubmission = () => import('../views/VideoSubmission.vue');
 const VideoSubmissionsTable = () => import('../views/VideoSubmissionsTable.vue');
 const VideoSubmissions = () => import('../views/VideoSubmissions.vue');
+const VideoSubmissionReview = () => import('../views/VideoSubmissionReview.vue');
 
 Vue.use(Router);
 
@@ -38,6 +39,11 @@ export default new Router({
                   path: 'all',
                   name: 'All Submissions',
                   component: VideoSubmissionsTable,
+                },
+                {
+                  path: ':submissionId/review',
+                  name: 'Review',
+                  component: VideoSubmissionReview,
                 },
                 {
                   path: ':submissionId',

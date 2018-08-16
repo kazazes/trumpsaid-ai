@@ -1,7 +1,7 @@
 {
   "extends": "tslint-config-airbnb",
   "linterOptions": {
-    "exclude": ["src/graphql/generated/**", "node_modules/**", "src/vue/**"]
+    "exclude": ["src/graphql/generated/**", "node_modules/**"]
   },
   "rules": {
     "await-promise": true,
