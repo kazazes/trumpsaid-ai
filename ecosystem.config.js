@@ -15,7 +15,7 @@ module.exports = {
   deploy: {
     production: {
       user: "web",
-      host: "10.142.0.5",
+      host: "10.142.0.7",
       key: "~/.ssh/google_compute_engine",
       ref: "origin/master",
       repo: "https://github.com/trumpsaid-wtf/web-app.git",
