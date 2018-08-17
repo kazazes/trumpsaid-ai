@@ -7,7 +7,7 @@ import { VideoUploadStorageLink, VideoUploadStorageLinkCreateInput } from '../gr
 import logger from '../util/logger';
 import secrets from '../util/secrets';
 
-export const storage = Storage({
+export const storage = new Storage({
   projectId: secrets.GOOGLE_PROJECT_ID,
 });
 
@@ -43,7 +43,7 @@ export const makeFilePublic = (bucketName: string, path: string) => {
     .then(() => {
       logger.info(`Made ${bucketName}/${path} public`);
     })
-    .catch((e) => {
+    .catch((e: any) => {
       logger.error(`Error making file public ${bucketName}/${path}\n${e}`);
     });
 };
@@ -133,7 +133,7 @@ export const directoryFromPath = (path: string) => {
 export const filenameWithoutPathOrExtension = (path: string) => {
   // FIXME: My RegEx is broken.
   // const matchExtension = new RegExp('(\.\w+$)');
-  return this.filenameFromPath(path).split('.')[0];
+  return filenameFromPath(path).split('.')[0];
 };
 
 export const getExtension = (path: string) => {
