@@ -1,6 +1,6 @@
 import PubSubController from '../PubSubController';
-import VideoDownloadHandler from './videoDownloadHandler';
-import VideoDownloadResponseHandler from './videoDownloadResponseHandler';
+import VideoDownloadHandler from './VideoDownloadHandler';
+import VideoDownloadResponseHandler from './VideoDownloadResponseHandler';
 
 export class VideoDownloadPubSubController extends PubSubController {
   topicSubcriptionNames = {

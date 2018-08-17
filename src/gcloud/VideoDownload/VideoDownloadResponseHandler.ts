@@ -1,3 +1,4 @@
+import { VideoUploadStorageLinkCreateInput } from '../../graphql/generated/prisma';
 import prisma from '../../graphql/prismaContext';
 import logger from '../../util/logger';
 import writeToVideoUploadLog from '../../util/videoUploadLogger';
@@ -37,7 +38,7 @@ export default class VideoDownloadResponseHandler extends PubSubResponseHandler 
       logger.error(`Failed to delete existing video upload storage links on ${id}.`, e);
     }
 
-    await Promise.all(response.storageLinkCreateInputs.map((linkCreateInput) => {
+    await Promise.all(response.storageLinkCreateInputs.map((linkCreateInput: VideoUploadStorageLinkCreateInput) => {
       logger.debug(`Created ${linkCreateInput.version} storage link on ${id}`);
       makeFilePublic(linkCreateInput.bucket, linkCreateInput.path);
       return prisma.mutation.createVideoUploadStorageLink({ data: linkCreateInput });
