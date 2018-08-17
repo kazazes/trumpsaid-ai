@@ -73,4 +73,10 @@ export default {
 
     return upload;
   },
+  updateMetadata: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
+    const update = args.metadata;
+    const upload = await ctx.db.query.videoUpload({ where: { id: args.id } }, ' { metadata { id }} ');
+    const metadataId = upload.metadata.id;
+    return ctx.db.mutation.updateVideoUploadMetadata({ data: update, where: { id: metadataId } });
+  },
 };

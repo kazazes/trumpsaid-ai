@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-import { ConversationBlockCreateInput } from '../../../graphql/generated/prisma';
 
 export const DELETE_VIDEO_UPLOAD = gql`
   mutation($id: ID!) {
@@ -37,9 +36,24 @@ query videoUpload($videoSubmissionId: ID!) {
     metadata {
       title
       subtitle
+      dateRecorded {
+        day
+        month
+        year
+      }
       speakers
       renderStart
       renderEnd
+      newsSources {
+        id
+        createdAt
+        source {
+          id
+          name
+          avatarPath
+        }
+        url
+      }
       conversations {
         id
         createdBy {
@@ -97,6 +111,14 @@ query {
 export const CREATE_CONVERSATION = gql`
 mutation($videoId: ID!, $blocks: [ConversationBlockCreateInput!]!) {
   createConversation(videoId: $videoId, blocks: $blocks) {
+    id
+  }
+}
+`;
+
+export const UPDATE_METADATA = gql`
+mutation($id: ID!, $metadata: VideoUploadMetadataUpdateInput!) {
+  updateMetadata(id: $id, metadata: $metadata) {
     id
   }
 }

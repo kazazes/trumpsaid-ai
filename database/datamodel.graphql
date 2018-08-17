@@ -27,7 +27,6 @@ type VideoUpload implements IVideo {
     @relation(name: "VideoUploadMetadataRelation", onDelete: CASCADE)
   publishedBy: User @relation(name: "VideoPublisher")
   published: Boolean! @default(value: "false")
-  # TODO: publishedVideo: Video
   statusLog: [VideoUploadStatusLogItem!]!
     @relation(name: "VideoUploadLogItemRelation", onDelete: CASCADE)
   storageLinks: [VideoUploadStorageLink!]!
@@ -56,6 +55,27 @@ type VideoUploadMetadata {
   renderStart: Float! @default(value: "0")
   renderEnd: Float! @default(value: "0")
   conversations: [VideoConversation!]! @relation(name: "VideoUploadConversationsRelation", onDelete: CASCADE)
+  newsSources: [NewsSourceItem!]! 
+}
+
+type NewsSourceItem {
+  id: ID! @unique
+  createdAt: DateTime!
+  source: NewsSource! @relation(name: "NewsSourceItemRelations")
+  url: String!
+}
+
+type NewsSource {
+  id: ID! @unique
+  rootDomains: [NewsSourceRootDomain!]!
+  name: String
+  avatarPath: String
+  sourceItems: [NewsSourceItem!]! @relation(name: "NewsSourceItemRelations")
+}
+
+type NewsSourceRootDomain {
+  id: ID! @unique
+  url: String! @unique
 }
 
 type VideoConversation {

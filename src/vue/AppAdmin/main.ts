@@ -1,12 +1,14 @@
 import BootstrapVue from 'bootstrap-vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import AdminApp from './AdminApp.vue';
 import './polyfill';
 import router from './router/index';
 
 import VueApollo from 'vue-apollo';
 import Notifications from 'vue-notification';
+// tslint:disable-next-line:variable-name
+const AdminApp = require('./AdminApp.vue').default;
+
 // tslint:disable-next-line:variable-name
 const VueTimers = require('vue-timers');
 

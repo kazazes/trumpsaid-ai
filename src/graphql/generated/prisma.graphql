@@ -1,5 +1,5 @@
 # source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Sun Aug 12 2018 21:00:35 GMT-0700 (PDT)
+# timestamp: Wed Aug 15 2018 22:25:43 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -15,6 +15,18 @@ type AggregateConversationBlock {
 }
 
 type AggregateDate {
+  count: Int!
+}
+
+type AggregateNewsSource {
+  count: Int!
+}
+
+type AggregateNewsSourceItem {
+  count: Int!
+}
+
+type AggregateNewsSourceRootDomain {
   count: Int!
 }
 
@@ -468,55 +480,73 @@ type Mutation {
   createVideoUpload(data: VideoUploadCreateInput!): VideoUpload!
   createVideoUploadStorageLink(data: VideoUploadStorageLinkCreateInput!): VideoUploadStorageLink!
   createVideoUploadMetadata(data: VideoUploadMetadataCreateInput!): VideoUploadMetadata!
+  createNewsSource(data: NewsSourceCreateInput!): NewsSource!
   createVideoUploadAdminMetadata(data: VideoUploadAdminMetadataCreateInput!): VideoUploadAdminMetadata!
   createVideoUploadStatusLogItem(data: VideoUploadStatusLogItemCreateInput!): VideoUploadStatusLogItem!
   createConversationBlock(data: ConversationBlockCreateInput!): ConversationBlock!
   createDate(data: DateCreateInput!): Date!
   createVideoConversation(data: VideoConversationCreateInput!): VideoConversation!
+  createNewsSourceItem(data: NewsSourceItemCreateInput!): NewsSourceItem!
+  createNewsSourceRootDomain(data: NewsSourceRootDomainCreateInput!): NewsSourceRootDomain!
   createSpeaker(data: SpeakerCreateInput!): Speaker!
   createUser(data: UserCreateInput!): User!
   updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateVideoUploadStorageLink(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   updateVideoUploadMetadata(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
+  updateNewsSource(data: NewsSourceUpdateInput!, where: NewsSourceWhereUniqueInput!): NewsSource
   updateVideoUploadAdminMetadata(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   updateVideoUploadStatusLogItem(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
   updateVideoConversation(data: VideoConversationUpdateInput!, where: VideoConversationWhereUniqueInput!): VideoConversation
+  updateNewsSourceItem(data: NewsSourceItemUpdateInput!, where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
+  updateNewsSourceRootDomain(data: NewsSourceRootDomainUpdateInput!, where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   deleteVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
+  deleteNewsSource(where: NewsSourceWhereUniqueInput!): NewsSource
   deleteVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   deleteVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
   deleteVideoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
+  deleteNewsSourceItem(where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
+  deleteNewsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
   deleteUser(where: UserWhereUniqueInput!): User
   upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!, create: VideoUploadStorageLinkCreateInput!, update: VideoUploadStorageLinkUpdateInput!): VideoUploadStorageLink!
   upsertVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!, create: VideoUploadMetadataCreateInput!, update: VideoUploadMetadataUpdateInput!): VideoUploadMetadata!
+  upsertNewsSource(where: NewsSourceWhereUniqueInput!, create: NewsSourceCreateInput!, update: NewsSourceUpdateInput!): NewsSource!
   upsertVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!, create: VideoUploadAdminMetadataCreateInput!, update: VideoUploadAdminMetadataUpdateInput!): VideoUploadAdminMetadata!
   upsertVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!, create: VideoUploadStatusLogItemCreateInput!, update: VideoUploadStatusLogItemUpdateInput!): VideoUploadStatusLogItem!
   upsertVideoConversation(where: VideoConversationWhereUniqueInput!, create: VideoConversationCreateInput!, update: VideoConversationUpdateInput!): VideoConversation!
+  upsertNewsSourceItem(where: NewsSourceItemWhereUniqueInput!, create: NewsSourceItemCreateInput!, update: NewsSourceItemUpdateInput!): NewsSourceItem!
+  upsertNewsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!, create: NewsSourceRootDomainCreateInput!, update: NewsSourceRootDomainUpdateInput!): NewsSourceRootDomain!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
   updateManyVideoUploadStorageLinks(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereInput): BatchPayload!
   updateManyVideoUploadMetadatas(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereInput): BatchPayload!
+  updateManyNewsSources(data: NewsSourceUpdateInput!, where: NewsSourceWhereInput): BatchPayload!
   updateManyVideoUploadAdminMetadatas(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   updateManyVideoUploadStatusLogItems(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereInput): BatchPayload!
   updateManyConversationBlocks(data: ConversationBlockUpdateInput!, where: ConversationBlockWhereInput): BatchPayload!
   updateManyDates(data: DateUpdateInput!, where: DateWhereInput): BatchPayload!
   updateManyVideoConversations(data: VideoConversationUpdateInput!, where: VideoConversationWhereInput): BatchPayload!
+  updateManyNewsSourceItems(data: NewsSourceItemUpdateInput!, where: NewsSourceItemWhereInput): BatchPayload!
+  updateManyNewsSourceRootDomains(data: NewsSourceRootDomainUpdateInput!, where: NewsSourceRootDomainWhereInput): BatchPayload!
   updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
   deleteManyVideoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput): BatchPayload!
   deleteManyVideoUploadMetadatas(where: VideoUploadMetadataWhereInput): BatchPayload!
+  deleteManyNewsSources(where: NewsSourceWhereInput): BatchPayload!
   deleteManyVideoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   deleteManyVideoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput): BatchPayload!
   deleteManyConversationBlocks(where: ConversationBlockWhereInput): BatchPayload!
   deleteManyDates(where: DateWhereInput): BatchPayload!
   deleteManyVideoConversations(where: VideoConversationWhereInput): BatchPayload!
+  deleteManyNewsSourceItems(where: NewsSourceItemWhereInput): BatchPayload!
+  deleteManyNewsSourceRootDomains(where: NewsSourceRootDomainWhereInput): BatchPayload!
   deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
@@ -525,6 +555,761 @@ enum MutationType {
   CREATED
   UPDATED
   DELETED
+}
+
+type NewsSource implements Node {
+  id: ID!
+  rootDomains(where: NewsSourceRootDomainWhereInput, orderBy: NewsSourceRootDomainOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceRootDomain!]
+  name: String
+  avatarPath: String
+  sourceItems(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceItem!]
+}
+
+"""A connection to a list of items."""
+type NewsSourceConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [NewsSourceEdge]!
+  aggregate: AggregateNewsSource!
+}
+
+input NewsSourceCreateInput {
+  name: String
+  avatarPath: String
+  rootDomains: NewsSourceRootDomainCreateManyInput
+  sourceItems: NewsSourceItemCreateManyWithoutSourceInput
+}
+
+input NewsSourceCreateOneWithoutSourceItemsInput {
+  create: NewsSourceCreateWithoutSourceItemsInput
+  connect: NewsSourceWhereUniqueInput
+}
+
+input NewsSourceCreateWithoutSourceItemsInput {
+  name: String
+  avatarPath: String
+  rootDomains: NewsSourceRootDomainCreateManyInput
+}
+
+"""An edge in a connection."""
+type NewsSourceEdge {
+  """The item at the end of the edge."""
+  node: NewsSource!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+type NewsSourceItem implements Node {
+  id: ID!
+  createdAt: DateTime!
+  source(where: NewsSourceWhereInput): NewsSource!
+  url: String!
+}
+
+"""A connection to a list of items."""
+type NewsSourceItemConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [NewsSourceItemEdge]!
+  aggregate: AggregateNewsSourceItem!
+}
+
+input NewsSourceItemCreateInput {
+  url: String!
+  source: NewsSourceCreateOneWithoutSourceItemsInput!
+}
+
+input NewsSourceItemCreateManyInput {
+  create: [NewsSourceItemCreateInput!]
+  connect: [NewsSourceItemWhereUniqueInput!]
+}
+
+input NewsSourceItemCreateManyWithoutSourceInput {
+  create: [NewsSourceItemCreateWithoutSourceInput!]
+  connect: [NewsSourceItemWhereUniqueInput!]
+}
+
+input NewsSourceItemCreateWithoutSourceInput {
+  url: String!
+}
+
+"""An edge in a connection."""
+type NewsSourceItemEdge {
+  """The item at the end of the edge."""
+  node: NewsSourceItem!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum NewsSourceItemOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  url_ASC
+  url_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type NewsSourceItemPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  url: String!
+}
+
+type NewsSourceItemSubscriptionPayload {
+  mutation: MutationType!
+  node: NewsSourceItem
+  updatedFields: [String!]
+  previousValues: NewsSourceItemPreviousValues
+}
+
+input NewsSourceItemSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NewsSourceItemSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NewsSourceItemSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NewsSourceItemSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: NewsSourceItemWhereInput
+}
+
+input NewsSourceItemUpdateDataInput {
+  url: String
+  source: NewsSourceUpdateOneWithoutSourceItemsInput
+}
+
+input NewsSourceItemUpdateInput {
+  url: String
+  source: NewsSourceUpdateOneWithoutSourceItemsInput
+}
+
+input NewsSourceItemUpdateManyInput {
+  create: [NewsSourceItemCreateInput!]
+  connect: [NewsSourceItemWhereUniqueInput!]
+  disconnect: [NewsSourceItemWhereUniqueInput!]
+  delete: [NewsSourceItemWhereUniqueInput!]
+  update: [NewsSourceItemUpdateWithWhereUniqueNestedInput!]
+  upsert: [NewsSourceItemUpsertWithWhereUniqueNestedInput!]
+}
+
+input NewsSourceItemUpdateManyWithoutSourceInput {
+  create: [NewsSourceItemCreateWithoutSourceInput!]
+  connect: [NewsSourceItemWhereUniqueInput!]
+  disconnect: [NewsSourceItemWhereUniqueInput!]
+  delete: [NewsSourceItemWhereUniqueInput!]
+  update: [NewsSourceItemUpdateWithWhereUniqueWithoutSourceInput!]
+  upsert: [NewsSourceItemUpsertWithWhereUniqueWithoutSourceInput!]
+}
+
+input NewsSourceItemUpdateWithoutSourceDataInput {
+  url: String
+}
+
+input NewsSourceItemUpdateWithWhereUniqueNestedInput {
+  where: NewsSourceItemWhereUniqueInput!
+  data: NewsSourceItemUpdateDataInput!
+}
+
+input NewsSourceItemUpdateWithWhereUniqueWithoutSourceInput {
+  where: NewsSourceItemWhereUniqueInput!
+  data: NewsSourceItemUpdateWithoutSourceDataInput!
+}
+
+input NewsSourceItemUpsertWithWhereUniqueNestedInput {
+  where: NewsSourceItemWhereUniqueInput!
+  update: NewsSourceItemUpdateDataInput!
+  create: NewsSourceItemCreateInput!
+}
+
+input NewsSourceItemUpsertWithWhereUniqueWithoutSourceInput {
+  where: NewsSourceItemWhereUniqueInput!
+  update: NewsSourceItemUpdateWithoutSourceDataInput!
+  create: NewsSourceItemCreateWithoutSourceInput!
+}
+
+input NewsSourceItemWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NewsSourceItemWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NewsSourceItemWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NewsSourceItemWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+  source: NewsSourceWhereInput
+}
+
+input NewsSourceItemWhereUniqueInput {
+  id: ID
+}
+
+enum NewsSourceOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  avatarPath_ASC
+  avatarPath_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type NewsSourcePreviousValues {
+  id: ID!
+  name: String
+  avatarPath: String
+}
+
+type NewsSourceRootDomain implements Node {
+  id: ID!
+  url: String!
+}
+
+"""A connection to a list of items."""
+type NewsSourceRootDomainConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [NewsSourceRootDomainEdge]!
+  aggregate: AggregateNewsSourceRootDomain!
+}
+
+input NewsSourceRootDomainCreateInput {
+  url: String!
+}
+
+input NewsSourceRootDomainCreateManyInput {
+  create: [NewsSourceRootDomainCreateInput!]
+  connect: [NewsSourceRootDomainWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type NewsSourceRootDomainEdge {
+  """The item at the end of the edge."""
+  node: NewsSourceRootDomain!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum NewsSourceRootDomainOrderByInput {
+  id_ASC
+  id_DESC
+  url_ASC
+  url_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type NewsSourceRootDomainPreviousValues {
+  id: ID!
+  url: String!
+}
+
+type NewsSourceRootDomainSubscriptionPayload {
+  mutation: MutationType!
+  node: NewsSourceRootDomain
+  updatedFields: [String!]
+  previousValues: NewsSourceRootDomainPreviousValues
+}
+
+input NewsSourceRootDomainSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NewsSourceRootDomainSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NewsSourceRootDomainSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NewsSourceRootDomainSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: NewsSourceRootDomainWhereInput
+}
+
+input NewsSourceRootDomainUpdateDataInput {
+  url: String
+}
+
+input NewsSourceRootDomainUpdateInput {
+  url: String
+}
+
+input NewsSourceRootDomainUpdateManyInput {
+  create: [NewsSourceRootDomainCreateInput!]
+  connect: [NewsSourceRootDomainWhereUniqueInput!]
+  disconnect: [NewsSourceRootDomainWhereUniqueInput!]
+  delete: [NewsSourceRootDomainWhereUniqueInput!]
+  update: [NewsSourceRootDomainUpdateWithWhereUniqueNestedInput!]
+  upsert: [NewsSourceRootDomainUpsertWithWhereUniqueNestedInput!]
+}
+
+input NewsSourceRootDomainUpdateWithWhereUniqueNestedInput {
+  where: NewsSourceRootDomainWhereUniqueInput!
+  data: NewsSourceRootDomainUpdateDataInput!
+}
+
+input NewsSourceRootDomainUpsertWithWhereUniqueNestedInput {
+  where: NewsSourceRootDomainWhereUniqueInput!
+  update: NewsSourceRootDomainUpdateDataInput!
+  create: NewsSourceRootDomainCreateInput!
+}
+
+input NewsSourceRootDomainWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NewsSourceRootDomainWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NewsSourceRootDomainWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NewsSourceRootDomainWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+}
+
+input NewsSourceRootDomainWhereUniqueInput {
+  id: ID
+  url: String
+}
+
+type NewsSourceSubscriptionPayload {
+  mutation: MutationType!
+  node: NewsSource
+  updatedFields: [String!]
+  previousValues: NewsSourcePreviousValues
+}
+
+input NewsSourceSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NewsSourceSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NewsSourceSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NewsSourceSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: NewsSourceWhereInput
+}
+
+input NewsSourceUpdateInput {
+  name: String
+  avatarPath: String
+  rootDomains: NewsSourceRootDomainUpdateManyInput
+  sourceItems: NewsSourceItemUpdateManyWithoutSourceInput
+}
+
+input NewsSourceUpdateOneWithoutSourceItemsInput {
+  create: NewsSourceCreateWithoutSourceItemsInput
+  connect: NewsSourceWhereUniqueInput
+  delete: Boolean
+  update: NewsSourceUpdateWithoutSourceItemsDataInput
+  upsert: NewsSourceUpsertWithoutSourceItemsInput
+}
+
+input NewsSourceUpdateWithoutSourceItemsDataInput {
+  name: String
+  avatarPath: String
+  rootDomains: NewsSourceRootDomainUpdateManyInput
+}
+
+input NewsSourceUpsertWithoutSourceItemsInput {
+  update: NewsSourceUpdateWithoutSourceItemsDataInput!
+  create: NewsSourceCreateWithoutSourceItemsInput!
+}
+
+input NewsSourceWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NewsSourceWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NewsSourceWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NewsSourceWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  avatarPath: String
+
+  """All values that are not equal to given value."""
+  avatarPath_not: String
+
+  """All values that are contained in given list."""
+  avatarPath_in: [String!]
+
+  """All values that are not contained in given list."""
+  avatarPath_not_in: [String!]
+
+  """All values less than the given value."""
+  avatarPath_lt: String
+
+  """All values less than or equal the given value."""
+  avatarPath_lte: String
+
+  """All values greater than the given value."""
+  avatarPath_gt: String
+
+  """All values greater than or equal the given value."""
+  avatarPath_gte: String
+
+  """All values containing the given string."""
+  avatarPath_contains: String
+
+  """All values not containing the given string."""
+  avatarPath_not_contains: String
+
+  """All values starting with the given string."""
+  avatarPath_starts_with: String
+
+  """All values not starting with the given string."""
+  avatarPath_not_starts_with: String
+
+  """All values ending with the given string."""
+  avatarPath_ends_with: String
+
+  """All values not ending with the given string."""
+  avatarPath_not_ends_with: String
+  rootDomains_every: NewsSourceRootDomainWhereInput
+  rootDomains_some: NewsSourceRootDomainWhereInput
+  rootDomains_none: NewsSourceRootDomainWhereInput
+  sourceItems_every: NewsSourceItemWhereInput
+  sourceItems_some: NewsSourceItemWhereInput
+  sourceItems_none: NewsSourceItemWhereInput
+}
+
+input NewsSourceWhereUniqueInput {
+  id: ID
 }
 
 """An object with an ID"""
@@ -552,29 +1337,38 @@ type Query {
   videoUploads(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUpload]!
   videoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStorageLink]!
   videoUploadMetadatas(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadMetadata]!
+  newsSources(where: NewsSourceWhereInput, orderBy: NewsSourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSource]!
   videoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadAdminMetadata]!
   videoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStatusLogItem]!
   conversationBlocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock]!
   dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date]!
   videoConversations(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoConversation]!
+  newsSourceItems(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceItem]!
+  newsSourceRootDomains(where: NewsSourceRootDomainWhereInput, orderBy: NewsSourceRootDomainOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceRootDomain]!
   speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   videoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   videoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
+  newsSource(where: NewsSourceWhereUniqueInput!): NewsSource
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
   videoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
+  newsSourceItem(where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
+  newsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   speaker(where: SpeakerWhereUniqueInput!): Speaker
   user(where: UserWhereUniqueInput!): User
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
   videoUploadStorageLinksConnection(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStorageLinkConnection!
   videoUploadMetadatasConnection(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadMetadataConnection!
+  newsSourcesConnection(where: NewsSourceWhereInput, orderBy: NewsSourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceConnection!
   videoUploadAdminMetadatasConnection(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadAdminMetadataConnection!
   videoUploadStatusLogItemsConnection(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStatusLogItemConnection!
   conversationBlocksConnection(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConversationBlockConnection!
   datesConnection(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DateConnection!
   videoConversationsConnection(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConversationConnection!
+  newsSourceItemsConnection(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceItemConnection!
+  newsSourceRootDomainsConnection(where: NewsSourceRootDomainWhereInput, orderBy: NewsSourceRootDomainOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceRootDomainConnection!
   speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
@@ -894,11 +1688,14 @@ type Subscription {
   videoUpload(where: VideoUploadSubscriptionWhereInput): VideoUploadSubscriptionPayload
   videoUploadStorageLink(where: VideoUploadStorageLinkSubscriptionWhereInput): VideoUploadStorageLinkSubscriptionPayload
   videoUploadMetadata(where: VideoUploadMetadataSubscriptionWhereInput): VideoUploadMetadataSubscriptionPayload
+  newsSource(where: NewsSourceSubscriptionWhereInput): NewsSourceSubscriptionPayload
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataSubscriptionWhereInput): VideoUploadAdminMetadataSubscriptionPayload
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemSubscriptionWhereInput): VideoUploadStatusLogItemSubscriptionPayload
   conversationBlock(where: ConversationBlockSubscriptionWhereInput): ConversationBlockSubscriptionPayload
   date(where: DateSubscriptionWhereInput): DateSubscriptionPayload
   videoConversation(where: VideoConversationSubscriptionWhereInput): VideoConversationSubscriptionPayload
+  newsSourceItem(where: NewsSourceItemSubscriptionWhereInput): NewsSourceItemSubscriptionPayload
+  newsSourceRootDomain(where: NewsSourceRootDomainSubscriptionWhereInput): NewsSourceRootDomainSubscriptionPayload
   speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
@@ -1378,7 +2175,7 @@ type VideoConversation implements Node {
   id: ID!
   createdAt: DateTime!
   createdBy(where: UserWhereInput): User
-  draft: Boolean
+  draft: Boolean!
   blocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock!]
 }
 
@@ -1426,7 +2223,7 @@ enum VideoConversationOrderByInput {
 type VideoConversationPreviousValues {
   id: ID!
   createdAt: DateTime!
-  draft: Boolean
+  draft: Boolean!
 }
 
 type VideoConversationSubscriptionPayload {
@@ -1909,6 +2706,7 @@ type VideoUploadMetadata implements Node {
   renderStart: Float!
   renderEnd: Float!
   conversations(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoConversation!]
+  newsSources(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceItem!]
 }
 
 """A connection to a list of items."""
@@ -1930,6 +2728,7 @@ input VideoUploadMetadataCreateInput {
   videoUpload: VideoUploadCreateOneWithoutMetadataInput!
   dateRecorded: DateCreateOneInput
   conversations: VideoConversationCreateManyInput
+  newsSources: NewsSourceItemCreateManyInput
 }
 
 input VideoUploadMetadataCreateOneWithoutVideoUploadInput {
@@ -1945,6 +2744,7 @@ input VideoUploadMetadataCreateWithoutVideoUploadInput {
   renderEnd: Float
   dateRecorded: DateCreateOneInput
   conversations: VideoConversationCreateManyInput
+  newsSources: NewsSourceItemCreateManyInput
 }
 
 """An edge in a connection."""
@@ -2032,6 +2832,7 @@ input VideoUploadMetadataUpdateInput {
   videoUpload: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded: DateUpdateOneInput
   conversations: VideoConversationUpdateManyInput
+  newsSources: NewsSourceItemUpdateManyInput
 }
 
 input VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
@@ -2050,6 +2851,7 @@ input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   renderEnd: Float
   dateRecorded: DateUpdateOneInput
   conversations: VideoConversationUpdateManyInput
+  newsSources: NewsSourceItemUpdateManyInput
 }
 
 input VideoUploadMetadataUpsertWithoutVideoUploadInput {
@@ -2257,6 +3059,9 @@ input VideoUploadMetadataWhereInput {
   conversations_every: VideoConversationWhereInput
   conversations_some: VideoConversationWhereInput
   conversations_none: VideoConversationWhereInput
+  newsSources_every: NewsSourceItemWhereInput
+  newsSources_some: NewsSourceItemWhereInput
+  newsSources_none: NewsSourceItemWhereInput
 }
 
 input VideoUploadMetadataWhereUniqueInput {

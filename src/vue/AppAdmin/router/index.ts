@@ -2,14 +2,14 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // tslint:disable:variable-name
-const DefaultContainer = () => import('../containers/DefaultContainer.vue');
+const DefaultContainer = require('../containers/DefaultContainer.vue').default;
 
 // Views
-const Videos = () => import('../views/Videos.vue');
-const VideoSubmission = () => import('../views/VideoSubmission.vue');
-const VideoSubmissionsTable = () => import('../views/VideoSubmissionsTable.vue');
-const VideoSubmissions = () => import('../views/VideoSubmissions.vue');
-const VideoSubmissionReview = () => import('../views/VideoSubmissionReview.vue');
+const Videos = require('../views/Videos.vue').default;
+const VideoSubmission = require('../views/VideoSubmission.vue').default;
+const VideoSubmissionsTable = require('../views/VideoSubmissionsTable.vue').default;
+const VideoSubmissions = require('../views/VideoSubmissions.vue').default;
+const VideoSubmissionReview = require('../views/VideoSubmissionReview.vue').default;
 
 Vue.use(Router);
 

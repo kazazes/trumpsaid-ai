@@ -1,3 +1,4 @@
+require('newrelic');
 import errorhandler from 'errorhandler';
 import app from './app';
 import logger from './util/logger';

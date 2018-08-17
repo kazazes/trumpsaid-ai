@@ -31,6 +31,7 @@ interface IRequiredSecrets {
   AUTH0_AUDIENCE: string;
   GOOGLE_PROJECT_ID: string;
   SERVER_TYPE: ServerType;
+  NEW_RELIC_API_KEY: string;
   [key: string]: string;
 }
 
@@ -46,6 +47,7 @@ const requiredSecrets: IRequiredSecrets = {
   PRISMA_SECRET: '',
   AUTH0_AUDIENCE: '',
   GOOGLE_PROJECT_ID: '',
+  NEW_RELIC_API_KEY: '',
   SERVER_TYPE: ServerType.WEB_WORKER,
 };
 
