@@ -1,9 +1,10 @@
 TS-WTF:
   Web Server:
     Backend:
-      ☐ NLP & NER + tag suggestions @10h https://github.com/gerardobort/node-corenlp
+      ☐ NLP & NER + tag suggestions @10h https://github.com/spencermountain/compromise
       ☐ Webm dash rendering @3h
       ☐ Publish fractional updates from workers, render progress in browser @3h @high 
+      ☐ Use Kue for MQ
     Graph API & Prisma:
       ☐ Default privilege level @3h 
       ☐ Service worker decoupling @6h
