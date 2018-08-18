@@ -429,10 +429,10 @@ export default class VideoRenderHandler extends PubSubHandler {
     dashLinkCreateInputs: VideoUploadStorageLinkCreateInput[], dashLocalPaths: string[], audioTrackPath: string):
     Promise<VideoUploadStorageLinkCreateInput[]> {
     const outputDir = directoryFromPath(dashLocalPaths[0]);
-    const localMPDOutput = `'${outputDir}${filenameWithoutPathOrExtension(dashLocalPaths[0])}-web.mpd'`;
+    const localMPDOutput = `"${outputDir}${filenameWithoutPathOrExtension(dashLocalPaths[0])}-web.mpd"`;
     await new Promise((resolve, reject) => {
       dashLocalPaths.push(audioTrackPath);
-      const fileArgs = dashLocalPaths.map(localPath => `'${localPath}'`).join(' ');
+      const fileArgs = dashLocalPaths.map(localPath => `"${localPath}"`).join(' ');
       const cmdLineOpts = ['-dash 1000', '-rap', '-frag-rap', '-profile onDemand', `-out ${localMPDOutput} ${fileArgs}`];
       logger.debug(`Starting MP4Box with command: MP4Box ${cmdLineOpts.join(' ')}`);
       exec(`MP4Box ${cmdLineOpts.join(' ')}`, { silent: false }, (code, stdout, stderr) => {
