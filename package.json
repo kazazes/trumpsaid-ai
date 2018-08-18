@@ -7,10 +7,11 @@
   },
   "scripts": {
     "start": "npm run serve",
-    "build": "rimraf ./dist && webpack --progress && npm run build-ts && npm run tslint",
-    "build-prod": "rimraf ./dist && webpack --progress --mode=production && npm run build-ts && npm run tslint",
+    "build": "rimraf ./dist && webpack --progress && npm run build-ts",
+    "build-prod": "rimraf ./dist && webpack --progress --mode=production && npm run build-ts",
     "serve": "node dist/server.js",
     "debug": "nodemon --inspect=9229 dist/server.js --ignore dist/public",
+    "debug-remote": "node --inspect=0.0.0.0:9229 dist/server.js",
     "watch-node": "nodemon --inspect dist/server.js --ignore dist/public",
     "watch": "concurrently -k -p \"{name}: \" -n \"📦,⌨️\" -c \"yellow.bold,cyan.bold\" \"webpack --progress --display-error-details --watch\" \"npm run watch-ts\"",
     "test": "jest --forceExit --coverage --verbose",
