@@ -20,14 +20,10 @@ const alignedWithColorsAndTime = winston.format.combine(
 const logger = winston.createLogger({
   transports: [
     new winston.transports.Console({
-      level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+      level: 'debug',
       format: alignedWithColorsAndTime,
     }),
   ],
 });
-
-if (process.env.NODE_ENV !== 'production') {
-  logger.debug('Logging initialized at debug level');
-}
 
 export default logger;
