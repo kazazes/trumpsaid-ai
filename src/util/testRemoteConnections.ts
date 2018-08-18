@@ -56,3 +56,5 @@ export const testPrismaConnection = () => {
       });
   });
 };
+
+export default testServerConnections;
