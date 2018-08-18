@@ -72,6 +72,9 @@ export default Vue.extend({
       that.$emit('playerTimeUpdate');
     });
   },
+  beforeDestroy() {
+    this.player.dispose();
+  },
   props: {
     sources: {
       type: Array,
