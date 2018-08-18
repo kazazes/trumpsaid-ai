@@ -261,6 +261,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       bucket: processingBucketName,
       version: 'WEB',
       fileType: 'MP4',
+      mimeType: 'video/mp4',
       videoUpload: { connect: { id: master.videoUpload.id } },
     };
 
@@ -327,6 +328,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       bucket: processingBucketName,
       version: 'WEB',
       fileType: 'MP4_DASH',
+      mimeType: 'video/mp4',
       videoUpload: { connect: { id: master.videoUpload.id } },
     };
 
@@ -386,6 +388,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       bucket: processingBucketName,
       version: 'WEB',
       fileType: 'MP4_DASH',
+      mimeType: 'video/mp4',
       videoUpload: { connect: { id: master.videoUpload.id } },
     };
 
@@ -470,6 +473,7 @@ export default class VideoRenderHandler extends PubSubHandler {
         bucket: processingBucketName,
         version: 'WEB',
         fileType: isMPD ? 'MP4_DASH_MANIFEST': 'MP4_DASH',
+        mimeType: contentType,
         videoUpload: dashLinkCreateInputs[0].videoUpload,
       };
 
@@ -525,6 +529,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       bucket: processingBucketName,
       version: 'WEB',
       fileType: 'WEBM',
+      mimeType: 'video/webm',
       videoUpload: { connect: { id: master.videoUpload.id } },
     }];
   }
@@ -570,6 +575,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       path,
       bucket: processingBucketName,
       version: 'WEB',
+      mimeType: 'audio/flac',
       fileType: 'AUDIO',
       videoUpload: { connect: { id: master.videoUpload.id } },
     }];

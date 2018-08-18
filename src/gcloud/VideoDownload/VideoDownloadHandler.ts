@@ -19,6 +19,7 @@ export interface IVideoDownloadFailedMessage extends IPubSubConsumerFailedRespon
 interface IFileWithType {
   file: File;
   fileType: VideoUploadFileLinkType;
+  mimeType: string;
 }
 
 class VideoDownloadHandler extends PubSubHandler {
@@ -52,10 +53,13 @@ class VideoDownloadHandler extends PubSubHandler {
     const filteredVersions: IFileWithType[] = versions.filter((v) => { return v !== undefined; });
 
     const storageLinks: VideoUploadStorageLinkCreateInput[] = filteredVersions.map((fileAndType: IFileWithType) => {
-      const file = fileAndType.file;
-      const fileType = fileAndType.fileType;
+      const { file, fileType, mimeType } = fileAndType;
+      if (mimeType === undefined) {
+        debugger;
+      }
       return {
         fileType,
+        mimeType,
         path: file.name,
         bucket: processingBucketName,
         videoUpload: { connect: { id: videoUpload.id } },
@@ -77,16 +81,16 @@ class VideoDownloadHandler extends PubSubHandler {
       let video: Youtubedl;
       let videoFile: File;
       let videoFileStream: WriteStream;
-      let contentType: string;
+      let mimeType: string;
 
       switch (fileType) {
         case 'WEBM':
           video = youtubedl(url, ['-f best[ext=webm]'], {});
-          contentType = 'video/webm';
+          mimeType = 'video/webm';
           break;
         case 'MP4':
           video = youtubedl(url, ['-f best[ext=mp4]'], {});
-          contentType = 'video/mp4';
+          mimeType = 'video/mp4';
           break;
         case 'AUDIO':
           video = youtubedl(url, ['-f bestaudio', '--extract-audio', '--audio-quality 0'], {});
@@ -98,7 +102,7 @@ class VideoDownloadHandler extends PubSubHandler {
       video.on('info', (info) => {
         try {
           videoFile = createFileInProcessing(path, info._filename);
-          videoFileStream = videoFile.createWriteStream({ contentType });
+          videoFileStream = videoFile.createWriteStream({ contentType: mimeType });
           video.pipe(videoFileStream);
           videoFileStream.on('finish', () => {
             videoFile.makePublic().catch((e) => {
@@ -107,7 +111,7 @@ class VideoDownloadHandler extends PubSubHandler {
 
             logger.info(`Downloaded ${url}, ${fileType} to ${path}/${info._filename} and made public`);
 
-            resolve({ fileType, file: videoFile });
+            resolve({ mimeType, fileType, file: videoFile });
           });
         } catch(e) {
           logger.error('Download error', e);

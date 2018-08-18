@@ -1,5 +1,5 @@
-# source: http://10.142.0.6:4466/trump-said-wtf/development
-# timestamp: Wed Aug 15 2018 22:25:43 GMT-0700 (PDT)
+# source: http://10.142.0.6:4466/trump-said-wtf/production
+# timestamp: Fri Aug 17 2018 21:22:33 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -3405,6 +3405,7 @@ type VideoUploadStorageLink implements Node {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
+  mimeType: String
 }
 
 """A connection to a list of items."""
@@ -3422,6 +3423,7 @@ input VideoUploadStorageLinkCreateInput {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
+  mimeType: String
   videoUpload: VideoUploadCreateOneWithoutStorageLinksInput!
 }
 
@@ -3435,6 +3437,7 @@ input VideoUploadStorageLinkCreateWithoutVideoUploadInput {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
+  mimeType: String
 }
 
 """An edge in a connection."""
@@ -3457,6 +3460,8 @@ enum VideoUploadStorageLinkOrderByInput {
   version_DESC
   fileType_ASC
   fileType_DESC
+  mimeType_ASC
+  mimeType_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -3469,6 +3474,7 @@ type VideoUploadStorageLinkPreviousValues {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
+  mimeType: String
 }
 
 type VideoUploadStorageLinkSubscriptionPayload {
@@ -3515,6 +3521,7 @@ input VideoUploadStorageLinkUpdateInput {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
+  mimeType: String
   videoUpload: VideoUploadUpdateOneWithoutStorageLinksInput
 }
 
@@ -3532,6 +3539,7 @@ input VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
+  mimeType: String
 }
 
 input VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput {
@@ -3694,6 +3702,46 @@ input VideoUploadStorageLinkWhereInput {
 
   """All values that are not contained in given list."""
   fileType_not_in: [VideoUploadFileLinkType!]
+  mimeType: String
+
+  """All values that are not equal to given value."""
+  mimeType_not: String
+
+  """All values that are contained in given list."""
+  mimeType_in: [String!]
+
+  """All values that are not contained in given list."""
+  mimeType_not_in: [String!]
+
+  """All values less than the given value."""
+  mimeType_lt: String
+
+  """All values less than or equal the given value."""
+  mimeType_lte: String
+
+  """All values greater than the given value."""
+  mimeType_gt: String
+
+  """All values greater than or equal the given value."""
+  mimeType_gte: String
+
+  """All values containing the given string."""
+  mimeType_contains: String
+
+  """All values not containing the given string."""
+  mimeType_not_contains: String
+
+  """All values starting with the given string."""
+  mimeType_starts_with: String
+
+  """All values not starting with the given string."""
+  mimeType_not_starts_with: String
+
+  """All values ending with the given string."""
+  mimeType_ends_with: String
+
+  """All values not ending with the given string."""
+  mimeType_not_ends_with: String
   videoUpload: VideoUploadWhereInput
 }
 

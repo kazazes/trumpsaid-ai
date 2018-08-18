@@ -100,6 +100,7 @@ export default class VideoThumbnailHandler extends PubSubHandler {
       bucket: masterLink.bucket,
       version: 'MASTER',
       fileType: 'THUMBNAIL',
+      mimeType: 'image/png',
       videoUpload: { connect: { id: masterLink.videoUpload.id } },
     };
 
@@ -122,6 +123,7 @@ export default class VideoThumbnailHandler extends PubSubHandler {
         bucket: rawThumbnail.bucket,
         version: 'WEB',
         fileType: 'THUMBNAIL',
+        mimeType: 'image/jpeg',
         videoUpload: { connect: { id: rawThumbnail.videoUpload.connect.id } },
       };
 

@@ -42,6 +42,7 @@ type VideoUploadStorageLink implements IStorageItem {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
+  mimeType: String!
 }
 
 type VideoUploadMetadata {

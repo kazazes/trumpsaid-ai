@@ -3577,6 +3577,7 @@ type VideoUploadStorageLink implements Node {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
+  mimeType: String
 }
 
 """A connection to a list of items."""
@@ -3594,6 +3595,7 @@ input VideoUploadStorageLinkCreateInput {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
+  mimeType: String
   videoUpload: VideoUploadCreateOneWithoutStorageLinksInput!
 }
 
@@ -3607,6 +3609,7 @@ input VideoUploadStorageLinkCreateWithoutVideoUploadInput {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
+  mimeType: String
 }
 
 """An edge in a connection."""
@@ -3629,6 +3632,8 @@ enum VideoUploadStorageLinkOrderByInput {
   version_DESC
   fileType_ASC
   fileType_DESC
+  mimeType_ASC
+  mimeType_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -3641,6 +3646,7 @@ type VideoUploadStorageLinkPreviousValues {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
+  mimeType: String
 }
 
 type VideoUploadStorageLinkSubscriptionPayload {
@@ -3687,6 +3693,7 @@ input VideoUploadStorageLinkUpdateInput {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
+  mimeType: String
   videoUpload: VideoUploadUpdateOneWithoutStorageLinksInput
 }
 
@@ -3704,6 +3711,7 @@ input VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
+  mimeType: String
 }
 
 input VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput {
@@ -3866,6 +3874,46 @@ input VideoUploadStorageLinkWhereInput {
 
   """All values that are not contained in given list."""
   fileType_not_in: [VideoUploadFileLinkType!]
+  mimeType: String
+
+  """All values that are not equal to given value."""
+  mimeType_not: String
+
+  """All values that are contained in given list."""
+  mimeType_in: [String!]
+
+  """All values that are not contained in given list."""
+  mimeType_not_in: [String!]
+
+  """All values less than the given value."""
+  mimeType_lt: String
+
+  """All values less than or equal the given value."""
+  mimeType_lte: String
+
+  """All values greater than the given value."""
+  mimeType_gt: String
+
+  """All values greater than or equal the given value."""
+  mimeType_gte: String
+
+  """All values containing the given string."""
+  mimeType_contains: String
+
+  """All values not containing the given string."""
+  mimeType_not_contains: String
+
+  """All values starting with the given string."""
+  mimeType_starts_with: String
+
+  """All values not starting with the given string."""
+  mimeType_not_starts_with: String
+
+  """All values ending with the given string."""
+  mimeType_ends_with: String
+
+  """All values not ending with the given string."""
+  mimeType_not_ends_with: String
   videoUpload: VideoUploadWhereInput
 }
 
@@ -4275,6 +4323,8 @@ export type VideoUploadStorageLinkOrderByInput =   'id_ASC' |
   'version_DESC' |
   'fileType_ASC' |
   'fileType_DESC' |
+  'mimeType_ASC' |
+  'mimeType_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
@@ -4506,6 +4556,20 @@ export interface VideoUploadStorageLinkWhereInput {
   fileType_not?: VideoUploadFileLinkType
   fileType_in?: VideoUploadFileLinkType[] | VideoUploadFileLinkType
   fileType_not_in?: VideoUploadFileLinkType[] | VideoUploadFileLinkType
+  mimeType?: String
+  mimeType_not?: String
+  mimeType_in?: String[] | String
+  mimeType_not_in?: String[] | String
+  mimeType_lt?: String
+  mimeType_lte?: String
+  mimeType_gt?: String
+  mimeType_gte?: String
+  mimeType_contains?: String
+  mimeType_not_contains?: String
+  mimeType_starts_with?: String
+  mimeType_not_starts_with?: String
+  mimeType_ends_with?: String
+  mimeType_not_ends_with?: String
   videoUpload?: VideoUploadWhereInput
 }
 
@@ -5051,6 +5115,7 @@ export interface VideoUploadStorageLinkCreateWithoutVideoUploadInput {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
+  mimeType?: String
 }
 
 export interface VideoUploadMetadataUpdateInput {
@@ -5070,6 +5135,7 @@ export interface VideoUploadStorageLinkCreateInput {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
+  mimeType?: String
   videoUpload: VideoUploadCreateOneWithoutStorageLinksInput
 }
 
@@ -5093,6 +5159,7 @@ export interface VideoUploadStorageLinkUpdateInput {
   bucket?: String
   version?: VideoUploadFileLinkVersion
   fileType?: VideoUploadFileLinkType
+  mimeType?: String
   videoUpload?: VideoUploadUpdateOneWithoutStorageLinksInput
 }
 
@@ -5111,6 +5178,7 @@ export interface VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput {
   bucket?: String
   version?: VideoUploadFileLinkVersion
   fileType?: VideoUploadFileLinkType
+  mimeType?: String
 }
 
 export interface VideoUploadMetadataCreateInput {
@@ -6199,6 +6267,7 @@ export interface VideoUploadStorageLinkPreviousValues {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
+  mimeType?: String
 }
 
 /*
@@ -6218,6 +6287,7 @@ export interface VideoUploadStorageLink extends Node {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
+  mimeType?: String
 }
 
 /*
