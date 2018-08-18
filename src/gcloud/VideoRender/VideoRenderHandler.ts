@@ -431,8 +431,8 @@ export default class VideoRenderHandler extends PubSubHandler {
       dashLocalPaths.push(audioTrackPath);
       const fileArgs = dashLocalPaths.map(localPath => `'${localPath}'`).join(' ');
       const cmdLineOpts = ['-dash 1000', '-rap', '-frag-rap', '-profile onDemand', `-out ${localMPDOutput} ${fileArgs}`];
-      logger.debug(`Starting mp4box with command: mp4box ${cmdLineOpts.join(' ')}`);
-      exec(`mp4box ${cmdLineOpts.join(' ')}`, { silent: false }, (code, stdout, stderr) => {
+      logger.debug(`Starting MP4Box with command: MP4Box ${cmdLineOpts.join(' ')}`);
+      exec(`MP4Box ${cmdLineOpts.join(' ')}`, { silent: false }, (code, stdout, stderr) => {
         if (code !== 0) {
           logger.error(code.toString());
           logger.error(stderr);
