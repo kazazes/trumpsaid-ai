@@ -1,21 +1,18 @@
 <template>
-  <div class='animated fadeIn'>
-  </div>
+  <div class="animated fadeIn" />
 </template>
 
 <script lang='ts'>
+import Vue from 'Vue';
 import { Callout } from '@coreui/vue';
+import Component from 'vue-class-component';
 
-export default {
+@Component({
   name: 'dashboard',
-  components: {
-    Callout,
-  },
-  data() {
-    return {};
-  },
-  methods: {},
-};
+  components: { Callout }
+})
+export default class dashboard extends Vue {
+}
 </script>
 
 <style>

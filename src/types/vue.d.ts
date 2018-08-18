@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { ApolloProperty } from 'vue-apollo/types/vue-apollo';
 import { VueApolloComponentOption } from 'vue-apollo/types/options';
+import { Route } from 'vue-router';
 
 declare module '*.vue' {
   import Vue from 'vue'
@@ -23,5 +24,6 @@ declare module 'vue/types/vue' {
 declare module 'vue/types/options' {
   interface ComponentOptions<V extends Vue> {
     apollo?: VueApolloComponentOption<V>;
+    name?: string;
   }
 }

@@ -1,19 +1,23 @@
 <template>
-  <router-view>
-  </router-view>
+  <router-view />
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'Vue';
+import Component from 'vue-class-component';
+
+@Component({
   name: 'AdminApp',
-  mounted: () => {
+})
+export default class AdminApp extends Vue {
+  mounted() {
     const token = getQueryParam('token');
     if (token && token.length > 50) {
       window.localStorage.setItem('access_token', token);
       window.location.replace('/admin');
     }
-  },
-};
+  }
+}
 
 const getQueryParam = (param: string) => {
   location.search

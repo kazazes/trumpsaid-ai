@@ -1,12 +1,12 @@
 <template>
-  <router-view></router-view>
+  <router-view />
 </template>
 <script lang="ts">
 import Vue from 'vue';
-export default Vue.extend({
-  name: 'VideoSubmission',
-  data() {
-    return {};
-  },
-});
+import Component from 'vue-class-component';
+
+@Component({
+  name: 'Videos',
+})
+export default class Videos extends Vue {}
 </script>

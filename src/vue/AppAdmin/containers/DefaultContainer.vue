@@ -1,38 +1,56 @@
 <template>
   <div class="app">
-    <notifications :duration=5000 />
+    <notifications :duration="5000" />
     <AppHeader fixed>
-      <SidebarToggler class="d-lg-none" display="md" mobile />
-      <b-link class="navbar-brand" to="#">
-        <img class="navbar-brand-full mh-100" src="/img/trump.svg" alt="Trump Said... WTF?">
-        <img class="navbar-brand-minimized" src="/img/trump.svg" width="30">
+      <SidebarToggler
+        class="d-lg-none"
+        display="md"
+        mobile
+      />
+      <b-link
+        class="navbar-brand"
+        to="#"
+      >
+        <img
+          class="navbar-brand-full mh-100"
+          src="/img/trump.svg"
+          alt="Trump Said... WTF?"
+        >
+        <img
+          class="navbar-brand-minimized"
+          src="/img/trump.svg"
+          width="30"
+        >
       </b-link>
-      <SidebarToggler class="d-md-down-none" display="lg" />
+      <SidebarToggler
+        class="d-md-down-none"
+        display="lg"
+      />
       <b-navbar-nav class="ml-auto">
         <b-nav-item class="d-md-down-none">
-          <DefaultHeaderDropdownNotif/>
+          <DefaultHeaderDropdownNotif />
         </b-nav-item>
         <b-nav-item class="d-md-down-none">
-          <DefaultHeaderDropdownTasks/>
+          <DefaultHeaderDropdownTasks />
         </b-nav-item>
         <b-nav-item class="d-md-down-none">
-          <DefaultHeaderDropdownMssgs/>
+          <DefaultHeaderDropdownMssgs />
         </b-nav-item>
-        <DefaultHeaderDropdownAccnt/>
+        <DefaultHeaderDropdownAccnt />
       </b-navbar-nav>
     </AppHeader>
     <div class="app-body">
       <AppSidebar fixed>
-        <SidebarHeader/>
-        <SidebarForm/>
-        <SidebarNav :navItems="nav"></SidebarNav>
-        <SidebarFooter/>
-        <SidebarMinimizer/>
+        <SidebarHeader />
+        <SidebarForm />
+        <SidebarNav :nav-items="nav" />
+        <SidebarFooter />
+        <SidebarMinimizer />
       </AppSidebar>
       <main class="main">
-        <Breadcrumb :list="list"/>
+        <Breadcrumb :list="list" />
         <div class="container-fluid">
-          <router-view></router-view>
+          <router-view />
         </div>
       </main>
     </div>
@@ -60,12 +78,14 @@ import {
   SidebarToggler,
 } from '@coreui/vue';
 import nav from '../_nav';
+import Vue from 'Vue';
 import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt.vue';
 import DefaultHeaderDropdownMssgs from './DefaultHeaderDropdownMssgs.vue';
 import DefaultHeaderDropdownNotif from './DefaultHeaderDropdownNotif.vue';
 import DefaultHeaderDropdownTasks from './DefaultHeaderDropdownTasks.vue';
+import Component from 'vue-class-component';
 
-export default {
+@Component({
   name: 'DefaultContainer',
   components: {
     AsideToggler,
@@ -85,23 +105,19 @@ export default {
     SidebarNav,
     SidebarMinimizer,
   },
-  data() {
-    return {
-      nav: nav.items,
-    };
-  },
-  computed: {
-    name() {
-      return this.$route.name;
-    },
-    year() {
-      return new Date().getFullYear();
-    },
-    list() {
-      return this.$route.matched.filter(
-        (route: any) => { return route.name || route.meta.label; },
-      );
-    },
-  },
-};
+})
+export default class DefaultContainer extends Vue {
+  nav = nav.items;
+  get name() {
+    return this.$route.name;
+  }
+  get year() {
+    return new Date().getFullYear();
+  }
+  get list() {
+    return this.$route.matched.filter((route: any) => {
+      return route.name || route.meta.label;
+    });
+  }
+}
 </script>

@@ -3,6 +3,7 @@
     "target": "es6",
     "moduleResolution": "node",
     "module": "commonjs",
+    "experimentalDecorators": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
     "importHelpers": true,
@@ -12,14 +13,13 @@
     "noImplicitThis": true,
     "sourceMap": true,
     "typeRoots": ["node_modules/@types", "src/types"],
-    "outDir": "dist",
-    "rootDir": "src",
+    "outDir": "./dist",
     "lib": ["esnext", "dom"],
     "baseUrl": "./",
     "paths": {
       "*": ["node_modules/*", "src/types/*"]
     }
   },
-  "include": ["src/**/**/*"],
+  "include": ["src/**/**/*.ts", "src/**/**/*.vue"],
   "exclude": ["node_modules"]
 }

@@ -1,21 +1,29 @@
 <template>
   <div class="wrapper">
     <div class="animated fadeIn">
-      <router-view></router-view>
+      <router-view />
       <b-card no-body>
-        <b-tabs card pills>
-          <b-tab title="Metadata" active>
-            <VideoSubmissionMetadata v-if="videoUpload !== undefined" :videoUpload="videoUpload"></VideoSubmissionMetadata>
+        <b-tabs
+          card
+          pills
+        >
+          <b-tab
+            title="Metadata"
+            active
+          >
+            <VideoSubmissionMetadata
+              v-if="videoUpload !== undefined"
+              :video-upload="videoUpload"
+            />
           </b-tab>
           <b-tab title="News Sources">
-            <VideoSubbmissionNewsSources v-if="videoUpload !== undefined" :videoUpload="videoUpload"></VideoSubbmissionNewsSources>
+            <VideoSubbmissionNewsSources
+              v-if="videoUpload !== undefined"
+              :video-upload="videoUpload"
+            />
           </b-tab>
-          <b-tab title="Files">
-
-          </b-tab>
-          <b-tab title="Transcript" >
-
-          </b-tab>
+          <b-tab title="Files" />
+          <b-tab title="Transcript" />
         </b-tabs>
       </b-card>
     </div>
@@ -25,33 +33,16 @@
 </style>
 <script lang="ts">
 import Vue from 'vue';
-import { VIDEO_UPLOAD_DETAILS } from '../constants/graphql.ts';
+import { VIDEO_UPLOAD_DETAILS } from '../constants/graphql';
 import VideoSubmissionMetadata from './VideoSubmissionMetadata.vue';
 import VideoSubbmissionNewsSources from './VideoSubmissionNewsSources.vue';
+import Component from 'vue-class-component';
 
-export default Vue.extend({
+@Component({
   name: 'VideoSubmissionReview',
   components: {
     VideoSubmissionMetadata,
     VideoSubbmissionNewsSources,
-  },
-  data() {
-    return {
-
-    };
-  },
-  computed: {
-  },
-  mounted() {
-
-  },
-  updated() {
-  },
-  props: {
-  },
-  filters: {
-  },
-  methods: {
   },
   apollo: {
     videoUpload: {
@@ -64,5 +55,6 @@ export default Vue.extend({
       pollInterval: 1000,
     },
   },
-});
+})
+export default class VideoSubmissionReview extends Vue {}
 </script>

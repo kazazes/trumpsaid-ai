@@ -6,13 +6,22 @@
           <b-col md="6">
             <b-form-group>
               <label for="videoTitle">Title:</label>
-              <b-form-input id="videoTitle" :value="editableUpload.metadata.title" v-model="editableUpload.metadata.title"></b-form-input>
+              <b-form-input
+                id="videoTitle"
+                v-model="editableUpload.metadata.title"
+                :value="editableUpload.metadata.title"
+              />
             </b-form-group>
           </b-col>
           <b-col md="6">
             <b-form-group>
               <label for="dateRecorded">Date Recorded:</label>
-              <DatePicker :value="dateRecordedAsDate" input-class="form-control" id="dateRecorded" v-model="editableUpload.metadata.dateRecorded" ></DatePicker>
+              <DatePicker
+                id="dateRecorded"
+                v-model="editableUpload.metadata.dateRecorded"
+                :value="dateRecordedAsDate"
+                input-class="form-control"
+              />
             </b-form-group>
           </b-col>
         </b-row>
@@ -20,7 +29,13 @@
           <b-col>
             <b-form-group>
               <label for="subtitle">Subtitle:</label>
-              <b-form-textarea id="subtitle" rows="3" placeholder="The subtitle of the video." v-model="editableUpload.metadata.subtitle" :value="editableUpload.metadata.subtitle"></b-form-textarea>
+              <b-form-textarea
+                id="subtitle"
+                v-model="editableUpload.metadata.subtitle"
+                rows="3"
+                placeholder="The subtitle of the video."
+                :value="editableUpload.metadata.subtitle"
+              />
             </b-form-group>
           </b-col>
         </b-row>
@@ -33,19 +48,21 @@
           </b-col>
         </b-row>
         <div class="text-center">
-          <b-btn @click="handleAdditionalMetadata" variant="primary">Save</b-btn>
+          <b-btn
+            variant="primary"
+            @click="handleAdditionalMetadata"
+          >Save</b-btn>
         </div>
       </b-form-group>
     </b-col>
   </b-row>
 </template>
 <script lang="ts">
-import timestampFormat from 'hh-mm-ss';
 import moment from 'moment';
 import Vue from 'vue';
 import DatePicker from 'vuejs-datepicker';
-import { DateCreateInput, VideoUpload, VideoUploadStorageLink } from '../../../graphql/generated/prisma';
-import { UPDATE_METADATA } from '../constants/graphql.ts';
+import { UPDATE_METADATA } from '../constants/graphql';
+import { Date as GraphQLDate } from '../../../graphql/generated/prisma';
 
 export default Vue.extend({
   name: 'VideoSubmissionMetadata',
@@ -54,14 +71,18 @@ export default Vue.extend({
   },
   data() {
     return {
-      editableUpload: { metadata: { title: '', subtitle: '', dateRecorded: new Date() } },
+      editableUpload: {
+        metadata: { title: '', subtitle: '', dateRecorded: new Date() },
+      },
       dateRecordedInput: undefined,
     };
   },
   mounted() {
     this.editableUpload = JSON.parse(JSON.stringify(this.videoUpload));
     if (this.editableUpload.metadata.dateRecorded) {
-      this.editableUpload.metadata.dateRecorded = moment(this.editableUpload.metadata.dateRecorded).toDate();
+      this.editableUpload.metadata.dateRecorded = moment(
+        this.editableUpload.metadata.dateRecorded
+      ).toDate();
     } else {
       this.editableUpload.metadata.dateRecorded = moment().toDate();
     }
@@ -69,12 +90,10 @@ export default Vue.extend({
   },
   computed: {
     suggestedTags: {
-      get() {
-
-      },
+      get() {},
     },
     dateRecordedAsDate: {
-      get() {
+      get(): Date {
         const stored = this.editableUpload.metadata.dateRecorded;
         if (stored) {
           const asMoment = moment(stored);
@@ -82,8 +101,8 @@ export default Vue.extend({
         } else {
           return new Date();
         }
-      }
-    }
+      },
+    },
   },
   props: {
     videoUpload: Object,
@@ -91,13 +110,14 @@ export default Vue.extend({
   methods: {
     async handleAdditionalMetadata() {
       const metadata = this.editableUpload.metadata;
-      let dateCreate = undefined;
+      let dateCreate: GraphQLDate = undefined;
       if (metadata.dateRecorded) {
         const dateMoment = moment(metadata.dateRecorded);
-        dateCreate = { };
-        dateCreate.year = dateMoment.year();
-        dateCreate.month = dateMoment.month();
-        dateCreate.day = dateMoment.date();
+        dateCreate = {
+          year: dateMoment.year(),
+          month: dateMoment.month(),
+          day: dateMoment.date(),
+        };
       }
 
       const update = {
@@ -105,7 +125,7 @@ export default Vue.extend({
         title: metadata.title,
         subtitle: metadata.subtitle,
       };
-      
+
       await this.$apollo.mutate({
         mutation: UPDATE_METADATA,
         variables: {
@@ -120,7 +140,6 @@ export default Vue.extend({
       });
     },
   },
-  apollo: {
-  },
+  apollo: {},
 });
 </script>
