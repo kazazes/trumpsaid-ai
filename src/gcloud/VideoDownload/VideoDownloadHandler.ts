@@ -111,6 +111,7 @@ class VideoDownloadHandler extends PubSubHandler {
           });
         } catch(e) {
           logger.error('Download error', e);
+          throw e;
         }
         logger.debug(`Download started for
       \tVideo: ${url}
