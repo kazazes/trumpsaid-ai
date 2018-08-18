@@ -95,21 +95,23 @@ class VideoDownloadHandler extends PubSubHandler {
           video = youtubedl(url, [], {});
           break;
       }
-
       video.on('info', (info) => {
-        videoFile = createFileInProcessing(path, info._filename);
-        videoFileStream = videoFile.createWriteStream({ contentType });
-        video.pipe(videoFileStream);
-        videoFileStream.on('finish', () => {
-          videoFile.makePublic().catch((e) => {
-            logger.error(`Error making file public: ${JSON.stringify(e)}`);
+        try {
+          videoFile = createFileInProcessing(path, info._filename);
+          videoFileStream = videoFile.createWriteStream({ contentType });
+          video.pipe(videoFileStream);
+          videoFileStream.on('finish', () => {
+            videoFile.makePublic().catch((e) => {
+              logger.error(`Error making file public: ${JSON.stringify(e)}`);
+            });
+
+            logger.info(`Downloaded ${url}, ${fileType} to ${path}/${info._filename} and made public`);
+
+            resolve({ fileType, file: videoFile });
           });
-
-          logger.info(`Downloaded ${url}, ${fileType} to ${path}/${info._filename} and made public`);
-
-          resolve({ fileType, file: videoFile });
-        });
-
+        } catch(e) {
+          logger.error('Download error', e);
+        }
         logger.debug(`Download started for
       \tVideo: ${url}
       \tType: ${fileType}
