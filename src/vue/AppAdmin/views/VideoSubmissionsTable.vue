@@ -4,12 +4,15 @@
       <router-view></router-view>
       <b-row class="mb-4">
         <b-col>
-          <b-btn v-b-modal.submitVideoModal variant="primary" size="sm"><i class="icon-plus icon"></i> Add video</b-btn>
+          <b-btn v-b-modal.submitVideoModal variant="primary" size="sm"><i class="icon-plus icon"></i> Create new upload</b-btn>
         </b-col>
       </b-row>
       <b-row>
         <b-col v-if="$apollo.loading">
           <Spinner></Spinner>
+        </b-col>
+        <b-col v-else-if="videoUploads.length === 0" class="text-center">
+          <h3 class="text-muted">There are no active uploads.</h3>
         </b-col>
         <b-col v-else class="cardless">
           <b-table responsive="sm" class="table-hover" :items="videoUploads" :fields="fields" :current-page="currentPage" :per-page="perPage" @row-clicked="presentDetailPage">

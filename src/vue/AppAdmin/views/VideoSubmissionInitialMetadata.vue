@@ -135,7 +135,7 @@ export default Vue.extend({
       const linkUrl = `https://storage.googleapis.com/${
         storageLink.bucket
       }/${encodeURI(storageLink.path)}`;
-      return [{ src: linkUrl, type: 'video/mp4' }];
+      return [{ src: linkUrl, mimeType: storageLink.mimeType }];
     },
     getAMaster(): VideoUploadStorageLink {
       return this.videoUpload.storageLinks.find(

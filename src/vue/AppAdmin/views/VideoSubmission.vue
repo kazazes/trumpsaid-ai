@@ -88,7 +88,7 @@ export default Vue.extend({
     },
     isDownloading:{
       get() {
-        return this.firstMaster === undefined;
+        return this.mp4Master === undefined;
       },
     },
     needsInitialMetadata:{
@@ -96,15 +96,15 @@ export default Vue.extend({
         return this.videoUpload.metadata.renderEnd === 0;
       },
     },
-    firstMaster: {
+    mp4Master: {
       get() {
         return this.videoUpload.storageLinks.find(
-        (link: VideoUploadStorageLink) => { return link.version === 'MASTER' && (link.fileType === 'MP4' || link.fileType === 'WEBM'); });
+        (link: VideoUploadStorageLink) => { return link.version === 'MASTER' && link.fileType === 'MP4'; });
       },
     },
     awaitingTranscription: {
       get() {
-        return this.videoUpload.metadata.conversations.length === 0;
+        return this.videoUpload.metadata.conversations.length === 0 && this.mp4Master === undefined;
       },
     },
     awaitingTranscriptionReview: {

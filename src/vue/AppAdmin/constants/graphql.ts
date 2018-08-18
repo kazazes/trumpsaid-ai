@@ -75,6 +75,7 @@ query videoUpload($videoSubmissionId: ID!) {
       bucket
       version
       fileType
+      mimeType
     }
   }
 }

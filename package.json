@@ -52,7 +52,6 @@
     "css-vars-ponyfill": "^1.9.0",
     "dotenv": "^6.0.0",
     "errorhandler": "^1.5.0",
-    "escape-quotes": "^1.0.2",
     "express": "^4.16.3",
     "express-flash": "0.0.2",
     "express-jwt": "^5.3.1",

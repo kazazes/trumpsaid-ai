@@ -80,7 +80,7 @@ export default Vue.extend({
       type: Array,
       validator: (sources: IVideoSource[]) => {
         return every(sources, (src: IVideoSource) => {
-          return src.src !== undefined && src.type !== undefined;
+          return src.src !== undefined && src.mimeType !== undefined;
         });
       },
     },

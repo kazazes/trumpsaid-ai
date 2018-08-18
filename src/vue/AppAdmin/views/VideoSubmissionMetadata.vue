@@ -12,7 +12,7 @@
           <b-col md="6">
             <b-form-group>
               <label for="dateRecorded">Date Recorded:</label>
-              <DatePicker :value="editableUpload.metadata.dateRecorded" input-class="form-control" id="dateRecorded" v-model="editableUpload.metadata.dateRecorded" ></DatePicker>
+              <DatePicker :value="dateRecordedAsDate" input-class="form-control" id="dateRecorded" v-model="editableUpload.metadata.dateRecorded" ></DatePicker>
             </b-form-group>
           </b-col>
         </b-row>
@@ -60,7 +60,11 @@ export default Vue.extend({
   },
   mounted() {
     this.editableUpload = JSON.parse(JSON.stringify(this.videoUpload));
-    this.editableUpload.metadata.dateRecorded = moment(this.editableUpload.metadata.dateRecorded).toDate();
+    if (this.editableUpload.metadata.dateRecorded) {
+      this.editableUpload.metadata.dateRecorded = moment(this.editableUpload.metadata.dateRecorded).toDate();
+    } else {
+      this.editableUpload.metadata.dateRecorded = moment().toDate();
+    }
     this.$forceUpdate();
   },
   computed: {
@@ -69,6 +73,17 @@ export default Vue.extend({
 
       },
     },
+    dateRecordedAsDate: {
+      get() {
+        const stored = this.editableUpload.metadata.dateRecorded;
+        if (stored) {
+          const asMoment = moment(stored);
+          return asMoment.toDate();
+        } else {
+          return new Date();
+        }
+      }
+    }
   },
   props: {
     videoUpload: Object,

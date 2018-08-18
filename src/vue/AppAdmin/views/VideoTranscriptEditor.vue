@@ -1,7 +1,8 @@
 <template>
   <b-row class="mb-2">
     <b-col md="6" offset="3" class="mt-3">
-      <VideoPlayer id="master" ref="transcribePlayer" v-on:playerTimeUpdate="playerTimeUpdated" v-on:playerLoaded="playerMetadataUpdated" :poster="getPoster(this.videoUpload)" :sources="getSource(getFirstWebVersion())" preload="auto" data-setup="{}"></VideoPlayer>
+      <VideoPlayer id="master" ref="transcribePlayer" v-on:playerTimeUpdate="playerTimeUpdated" v-on:playerLoaded="playerMetadataUpdated" 
+      :poster="getPoster(this.videoUpload)" :sources="getSource(getMp4Web())" preload="auto" data-setup="{}"></VideoPlayer>
     </b-col>
     <b-col md="12">
       <div class="my-2">
@@ -432,11 +433,11 @@ export default Vue.extend({
       const linkUrl = `https://storage.googleapis.com/${
         storageLink.bucket
       }/${encodeURI(storageLink.path)}`;
-      return [{ src: linkUrl, type: 'video/mp4' }];
+      return [{ src: linkUrl, mimeType: storageLink.mimeType }];
     },
-    getFirstWebVersion(): VideoUploadStorageLink {
+    getMp4Web(): VideoUploadStorageLink {
       return this.videoUpload.storageLinks.find(
-        (link: VideoUploadStorageLink) => { return link.version === 'WEB' && (link.fileType === 'MP4' || link.fileType === 'WEBM'); });
+        (link: VideoUploadStorageLink) => { return link.version === 'WEB' && link.fileType === 'MP4'; });
     },
   },
   apollo: {
