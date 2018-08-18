@@ -1,5 +1,8 @@
 *credentials.json
 .prettierignore
+.env.prisma.dev
+.env.prisma.prod
+
 
 # Created by https://www.gitignore.io/api/node,macos,visualstudiocode
 
