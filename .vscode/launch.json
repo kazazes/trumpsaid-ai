@@ -6,6 +6,15 @@
   "configurations": [
     {
       "type": "node",
+      "request": "attach",
+      "name": "Attach to Remote",
+      "address": "10.142.0.7",
+      "port": 9229,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/var/www/trumpsaid.wtf/current/"
+    },
+    {
+      "type": "node",
       "request": "launch",
       "name": "Launch via NPM",
       "runtimeExecutable": "npm",
