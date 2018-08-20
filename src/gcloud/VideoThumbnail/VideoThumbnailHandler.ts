@@ -36,6 +36,10 @@ export default class VideoThumbnailHandler extends PubSubHandler {
     this.failed(resp);
   }
   public async requestHandler(message: IPubSubConsumerPayload) {
+    if (this.activeJobs >= this.maxJobs) {
+      return message.nack();
+    }
+    this.activeJobs = this.activeJobs + 1;
     const timer = this.startTimer(message);
 
     message.ack();

@@ -3,6 +3,8 @@ import PubSubController from './PubSubController';
 export abstract class PubSubHandler {
   timeout: number;
   pubSubController: PubSubController;
+  maxJobs: number = 1;
+  activeJobs: number = 0;
   constructor(timeout: number, controller: PubSubController) {
     this.timeout = timeout;
     this.pubSubController = controller;
@@ -17,6 +19,7 @@ export abstract class PubSubHandler {
     if (response) {
       this.pubSubController.publishResponseMessage(response);
     }
+    this.activeJobs = this.activeJobs - 1;
   }
   protected update(response: IPubSubConsumerUpdateMessage): void {
     this.pubSubController.publishResponseMessage(response);
@@ -26,6 +29,7 @@ export abstract class PubSubHandler {
       clearTimeout(timer);
     }
     this.pubSubController.publishFailureMessage(response);
+    this.activeJobs = this.activeJobs - 1;
   }
 }
 

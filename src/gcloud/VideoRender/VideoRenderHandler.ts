@@ -48,6 +48,11 @@ export default class VideoRenderHandler extends PubSubHandler {
     super(timeout, controller);
   }
   public async requestHandler(message: IPubSubConsumerPayload) {
+    if (this.activeJobs >= this.maxJobs) {
+      return message.nack();
+    }
+    this.activeJobs = this.activeJobs + 1;
+
     message.ack();
     const timer = this.startTimer(message);
     return new Promise<void>(async (resolve, reject) => {
