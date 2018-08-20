@@ -53,10 +53,6 @@ const requiredSecrets: IRequiredSecrets = {
 
 Object.keys(requiredSecrets).map((key) => {
   const processVar = process.env[key];
-  if (!processVar) {
-    logger.error(`${key} is not set in .env.`);
-    process.exit(1);
-  }
   requiredSecrets[key] = processVar;
 });
 

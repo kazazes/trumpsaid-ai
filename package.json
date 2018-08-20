@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build-prod": "rimraf ./dist && webpack --progress --mode=production && npm run build-ts",
-    "build-ts": "npm run tslint && tsc",
+    "build-ts": "tsc --extendedDiagnostics",
     "build": "rimraf ./dist && webpack --progress && npm run build-ts",
     "debug-remote": "node --inspect=0.0.0.0:9229 dist/server.js",
     "debug": "nodemon --inspect=9229 dist/server.js --ignore dist/public",
@@ -16,7 +16,8 @@
     "start": "node dist/server.js",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "watch-ts": "tsc -w",
-    "watch": "concurrently -k -p \"{name}: \" -n \"📦,⌨️\" -c \"yellow.bold,cyan.bold\" \"webpack --progress --display-error-details --watch\" \"npm run watch-ts\""
+    "watch-webpack": "webpack --progress --display-error-details --watch",
+    "watch": "concurrently -k -p \"{name}: \" -n \"📦,⌨️\" -c \"yellow.bold,cyan.bold\" \"npm run watch-webpack\" \"npm run watch-ts\""
   },
   "dependencies": {
     "@coreui/coreui-pro": "^2.0.6",
