@@ -1,0 +1,22 @@
+{
+  "name": "@trumpsaid/common",
+  "version": "1.0.0",
+  "typings": "dist/index",
+  "main": "dist/",
+  "repository": "http://github.com/trumpsaid-wtf/web-app",
+  "author": "Peter Kazazes",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "license": "None",
+  "dependencies": {
+    "long": "^4.0.0",
+    "protobufjs": "^6.8.8",
+    "redis": "^2.8.0",
+    "shelljs": "^0.8.2",
+    "winston": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/redis": "^2.8.6"
+  }
+}
