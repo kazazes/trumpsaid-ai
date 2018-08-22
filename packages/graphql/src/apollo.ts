@@ -1,7 +1,7 @@
+import { Prisma, User } from '@trumpsaid/prisma';
+import prismaContext from '@trumpsaid/prisma/dist/prismaContext';
 import { importSchema } from 'graphql-import';
 import { applyMiddleware } from 'graphql-middleware';
-import { Prisma, User } from './generated/prisma';
-import prismaContext from './prismaContext';
 import resolvers from './resolvers';
 import shield from './resolvers/Shield';
 

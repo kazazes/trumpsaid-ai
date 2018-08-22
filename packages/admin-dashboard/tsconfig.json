@@ -1,0 +1,9 @@
+{
+  // "references": [{ "path": "../services" }],
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "typeRoots": ["./types"]
+  }
+}

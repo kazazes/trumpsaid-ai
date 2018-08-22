@@ -1,0 +1,10 @@
+{
+  "files": [],
+  "references": [
+    { "path": "admin-dashboard" },
+    { "path": "common" },
+    { "path": "server" },
+    { "path": "services" },
+    { "path": "prisma" }
+  ]
+}

@@ -2,7 +2,7 @@
   "name": "@trumpsaid/common",
   "version": "1.0.0",
   "typings": "dist/index",
-  "main": "dist/",
+  "main": "dist/index",
   "repository": "http://github.com/trumpsaid-wtf/web-app",
   "author": "Peter Kazazes",
   "scripts": {

@@ -1,0 +1,36 @@
+{
+  "extends": "tslint-config-airbnb",
+  "linterOptions": {
+    "exclude": ["src/graphql/generated/**", "node_modules/**"]
+  },
+  "rules": {
+    "await-promise": true,
+    "import-name": false,
+    "interface-name": true,
+    "max-line-length": [
+      true,
+      {
+        "ignore-pattern": "//",
+        "limit": 150
+      }
+    ],
+    "no-consecutive-blank-lines": true,
+    "no-console": true,
+    "no-duplicate-imports": true,
+    "no-floating-promises": true,
+    "no-irregular-whitespace": true,
+    "no-return-await": true,
+    "no-string-throw": true,
+    "no-var-keyword": true,
+    "only-arrow-functions": true,
+    "ordered-imports": true,
+    "prefer-const": true,
+    "prefer-method-signature": true,
+    "prefer-template": [true, "allow-single-concat"],
+    "radix": false,
+    "triple-equals": true,
+    "use-isnan": true,
+    "variable-name": true,
+    "whitespace": true
+  }
+}

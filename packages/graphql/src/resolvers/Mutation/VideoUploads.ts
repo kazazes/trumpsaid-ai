@@ -1,6 +1,6 @@
-import logger from '@trumpsaid/common/logger';
-import { VideoTranscriber } from '@trumpsaid/services/VideoTranscriber';
-import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '@trumpsaid/services/VideoUploadJobPublisher';
+import { logger } from '@trumpsaid/common';
+import { VideoTranscriber } from '@trumpsaid/services';
+import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '@trumpsaid/services/dist/VideoUploadJobPublisher';
 import { ApolloError } from 'apollo-server-core';
 import { isURL } from 'validator';
 import { IApolloContext } from '../../apollo';

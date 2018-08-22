@@ -1,8 +1,8 @@
 {
-  "name": "@trumpsaid/graphql",
+  "name": "@trumpsaid/prisma",
   "version": "1.0.0",
   "typings": "dist/index",
-  "main": "dist/",
+  "main": "dist/index",
   "repository": "http://github.com/trumpsaid-wtf/web-app",
   "author": "Peter Kazazes",
   "scripts": {
@@ -10,8 +10,7 @@
   },
   "license": "None",
   "dependencies": {
-    "@trumpsaid/common": "^1.0.0",
-    "@trumpsaid/prisma": "^1.0.0"
+    "@trumpsaid/common": "^1.0.0"
   },
   "devDependencies": {}
 }
