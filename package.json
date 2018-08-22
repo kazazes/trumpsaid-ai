@@ -1,13 +1,13 @@
 {
   "name": "trumpsaidwtf-express",
-  "license": "CC-BY-NC",
+  "license": "CC-BY-NC-4.0",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
   },
   "private": true,
   "workspaces": [
-    "packages/*"
+    "modules/*"
   ],
   "devDependencies": {
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
