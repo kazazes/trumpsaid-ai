@@ -1,17 +1,21 @@
 {
   "name": "@trumpsaid/admin-dashboard",
+  "license": "CC-BY-NC-4.0",
   "version": "1.0.0",
   "description": "The admin dashboard for Trump Said... WTF?",
-  "repository": "http://github.com/trumpsaid-wtf/web-app",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
+  },
   "typings": "dist/index.d.ts",
   "main": "dist/",
   "author": "Peter Kazazes",
-  "license": "None",
   "scripts": {
-    "build-prod": "webpack --progress --mode=production",
     "build": "webpack --progress",
+    "build-prod": "webpack --progress --mode=production",
     "dep-check": "npm-check -u",
-    "watch-webpack": "webpack --progress --display-error-details --watch"
+    "watch": "webpack --progress --display-error-details --watch",
+    "clean": "rimraf ./dist"
   },
   "dependencies": {
     "eslint": "^5.4.0",

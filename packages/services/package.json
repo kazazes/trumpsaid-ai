@@ -1,27 +1,33 @@
 {
   "name": "@trumpsaid/services",
+  "license": "CC-BY-NC-4.0",
   "version": "1.0.0",
   "description": "The service workers for Trump Said... WTF?",
-  "repository": "http://github.com/trumpsaid-wtf/web-app",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
+  },
   "typings": "dist/index",
   "main": "dist/index",
   "author": "Peter Kazazes",
-  "license": "None",
   "private": true,
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b -v --pretty",
+    "build-prod": "yarn build",
     "debug-remote": "node --inspect=0.0.0.0:9229 dist/worker.js",
     "debug": "nodemon --inspect=9229 dist/worker.js",
     "dep-check": "npm-check -u",
     "start": "node dist/worker.js",
-    "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "watch": "tsc -w"
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "deploy": "bin/docker-tags.sh && bin/docker-deploy.sh",
+    "clean": "rimraf ./dist"
   },
   "dependencies": {
     "@trumpsaid/common": "^1.0.0",
     "@trumpsaid/graphql": "^1.0.0",
     "@trumpsaid/server": "^1.0.0",
     "@trumpsaid/prisma": "^1.0.0",
+    "shelljs": "^0.8.2",
     "@ffmpeg-installer/ffmpeg": "^1.0.15",
     "@google-cloud/error-reporting": "^0.5.1",
     "@google-cloud/logging-winston": "^0.9.0",

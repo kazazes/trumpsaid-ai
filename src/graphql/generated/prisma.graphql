@@ -1,5 +1,5 @@
-# source: http://10.142.0.6:4466/trump-said-wtf/production
-# timestamp: Fri Aug 17 2018 21:22:33 GMT-0700 (PDT)
+# source: http://10.142.0.6:4466/trump-said-wtf/development
+# timestamp: Tue Aug 21 2018 22:38:12 GMT-0700 (PDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -3405,7 +3405,7 @@ type VideoUploadStorageLink implements Node {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
-  mimeType: String
+  mimeType: String!
 }
 
 """A connection to a list of items."""
@@ -3423,7 +3423,7 @@ input VideoUploadStorageLinkCreateInput {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
-  mimeType: String
+  mimeType: String!
   videoUpload: VideoUploadCreateOneWithoutStorageLinksInput!
 }
 
@@ -3437,7 +3437,7 @@ input VideoUploadStorageLinkCreateWithoutVideoUploadInput {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
-  mimeType: String
+  mimeType: String!
 }
 
 """An edge in a connection."""
@@ -3474,7 +3474,7 @@ type VideoUploadStorageLinkPreviousValues {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
-  mimeType: String
+  mimeType: String!
 }
 
 type VideoUploadStorageLinkSubscriptionPayload {

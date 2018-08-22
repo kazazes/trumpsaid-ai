@@ -1,17 +1,25 @@
 {
   "name": "@trumpsaid/graphql",
+  "license": "CC-BY-NC-4.0",
   "version": "1.0.0",
   "typings": "dist/index",
-  "main": "dist/",
-  "repository": "http://github.com/trumpsaid-wtf/web-app",
+  "main": "dist/index",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
+  },
   "author": "Peter Kazazes",
   "scripts": {
-    "build": "tsc -b"
+    "build": "tsc -b -v --pretty",
+    "build-prod": "yarn build",
+    "dep-check": "npm-check -u",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "clean": "rimraf ./dist"
   },
-  "license": "None",
   "dependencies": {
     "@trumpsaid/common": "^1.0.0",
-    "@trumpsaid/prisma": "^1.0.0"
+    "@trumpsaid/prisma": "^1.0.0",
+    "@trumpsaid/services": "^1.0.0"
   },
   "devDependencies": {}
 }

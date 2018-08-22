@@ -1,11 +1,13 @@
 {
-  "files": [],
   "references": [
     {
       "path": "../common"
     },
     {
-      "path": "../services"
+      "path": "../graphql"
+    },
+    {
+      "path": "../prisma"
     }
   ],
   "extends": "../tsconfig.base.json",

@@ -1,21 +1,24 @@
 {
   "name": "@trumpsaid/server",
-  "license": "CC-BY-NC",
-  "typings": "dist/index.d.ts",
-  "main": "dist/",
   "version": "1.0.0",
+  "license": "CC-BY-NC-4.0",
+  "typings": "dist/server",
+  "main": "dist/server",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
   },
   "scripts": {
-    "build": "tsc -b",
-    "debug-remote": "node --inspect=0.0.0.0:9229 ../dist/server.js",
-    "debug": "nodemon --inspect=9229 ../dist/server.js --ignore ../dist/public",
+    "build": "tsc -b -v --pretty",
+    "build-prod": "yarn build",
+    "debug-remote": "node --inspect=0.0.0.0:9229 ./dist/server.js",
+    "debug": "nodemon --inspect=9229 ../dist/server.js --ignore ./dist/public",
+    "deploy": "pm2 deploy production update",
     "dep-check": "npm-check -u",
-    "start": "node ../dist/server.js",
-    "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "watch": "tsc -w"
+    "start": "node ./dist/server.js",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "watch": "tsc -watch -p tsconfig.json",
+    "clean": "rimraf ./dist"
   },
   "dependencies": {
     "@trumpsaid/prisma": "^1.0.0",
@@ -80,5 +83,7 @@
     "validator": "^10.6.0",
     "winston": "^3.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/dotenv-safe": "^5.0.0"
+  }
 }

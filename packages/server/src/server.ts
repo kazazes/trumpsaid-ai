@@ -1,7 +1,7 @@
 
 import { config } from 'dotenv-safe';
 
-config();
+config({ path: '../.env' });
 require('@google-cloud/trace-agent').start();
 require('newrelic');
 

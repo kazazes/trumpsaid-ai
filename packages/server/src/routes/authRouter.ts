@@ -1,4 +1,4 @@
-import logger from '@tswtf/util/logger';
+import { logger } from '@trumpsaid/common';
 import { Router } from 'express';
 import passport from 'passport';
 

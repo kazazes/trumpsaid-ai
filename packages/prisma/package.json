@@ -1,16 +1,26 @@
 {
   "name": "@trumpsaid/prisma",
+  "license": "CC-BY-NC-4.0",
   "version": "1.0.0",
   "typings": "dist/index",
   "main": "dist/index",
-  "repository": "http://github.com/trumpsaid-wtf/web-app",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
+  },
   "author": "Peter Kazazes",
   "scripts": {
-    "build": "tsc -b"
+    "get-schema": "env-cmd ./database/.env.prisma.dev graphql get-schema --project database && graphql codegen",
+    "build": "yarn get-schema && tsc -b -v --pretty",
+    "build-prod": "NODE_ENV=production yarn build",
+    "clean": "rimraf ./dist",
+    "dep-check": "npm-check -u",
+    "deploy": "prisma deploy -e ./database/.env.prisma.dev",
+    "deploy-prod": "prisma deploy -e ./database/.env.prisma.prod"
   },
-  "license": "None",
   "dependencies": {
-    "@trumpsaid/common": "^1.0.0"
+    "@trumpsaid/common": "^1.0.0",
+    "graphql": "^0.13.0"
   },
   "devDependencies": {}
 }

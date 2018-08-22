@@ -1,14 +1,22 @@
 {
   "name": "@trumpsaid/common",
+  "license": "CC-BY-NC-4.0",
   "version": "1.0.0",
   "typings": "dist/index",
   "main": "dist/index",
-  "repository": "http://github.com/trumpsaid-wtf/web-app",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
+  },
   "author": "Peter Kazazes",
   "scripts": {
-    "build": "tsc -b"
+    "build": "tsc -b -v --pretty",
+    "build-prod": "yarn build",
+    "dep-check": "npm-check -u",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "watch": "tsc -w",
+    "clean": "rimraf ./dist"
   },
-  "license": "None",
   "dependencies": {
     "long": "^4.0.0",
     "protobufjs": "^6.8.8",
