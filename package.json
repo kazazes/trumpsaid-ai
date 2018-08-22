@@ -7,7 +7,7 @@
   },
   "private": true,
   "workspaces": [
-    "modules/*"
+    "packages/*"
   ],
   "devDependencies": {
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
