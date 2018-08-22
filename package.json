@@ -6,9 +6,15 @@
     "url": "git@github.com:kazazes/trumpsaid-wtf.git"
   },
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@coreui/**",
+      "**/bootstrap/**"
+    ]
+  },
   "devDependencies": {
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
     "@types/autosize": "^3.0.6",

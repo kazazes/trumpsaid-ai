@@ -3,18 +3,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 module.exports = {
   mode: 'development',
   entry: {
-    main: './src/public/js/main.js',
-    main: './src/public/css/main.scss',
-    admin: './src/public/css/admin.scss',
-    admin: './src/vue/AppAdmin/main.ts',
+    admin: ['./src/public/css/admin.scss', './src/main.ts'],
   },
   output: {
-    path: `${__dirname  }/dist/public/`,
+    path: `${__dirname}/dist/`,
     filename: 'js/[name].bundle.js',
   },
   plugins: [
@@ -47,6 +42,8 @@ module.exports = {
     alias: {
       vue: 'vue/dist/vue.js',
     },
+    modules: ['node_modules'],
+    symlinks: false,
   },
   module: {
     rules: [

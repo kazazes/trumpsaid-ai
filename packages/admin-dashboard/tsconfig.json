@@ -4,6 +4,10 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    "typeRoots": ["./types"]
+    "paths": {
+      "*": ["node_modules/*", "types/*"]
+    },
+    "baseUrl": ".",
+    "module": "commonjs"
   }
 }
