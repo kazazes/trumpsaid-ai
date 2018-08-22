@@ -2,7 +2,8 @@
 .prettierignore
 .env.prisma.dev
 .env.prisma.prod
-
+dist/
+.env.docker*
 
 # Created by https://www.gitignore.io/api/node,macos,visualstudiocode
 
@@ -115,7 +116,5 @@ typings/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
-dist/
 
 # End of https://www.gitignore.io/api/node,macos,visualstudiocode

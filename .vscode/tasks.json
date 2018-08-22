@@ -35,6 +35,12 @@
       "script": "watch-ts",
       "problemMatcher": ["$tsc-watch"],
       "isBackground": true
+    },
+    {
+      "type": "npm",
+      "script": "watch-webpack",
+      "problemMatcher": ["$awesomets-lint", "$awesometsc"],
+      "isBackground": true
     }
   ]
 }

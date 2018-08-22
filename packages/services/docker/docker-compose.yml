@@ -1,0 +1,8 @@
+version: '3.4'
+services:
+  worker-dev:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+      target: worker-dev
+    image: ts:worker-dev
