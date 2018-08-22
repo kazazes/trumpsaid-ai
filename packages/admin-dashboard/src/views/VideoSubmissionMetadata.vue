@@ -62,7 +62,7 @@ import moment from 'moment';
 import Vue from 'vue';
 import DatePicker from 'vuejs-datepicker';
 import { UPDATE_METADATA } from '../constants/graphql';
-import { Date as GraphQLDate } from '../../../graphql/generated/prisma';
+import { Date as GraphQLDate } from '@trumpsaid/prisma';
 
 export default Vue.extend({
   name: 'VideoSubmissionMetadata',
@@ -90,7 +90,7 @@ export default Vue.extend({
   },
   computed: {
     suggestedTags: {
-      get() {},
+      get() { },
     },
     dateRecordedAsDate: {
       get(): Date {

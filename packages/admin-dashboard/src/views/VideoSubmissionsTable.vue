@@ -65,7 +65,7 @@
 import Vue from 'Vue';
 import gql from 'graphql-tag';
 import moment from 'moment';
-import { VideoUpload } from '../../../graphql/generated/prisma';
+import { VideoUpload } from '@trumpsaid/prisma';
 import { LIST_UPLOADS } from '../constants/graphql';
 import VideoSubmitModal from '../forms/VideoSubmitModal.vue';
 import Component from 'vue-class-component';

@@ -5,6 +5,7 @@ export const AsideToggler: any;
 export const Breadcrumb: any;
 export const Footer: any;
 export const Header: any;
+export const HeaderDropdown: any;
 export const Sidebar: any;
 export const SidebarFooter: any;
 export const SidebarForm: any;

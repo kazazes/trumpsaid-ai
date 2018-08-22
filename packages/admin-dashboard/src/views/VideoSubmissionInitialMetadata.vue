@@ -82,7 +82,7 @@ import Vue from 'vue';
 import {
   VideoUpload,
   VideoUploadStorageLink,
-} from '../../../graphql/generated/prisma';
+} from '@trumpsaid/prisma';
 import { SET_INITIAL_UPLOAD_METADATA } from '../constants/graphql';
 import VideoPlayer from './VideoPlayer.vue';
 import Component from 'vue-class-component';
@@ -176,7 +176,7 @@ export default class VideoSubmissionInitialMetadata extends Vue {
     );
     const linkUrl = `https://storage.googleapis.com/${
       storageLink.bucket
-    }/${encodeURI(storageLink.path)}`;
+      }/${encodeURI(storageLink.path)}`;
     return linkUrl;
   }
   setToPlayerTime(prop: string) {
@@ -196,7 +196,7 @@ export default class VideoSubmissionInitialMetadata extends Vue {
   getSource(storageLink: VideoUploadStorageLink) {
     const linkUrl = `https://storage.googleapis.com/${
       storageLink.bucket
-    }/${encodeURI(storageLink.path)}`;
+      }/${encodeURI(storageLink.path)}`;
     return [{ src: linkUrl, mimeType: storageLink.mimeType }];
   }
   getAMaster(): VideoUploadStorageLink {

@@ -1,7 +1,10 @@
 <template>
-  <AppHeaderDropdown right no-caret>
+  <AppHeaderDropdown
+    right
+    no-caret
+  >
     <template slot="header">
-      <i class="icon-location-pin"></i>
+      <i class="icon-location-pin" />
     </template>
     <template slot="dropdown">
       <div>
@@ -16,7 +19,7 @@
   </AppHeaderDropdown>
 </template>
 
-<script>
+<script lang="ts">
 import { HeaderDropdown as AppHeaderDropdown } from '@coreui/vue'
 export default {
   name: 'DefaultHeaderDropdown',
@@ -25,4 +28,3 @@ export default {
   }
 }
 </script>
-

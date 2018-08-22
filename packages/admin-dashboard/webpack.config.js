@@ -1,7 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -23,8 +22,10 @@ module.exports = {
       { from: './src/public/root' },
     ]),
     new VueLoaderPlugin(),
-    new DuplicatePackageCheckerPlugin(),
   ],
+  stats: {
+    children: false,
+  },
   resolve: {
     extensions: [
       '.webpack.js',

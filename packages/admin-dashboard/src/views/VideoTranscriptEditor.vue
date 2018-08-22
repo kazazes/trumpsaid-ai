@@ -234,7 +234,7 @@ import {
   Speaker,
   VideoUpload,
   VideoUploadStorageLink,
-} from '../../../graphql/generated/prisma';
+} from '@trumpsaid/prisma';
 import { CREATE_CONVERSATION, LIST_SPEAKERS } from '../constants/graphql';
 import VideoPlayer from './VideoPlayer.vue';
 import Component from 'vue-class-component';

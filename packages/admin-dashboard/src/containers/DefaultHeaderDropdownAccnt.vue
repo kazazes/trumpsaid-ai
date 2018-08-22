@@ -22,7 +22,7 @@
   </AppHeaderDropdown>
 </template>
 
-<script>
+<script lang="ts">
 import gql from "graphql-tag";
 
 import { HeaderDropdown as AppHeaderDropdown } from "@coreui/vue";

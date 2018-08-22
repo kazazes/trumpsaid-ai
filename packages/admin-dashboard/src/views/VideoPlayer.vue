@@ -42,7 +42,7 @@ interface IVideoSource {
   mimeType: String;
 }
 
-interface PlayerWithLoop extends videojs.Player {
+export interface PlayerWithLoop extends videojs.Player {
   abLoopPlugin?: any;
 }
 

@@ -1,7 +1,7 @@
 import BootstrapVue from 'bootstrap-vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import '../polyfill';
+import './polyfill';
 import router from './router/index';
 
 import VueApollo from 'vue-apollo';

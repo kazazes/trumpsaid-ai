@@ -71,7 +71,7 @@ import Vue from 'Vue';
 import {
   VideoUploadStorageLink,
   VideoUpload,
-} from '../../../graphql/generated/prisma';
+} from '@trumpsaid/prisma';
 import { DELETE_VIDEO_UPLOAD, VIDEO_UPLOAD_DETAILS } from '../constants/graphql';
 import VideoSubmissionInitialMetadata from './VideoSubmissionInitialMetadata.vue';
 import VideoTranscriptEditor from './VideoTranscriptEditor.vue';
