@@ -17,7 +17,7 @@
     "dep-check": "npm-check -u",
     "start": "node ./dist/server.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "watch": "tsc -b --watch",
+    "watch": "tsc -w",
     "clean": "rimraf ./dist"
   },
   "dependencies": {

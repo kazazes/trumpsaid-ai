@@ -1,0 +1,31 @@
+# import User from '../prisma/prisma.graphql';
+# import VideoUpload from '../prisma/prisma.graphql';
+# import Speaker from '../prisma/prisma.graphql';
+# import ConversationBlockCreateInput from '../prisma/prisma.graphql';
+# import NewsSourceItem from '../prisma/prisma.graphql';
+
+type Query {
+  videoUploads: [VideoUpload!]
+  videoUpload(id: ID): VideoUpload!
+  me: User
+  allSpeakers: [Speaker]
+}
+
+type Mutation {
+  createVideoUpload(url: String): VideoUpload
+  deleteVideoUpload(id: ID): VideoUpload
+  transcribe(id: ID): VideoUpload
+  downloadVideoUploadSources(id: ID): VideoUpload!
+  setInitialUploadMetadata(
+    id: ID
+    renderStart: Float
+    renderEnd: Float
+    numberOfSpeakers: Int
+    thumbnailTimestamp: Float
+  ): VideoUpload!
+  createConversation(
+    videoId: ID
+    blocks: [ConversationBlockCreateInput!]!
+  ): VideoUpload!
+  updateMetadata(id: ID, metadata: VideoUploadMetadataUpdateInput): VideoUpload!
+}

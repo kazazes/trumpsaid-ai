@@ -1,11 +1,11 @@
 projects:
   app:
-    schemaPath: packages/prisma/src/generated/prisma.graphql
+    schemaPath: packages/prisma/prisma.graphql
     extensions:
       endpoints:
         default: http://10.142.0.6:4466/trump-said-wtf/
   database:
-    schemaPath: packages/prisma/src/generated/prisma.graphql
+    schemaPath: packages/prisma/prisma.graphql
     extensions:
       prisma: database/prisma.yml
       codegen:

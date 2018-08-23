@@ -14,7 +14,8 @@
     "build-prod": "yarn build",
     "dep-check": "npm-check -u",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "clean": "rimraf ./dist"
+    "clean": "rimraf ./dist",
+    "watch": "tsc -w"
   },
   "dependencies": {
     "@trumpsaid/common": "^1.0.0",

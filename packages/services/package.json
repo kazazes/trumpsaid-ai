@@ -14,13 +14,14 @@
   "scripts": {
     "build": "tsc -b -v",
     "build-prod": "yarn build",
-    "debug-remote": "node --inspect=0.0.0.0:9229 dist/worker.js",
-    "debug": "nodemon --inspect=9229 dist/worker.js",
+    "debug-worker-remote": "node --inspect=0.0.0.0:9229 dist/worker.js",
+    "debug-worker": "nodemon --inspect=9229 dist/worker.js",
     "dep-check": "npm-check -u",
     "start": "node dist/worker.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "deploy": "bin/docker-tags.sh && bin/docker-deploy.sh",
-    "clean": "rimraf ./dist"
+    "clean": "rimraf ./dist",
+    "watch": "tsc -w"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.15",

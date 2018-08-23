@@ -1,5 +1,3 @@
-require('./dist/util/secrets');
-
 /**
  * This file includes all of the configuration variables used by the Node.js
  * module. If there's a configurable element of the module and it's not

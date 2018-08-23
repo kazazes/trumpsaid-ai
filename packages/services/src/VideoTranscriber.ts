@@ -11,7 +11,7 @@ const speech = require('@google-cloud/speech').v1p1beta1;
 
 const client = new speech.SpeechClient({
   projectId: process.env.GOOGLE_PROJECT_ID,
-  keyFilename: 'gc-credentials.json',
+  keyFilename: process.env.GOOGLE_CREDENTIALS_PATH,
 });
 
 export default class VideoTranscriber {

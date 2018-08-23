@@ -1,4 +1,3 @@
-/// <reference path="apollo-context.d.ts">
 import { IApolloContext } from '../../apollo';
 import rules from './rules';
 

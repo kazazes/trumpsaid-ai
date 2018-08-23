@@ -13,7 +13,7 @@ interface IPassportUser extends User {
   accessToken?: string;
 }
 
-const typeDefs = importSchema('./src/graphql/schema.graphql');
+const typeDefs = importSchema(__dirname + '/../schema.graphql');
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 const protectedSchema = applyMiddleware(schema, shield);
