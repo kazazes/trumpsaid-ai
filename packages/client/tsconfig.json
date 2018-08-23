@@ -8,6 +8,10 @@
       "*": ["node_modules/*", "types/*"]
     },
     "baseUrl": ".",
-    "module": "commonjs"
+    "module": "commonjs",
+    "target": "es5",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "declarationDir": "types/client"
   }
 }

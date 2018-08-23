@@ -7,7 +7,7 @@ projects:
   database:
     schemaPath: packages/prisma/prisma.graphql
     extensions:
-      prisma: database/prisma.yml
+      prisma: packages/prisma/database/prisma.yml
       codegen:
         - generator: prisma-binding
           language: typescript
