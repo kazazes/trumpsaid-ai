@@ -1,6 +1,7 @@
+import { IApolloContext } from '../apollo';
+
 import { rule } from 'graphql-shield';
 import { hasRole } from '.';
-import { IApolloContext } from '../apollo';
 
 export default {
   canListAllUploads: rule()(

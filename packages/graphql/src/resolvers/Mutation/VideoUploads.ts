@@ -1,11 +1,12 @@
+import { IApolloContext } from '../../apollo';
+
 import { logger } from '@trumpsaid/common';
+import { VideoUploadCreateInput } from '@trumpsaid/prisma';
+import prisma from '@trumpsaid/prisma/dist/prismaContext';
 import { VideoTranscriber } from '@trumpsaid/services';
 import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '@trumpsaid/services/dist/VideoUploadJobPublisher';
 import { ApolloError } from 'apollo-server-core';
 import { isURL } from 'validator';
-import { IApolloContext } from '../../apollo';
-import { VideoUploadCreateInput } from '../../generated/prisma';
-import prisma from '../../prismaContext';
 
 export default {
   createVideoUpload: async (obj: any, args: any, ctx: IApolloContext, info: any) => {

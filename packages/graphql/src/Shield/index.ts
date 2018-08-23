@@ -1,8 +1,9 @@
+import { IApolloContext } from '../apollo';
+
 import { logger } from '@trumpsaid/common';
 import { AdminRole } from '@trumpsaid/prisma';
 import { shield } from 'graphql-shield';
 import { includes } from 'lodash';
-import { IApolloContext } from '../apollo';
 import rules from './rules';
 
 const getUserRoles = async (ctx: IApolloContext) => {

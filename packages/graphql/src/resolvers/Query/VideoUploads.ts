@@ -1,5 +1,6 @@
-import prismaContext from '@trumpsaid/prisma/dist/prismaContext';
 import { IApolloContext } from '../../apollo';
+
+import prismaContext from '@trumpsaid/prisma/dist/prismaContext';
 
 export default {
   videoUploads: (obj: any, args: any, ctx: IApolloContext, info: any) => {

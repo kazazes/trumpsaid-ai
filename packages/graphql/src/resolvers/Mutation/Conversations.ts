@@ -1,6 +1,7 @@
-import { uniqBy } from 'lodash';
 import { IApolloContext } from '../../apollo';
-import { ConversationBlockCreateInput, ConversationBlockCreateManyInput, Speaker, SpeakerCreateInput } from '../../generated/prisma';
+
+import { ConversationBlockCreateInput, ConversationBlockCreateManyInput, Speaker, SpeakerCreateInput } from '@trumpsaid/prisma';
+import { uniqBy } from 'lodash';
 
 export default {
   createConversation: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
