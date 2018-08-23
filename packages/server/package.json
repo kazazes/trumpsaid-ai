@@ -12,12 +12,12 @@
     "build": "tsc -b -v",
     "build-prod": "yarn build",
     "debug-remote": "node --inspect=0.0.0.0:9229 ./dist/server.js",
-    "debug": "nodemon --inspect=9229 ../dist/server.js --ignore ./dist/public",
+    "debug": "nodemon --inspect=9229 ./dist/server.js --ignore ./dist/public",
     "deploy": "pm2 deploy production update",
     "dep-check": "npm-check -u",
     "start": "node ./dist/server.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "watch": "tsc -watch -p tsconfig.json",
+    "watch": "tsc -b --watch",
     "clean": "rimraf ./dist"
   },
   "dependencies": {

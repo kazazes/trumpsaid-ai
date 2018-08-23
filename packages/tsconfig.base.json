@@ -3,7 +3,7 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "target": "es6",
+    "target": "es2017",
     "moduleResolution": "node",
     "module": "commonjs",
     "experimentalDecorators": true,
@@ -15,6 +15,6 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "sourceMap": true,
-    "lib": ["esnext", "dom"]
+    "lib": ["es2017", "esnext", "dom"]
   }
 }

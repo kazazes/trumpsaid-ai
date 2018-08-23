@@ -12,7 +12,7 @@
   "scripts": {
     "codegen": "env-cmd database/.env.prisma.dev graphql codegen",
     "get-schema": "env-cmd database/.env.prisma.dev graphql get-schema --project database",
-    "build": "yarn get-schema && yarn codegen && tsc -b -v",
+    "build": "yarn get-schema && yarn codegen && tsc -b -v && cp ./src/generated/prisma.graphql ./dist/generated",
     "build-prod": "NODE_ENV=production yarn build",
     "clean": "rimraf ./dist",
     "dep-check": "npm-check -u",
