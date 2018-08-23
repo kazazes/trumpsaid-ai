@@ -9,7 +9,7 @@
     "url": "git@github.com:kazazes/trumpsaid-wtf.git"
   },
   "scripts": {
-    "build": "tsc -b -v --pretty",
+    "build": "tsc -b -v",
     "build-prod": "yarn build",
     "debug-remote": "node --inspect=0.0.0.0:9229 ./dist/server.js",
     "debug": "nodemon --inspect=9229 ../dist/server.js --ignore ./dist/public",
@@ -21,9 +21,6 @@
     "clean": "rimraf ./dist"
   },
   "dependencies": {
-    "@trumpsaid/prisma": "^1.0.0",
-    "@trumpsaid/graphql": "^1.0.0",
-    "@trumpsaid/common": "^1.0.0",
     "@google-cloud/error-reporting": "^0.5.1",
     "@google-cloud/logging-winston": "^0.9.0",
     "@google-cloud/monitoring": "^0.6.0",
@@ -32,6 +29,9 @@
     "@google-cloud/speech": "^2.0.0",
     "@google-cloud/storage": "^1.7.0",
     "@google-cloud/trace-agent": "^3.1.1",
+    "@trumpsaid/common": "^1.0.0",
+    "@trumpsaid/graphql": "^1.0.0",
+    "@trumpsaid/prisma": "^1.0.0",
     "apollo-cache-inmemory": "^1.2.8",
     "apollo-client": "^2.4.0",
     "apollo-client-preset": "^1.0.8",

@@ -12,7 +12,7 @@
   "author": "Peter Kazazes",
   "private": true,
   "scripts": {
-    "build": "tsc -b -v --pretty",
+    "build": "tsc -b -v",
     "build-prod": "yarn build",
     "debug-remote": "node --inspect=0.0.0.0:9229 dist/worker.js",
     "debug": "nodemon --inspect=9229 dist/worker.js",
@@ -23,11 +23,6 @@
     "clean": "rimraf ./dist"
   },
   "dependencies": {
-    "@trumpsaid/common": "^1.0.0",
-    "@trumpsaid/graphql": "^1.0.0",
-    "@trumpsaid/server": "^1.0.0",
-    "@trumpsaid/prisma": "^1.0.0",
-    "shelljs": "^0.8.2",
     "@ffmpeg-installer/ffmpeg": "^1.0.15",
     "@google-cloud/error-reporting": "^0.5.1",
     "@google-cloud/logging-winston": "^0.9.0",
@@ -37,6 +32,10 @@
     "@google-cloud/speech": "^2.0.0",
     "@google-cloud/storage": "^1.7.0",
     "@google-cloud/trace-agent": "^3.1.1",
+    "@trumpsaid/common": "^1.0.0",
+    "@trumpsaid/graphql": "^1.0.0",
+    "@trumpsaid/prisma": "^1.0.0",
+    "@trumpsaid/server": "^1.0.0",
     "apollo-cache-inmemory": "^1.2.8",
     "apollo-client": "^2.4.0",
     "apollo-client-preset": "^1.0.8",
@@ -60,6 +59,7 @@
     "music-metadata": "^2.6.0",
     "newrelic": "^4.8.0",
     "sharp": "^0.20.5",
+    "shelljs": "^0.8.2",
     "string-to-stream": "^1.1.1",
     "validator": "^10.6.0",
     "youtube-dl": "^1.12.2"

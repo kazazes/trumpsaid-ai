@@ -1,15 +1,15 @@
 projects:
   app:
-    schemaPath: src/schema.graphql
+    schemaPath: packages/prisma/src/generated/prisma.graphql
     extensions:
       endpoints:
-        default: http://localhost:4000
+        default: http://10.142.0.6:4466/trump-said-wtf/
   database:
-    schemaPath: src/graphql/generated/prisma.graphql
+    schemaPath: packages/prisma/src/generated/prisma.graphql
     extensions:
       prisma: database/prisma.yml
       codegen:
         - generator: prisma-binding
           language: typescript
           output:
-            binding: src/graphql/generated/prisma.ts
+            binding: src/generated/prisma.ts

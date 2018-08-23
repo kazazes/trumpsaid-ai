@@ -3577,7 +3577,7 @@ type VideoUploadStorageLink implements Node {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
-  mimeType: String
+  mimeType: String!
 }
 
 """A connection to a list of items."""
@@ -3595,7 +3595,7 @@ input VideoUploadStorageLinkCreateInput {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
-  mimeType: String
+  mimeType: String!
   videoUpload: VideoUploadCreateOneWithoutStorageLinksInput!
 }
 
@@ -3609,7 +3609,7 @@ input VideoUploadStorageLinkCreateWithoutVideoUploadInput {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
-  mimeType: String
+  mimeType: String!
 }
 
 """An edge in a connection."""
@@ -3646,7 +3646,7 @@ type VideoUploadStorageLinkPreviousValues {
   bucket: String!
   version: VideoUploadFileLinkVersion!
   fileType: VideoUploadFileLinkType!
-  mimeType: String
+  mimeType: String!
 }
 
 type VideoUploadStorageLinkSubscriptionPayload {
@@ -5115,7 +5115,7 @@ export interface VideoUploadStorageLinkCreateWithoutVideoUploadInput {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
-  mimeType?: String
+  mimeType: String
 }
 
 export interface VideoUploadMetadataUpdateInput {
@@ -5135,7 +5135,7 @@ export interface VideoUploadStorageLinkCreateInput {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
-  mimeType?: String
+  mimeType: String
   videoUpload: VideoUploadCreateOneWithoutStorageLinksInput
 }
 
@@ -6267,7 +6267,7 @@ export interface VideoUploadStorageLinkPreviousValues {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
-  mimeType?: String
+  mimeType: String
 }
 
 /*
@@ -6287,7 +6287,7 @@ export interface VideoUploadStorageLink extends Node {
   bucket: String
   version: VideoUploadFileLinkVersion
   fileType: VideoUploadFileLinkType
-  mimeType?: String
+  mimeType: String
 }
 
 /*

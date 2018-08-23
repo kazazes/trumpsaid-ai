@@ -1,5 +1,5 @@
 {
-  "name": "trumpsaidwtf-express",
+  "name": "trumpsaid-wtf",
   "license": "CC-BY-NC-4.0",
   "repository": {
     "type": "git",
@@ -24,7 +24,9 @@
     ],
     "nohoist": [
       "**/@coreui/**",
-      "**/bootstrap/**"
+      "**/bootstrap/**",
+      "**/graphql/**",
+      "**/graphql-cli/**"
     ]
   },
   "devDependencies": {
@@ -62,13 +64,9 @@
     "cross-env": "^5.2.0",
     "dotenv-cli": "1.4.0",
     "env-cmd": "^8.0.2",
-    "graphql": "^0.13.2",
-    "graphql-cli": "^2.16.5",
-    "graphql-faker": "^1.7.5",
     "node-sass": "^4.9.3",
     "nodemon": "1.18.3",
     "npm-run-all": "4.1.3",
-    "prisma": "^1.14.1",
     "rimraf": "2.6.2",
     "ts-loader": "^4.5.0",
     "ts-node": "^7.0.1",

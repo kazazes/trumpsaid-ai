@@ -2,6 +2,5 @@
   "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "1.0.0",
-  "logLevel": "silly"
+  "version": "1.0.0"
 }

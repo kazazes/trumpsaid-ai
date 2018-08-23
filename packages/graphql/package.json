@@ -10,7 +10,7 @@
   },
   "author": "Peter Kazazes",
   "scripts": {
-    "build": "tsc -b -v --pretty",
+    "build": "tsc -b -v",
     "build-prod": "yarn build",
     "dep-check": "npm-check -u",
     "lint": "tslint -c tslint.json -p tsconfig.json",
