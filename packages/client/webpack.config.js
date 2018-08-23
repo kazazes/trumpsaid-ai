@@ -5,7 +5,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    admin: ['./src/public/css/admin.scss', './src/main.ts'],
+    admin: ['./src/admin-app/main.ts'],
+    main: ['./src/main/main.ts', './src/main/assets/scss/main.scss'],
   },
   output: {
     path: `${__dirname}/dist/`,
@@ -43,8 +44,6 @@ module.exports = {
     alias: {
       vue: 'vue/dist/vue.js',
     },
-    modules: ['node_modules'],
-    symlinks: false,
   },
   module: {
     rules: [

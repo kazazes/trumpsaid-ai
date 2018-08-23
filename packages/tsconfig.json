@@ -1,7 +1,7 @@
 {
   "files": [],
   "references": [
-    { "path": "admin-dashboard" },
+    { "path": "client" },
     { "path": "common" },
     { "path": "server" },
     { "path": "services" },

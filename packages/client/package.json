@@ -2,7 +2,6 @@
   "name": "@trumpsaid/client",
   "license": "CC-BY-NC-4.0",
   "version": "1.0.0",
-  "description": "For Laura",
   "repository": {
     "type": "git",
     "url": "git@github.com:kazazes/trumpsaid-wtf.git"
@@ -11,7 +10,7 @@
   "main": "dist/",
   "author": "Peter Kazazes",
   "scripts": {
-    "pack": "webpack --progress",
+    "webpack": "webpack --progress",
     "build-prod": "webpack --progress --mode=production",
     "dep-check": "npm-check -u",
     "watch": "webpack --progress --display-error-details --watch",
