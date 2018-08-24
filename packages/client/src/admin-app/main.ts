@@ -1,5 +1,6 @@
 import BootstrapVue from 'bootstrap-vue';
 import Vue from 'vue';
+import Router from 'vue-router';
 import Vuex from 'vuex';
 import './polyfill';
 import router from './router/index';
@@ -36,8 +37,10 @@ Vue.use(VueApollo);
 Vue.use(BootstrapVue);
 Vue.use(Vuex);
 Vue.use(VueTimers);
+Vue.use(Router);
 
-/* eslint-disable no-new */
+debugger;
+
 new Vue({
   router,
   provide: apolloProvider.provide(),

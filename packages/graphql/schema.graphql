@@ -1,8 +1,8 @@
-# import User from '../prisma/prisma.graphql';
-# import VideoUpload from '../prisma/prisma.graphql';
-# import Speaker from '../prisma/prisma.graphql';
-# import ConversationBlockCreateInput from '../prisma/prisma.graphql';
-# import NewsSourceItem from '../prisma/prisma.graphql';
+# import User from '../prisma/prisma.graphql'
+# import VideoUpload from '../prisma/prisma.graphql'
+# import Speaker from '../prisma/prisma.graphql'
+# import ConversationBlockCreateInput from '../prisma/prisma.graphql'
+# import NewsSourceItem from '../prisma/prisma.graphql'
 
 type Query {
   videoUploads: [VideoUpload!]

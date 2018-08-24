@@ -1,9 +1,7 @@
 
-import { config } from 'dotenv-safe';
-
-config({ path: __dirname + '/../.env' });
 require('@google-cloud/trace-agent').start();
-require('newrelic');
+import { config } from 'dotenv-safe';
+config({ path: __dirname + '/../.env' });
 
 import { logger, nativeDependencies, testRemoteConnections } from '@trumpsaid/common';
 import errorhandler from 'errorhandler';

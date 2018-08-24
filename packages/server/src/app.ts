@@ -38,7 +38,7 @@ app.use(expressFlash());
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 
-const staticPath = path.join('./dist/public');
+const staticPath = path.join('../client/dist');
 
 app.use(
   express.static(staticPath, { maxAge: 31557600000 }),
@@ -52,7 +52,8 @@ app.use(
     }),
     secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
-    cookie: {
+    resave: true,
+    cookie:      {
       expires: false,
     },
   }),
@@ -72,7 +73,7 @@ app.use(morgan(
   { stream: { write: message => logger.info(message.substring(0, message.lastIndexOf('\n'))) } }));
 
 /**
- * Primary app routes.
+ * Primary routes.
  */
 app.use('/', authRouter);
 app.use('/', rootRouter);
@@ -80,7 +81,6 @@ app.use('/admin', adminRouter);
 app.use('/graphql', checkJWT);
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  // tslint:disable-next-line:no-magic-numbers
   if (err.status === 401) {
     res.redirect('/login');
   } else {

@@ -2,6 +2,9 @@
   "references": [{ "path": "../prisma" }],
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "target": "es6",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
     "rootDir": "src",
     "outDir": "dist",
     "paths": {
@@ -9,9 +12,11 @@
     },
     "baseUrl": ".",
     "module": "commonjs",
-    "target": "es5",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "declarationDir": "types/client"
-  }
+    "declarationDir": "types/client",
+    "sourceMap": true,
+    "lib": ["esnext", "dom"]
+  },
+  "include": ["**/**/*.ts", "**/**/*.vue"]
 }

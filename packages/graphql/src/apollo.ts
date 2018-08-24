@@ -15,7 +15,10 @@ interface IPassportUser extends User {
 
 const typeDefs = importSchema(__dirname + '/../schema.graphql');
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schema = makeExecutableSchema({
+  typeDefs, resolvers, resolverValidationOptions: {
+    requireResolversForResolveType: false,
+  } });
 const protectedSchema = applyMiddleware(schema, shield);
 
 interface IExpressContext {

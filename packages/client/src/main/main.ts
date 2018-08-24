@@ -7,10 +7,8 @@ interface IClientWindow extends Window {
   $: any;
 }
 
-const w = window as IClientWindow;
-
-w.jQuery = jquery;
-w.$ = jquery;
+(window as IClientWindow).jQuery = jquery;
+(window as IClientWindow).$ = jquery;
 
 module.exports = {
   jquery,

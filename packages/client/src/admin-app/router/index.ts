@@ -1,4 +1,4 @@
-import Vue from 'vue';
+
 import Router from 'vue-router';
 
 // tslint:disable:variable-name
@@ -10,8 +10,6 @@ const VideoSubmission = require('../views/VideoSubmission.vue').default;
 const VideoSubmissionsTable = require('../views/VideoSubmissionsTable.vue').default;
 const VideoSubmissions = require('../views/VideoSubmissions.vue').default;
 const VideoSubmissionReview = require('../views/VideoSubmissionReview.vue').default;
-
-Vue.use(Router);
 
 export default new Router({
   mode: 'hash', // Demo is living in GitHub.io, so required!
