@@ -11,7 +11,8 @@ services:
     image: prismagraphql/prisma:1.14.2
     container_name: prisma
     restart: always
-    depends_on: cloudsql-proxy
+    depends_on:
+      - cloudsql-proxy
     ports:
       - '4466:4466'
     environment:
