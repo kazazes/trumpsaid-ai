@@ -14,7 +14,7 @@
     "lint": "lerna run lint",
     "watch": "lerna run --parallel watch",
     "deploy": "lerna run deploy",
-    "clean": "lerna run clean",
+    "clean": "rimraf packages/*/dist",
     "version": "lerna run version"
   },
   "private": true,
@@ -67,6 +67,7 @@
     "node-sass": "^4.9.3",
     "nodemon": "1.18.3",
     "npm-run-all": "4.1.3",
+    "pm2": "^3.0.4",
     "rimraf": "2.6.2",
     "ts-loader": "^4.5.0",
     "ts-node": "^7.0.1",
