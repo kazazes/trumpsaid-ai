@@ -3,8 +3,8 @@ import { IApolloContext } from '../../apollo';
 import { logger } from '@trumpsaid/common';
 import { VideoUploadCreateInput } from '@trumpsaid/prisma';
 import prisma from '@trumpsaid/prisma/dist/prismaContext';
-import { VideoTranscriber } from '@trumpsaid/services';
-import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '@trumpsaid/services/dist/VideoUploadJobPublisher';
+import { VideoTranscriber } from '@trumpsaid/workers';
+import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '@trumpsaid/workers/dist/VideoUploadJobPublisher';
 import { ApolloError } from 'apollo-server-core';
 import { isURL } from 'validator';
 

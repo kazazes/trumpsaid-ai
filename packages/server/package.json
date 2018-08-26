@@ -9,16 +9,17 @@
     "url": "git@github.com:kazazes/trumpsaid-wtf.git"
   },
   "scripts": {
-    "build": "tsc -b -v",
+    "build": "tsc -b",
     "build-prod": "yarn build",
     "debug-remote": "node --inspect=0.0.0.0:9229 ./dist/server.js",
     "debug": "nodemon --inspect=9229 ./dist/server.js --ignore ./dist/public",
-    "deploy": "pm2 deploy production update",
+    "deploy": "bin/build-app.sh && bin/docker-push.sh",
     "dep-check": "npm-check -u",
     "start": "node ./dist/server.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "watch": "tsc -w",
-    "clean": "rimraf ./dist"
+    "clean": "rimraf ./dist",
+    "serve": "NODE_ENV=production pm2-runtime dist/server.js"
   },
   "dependencies": {
     "@google-cloud/error-reporting": "^0.5.1",
