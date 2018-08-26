@@ -3,7 +3,7 @@ require('@google-cloud/trace-agent').start();
 import { config } from 'dotenv-safe';
 config({ path: __dirname + '/../.env' });
 
-import { logger, nativeDependencies, testRemoteConnections } from '@trumpsaid/common';
+import { logger, testRemoteConnections } from '@trumpsaid/common';
 import errorhandler from 'errorhandler';
 import app from './app';
 
@@ -12,7 +12,6 @@ export default server;
 
 const startServer = async () => {
   await testRemoteConnections();
-  nativeDependencies();
 
   if (process.env.NODE_ENV !== 'production') {
     app.use(errorhandler());

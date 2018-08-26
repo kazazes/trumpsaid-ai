@@ -39,8 +39,6 @@ Vue.use(Vuex);
 Vue.use(VueTimers);
 Vue.use(Router);
 
-debugger;
-
 new Vue({
   router,
   provide: apolloProvider.provide(),
