@@ -1,51 +1,10 @@
-## TODO: Make base, dev, prod, redis optional
-## TODO: Make GOOGLE_CREDS_PATH universally used
-## TODO: Passthrough variables?
-
 version: '3'
 services:
-  redis:
-    container_name: redis
-    image: redis:latest
-    ports:
-      - '6379:6379'
-  cloudsql-proxy:
-    container_name: cloudsql-proxy
-    image: gcr.io/cloudsql-docker/gce-proxy:1.11
-    command: '/cloud_sql_proxy -instances=${CLOUDSQL_CONNECTION}=tcp:0.0.0.0:3306 -credential_file=/config'
-    ports:
-      - 3306:3306
-    volumes:
-      - ./cloud-sql-credentials.json:/config
-    restart: always
-  prisma:
-    image: prismagraphql/prisma:1.14.2
-    env_file:
-      - .env.prisma.prod
-    container_name: prisma
-    depends_on:
-      - cloudsql-proxy
-    restart: always
-    ports:
-      - '4466:4466'
-    environment:
-      PRISMA_CONFIG: |
-        port: 4466
-        managementApiSecret: ${PRISMA_MANAGEMENT_API_SECRET}
-        databases:
-          default:
-            connector: mysql
-            port: 3306
-            host: "${MYSQL_HOST}"
-            user: "${MYSQL_USER}"
-            password: "${MYSQL_PASSWORD}"
-            migrations: true
   ts-web:
     container_name: ts-web
     image: ts:app
     ports:
       - 3000:3000
-    depends_on: ['cloudsql-proxy', 'prisma']
     environment:
       - APP_ENDPOINT
       - APP_SECRET
@@ -56,12 +15,13 @@ services:
       - AUTH0_ISSUER
       - AUTH0_SECRET
       - GOOGLE_CREDENTIALS_PATH
-      - GOOGLE_APPLICATION_CREDENTIALS
+      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_CREDENTIALS_PATH}
       - GOOGLE_PROJECT_ID
       - JWT_SECRET
       - NEW_RELIC_API_KEY
       - PRISMA_ENDPOINT
-      - PRISMA_SECRET=
+      - PRISMA_SECRET
+      - PRISMA_STAGE
       - REDIS_HOST
       - REDIS_PORT
       - SERVER_TYPE
