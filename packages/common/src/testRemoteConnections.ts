@@ -25,8 +25,10 @@ export const testServerConnections = () => {
 export const testRedisConnection = () => {
   return new Promise((resolve, reject) => {
     const start = new Date().getMilliseconds();
-    const timeout = setTimeout(
-      () => reject(new Error(`Redis connection timed out ${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`)), connectionTimeout);
+    const timeout = setTimeout(() => {
+      logger.error(`Redis connection timed out to ${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`);
+      reject(new Error(`Redis connection timed out ${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`));
+    },                         connectionTimeout);
     const client = redis.createClient(Number(process.env.REDIS_PORT), process.env.REDIS_HOST, {});
     client.ping(() => {
       clearTimeout(timeout);

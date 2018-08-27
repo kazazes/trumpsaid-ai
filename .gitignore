@@ -1,9 +1,7 @@
 *credentials.json
 .prettierignore
-.env.prisma.dev
-.env.prisma.prod
 dist/
-.env.docker*
+*.env*
 
 # Created by https://www.gitignore.io/api/node,macos,visualstudiocode
 

@@ -1,4 +1,4 @@
-endpoint: http://10.142.0.6:4466/trump-said-wtf/${env:PRISMA_STAGE}
+endpoint: ${env:PRISMA_ENDPOINT}${env:PRISMA_STAGE}
 
 # The file containing the definition of your data model.
 datamodel:
