@@ -16,8 +16,7 @@
     "build-prod": "NODE_ENV=production yarn build",
     "clean": "rimraf ./dist",
     "dep-check": "npm-check -u",
-    "deploy": "prisma deploy -e ./database/.env.prisma.dev",
-    "deploy-prod": "prisma deploy -e ./database/.env.prisma.prod",
+    "deploy": "cd database && prisma deploy -e prisma.prod.env",
     "watch": "tsc -w"
   },
   "dependencies": {

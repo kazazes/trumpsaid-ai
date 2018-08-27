@@ -19,7 +19,6 @@
     "dep-check": "npm-check -u",
     "start": "node dist/worker.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "deploy": "bin/docker-tags.sh && bin/docker-deploy.sh",
     "clean": "rimraf ./dist",
     "watch": "tsc -w",
     "serve": "NODE_ENV=production pm2-runtime dist/worker.js"
@@ -58,7 +57,6 @@
     "mkdir-recursive": "^0.4.0",
     "moment": "^2.22.2",
     "music-metadata": "^2.6.0",
-    "newrelic": "^4.8.0",
     "sharp": "^0.20.5",
     "shelljs": "^0.8.2",
     "string-to-stream": "^1.1.1",
