@@ -1,0 +1,28 @@
+version: '3'
+services:
+  ts-web:
+    container_name: ts-web
+    image: ts:app
+    ports:
+      - 3000:3000
+    environment:
+      - APP_ENDPOINT
+      - APP_SECRET
+      - AUTH0_AUDIENCE
+      - AUTH0_CALLBACK_URL
+      - AUTH0_CLIENT_ID
+      - AUTH0_DOMAIN
+      - AUTH0_ISSUER
+      - AUTH0_SECRET
+      - GOOGLE_CREDENTIALS_PATH
+      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_CREDENTIALS_PATH}
+      - GOOGLE_PROJECT_ID
+      - JWT_SECRET
+      - NEW_RELIC_API_KEY
+      - PRISMA_ENDPOINT
+      - PRISMA_SECRET
+      - PRISMA_STAGE
+      - REDIS_HOST
+      - REDIS_PORT
+      - SERVER_TYPE
+      - SESSION_SECRET

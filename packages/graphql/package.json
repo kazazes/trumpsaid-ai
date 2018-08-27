@@ -10,7 +10,7 @@
   },
   "author": "Peter Kazazes",
   "scripts": {
-    "build": "tsc -b -v",
+    "build": "tsc -b",
     "build-prod": "yarn build",
     "dep-check": "npm-check -u",
     "lint": "tslint -c tslint.json -p tsconfig.json",
@@ -20,7 +20,7 @@
   "dependencies": {
     "@trumpsaid/common": "^1.0.0",
     "@trumpsaid/prisma": "^1.0.0",
-    "@trumpsaid/services": "^1.0.0"
+    "@trumpsaid/workers": "^1.0.0"
   },
   "devDependencies": {}
 }

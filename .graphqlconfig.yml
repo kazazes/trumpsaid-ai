@@ -3,13 +3,13 @@ projects:
     schemaPath: packages/prisma/prisma.graphql
     extensions:
       endpoints:
-        default: http://10.142.0.6:4466/trump-said-wtf/
+        default: http://10.142.0.5:4466/trump-said-wtf/
   database:
     schemaPath: packages/prisma/prisma.graphql
     extensions:
-      prisma: packages/prisma/database/prisma.yml
+      prisma: prisma.yml
       codegen:
         - generator: prisma-binding
           language: typescript
           output:
-            binding: src/generated/prisma.ts
+            binding: ../src/generated/prisma.ts

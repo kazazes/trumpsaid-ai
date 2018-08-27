@@ -1,4 +1,5 @@
 import winston from 'winston';
+import GoogleLog from './gc-log';
 
 const alignedWithColorsAndTime = winston.format.combine(
   winston.format.colorize(),
@@ -17,11 +18,18 @@ const alignedWithColorsAndTime = winston.format.combine(
   }),
 );
 
+const level = process.env.NODE_ENV === 'development' ? 'silly ' : 'debug';
+
 const logger = winston.createLogger({
   transports: [
     new winston.transports.Console({
-      level: process.env.NODE_ENV === 'development' ? 'silly ': 'debug',
+      level,
       format: alignedWithColorsAndTime,
+    }),
+    new GoogleLog({
+      labels: {
+        name: `ts-wtf-${process.env.SERVER_TYPE}`,
+      },
     }),
   ],
 });

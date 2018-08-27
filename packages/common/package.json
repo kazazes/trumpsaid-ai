@@ -10,7 +10,7 @@
   },
   "author": "Peter Kazazes",
   "scripts": {
-    "build": "tsc -b -v",
+    "build": "tsc -b",
     "build-prod": "yarn build",
     "dep-check": "npm-check -u",
     "lint": "tslint -c tslint.json -p tsconfig.json",
@@ -18,11 +18,14 @@
     "clean": "rimraf ./dist"
   },
   "dependencies": {
+    "@google-cloud/logging": "^3.0.1",
+    "@sindresorhus/is": "^0.11.0",
     "long": "^4.0.0",
     "protobufjs": "^6.8.8",
     "redis": "^2.8.0",
     "shelljs": "^0.8.2",
-    "winston": "^3.0.0"
+    "winston": "^3.0.0",
+    "winston-transport": "^4.2.0"
   },
   "devDependencies": {
     "@types/redis": "^2.8.6"
