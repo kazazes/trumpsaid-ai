@@ -3,16 +3,12 @@ services:
   cloudsql-proxy:
     container_name: cloudsql-proxy
     image: gcr.io/cloudsql-docker/gce-proxy:1.11
-    command: '/cloud_sql_proxy -instances=${CLOUDSQL_CONNECTION}=tcp:0.0.0.0:3306 -credential_file=/config'
+    command: '/cloud_sql_proxy -instances=${CLOUDSQL_CONNECTION}=tcp:0.0.0.0:3306'
     ports:
       - 3306:3306
-    volumes:
-      - ./cloud-sql-credentials.json:/config
     restart: always
   prisma:
     image: prismagraphql/prisma:1.14.2
-    env_file:
-      - .env.prisma.prod
     container_name: prisma
     depends_on:
       - cloudsql-proxy
