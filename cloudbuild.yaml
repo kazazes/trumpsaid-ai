@@ -13,11 +13,13 @@ steps:
         'gcr.io/$PROJECT_ID/app',
         '--cache-from',
         'gcr.io/$PROJECT_ID/app',
+        '-f',
+        './server-slim.dockerfile',
         '.',
       ]
     timeout: 600s
-  # - name: 'gcr.io/cloud-builders/docker'
-  # args: ['push', 'gcr.io/$PROJECT_ID/app']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/app:latest']
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
@@ -26,7 +28,9 @@ steps:
         'gcr.io/$PROJECT_ID/worker',
         '--cache-from',
         'gcr.io/$PROJECT_ID/worker',
-        './packages/workers',
+        '-f',
+        './worker.dockerfile',
+        '.',
       ]
     timeout: 600s
   - name: 'gcr.io/cloud-builders/docker'
@@ -40,14 +44,13 @@ steps:
         './packages/client',
       ]
     timeout: 900s
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['run', 'gcr.io/$PROJECT_ID/client', '>>', 'dist.tar.gz']
-
+  - name: 'gcr.io/$PROJECT_ID/client'
+    args: ['run', 'bash -c cat dist.tar.gz > dist.tar.gz']
 timeout: 2100s
 images:
-  - gcr.io/$PROJECT_ID/worker
-  - gcr.io/$PROJECT_ID/app
-  - gcr.io/$PROJECT_ID/client
+  - gcr.io/$PROJECT_ID/worker:latest
+  - gcr.io/$PROJECT_ID/app:latest
+  - gcr.io/$PROJECT_ID/client:latest
 artifacts:
   objects:
     location: 'gs://ts-static-prod/'
