@@ -10,8 +10,8 @@ steps:
         '.',
       ]
     timeout: 600s
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/app']
+  # - name: 'gcr.io/cloud-builders/docker'
+  # args: ['push', 'gcr.io/$PROJECT_ID/app']
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
