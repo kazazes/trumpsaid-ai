@@ -22,8 +22,6 @@ steps:
         'gcr.io/$PROJECT_ID/worker',
         '--cache-from',
         'gcr.io/$PROJECT_ID/worker',
-        '--target',
-        'worker',
         './packages/workers',
       ]
     timeout: 600s
@@ -35,8 +33,6 @@ steps:
         'gcr.io/$PROJECT_ID/client',
         '--cache-from',
         'gcr.io/$PROJECT_ID/client',
-        '--target',
-        'client',
         './packages/client',
       ]
     timeout: 900s
