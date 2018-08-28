@@ -1,13 +1,5 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'ts:base', '--pull', '--target', 'base', '.']
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'ts:node-deps', '--target', 'deps', '.']
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'ts:built', '--target', 'build', '.']
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'ts:worker-deps', '--target', 'worker-deps', '.']
-  - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'build',
