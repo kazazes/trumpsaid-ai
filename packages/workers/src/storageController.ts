@@ -8,7 +8,6 @@ import moment from 'moment';
 
 export const storage = new Storage({
   projectId: process.env.GOOGLE_PROJECT_ID,
-  keyFilename: process.env.GOOGLE_CREDENTIALS_PATH,
 });
 
 export const processingBucketName = 'ts-video-processing';
