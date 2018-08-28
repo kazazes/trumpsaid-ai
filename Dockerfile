@@ -4,7 +4,7 @@ WORKDIR /app
 FROM base as node-deps
 WORKDIR /app
 RUN yarn global add webpack-cli webpack typescript pm2 lerna
-COPY yarn.lock package.json ./
+COPY yarn.lock package.json lerna.json ./
 RUN yarn --pure-lockfile
 
 FROM node-deps as build
