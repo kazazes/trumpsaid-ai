@@ -24,7 +24,7 @@ steps:
         'gcr.io/$PROJECT_ID/worker',
         '--target',
         'worker',
-        '.',
+        './packages/workers',
       ]
     timeout: 600s
   - name: 'gcr.io/cloud-builders/docker'
