@@ -11,6 +11,7 @@ steps:
         'app',
         '.',
       ]
+    timeout: 600s
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
@@ -23,7 +24,7 @@ steps:
         'worker',
         '.',
       ]
-
+    timeout: 600s
 images:
   - gcr.io/$PROJECT_ID/worker
   - gcr.io/$PROJECT_ID/app
