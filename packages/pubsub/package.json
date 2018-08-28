@@ -1,5 +1,5 @@
 {
-  "name": "@trumpsaid/prisma",
+  "name": "@trumpsaid/pubsub",
   "license": "CC-BY-NC-4.0",
   "version": "1.0.0",
   "typings": "dist/index",
@@ -10,17 +10,16 @@
   },
   "author": "Peter Kazazes",
   "scripts": {
-    "codegen": "env-cmd database/.env.prisma.dev graphql codegen",
-    "get-schema": "env-cmd database/.env.prisma.dev graphql get-schema --project database",
     "build": "tsc -b",
     "build-prod": "yarn build",
-    "clean": "rimraf ./dist",
     "dep-check": "npm-check -u",
-    "deploy": "cd database && prisma deploy -e prisma.prod.env",
-    "watch": "tsc -w"
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "watch": "tsc -w",
+    "clean": "rimraf ./dist"
   },
   "dependencies": {
-    "prisma-binding": "^2.1.5",
-    "tslib": "^1.9.3"
+    "@google-cloud/pubsub": "^0.19.0",
+    "@trumpsaid/prisma": "^1.0.0",
+    "@trumpsaid/common": "^1.0.0"
   }
 }
