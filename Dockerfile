@@ -1,4 +1,4 @@
-FROM node:8-stretch as base
+FROM node:8-stretch
 WORKDIR /app
 RUN yarn global add typescript pm2
 COPY yarn.lock package.json lerna.json ./
@@ -11,4 +11,3 @@ RUN touch .env
 USER node
 EXPOSE 3000
 CMD ["yarn", "run", "serve"]
-
