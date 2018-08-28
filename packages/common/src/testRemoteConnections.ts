@@ -1,9 +1,10 @@
-import prisma, { prismaEndpoint } from '@trumpsaid/prisma/dist/prismaContext';
+import { prismaContext as prisma } from '@trumpsaid/prisma';
 import redis from 'redis';
 import { exit } from 'shelljs';
 import logger from './logger';
 
 const connectionTimeout = 5000;
+const prismaEndpoint = process.env.PRISMA_ENDPOINT;
 
 export const testServerConnections = () => {
   return Promise.all([

@@ -1,6 +1,6 @@
 import { IApolloContext } from '../../apollo';
 
-import prismaContext from '@trumpsaid/prisma/dist/prismaContext';
+import {prismaContext} from '@trumpsaid/prisma';
 
 export default {
   allSpeakers: (obj: any, args: any, ctx: IApolloContext, info: any) => {

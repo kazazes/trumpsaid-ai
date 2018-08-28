@@ -1,6 +1,6 @@
-import { IApolloContext } from '../../apollo';
+import { IApolloContext } from "../../apollo";
 
-import prismaContext from '@trumpsaid/prisma/dist/prismaContext';
+import { prismaContext } from "@trumpsaid/prisma";
 
 export default {
   videoUploads: (obj: any, args: any, ctx: IApolloContext, info: any) => {
@@ -8,5 +8,5 @@ export default {
   },
   videoUpload: (obj: any, args: any, ctx: IApolloContext, info: any) => {
     return prismaContext.query.videoUpload({ where: { id: args.id } }, info);
-  },
+  }
 };
