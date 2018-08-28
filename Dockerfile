@@ -14,14 +14,6 @@ COPY types types
 COPY packages packages
 RUN yarn --pure-lockfile --prefer-offline && ./bin/build-sources.sh
 
-FROM build as client
-WORKDIR /app
-COPY lerna.json .
-RUN ls -al
-RUN lerna bootstrap
-WORKDIR /app/packages/client
-RUN yarn run --focus build-prod
-
 FROM build as app
 WORKDIR /app/packages/server
 RUN touch .env
@@ -41,3 +33,4 @@ WORKDIR /app/packages/workers
 USER node
 EXPOSE 3000
 CMD ["yarn", "run", "serve"]
+
