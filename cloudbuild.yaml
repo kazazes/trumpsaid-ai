@@ -1,5 +1,11 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
+    args: ['pull', 'gcr.io/$PROJECT_ID/app:latest']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['pull', 'gcr.io/$PROJECT_ID/worker:latest']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['pull', 'gcr.io/$PROJECT_ID/client:latest']
+  - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'build',
