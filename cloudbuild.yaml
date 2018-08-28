@@ -7,8 +7,6 @@ steps:
         'gcr.io/$PROJECT_ID/app',
         '--cache-from',
         'gcr.io/$PROJECT_ID/app',
-        '--target',
-        'app',
         '.',
       ]
     timeout: 600s
@@ -36,6 +34,9 @@ steps:
         './packages/client',
       ]
     timeout: 900s
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['run', 'gcr.io/$PROJECT_ID/client', '>>', 'dist.tar.gz']
+
 timeout: 2100s
 images:
   - gcr.io/$PROJECT_ID/worker
@@ -44,4 +45,4 @@ images:
 artifacts:
   objects:
     location: 'gs://ts-static-prod/'
-    paths: ['/app/packages/client/dist/*']
+    paths: ['dist.tar.gz']
