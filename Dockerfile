@@ -1,19 +1,17 @@
 FROM node:8-stretch as base
-ENV NODE_ENV=production
 WORKDIR /app
 
 FROM ts:base as deps
 WORKDIR /app
-RUN yarn global add --prefer-offline webpack-cli webpack typescript pm2
-RUN echo $PATH
+RUN yarn global add webpack-cli webpack typescript pm2
 COPY yarn.lock package.json ./
-RUN yarn --pure-lockfile --prefer-offline
+RUN yarn --pure-lockfile
 
 # TODO: Copy individual package.json, strip local packages, install before copy
 FROM ts:node-deps as build
 WORKDIR /app
-COPY types types
 COPY bin/build-sources.sh bin/
+COPY types types
 COPY gc-credentials.json .
 COPY packages packages
 RUN yarn --pure-lockfile --prefer-offline && ./bin/build-sources.sh
