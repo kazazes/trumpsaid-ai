@@ -38,11 +38,12 @@ app.use(expressFlash());
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 
-const staticPath = path.join('../client/dist');
-
-app.use(
-  express.static(staticPath, { maxAge: 31557600000 }),
-);
+if (process.env.NODE_ENV !== 'production') {
+  const staticPath = path.join('../client/dist');
+  app.use(
+    express.static(staticPath, { maxAge: 31557600000 }),
+  );
+}
 
 app.use(
   expressSession({
@@ -71,6 +72,11 @@ const morganFormat: string = process.env.NODE_ENV === 'production' ? 'combined' 
 app.use(morgan(
   morganFormat,
   { stream: { write: message => logger.info(message.substring(0, message.lastIndexOf('\n'))) } }));
+
+const env = process.env.NODE_ENV;
+const staticRoot = process.env.STATIC_PREFIX;
+app.locals.env = env;
+app.locals.staticPrefix = staticRoot;
 
 /**
  * Primary routes.
