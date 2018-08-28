@@ -12,7 +12,6 @@ FROM ts:node-deps as build
 WORKDIR /app
 COPY bin/build-sources.sh bin/
 COPY types types
-COPY gc-credentials.json .
 COPY packages packages
 RUN yarn --pure-lockfile --prefer-offline && ./bin/build-sources.sh
 
@@ -28,7 +27,7 @@ WORKDIR /app
 RUN rm -rf packages/client packages/graphql packages/prisma packages/server
 RUN touch .env
 USER root
-RUN apt-get -q update && apt-get -qq install gpac ffmpeg python-pip && rm -rf /var/lib/apt/lists/* && pip --no-cache-dir install youtube-dl
+RUN apt-get -qq update && apt-get -q -y install gpac ffmpeg python-pip && rm -rf /var/lib/apt/lists/* && pip --no-cache-dir install youtube-dl
 
 FROM ts:worker-deps as worker
 WORKDIR /app/packages/workers

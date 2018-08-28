@@ -5,7 +5,8 @@ require('@google-cloud/debug-agent').start({
     service: process.env.SERVER_TYPE,
   },
 });
-import { config } from 'dotenv-safe';
+
+import { config } from 'dotenv';
 config({ path: __dirname + '/../.env' });
 
 import { logger, testRemoteConnections } from '@trumpsaid/common';

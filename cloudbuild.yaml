@@ -1,0 +1,55 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/base',
+        '--pull',
+        '--target',
+        'base',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      ['build', '-t', 'gcr.io/$PROJECT_ID/node-deps', '--target', 'deps', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/built', '--target', 'build', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/worker-deps',
+        '--target',
+        'worker-deps',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/app',
+        '--cache-from',
+        'gcr.io/$PROJECT_ID/app',
+        '--target',
+        'app',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/worker',
+        '--cache-from',
+        'gcr.io/$PROJECT_ID/app',
+        '--target',
+        'worker',
+        '.',
+      ]
+
+images:
+  - gcr.io/$PROJECT_ID/worker
+  - gcr.io/$PROJECT_ID/app
