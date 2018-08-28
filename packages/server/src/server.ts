@@ -1,5 +1,6 @@
 
 require('@google-cloud/trace-agent').start();
+require('@google-cloud/debug-agent').start();
 import { config } from 'dotenv-safe';
 config({ path: __dirname + '/../.env' });
 
