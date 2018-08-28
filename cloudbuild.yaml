@@ -37,6 +37,8 @@ steps:
         'client',
         '.',
       ]
+    timeout: 900s
+timeout: 2100s
 images:
   - gcr.io/$PROJECT_ID/worker
   - gcr.io/$PROJECT_ID/app
