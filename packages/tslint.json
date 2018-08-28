@@ -1,10 +1,14 @@
 {
-  "extends": "tslint-config-airbnb",
+  "extends": ["tslint:latest", "tslint-config-prettier"],
   "linterOptions": {
-    "exclude": ["src/graphql/generated/**", "node_modules/**"]
+    "exclude": ["src/graphql/generated/**", "node_modules/**", "**/*.d.ts"]
   },
   "rules": {
-    "await-promise": true,
+    "await-promise": {
+      "options": [],
+      "severity": "error"
+    },
+    "object-literal-sort-keys": false,
     "import-name": false,
     "interface-name": true,
     "max-line-length": [
@@ -17,7 +21,10 @@
     "no-consecutive-blank-lines": true,
     "no-console": true,
     "no-duplicate-imports": true,
-    "no-floating-promises": true,
+    "no-floating-promises": {
+      "options": [],
+      "severity": "error"
+    },
     "no-irregular-whitespace": true,
     "no-return-await": true,
     "no-string-throw": true,

@@ -1,5 +1,5 @@
 import { PubSubController } from "@trumpsaid/pubsub";
-import VideoRenderHandler from "./VideoRenderHandler";
+import VideoRenderResponseHandler from "./VideoRenderResponseHandler";
 
 export default class VideoRenderPubSubController extends PubSubController {
   public topicSubcriptionNames = {
@@ -12,8 +12,9 @@ export default class VideoRenderPubSubController extends PubSubController {
     super();
     this.setup();
 
-    this.consumerHandler = new VideoRenderHandler(7200000, this);
+    this.responseHandler = new VideoRenderResponseHandler(this);
 
     this.addConsumerListener();
+    this.addResponseListener();
   }
 }

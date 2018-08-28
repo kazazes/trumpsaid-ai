@@ -4,7 +4,9 @@
     { "path": "client" },
     { "path": "common" },
     { "path": "server" },
-    { "path": "services" },
-    { "path": "prisma" }
+    { "path": "workers" },
+    { "path": "prisma" },
+    { "path": "responders" },
+    { "path": "pubsub" }
   ]
 }

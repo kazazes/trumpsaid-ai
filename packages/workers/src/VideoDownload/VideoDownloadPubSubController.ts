@@ -1,24 +1,19 @@
-import PubSubController from '../PubSubController';
-import VideoDownloadHandler from './VideoDownloadHandler';
-import VideoDownloadResponseHandler from './VideoDownloadResponseHandler';
+import { PubSubController } from "@trumpsaid/pubsub";
+import VideoDownloadHandler from "./VideoDownloadHandler";
 
-export class VideoDownloadPubSubController extends PubSubController {
-  topicSubcriptionNames = {
-    consumerTopicName: 'video-download',
-    consumerSubscriptionName: 'node-downloader',
-    responderTopicName: 'video-download-response',
-    responderSubscriptionName: 'node-response',
+export default class VideoDownloadPubSubController extends PubSubController {
+  public topicSubcriptionNames = {
+    consumerTopicName: "video-download",
+    consumerSubscriptionName: "node-downloader",
+    responderTopicName: "video-download-response",
+    responderSubscriptionName: "node-response"
   };
-  constructor(){
+  constructor() {
     super();
     this.setup();
 
     this.consumerHandler = new VideoDownloadHandler(1200000, this);
-    this.responseHandler = new VideoDownloadResponseHandler(this);
 
     this.addConsumerListener();
-    this.addResponseListener();
   }
 }
-
-export default VideoDownloadPubSubController;
