@@ -1,7 +1,9 @@
-
 require('@google-cloud/trace-agent').start();
 require('@google-cloud/debug-agent').start({
   projectId: process.env.GOOGLE_PROJECT_ID,
+  serviceContext: {
+    service: process.env.SERVER_TYPE,
+  },
 });
 import { config } from 'dotenv-safe';
 config({ path: __dirname + '/../.env' });
