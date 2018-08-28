@@ -3,17 +3,24 @@ WORKDIR /app
 
 FROM base as node-deps
 WORKDIR /app
-RUN yarn global add webpack-cli webpack typescript pm2
+RUN yarn global add webpack-cli webpack typescript pm2 lerna
 COPY yarn.lock package.json ./
 RUN yarn --pure-lockfile
 
-# TODO: Copy individual package.json, strip local packages, install before copy
 FROM node-deps as build
 WORKDIR /app
 COPY bin/build-sources.sh bin/
 COPY types types
 COPY packages packages
 RUN yarn --pure-lockfile --prefer-offline && ./bin/build-sources.sh
+
+FROM build as client
+WORKDIR /app
+COPY lerna.json .
+RUN ls -al
+RUN lerna bootstrap
+WORKDIR /app/packages/client
+RUN yarn run --focus build-prod
 
 FROM build as app
 WORKDIR /app/packages/server

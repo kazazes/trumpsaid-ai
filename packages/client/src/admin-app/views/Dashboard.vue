@@ -3,7 +3,7 @@
 </template>
 
 <script lang='ts'>
-import Vue from 'Vue';
+import Vue from 'vue';
 import { Callout } from '@coreui/vue';
 import Component from 'vue-class-component';
 

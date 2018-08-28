@@ -28,7 +28,7 @@
 </template>
 <script lang="ts">
 import { CREATE_VIDEO_UPLOAD } from '../constants/graphql';
-import Vue from 'Vue';
+import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component({

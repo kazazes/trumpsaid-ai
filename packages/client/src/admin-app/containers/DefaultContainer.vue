@@ -78,7 +78,7 @@ import {
   SidebarToggler,
 } from '@coreui/vue';
 import nav from '../_nav';
-import Vue from 'Vue';
+import Vue from 'vue';
 import DefaultHeaderDropdownAccnt from './DefaultHeaderDropdownAccnt.vue';
 import DefaultHeaderDropdownMssgs from './DefaultHeaderDropdownMssgs.vue';
 import DefaultHeaderDropdownNotif from './DefaultHeaderDropdownNotif.vue';

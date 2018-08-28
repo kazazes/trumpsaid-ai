@@ -19,12 +19,29 @@ steps:
         '-t',
         'gcr.io/$PROJECT_ID/worker',
         '--cache-from',
-        'gcr.io/$PROJECT_ID/app',
+        'gcr.io/$PROJECT_ID/worker',
         '--target',
         'worker',
         '.',
       ]
     timeout: 600s
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/client',
+        '--cache-from',
+        'gcr.io/$PROJECT_ID/client',
+        '--target',
+        'client',
+        '.',
+      ]
 images:
   - gcr.io/$PROJECT_ID/worker
   - gcr.io/$PROJECT_ID/app
+  - gcr.io/$PROJECT_ID/client
+artifacts:
+  objects:
+    location: 'gs://ts-static-prod/'
+    paths: ['/app/packages/client/dist/*']

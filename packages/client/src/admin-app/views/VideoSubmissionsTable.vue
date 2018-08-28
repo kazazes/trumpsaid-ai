@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'Vue';
+import Vue from 'vue';
 import gql from 'graphql-tag';
 import moment from 'moment';
 import { VideoUpload } from '@trumpsaid/prisma';
