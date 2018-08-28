@@ -3,7 +3,7 @@ WORKDIR /app
 
 FROM ts:base as deps
 WORKDIR /app
-RUN yarn add global webpack-cli webpack ts-loader typescript pm2
+RUN yarn global add webpack-cli webpack typescript pm2
 COPY yarn.lock package.json ./
 RUN yarn --pure-lockfile
 

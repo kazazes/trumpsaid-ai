@@ -265,6 +265,23 @@
     stream-events "^1.0.4"
     through2 "^2.0.3"
 
+"@google-cloud/debug-agent@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/debug-agent/-/debug-agent-2.6.0.tgz#130e84226bc9538acd097adb5590da2ff4f2da66"
+  dependencies:
+    "@google-cloud/common" "^0.17.0"
+    acorn "^5.0.3"
+    async "^2.1.2"
+    coffee-script "^1.9.3"
+    extend "^3.0.1"
+    findit2 "^2.2.3"
+    gcp-metadata "^0.6.3"
+    lodash "^4.12.0"
+    semver "^5.5.0"
+    source-map "^0.6.1"
+    split "^1.0.0"
+    util.promisify "^1.0.0"
+
 "@google-cloud/error-reporting@^0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@google-cloud/error-reporting/-/error-reporting-0.5.1.tgz#f8479973cc351463d0bd42a4b1eb1fe1974527a4"
@@ -439,18 +456,6 @@
   dependencies:
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
-
-"@newrelic/koa@^1.0.0":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@newrelic/koa/-/koa-1.0.5.tgz#76ca506c956b6f6599d866a7a725b573fde2fe1a"
-  dependencies:
-    methods "^1.1.2"
-
-"@newrelic/native-metrics@^3.0.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@newrelic/native-metrics/-/native-metrics-3.1.0.tgz#a211986a0a63cfc4ffa6732fc7beeff6a6098eed"
-  dependencies:
-    nan "^2.10.0"
 
 "@nodelib/fs.stat@^1.0.1":
   version "1.1.1"
@@ -901,10 +906,6 @@
 "@types/zen-observable@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
-
-"@tyriar/fibonacci-heap@^2.0.7":
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/@tyriar/fibonacci-heap/-/fibonacci-heap-2.0.7.tgz#73a441ca0e5108d2621c72e9b34dcf566387f078"
 
 "@videojs/http-streaming@1.1.0":
   version "1.1.0"
@@ -1663,7 +1664,7 @@ async@1.5, async@^1.5.0, async@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@2.6.1, async@>=0.2.9, async@^2.0.0, async@^2.0.1, async@^2.1.4, async@^2.3.0, async@^2.4.0, async@^2.4.1, async@^2.5.0, async@^2.6, async@^2.6.0, async@^2.6.1:
+async@2.6.1, async@>=0.2.9, async@^2.0.0, async@^2.0.1, async@^2.1.2, async@^2.3.0, async@^2.4.0, async@^2.4.1, async@^2.5.0, async@^2.6, async@^2.6.0, async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
   dependencies:
@@ -2969,6 +2970,10 @@ co@^4.6.0:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
+
+coffee-script@^1.9.3:
+  version "1.12.7"
+  resolved "https://registry.yarnpkg.com/coffee-script/-/coffee-script-1.12.7.tgz#c05dae0cb79591d05b3070a8433a98c9a89ccc53"
 
 collection-visit@^1.0.0:
   version "1.0.0"
@@ -4768,6 +4773,10 @@ find@^0.2.7:
   resolved "https://registry.yarnpkg.com/find/-/find-0.2.9.tgz#4b73f1ff9e56ad91b76e716407fe5ffe6554bb8c"
   dependencies:
     traverse-chain "~0.1.0"
+
+findit2@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/findit2/-/findit2-2.2.3.tgz#58a466697df8a6205cdfdbf395536b8bd777a5f6"
 
 flag-icon-css@^3.0.0:
   version "3.0.0"
@@ -6649,7 +6658,7 @@ json-stable-stringify@^1.0.1:
   dependencies:
     jsonify "~0.0.0"
 
-json-stringify-safe@5.0.1, json-stringify-safe@^5.0.0, json-stringify-safe@~5.0.1:
+json-stringify-safe@5.0.1, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
@@ -7062,7 +7071,7 @@ lodash@4.17.5:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
-lodash@^4.0.0, lodash@^4.13.1, lodash@^4.16.4, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.5.1, lodash@^4.8.0, lodash@~4.17.10:
+lodash@^4.0.0, lodash@^4.12.0, lodash@^4.13.1, lodash@^4.16.4, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.5.1, lodash@^4.8.0, lodash@~4.17.10:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -7316,7 +7325,7 @@ methmeth@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/methmeth/-/methmeth-1.1.0.tgz#e80a26618e52f5c4222861bb748510bd10e29089"
 
-methods@^1.1.1, methods@^1.1.2, methods@~1.1.2:
+methods@^1.1.1, methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
 
@@ -7627,21 +7636,6 @@ negotiator@0.6.1:
 neo-async@^2.5.0:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.2.tgz#489105ce7bc54e709d736b195f82135048c50fcc"
-
-newrelic@^4.8.0:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-4.8.0.tgz#5068bb18575b4461c14e2c4642ae5da9bace08ad"
-  dependencies:
-    "@newrelic/koa" "^1.0.0"
-    "@tyriar/fibonacci-heap" "^2.0.7"
-    async "^2.1.4"
-    concat-stream "^1.5.0"
-    https-proxy-agent "^2.2.1"
-    json-stringify-safe "^5.0.0"
-    readable-stream "^2.1.4"
-    semver "^5.3.0"
-  optionalDependencies:
-    "@newrelic/native-metrics" "^3.0.0"
 
 next-tick@1:
   version "1.0.0"
@@ -9435,7 +9429,7 @@ read@^1.0.4:
   dependencies:
     mute-stream "~0.0.4"
 
-"readable-stream@1 || 2", readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.1.0, readable-stream@^2.1.4, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.3.0, readable-stream@^2.3.3, readable-stream@^2.3.5, readable-stream@^2.3.6:
+"readable-stream@1 || 2", readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.1.0, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.3.0, readable-stream@^2.3.3, readable-stream@^2.3.5, readable-stream@^2.3.6:
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
   dependencies:

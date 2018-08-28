@@ -13,7 +13,7 @@
     "start": "lerna run --parallel start",
     "lint": "lerna run lint",
     "watch": "lerna run --parallel watch",
-    "deploy": "lerna run deploy",
+    "deploy": "bin/docker-build.sh && bin/docker-push.sh",
     "clean": "rimraf packages/*/dist",
     "version": "lerna run version"
   },

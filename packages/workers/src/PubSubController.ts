@@ -23,7 +23,6 @@ abstract class PubSubController {
   constructor() {
     this.pubsub = PubSub({
       projectId: process.env.GOOGLE_PROJECT_ID,
-      keyFilename: process.env.GOOGLE_CREDENTIALS_PATH,
     });
   }
 

@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -a
+
 cd packages/prisma
 yarn run --focus build-prod
 cd ../common
