@@ -1,7 +1,6 @@
 {
   "files": [],
   "references": [
-    { "path": "client" },
     { "path": "common" },
     { "path": "server" },
     { "path": "workers" },
