@@ -8,7 +8,7 @@ const level = process.env.NODE_ENV === "development" ? "silly" : "debug";
 
 // tslint:disable-next-line:no-var-requires
 const LoggingWinston = require("@google-cloud/logging-winston").LoggingWinston;
-const loggingWinston = new LoggingWinston();
+const stackdriverLogging = new LoggingWinston();
 
 const consoleLogging = new winston.transports.Console({
   timestamp() {
@@ -30,7 +30,7 @@ const consoleLogging = new winston.transports.Console({
 
 const logger = new Logger({
   level,
-  transports: [loggingWinston, consoleLogging]
+  transports: [stackdriverLogging, consoleLogging]
 });
 
 export default logger;

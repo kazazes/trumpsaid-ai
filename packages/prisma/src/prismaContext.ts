@@ -11,7 +11,7 @@ export const prismaEndpoint =
 
 const prismaOptions: IPrismaOptions = {
   typeDefs: __dirname + "/../prisma.graphql",
-  secret: process.env.PRISMA_SECRET,
+  secret: process.env.PRISMA_MANAGEMENT_API_SECRET,
   endpoint: prismaEndpoint
 };
 
