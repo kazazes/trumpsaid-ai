@@ -50,3 +50,9 @@ if [ -d "$ROOT/packages/server" ]; then
   echo "Building @trumpsaid/server"
   yarn run --focus build-prod
 fi
+
+if [ -d "$ROOT/packages/client" ]; then
+  cd ../client
+  echo "Building @trumpsaid/client"
+  yarn run --focus build-prod
+fi

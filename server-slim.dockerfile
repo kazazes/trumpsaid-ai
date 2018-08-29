@@ -4,6 +4,7 @@ WORKDIR /app
 RUN yarn global add --pure-lockfile typescript pm2
 COPY types types
 COPY bin/build-sources.sh bin/
+COPY packages/client/package.json packages/client/package.json
 COPY packages/common/package.json packages/common/package.json
 COPY packages/graphql/package.json packages/graphql/package.json 
 COPY packages/prisma/package.json packages/prisma/package.json 
