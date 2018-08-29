@@ -9,11 +9,11 @@ require("@google-cloud/debug-agent").start({
   }
 });
 
-import checkEnvironment from "./helpers/checkEnv";
-checkEnvironment();
-
 import { config } from "dotenv";
 config({ path: __dirname + "/../.env" });
+
+import checkEnvironment from "./helpers/checkEnv";
+checkEnvironment();
 
 import { logger, testRemoteConnections } from "@trumpsaid/common";
 import errorhandler from "errorhandler";

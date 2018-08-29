@@ -76,9 +76,7 @@ app.use(
 );
 
 const env = process.env.NODE_ENV;
-const staticRoot = process.env.STATIC_PREFIX;
 app.locals.env = env;
-app.locals.staticPrefix = staticRoot;
 
 /**
  * Primary routes.
