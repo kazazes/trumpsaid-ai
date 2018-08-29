@@ -8,14 +8,17 @@ require("@google-cloud/debug-agent").start({
     version: "ALPHA"
   }
 });
-
-import { nativeDependencies } from "@trumpsaid/common";
 import { config } from "dotenv";
+config({ path: __dirname + "/../.env" });
+import { nativeDependencies } from "@trumpsaid/common";
+
 import VideoDownloadPubSubController from "./VideoDownload/VideoDownloadPubSubController";
 import VideoRenderPubSubController from "./VideoRender/VideoRenderPubSubController";
 import VideoThumbnailPubSubController from "./VideoThumbnail/VideoThumbnailPubSubController";
 
-config({ path: __dirname + "/../.env" });
+import serverHealth from "server-health";
+const nodeServer = serverHealth.createNodeHttpHealthCheckServer();
+nodeServer.listen(3001);
 
 nativeDependencies();
 

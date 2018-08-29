@@ -19,4 +19,5 @@ RUN ./bin/build-sources.sh && yarn cache clean
 WORKDIR /app/packages/workers
 RUN touch .env
 USER node
+EXPOSE 3001
 CMD ["pm2-runtime", "-i", "1", "dist/worker.js"]
