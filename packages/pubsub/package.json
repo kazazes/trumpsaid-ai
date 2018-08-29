@@ -1,0 +1,25 @@
+{
+  "name": "@trumpsaid/pubsub",
+  "license": "CC-BY-NC-4.0",
+  "version": "1.0.0",
+  "typings": "dist/index",
+  "main": "dist/index",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
+  },
+  "author": "Peter Kazazes",
+  "scripts": {
+    "build": "tsc -b",
+    "build-prod": "yarn build",
+    "dep-check": "npm-check -u",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "watch": "tsc -w",
+    "clean": "rimraf ./dist"
+  },
+  "dependencies": {
+    "@google-cloud/pubsub": "^0.19.0",
+    "@trumpsaid/prisma": "^1.0.0",
+    "@trumpsaid/common": "^1.0.0"
+  }
+}

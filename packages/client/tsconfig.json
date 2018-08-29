@@ -14,8 +14,10 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "declarationDir": "types/client",
-    "sourceMap": true,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "composite": false,
     "lib": ["esnext", "dom"]
   },
   "include": ["**/**/*.ts", "**/**/*.vue"]

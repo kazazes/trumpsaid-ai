@@ -1,9 +1,8 @@
-import { logger } from '@trumpsaid/common';
-import { User } from '@trumpsaid/prisma';
-import prismaContext from '@trumpsaid/prisma/dist/prismaContext';
-import { Request } from 'express';
-import passport from 'passport';
-import { Strategy } from 'passport-auth0';
+import { logger } from "@trumpsaid/common";
+import { prismaContext, User } from "@trumpsaid/prisma";
+import { Request } from "express";
+import passport from "passport";
+import { Strategy } from "passport-auth0";
 
 export interface IRequestWithUser extends Request {
   user: User;
@@ -42,12 +41,20 @@ const strategy = new Strategy(
     callbackURL: process.env.AUTH0_CALLBACK_URL,
     audience: process.env.AUTH0_AUDIENCE,
     issuer: process.env.AUTH0_DOMAIN,
-    responseType: 'code',
-    scope: 'openid profile',
+    responseType: "code",
+    scope: "openid profile"
   },
-  async (accessToken: string, refreshToken: string, extraParams: any, profile: IAuth0StrategyProfile, done: any) => {
-    let user = undefined;
-    const graphUserExists = await prismaContext.exists.User({ auth0Id: profile.user_id });
+  async (
+    accessToken: string,
+    refreshToken: string,
+    extraParams: any,
+    profile: IAuth0StrategyProfile,
+    done: any
+  ) => {
+    let user;
+    const graphUserExists = await prismaContext.exists.User({
+      auth0Id: profile.user_id
+    });
     try {
       if (!graphUserExists) {
         user = await prismaContext.mutation.createUser(
@@ -57,25 +64,29 @@ const strategy = new Strategy(
               avatar: profile.picture,
               displayName: profile.displayName,
               givenName: profile.name.givenName,
-              familyName: profile.name.familyName,
-            },
+              familyName: profile.name.familyName
+            }
           },
-          '{ id auth0Id avatar displayName givenName familyName role }');
+          "{ id auth0Id avatar displayName givenName familyName role }"
+        );
       } else {
         // get User
         user = await prismaContext.query.user(
-          { where: { auth0Id: profile.user_id } }, ' { id auth0Id avatar displayName givenName familyName role } ');
+          { where: { auth0Id: profile.user_id } },
+          " { id auth0Id avatar displayName givenName familyName role } "
+        );
         if (user) {
           user = await prismaContext.mutation.updateUser({
             data: {
               avatar: profile.picture,
               displayName: profile.displayName,
               givenName: profile.name.givenName,
-              familyName: profile.name.familyName,
-            }, where: { auth0Id: profile.user_id },
+              familyName: profile.name.familyName
+            },
+            where: { auth0Id: profile.user_id }
           });
         } else {
-          throw new Error('Error fetching and updating user from DB');
+          throw new Error("Error fetching and updating user from DB");
         }
       }
 
@@ -85,7 +96,7 @@ const strategy = new Strategy(
     } catch (err) {
       logger.error(`Error finding or creating new user: ${err}`);
     }
-  },
+  }
 );
 
 passport.use(strategy);
@@ -106,8 +117,10 @@ export interface IPassportUser extends User {
 
 passport.deserializeUser(async (user: ISerializedUser, done) => {
   try {
-    const graphUser: IPassportUser =
-      await prismaContext.query.user({ where: { auth0Id: user.id } }, ' { id auth0Id avatar displayName familyName givenName role } ');
+    const graphUser: IPassportUser = await prismaContext.query.user(
+      { where: { auth0Id: user.id } },
+      " { id auth0Id avatar displayName familyName givenName role } "
+    );
     graphUser.accessToken = user.accessToken;
     done(null, graphUser);
   } catch (err) {

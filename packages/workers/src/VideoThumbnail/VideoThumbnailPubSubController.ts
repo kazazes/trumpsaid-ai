@@ -1,22 +1,19 @@
-import PubSubController from '../PubSubController';
-import VideoThumbnailHandler from './VideoThumbnailHandler';
-import VideoThumbnailResponseHandler from './VideoThumbnailResponseHandler';
+import { PubSubController } from "@trumpsaid/pubsub";
+import VideoThumbnailHandler from "./VideoThumbnailHandler";
 
 export default class VideoThumbnailPubSubController extends PubSubController {
-  topicSubcriptionNames = {
-    consumerTopicName: 'video-thumbnail',
-    consumerSubscriptionName: 'thumbnail',
-    responderTopicName: 'video-thumbnail-response',
-    responderSubscriptionName: 'thumbnail-response',
+  public topicSubcriptionNames = {
+    consumerSubscriptionName: "thumbnail",
+    consumerTopicName: "video-thumbnail",
+    responderSubscriptionName: "thumbnail-response",
+    responderTopicName: "video-thumbnail-response"
   };
   constructor() {
     super();
     this.setup();
 
     this.consumerHandler = new VideoThumbnailHandler(300000, this);
-    this.responseHandler = new VideoThumbnailResponseHandler(this);
 
     this.addConsumerListener();
-    this.addResponseListener();
   }
 }

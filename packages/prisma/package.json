@@ -13,19 +13,14 @@
     "codegen": "env-cmd database/.env.prisma.dev graphql codegen",
     "get-schema": "env-cmd database/.env.prisma.dev graphql get-schema --project database",
     "build": "tsc -b",
-    "build-prod": "NODE_ENV=production yarn build",
+    "build-prod": "yarn build",
     "clean": "rimraf ./dist",
     "dep-check": "npm-check -u",
     "deploy": "cd database && prisma deploy -e prisma.prod.env",
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@trumpsaid/common": "^1.0.0",
-    "prisma": "^1.14.2"
-  },
-  "devDependencies": {
-    "graphql": "^0.13.2",
-    "graphql-cli": "^2.16.5",
-    "prisma-binding": "^2.1.4"
+    "prisma-binding": "^2.1.5",
+    "tslib": "^1.9.3"
   }
 }

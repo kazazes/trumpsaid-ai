@@ -6,7 +6,7 @@
     "url": "git@github.com:kazazes/trumpsaid-wtf.git"
   },
   "scripts": {
-    "build": "lerna bootstrap && lerna run build --log-level silly",
+    "build": "bin/build-sources.sh",
     "build-prod": "lerna run build-prod",
     "debug": "lerna run --parallel debug",
     "dep-check": "lerna run dep-check",
@@ -14,7 +14,7 @@
     "lint": "lerna run lint",
     "watch": "lerna run --parallel watch",
     "deploy": "bin/docker-build.sh && bin/docker-push.sh",
-    "clean": "rimraf packages/*/dist",
+    "clean": "rimraf packages/*/dist && rimraf packages/*/node_modules && rimraf node_modules",
     "version": "lerna run version"
   },
   "private": true,
@@ -64,6 +64,7 @@
     "cross-env": "^5.2.0",
     "dotenv-cli": "1.4.0",
     "env-cmd": "^8.0.2",
+    "graphql": "^0.13.2",
     "lerna": "^3.1.4",
     "node-sass": "^4.9.3",
     "nodemon": "1.18.3",
@@ -74,6 +75,7 @@
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.10.0",
+    "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.0.1",
     "typescript-eslint-parser": "^18.0.0"
   }

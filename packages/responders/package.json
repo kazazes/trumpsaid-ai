@@ -1,0 +1,38 @@
+{
+  "name": "@trumpsaid/responders",
+  "license": "CC-BY-NC-4.0",
+  "version": "1.0.0",
+  "description": "The service workers for Trump Said... WTF?",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
+  },
+  "typings": "dist/index",
+  "main": "dist/index",
+  "author": "Peter Kazazes",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b",
+    "build-prod": "yarn build",
+    "debug-worker-remote": "node --inspect=0.0.0.0:9229 dist/worker.js",
+    "debug-worker": "nodemon --inspect=9229 dist/worker.js",
+    "dep-check": "npm-check -u",
+    "start": "node dist/worker.js",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "clean": "rimraf ./dist",
+    "watch": "tsc -w",
+    "serve": "NODE_ENV=production pm2-runtime dist/worker.js"
+  },
+  "dependencies": {
+    "@google-cloud/speech": "^2.0.0",
+    "@trumpsaid/common": "^1.0.0",
+    "@trumpsaid/prisma": "^1.0.0",
+    "@trumpsaid/pubsub": "^1.0.0",
+    "await-sleep": "0.0.1",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "music-metadata": "^2.6.0",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {}
+}

@@ -13,7 +13,7 @@
     "webpack": "webpack --progress",
     "build-prod": "webpack --progress --mode=production",
     "dep-check": "npm-check -u",
-    "watch": "webpack --progress --display-error-details --watch",
+    "watch-webpack": "webpack --progress --display-error-details --watch",
     "clean": "rimraf ./dist"
   },
   "dependencies": {

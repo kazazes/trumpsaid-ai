@@ -1,18 +1,20 @@
 import Storage, { Bucket } from '@google-cloud/storage';
-import { logger } from '@trumpsaid/common';
-import { VideoUploadStorageLink, VideoUploadStorageLinkCreateInput } from '@trumpsaid/prisma';
 import { existsSync } from 'fs';
 import hasha from 'hasha';
 import { mkdirSync } from 'mkdir-recursive';
 import moment from 'moment';
+import logger from './logger';
+
+export interface IDownloadableItem {
+  bucket: string;
+  path: string;
+}
 
 export const storage = new Storage({
   projectId: process.env.GOOGLE_PROJECT_ID,
 });
 
-export const processingBucketName = 'ts-video-processing';
-
-export const processingBucket = storage.bucket(processingBucketName);
+export const processingBucket = storage.bucket(process.env.VIDEO_PROCESSING_BUCKET);
 export const delimiter = '/';
 
 export const createFileInProcessing = (path: string, filename: string) => {
@@ -48,11 +50,11 @@ export const makeFilePublic = (bucketName: string, path: string) => {
 };
 
  /**
- * @description Download Google Cloud file locally
- * @param {Storage.File} sourceFile
- * @param {boolean} [force] - Force redownload, even file is already on disk
- * @returns {string} The path.
- */
+  * @description Download Google Cloud file locally
+  * @param {Storage.File} sourceFile
+  * @param {boolean} [force] - Force redownload, even file is already on disk
+  * @returns {string} The path.
+  */
 export const downloadSourceFile = async (sourceFile: Storage.File) => {
   // Matches filename part of path
   const idRegex = new RegExp('\/.+\.*$');
@@ -91,13 +93,13 @@ export const downloadSourceFile = async (sourceFile: Storage.File) => {
   }
 };
 
-export const downloadStorageItem = async (storageItem: VideoUploadStorageLink | VideoUploadStorageLinkCreateInput) => {
+export const downloadStorageItem = async (storageItem: IDownloadableItem) => {
   const file = storage.bucket(storageItem.bucket).file(storageItem.path);
   return downloadSourceFile(file);
 };
 
-export const downloadNewStorageItems = async (storageItems: VideoUploadStorageLinkCreateInput[]) => {
-  return Promise.all(storageItems.map((item: VideoUploadStorageLinkCreateInput) => {
+export const downloadNewStorageItems = async (storageItems: IDownloadableItem[]) => {
+  return Promise.all(storageItems.map((item: IDownloadableItem) => {
     return downloadNewStorageItem(item);
   }))
   .catch((e) => {
@@ -106,16 +108,16 @@ export const downloadNewStorageItems = async (storageItems: VideoUploadStorageLi
   });
 };
 
-export const downloadNewStorageItem = async (storageItem: VideoUploadStorageLinkCreateInput) => {
+export const downloadNewStorageItem = async (storageItem: IDownloadableItem) => {
   const file = storage.bucket(storageItem.bucket).file(storageItem.path);
   return downloadSourceFile(file);
 };
 
-export const getReadStream = (source: VideoUploadStorageLink) => {
+export const getReadStream = (source: IDownloadableItem) => {
   return storage.bucket(source.bucket).file(source.path).createReadStream();
 };
 
-export const getFileSize = async (source: VideoUploadStorageLink) => {
+export const getFileSize = async (source: IDownloadableItem) => {
   const metadata = await storage.bucket(source.bucket).file(source.path).getMetadata();
   return metadata[0].size;
 };
