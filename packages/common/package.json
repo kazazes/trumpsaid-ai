@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@google-cloud/logging": "^3.0.1",
+    "@google-cloud/logging-winston": "^0.9.0",
     "@google-cloud/storage": "^1.7.0",
     "@sindresorhus/is": "^0.11.0",
     "@trumpsaid/prisma": "^1.0.0",
@@ -31,7 +32,9 @@
     "redis": "^2.8.0",
     "shelljs": "^0.8.2",
     "tslib": "^1.9.3",
-    "winston": "^3.0.0",
-    "winston-transport": "^4.2.0"
+    "winston": "^2.4.4"
+  },
+  "devDependencies": {
+    "@types/winston": "^2.4.4"
   }
 }

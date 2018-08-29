@@ -1,36 +1,36 @@
+import moment from "moment";
 import winston from "winston";
-import GoogleLog from "./gc-log";
 
-const alignedWithColorsAndTime = winston.format.combine(
-  winston.format.colorize(),
-  winston.format.timestamp(),
-  winston.format.align(),
-  winston.format.printf(info => {
-    const { timestamp, lvl, message, ...args } = info;
+const Logger = winston.Logger;
+const config = winston.config;
 
-    // tslint:disable-next-line:no-magic-numbers
-    const ts = timestamp.slice(0, 19).replace("T", " ");
-    // tslint:disable-next-line:no-magic-numbers
-    return `${ts} [${lvl}]: ${message} ${
-      Object.keys(args).length ? JSON.stringify(args, null, 2) : ""
-    }`;
-  })
-);
+const level = process.env.NODE_ENV === "development" ? "silly" : "debug";
 
-const level = process.env.NODE_ENV === "development" ? "silly " : "debug";
+// tslint:disable-next-line:no-var-requires
+const LoggingWinston = require("@google-cloud/logging-winston").LoggingWinston;
+const loggingWinston = new LoggingWinston();
 
-const logger = winston.createLogger({
-  transports: [
-    new winston.transports.Console({
-      format: alignedWithColorsAndTime,
-      level
-    }),
-    new GoogleLog({
-      labels: {
-        name: `ts-wtf-${process.env.SERVER_TYPE}`
-      }
-    })
-  ]
+const consoleLogging = new winston.transports.Console({
+  timestamp() {
+    return Date.now();
+  },
+  formatter(options) {
+    const ts = moment().toISOString();
+    return `${ts}   ${config.colorize(
+      options.level,
+      options.level.toUpperCase()
+    )}   ${options.message ? options.message : ""} ${
+      options.meta && Object.keys(options.meta).length
+        ? "\n\t" + JSON.stringify(options.meta)
+        : ""
+    }
+    `;
+  }
+});
+
+const logger = new Logger({
+  level,
+  transports: [loggingWinston, consoleLogging]
 });
 
 export default logger;
