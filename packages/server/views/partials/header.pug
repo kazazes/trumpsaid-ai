@@ -1,24 +1,3 @@
 nav.navbar.navbar-dark.primary-color
   a.navbar-brand(href='/') 
     img(src="/img/trump.svg", height="80px")
-  if (!hideSearch)
-    form.form-inline.justify-content-center.flex-grow-1
-      .md-form.my-0.w-100.d-flex.justify-content-center
-        input.form-control.w-75(type='text', placeholder='Search', aria-label='Search')
-        i.fa.fa-search.text-white.ml-3.mt-2(aria-hidden='true')
-  .nav-item.dropdown
-    if (!user || !user.avatar)
-      a.nav-link.dropdown-toggle(type='button', data-toggle='dropdown', data-target='#basicExampleNav', aria-controls='basicExampleNav', aria-expanded='false', aria-label='Toggle navigation')
-        span.navbar-toggler-icon
-    else
-      a.nav-link.dropdown-toggle.avatar.ml-auto.white.mr-2.p-0(data-toggle='collapse', data-target='#basicExampleNav', aria-controls='basicExampleNav')
-        img.rounded-circle(src=user.avatar)
-    #basicExampleNav.dropdown-menu.dropdown-menu-right.dropdown-secondary
-      if user
-        a.dropdown-item(href='/admin')
-          | Admin
-        a.dropdown-item(href='/logout')
-          | Logout
-      else
-        a.dropdown-item(href='/login')
-          | Login
