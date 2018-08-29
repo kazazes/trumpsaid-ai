@@ -8,6 +8,9 @@ require("@google-cloud/debug-agent").start({
   }
 });
 
+import checkEnvironment from "./helpers/checkEnv";
+checkEnvironment();
+
 import { config } from "dotenv";
 config({ path: __dirname + "/../.env" });
 
