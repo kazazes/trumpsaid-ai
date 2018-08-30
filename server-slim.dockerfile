@@ -1,7 +1,7 @@
 FROM node:8-alpine
 RUN apk add --no-cache python g++ make
 WORKDIR /app
-RUN yarn global add --pure-lockfile typescript pm2
+RUN yarn global add --pure-lockfile pm2
 COPY README.md *credentials.json ./
 COPY types types
 COPY bin/build-sources.sh bin/
@@ -14,14 +14,14 @@ COPY packages/pubsub/package.json packages/pubsub/package.json
 COPY packages/responders/package.json packages/responders/package.json 
 COPY packages/server/package.json packages/server/package.json 
 COPY yarn.lock package.json lerna.json ./
-RUN yarn --pure-lockfile
+RUN yarn --pure-lockfile --prefer-offline
 COPY packages packages
 # Don't build workers
 RUN rm -rf packages/workers
 # Re-run year 
-RUN yarn --pure-lockfile --prefer-offline && ./bin/build-sources.sh && rm -rf packages/*/src node_modules packages/*/node_modules && \
-  yarn global remove typescript && yarn install --prod --pure-lockfile && yarn cache clean && \
-  apk del python g++ make
+RUN yarn --pure-lockfile --prefer-offline && ./bin/build-sources.sh && \
+  rm -rf packages/*/src node_modules packages/*/node_modules && \
+  yarn install --prod --pure-lockfile --prefer-offline
 WORKDIR /app/packages/server
 RUN touch .env
 USER node

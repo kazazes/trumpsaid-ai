@@ -11,9 +11,9 @@ COPY packages/prisma/package.json packages/prisma/package.json
 COPY packages/pubsub/package.json packages/pubsub/package.json 
 COPY packages/responders/package.json packages/responders/package.json 
 COPY packages/server/package.json packages/server/package.json 
-RUN yarn --pure-lockfile
+RUN yarn --pure-lockfile --prefer-offline
 COPY packages packages
-RUN ./bin/build-sources.sh && yarn cache clean
+RUN ./bin/build-sources.sh
 WORKDIR /app/packages/server
 RUN touch .env
 USER node
