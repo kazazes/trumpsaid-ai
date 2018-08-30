@@ -8,7 +8,9 @@ const level = process.env.NODE_ENV === "development" ? "silly" : "debug";
 
 // tslint:disable-next-line:no-var-requires
 const LoggingWinston = require("@google-cloud/logging-winston").LoggingWinston;
-const stackdriverLogging = new LoggingWinston();
+const stackdriverLogging = new LoggingWinston({
+  projectId: process.env.GOOGLE_PROJECT_ID
+});
 
 const consoleLogging = new winston.transports.Console({
   timestamp() {

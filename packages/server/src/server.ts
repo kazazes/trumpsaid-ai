@@ -1,5 +1,9 @@
+import { config } from "dotenv";
+config({ path: __dirname + "/../.env" });
 // tslint:disable-next-line:no-var-requires
-require("@google-cloud/trace-agent").start();
+require("@google-cloud/trace-agent").start({
+  projectId: process.env.GOOGLE_PROJECT_ID
+});
 // tslint:disable-next-line:no-var-requires
 require("@google-cloud/debug-agent").start({
   projectId: process.env.GOOGLE_PROJECT_ID,
@@ -8,9 +12,6 @@ require("@google-cloud/debug-agent").start({
     version: "ALPHA"
   }
 });
-
-import { config } from "dotenv";
-config({ path: __dirname + "/../.env" });
 
 import checkEnvironment from "./helpers/checkEnv";
 checkEnvironment();

@@ -1,6 +1,5 @@
 import bodyParser from "body-parser";
 import compression from "compression";
-import csrf from "csurf";
 import express from "express";
 import expressFlash from "express-flash";
 import expressSession from "express-session";
@@ -42,6 +41,11 @@ app.use(lusca.xssProtection(true));
 const staticPath = path.join("../client/dist");
 app.use(express.static(staticPath, { maxAge: 31557600000 }));
 
+app.use((req, res, next) => {
+  // Catch all route
+  next();
+});
+
 app.use(
   expressSession({
     store: new RedisStore({
@@ -56,8 +60,6 @@ app.use(
     }
   })
 );
-
-app.use(csrf({ cookie: true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
