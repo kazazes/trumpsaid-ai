@@ -35,6 +35,7 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 
 ## Development
 
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/context:javascript)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/trumpsaidwtf/)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts/)
 
