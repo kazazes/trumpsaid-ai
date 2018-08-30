@@ -1,0 +1,3 @@
+path_classifiers:
+  generated:
+    - packages/client/types/vuejs-datepicker.d.ts
