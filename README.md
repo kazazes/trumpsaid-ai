@@ -1,4 +1,4 @@
-<h2 align="center">
+<h3 align="center">
 
 <img src="https://trumpsaid.wtf/img/trump.svg" height=100>
 <br>
@@ -35,14 +35,8 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 
 ## Development
 
-<h2 align="center">
-
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/trumpsaidwtf/)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts/)
-
-<!-- [![Greenkeeper badge](https://badges.greenkeeper.io/kazazes/trumpsaid-wtf.svg?style=for-the-badge)](https://greenkeeper.io/) -->
-
-</h2>
 
 ### Installation
 
@@ -60,4 +54,4 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 
 #### Docker
 
-Run `bin/docker-build.sh` from the project root to build docker images. Provide environment as specified above.
+Run `bin/docker-build.sh` from the project root to build docker images. When running, provide environment as specified above.

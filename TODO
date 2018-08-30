@@ -5,6 +5,7 @@ TS-WTF:
       ☐ Webm dash rendering @3h
       ☐ Publish fractional updates from workers, render progress in browser @3h @high 
       ☐ Use Kue for MQ
+      ☐ Decouple from GC for local development
     Graph API & Prisma:
       ☐ Default privilege level @3h 
       ☐ Service worker decoupling @6h
