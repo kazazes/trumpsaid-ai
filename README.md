@@ -1,17 +1,15 @@
-<h3 align="center">
+<h2 align="center">
 
 <img src="https://trumpsaid.wtf/img/trump.svg" height=100>
 <br>
 <a href="https://trumpsaid.wtf">Trump Said... WTF?</a>
-</h3>
+</h2>
 <h3 align="center">
 
 [![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=flat-square)](https://twitter.com/trumpsaidwtf)
 [![facebook](https://img.shields.io/badge/facebook--3b5998.svg?style=flat-square)](https://fb.me/trumpsaid)
 
 </h2>
-
-## Introduction
 
 These are historic times, and few chronicle it objectively. There's [Lawfare](https://www.lawfareblog.com), if that's your flavor, or [Drudge](http://drudgereport.com/), or pick-your-poison Reddit, and they're all missing the mark. We don't need opinion factories, we need information factories. We've lost the upside to be drawn from political conflict, and it has become destructive and rapidly deteriorating emotional turmoil.
 
