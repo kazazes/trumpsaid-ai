@@ -19,7 +19,7 @@ RUN yarn --pure-lockfile && ./bin/build-sources.sh && rm -rf packages/*/src node
   yarn global remove typescript && yarn install --prod --pure-lockfile && yarn cache clean && \
   apk del python g++ make
 WORKDIR /app/packages/server
-COPY gc-crednetials.json .
+COPY *credentials.json .
 RUN touch .env
 USER node
 EXPOSE 3000
