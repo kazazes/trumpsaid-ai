@@ -34,8 +34,12 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 
 <h2 align="center">
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts/)
-[![Greenkeeper badge](https://badges.greenkeeper.io/kazazes/trumpsaid-wtf.svg)](https://greenkeeper.io/)
+[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=flat-square)](https://twitter.com/trumpsaidwtf)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/trumpsaidwtf/)
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://raw.githubusercontent.com/kazazes/trumpsaid-wtf/master/LICENSE)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts/)
+
+<!-- [![Greenkeeper badge](https://badges.greenkeeper.io/kazazes/trumpsaid-wtf.svg?style=for-the-badge)](https://greenkeeper.io/) -->
 
 </h2>
 
