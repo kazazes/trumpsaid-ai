@@ -52,4 +52,4 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 
 #### Docker
 
-Run `bin/docker-build.sh` from the project root to build docker images. Provide environment as specified above.
+Run `bin/docker-build.sh` from the project root to build docker images. When running, provide environment as specified above.
