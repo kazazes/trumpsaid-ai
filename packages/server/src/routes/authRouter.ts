@@ -1,21 +1,20 @@
 import { logger } from "@trumpsaid/common";
-import { Router } from "express";
+import { NextFunction, RequestHandler, Response, Router } from "express";
+import { default as RateLimit } from "express-rate-limit";
 import passport from "passport";
+import { IRequestWithUser } from "../helpers/passport";
 
 // Base route is /
 const router = Router();
 
-interface IAuth0PassportConfig {
-  clientId: string;
-  domain: string;
-  redirectUri: string;
-  audience: string;
-  responseType: string;
-  scope: string;
-}
+const limiter = new RateLimit({
+  windowMs: 30 * 1000,
+  max: 10
+});
 
 router.get(
   "/login",
+  limiter,
   // tslint:disable-next-line:no-object-literal-type-assertion
   passport.authenticate("auth0", {
     clientId: process.env.AUTH0_CLIENT_ID,
@@ -48,5 +47,17 @@ router.get(
     res.redirect(`/admin?token=${req.user.accessToken}`);
   }
 );
+
+export const isAuthenticated: RequestHandler = (
+  req: IRequestWithUser,
+  res: Response,
+  next: NextFunction
+) => {
+  if (req.user && req.isAuthenticated()) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+};
 
 export default router;

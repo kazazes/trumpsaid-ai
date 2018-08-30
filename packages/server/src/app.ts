@@ -1,5 +1,6 @@
 import bodyParser from "body-parser";
 import compression from "compression";
+import csrf from "csurf";
 import express from "express";
 import expressFlash from "express-flash";
 import expressSession from "express-session";
@@ -55,6 +56,8 @@ app.use(
     }
   })
 );
+
+app.use(csrf({ cookie: true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
