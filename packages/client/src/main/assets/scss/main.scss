@@ -2,6 +2,9 @@
 @import "colors.scss";
 @import "~bootstrap/scss/bootstrap.scss";
 @import "mdb.scss";
+
+$footer-height: 150px;
+
 html {
   position: relative;
   min-height: 100%;
@@ -9,7 +12,7 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: $footer-height;
 }
 
 nav {
@@ -34,10 +37,8 @@ nav {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
+  height: $footer-height;
   line-height: 60px;
-  /* Vertically center the text there */
   background-color: $secondary-color;
   color: $white;
 }
