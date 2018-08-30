@@ -6,8 +6,8 @@
 </h2>
 <h3 align="center">
 
-[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=flat-square)](https://twitter.com/trumpsaidwtf)
-[![facebook](https://img.shields.io/badge/facebook--3b5998.svg?style=flat-square)](https://fb.me/trumpsaid)
+[![](https://img.shields.io/badge/stage-pre--alpha-red.svg?style=flat-square)]()
+[![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square)](https://github.com/kazazes/trumpsaid-wtf)
 
 </h2>
 
