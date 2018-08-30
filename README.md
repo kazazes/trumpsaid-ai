@@ -2,7 +2,7 @@
 
 <img src="https://trumpsaid.wtf/img/trump.svg" height=100>
 <br>
-<a href="https://trumpsaid.wtf">Trump Said... WTF?</a>
+<a href="https://trumpsaid.wtf">Trump Said... WTF?</a><br>
 
 [![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=flat-square)](https://twitter.com/trumpsaidwtf)
 [![facebook](https://img.shields.io/badge/facebook--3b5998.svg?style=flat-square)](https://fb.me/trumpsaid)
