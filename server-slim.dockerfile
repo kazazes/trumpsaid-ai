@@ -5,6 +5,7 @@ RUN yarn global add --pure-lockfile typescript pm2
 COPY README.md *credentials.json ./
 COPY types types
 COPY bin/build-sources.sh bin/
+# Copy dependencies to leverage caching
 COPY packages/client/package.json packages/client/package.json
 COPY packages/common/package.json packages/common/package.json
 COPY packages/graphql/package.json packages/graphql/package.json 
@@ -15,12 +16,15 @@ COPY packages/server/package.json packages/server/package.json
 COPY yarn.lock package.json lerna.json ./
 RUN yarn --pure-lockfile
 COPY packages packages
+# Don't build workers
 RUN rm -rf packages/workers
-RUN yarn --pure-lockfile && ./bin/build-sources.sh && rm -rf packages/*/src node_modules packages/*/node_modules && \
+# Re-run year 
+RUN yarn --pure-lockfile --prefer-offline && ./bin/build-sources.sh && rm -rf packages/*/src node_modules packages/*/node_modules && \
   yarn global remove typescript && yarn install --prod --pure-lockfile && yarn cache clean && \
   apk del python g++ make
 WORKDIR /app/packages/server
 RUN touch .env
 USER node
 EXPOSE 3000
-CMD ["pm2-runtime", "-i", "0", "dist/server.js"]
+EXPOSE 9615
+CMD ["pm2-runtime", "--web", "-i", "0", "dist/server.js"]
