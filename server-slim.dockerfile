@@ -15,6 +15,7 @@ COPY packages/server/package.json packages/server/package.json
 COPY yarn.lock package.json lerna.json ./
 RUN yarn --pure-lockfile
 COPY packages packages
+RUN rm -rf packages/workers
 RUN yarn --pure-lockfile && ./bin/build-sources.sh && rm -rf packages/*/src node_modules packages/*/node_modules && \
   yarn global remove typescript && yarn install --prod --pure-lockfile && yarn cache clean && \
   apk del python g++ make
