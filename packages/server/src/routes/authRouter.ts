@@ -4,6 +4,15 @@ import { default as RateLimit } from "express-rate-limit";
 import passport from "passport";
 import { IRequestWithUser } from "../helpers/passport";
 
+interface IAuth0PassportConfig {
+  clientId: string;
+  domain: string;
+  redirectUri: string;
+  audience: string;
+  responseType: string;
+  scope: string;
+}
+
 // Base route is /
 const router = Router();
 
