@@ -1,10 +1,10 @@
-<h2 align="center">
+<h3 align="center">
 
 <img src="https://trumpsaid.wtf/img/trump.svg" height=100>
 <br>
 <a href="https://trumpsaid.wtf">Trump Said... WTF?</a>
 
-</h2>
+</h3>
 
 ## Introduction
 
@@ -32,12 +32,9 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 
 ## Development
 
-<h2 align="center">
-
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts/)
 [![Greenkeeper badge](https://badges.greenkeeper.io/kazazes/trumpsaid-wtf.svg)](https://greenkeeper.io/)
 
-</h2>
 
 ### Installation
 
