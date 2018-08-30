@@ -44,7 +44,7 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 - Server dependencies
   - **Prisma** - Prisma provides instant and free [hosted servers](https://www.prisma.io/docs/quickstart/). In production, we host our own.
   - **Redis** - Install and run, or [use docker](https://github.com/bitnami/bitnami-docker-redis/blob/master/4.0/docker-compose.yml).
-  - **Google Cloud Engine** - A GCE account. _(TODO: write a setup and teardown script)_
+  - **Google Cloud Engine** - A GCE account. _(TODO: #21)_
 
 1. Populate `packages/server/.env` with the values in `.env.example`.
 2. `yarn install` - Our monorepo structure is dependent on yarn workspaces.
