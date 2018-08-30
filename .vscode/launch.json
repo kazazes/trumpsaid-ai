@@ -28,11 +28,11 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Server",
-      "preLaunchTask": "",
-      "program": "${workspaceFolder}/dist/server.js",
+      "program": "${workspaceFolder}/packages/server/dist/server.js",
       "restart": true,
       "sourceMaps": true,
-      "outputCapture": "std"
+      "outputCapture": "std",
+      "protocol": "inspector"
     }
   ]
 }
