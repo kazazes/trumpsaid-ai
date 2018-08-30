@@ -33,13 +33,11 @@ This platform is well under way, and there is still a ways to go. The roadmap is
 
 While this may seem hyperbolic, it's fair to say that deep inside of us all there is a fear that we're losing whatever _did_ make us exceptional. No one, of any political pursuasion, wants this environment to endure. This platform will not take sides. It will not selectivly curate content. It won't have to, the content will speak for itself.
 
-## Development
-
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/context:javascript)
+<!-- [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/context:javascript)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/trumpsaidwtf/)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts/)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts/) -->
 
-### Installation
+## Development
 
 #### Local
 
