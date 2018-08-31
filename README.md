@@ -9,6 +9,7 @@
 [![](https://img.shields.io/badge/stage-pre--alpha-red.svg?style=flat-square)]()
 [![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square)](https://github.com/trumpsaid-wtf/trumpsaid-wtf)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts)
+
 </h2>
 
 These are historic times, and few chronicle it objectively. There's [Lawfare](https://www.lawfareblog.com), if that's your flavor, or [Drudge](http://drudgereport.com/), or pick-your-poison Reddit, and they're all missing the mark. We don't need opinion factories, we need information factories. We've lost the upside to be drawn from political conflict, and it has become destructive and rapidly deteriorating emotional turmoil.
@@ -35,18 +36,24 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 
 ## Development
 
-#### Local
+**Dependencies**
 
-- Server dependencies
-  - **Prisma** - Prisma provides instant and free [hosted servers](https://www.prisma.io/docs/quickstart/). In production, we host our own.
-  - **Redis** - Install and run, or [use docker](https://github.com/bitnami/bitnami-docker-redis/blob/master/4.0/docker-compose.yml).
-  - **Google Cloud Engine** - A GCE account. _(TODO: write a setup and teardown script)_
+- [**docker**](https://docs.docker.com/install/)
+- [**yarn**](https://yarnpkg.com/en/docs/install) - Note, there are none issues with installing yarn via npm.
 
-1. Populate `packages/server/.env` with the values in `.env.example`.
-2. `yarn install` - Our monorepo structure is dependent on yarn workspaces.
-3. `yarn build`
-4. `yarn debug`
+**Build**
 
-#### Docker
+1. `git clone git@github.com:trumpsaid-wtf/trumpsaid-wtf.git && cd trumpsaid-wtf`
+2. `source .env.example`
+3. `yarn install` - **Using yarn is required.** The project requires workspace support.
+4. `lerna run build`
+5. `lerna run webpack`
 
-Run `bin/docker-build.sh` from the project root to build docker images. When running, provide environment as specified above.
+**Bootstrap database**
+
+1. `docker-compose -f ./packages/prisma/database/docker-compose.yml up -d`
+2. `prisma deploy -e .env.example`
+
+**Run**
+
+1. `cd packages/server && yarn debug` _Working on decoupling from GCE for local development. Track progress on [#40](https://github.com/trumpsaid-wtf/trumpsaid-wtf/issues/40)._
