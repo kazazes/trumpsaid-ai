@@ -46,6 +46,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
+    "@types/connect-redis": "^0.0.7",
     "@types/csurf": "^1.9.35",
     "@types/express-rate-limit": "^2.9.3"
   }

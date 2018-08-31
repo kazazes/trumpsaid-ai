@@ -1,5 +1,9 @@
+import { checkJWT, logger } from "@trumpsaid/common";
+import { apollo as graphServer } from "@trumpsaid/graphql";
 import bodyParser from "body-parser";
 import compression from "compression";
+import connectRedis, { RedisStore } from "connect-redis";
+import csrf from "csurf";
 import express from "express";
 import expressFlash from "express-flash";
 import expressSession from "express-session";
@@ -9,20 +13,13 @@ import morgan from "morgan";
 import passport from "passport";
 import path from "path";
 
-import { apollo as graphServer } from "@trumpsaid/graphql";
-
+import strategy, { deserializeUser, serializeUser } from "./helpers/passport";
 import adminRouter from "./routes/adminRouter";
 import authRouter from "./routes/authRouter";
 import rootRouter from "./routes/rootRouter";
 
-import { checkJWT, logger } from "@trumpsaid/common";
-
 const app = express();
-
-require("./helpers/passport");
-
-// tslint:disable-next-line:variable-name
-const RedisStore = require("connect-redis")(expressSession);
+const env = process.env.NODE_ENV;
 
 // Express configuration
 // tslint:disable-next-line:no-magic-numbers
@@ -41,26 +38,28 @@ app.use(lusca.xssProtection(true));
 const staticPath = path.join("../client/dist");
 app.use(express.static(staticPath, { maxAge: 31557600000 }));
 
-app.use((req, res, next) => {
-  // Catch all route
-  next();
-});
+// tslint:disable-next-line:variable-name
+const RedisStore = connectRedis(expressSession);
 
 app.use(
   expressSession({
     store: new RedisStore({
       host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT
+      port: Number(process.env.REDIS_PORT)
     }),
     secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     resave: true,
     cookie: {
-      expires: false
+      expires: false,
+      secure: env === "production"
     }
   })
 );
 
+passport.use(strategy);
+passport.serializeUser(serializeUser);
+passport.deserializeUser(deserializeUser);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -80,16 +79,16 @@ app.use(
   })
 );
 
-const env = process.env.NODE_ENV;
 app.locals.env = env;
+const csrfProtection = csrf();
 
 /**
  * Primary routes.
  */
-app.use("/", authRouter);
-app.use("/", rootRouter);
-app.use("/admin", adminRouter);
-app.use("/graphql", checkJWT);
+app.use("/", csrfProtection, authRouter);
+app.use("/", csrfProtection, rootRouter);
+app.use("/admin", csrfProtection, adminRouter);
+app.use("/graphql", csrfProtection, checkJWT);
 
 app.use(
   (
