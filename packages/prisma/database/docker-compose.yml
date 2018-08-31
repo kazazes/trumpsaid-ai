@@ -1,36 +1,34 @@
 version: '3'
 services:
-  cloudsql-proxy:
-    container_name: cloudsql-proxy
-    image: gcr.io/cloudsql-docker/gce-proxy:1.11
-    privileged: true
-    command: '/cloud_sql_proxy -instances=${CLOUDSQL_CONNECTION}=tcp:0.0.0.0:3306'
-    ports:
-      - 3306:3306
-    restart: always
   prisma:
-    image: prismagraphql/prisma:1.14.2
-    privileged: true
-    container_name: prisma
-    depends_on:
-      - cloudsql-proxy
+    image: prismagraphql/prisma:1.15
     restart: always
     ports:
       - '4466:4466'
     environment:
       PRISMA_CONFIG: |
         port: 4466
-        managementApiSecret: ${PRISMA_MANAGEMENT_API_SECRET}
+        # uncomment the next line and provide the env var PRISMA_MANAGEMENT_API_SECRET=my-secret to activate cluster security
+        # managementApiSecret: my-secret
         databases:
           default:
             connector: mysql
+            host: mysql
             port: 3306
-            host: "${MYSQL_HOST}"
-            user: "${MYSQL_USER}"
-            password: "${MYSQL_PASSWORD}"
+            user: root
+            password: prisma
             migrations: true
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: prisma
+    volumes:
+      - mysql:/var/lib/mysql
   start_dependencies:
     image: dadarek/wait-for-dependencies
     depends_on:
-      - cloudsql-proxy
-    command: cloudsql-proxy:3306
+      - mysql
+    command: mysql:3306
+volumes:
+  ? mysql
