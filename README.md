@@ -7,8 +7,8 @@
 <h3 align="center">
 
 [![](https://img.shields.io/badge/stage-pre--alpha-red.svg?style=flat-square)]()
-[![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square)](https://github.com/kazazes/trumpsaid-wtf)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts)
+[![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square)](https://github.com/trumpsaid-wtf/trumpsaid-wtf)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/trumpsaid-wtf/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/trumpsaid-wtf/trumpsaid-wtf/alerts)
 </h2>
 
 These are historic times, and few chronicle it objectively. There's [Lawfare](https://www.lawfareblog.com), if that's your flavor, or [Drudge](http://drudgereport.com/), or pick-your-poison Reddit, and they're all missing the mark. We don't need opinion factories, we need information factories. We've lost the upside to be drawn from political conflict, and it has become destructive and rapidly deteriorating emotional turmoil.
@@ -29,13 +29,9 @@ Our choice of media outlet has become a defacto litmus test of likeability. We l
 
 [Wikipedia Current Events](https://en.wikipedia.org/wiki/Portal:Current_events) has been one of the most objective sources of primary source current events material on the internet for fifteen years. Jimmy Wales changed the world then. There's a need for a rich media/artificial inteligence analog. And this is the place to start.
 
-This platform is well under way, and there is still a ways to go. The roadmap is below. The dream scenario is to scale the platform to those who cannot freely access or disseminate the information that we as Americans can.
+The road to our first release is well underway, [progress can be tracked here](https://github.com/trumpsaid-wtf/trumpsaid-wtf/projects/2). The dream scenario is to scale the platform to those who cannot freely access or disseminate the information that we as Americans can.
 
 While this may seem hyperbolic, it's fair to say that deep inside of us all there is a fear that we're losing whatever _did_ make us exceptional. No one, of any political pursuasion, wants this environment to endure. This platform will not take sides. It will not selectivly curate content. It won't have to, the content will speak for itself.
-
-<!-- [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/context:javascript)
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/trumpsaidwtf/)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts/) -->
 
 ## Development
 
