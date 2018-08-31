@@ -29,7 +29,7 @@ Our choice of media outlet has become a defacto litmus test of likeability. We l
 
 [Wikipedia Current Events](https://en.wikipedia.org/wiki/Portal:Current_events) has been one of the most objective sources of primary source current events material on the internet for fifteen years. Jimmy Wales changed the world then. There's a need for a rich media/artificial inteligence analog. And this is the place to start.
 
-The road to our first release is well underway, [progress can be tracked here](https://github.com/trumpsaid-wtf/trumpsaid-wtf/projects/2). The dream scenario is to scale the platform to those who cannot freely access or disseminate the information that we as Americans can.
+We're almost ready for our first release; [progress can be tracked here](https://github.com/trumpsaid-wtf/trumpsaid-wtf/projects/2). The dream scenario is to scale the platform to those who cannot freely access or disseminate the information that we as Americans can.
 
 While this may seem hyperbolic, it's fair to say that deep inside of us all there is a fear that we're losing whatever _did_ make us exceptional. No one, of any political pursuasion, wants this environment to endure. This platform will not take sides. It will not selectivly curate content. It won't have to, the content will speak for itself.
 
