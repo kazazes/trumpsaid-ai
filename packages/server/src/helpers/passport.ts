@@ -1,11 +1,19 @@
 import { logger } from "@trumpsaid/common";
 import { prismaContext, User } from "@trumpsaid/prisma";
 import { Request } from "express";
-import passport from "passport";
 import { Strategy } from "passport-auth0";
 
 export interface IRequestWithUser extends Request {
   user: User;
+}
+
+interface ISerializedUser {
+  id: string;
+  accessToken: string;
+}
+
+export interface IPassportUser extends User {
+  accessToken?: string;
 }
 
 interface IAuth0StrategyProfile {
@@ -99,23 +107,18 @@ const strategy = new Strategy(
   }
 );
 
-passport.use(strategy);
-
-interface ISerializedUser {
-  id: string;
-  accessToken: string;
-}
-
-passport.serializeUser((user: IAuth0StrategyProfile, done) => {
+export function serializeUser(
+  user: IAuth0StrategyProfile,
+  done: (err: any, id?: {}) => void
+) {
   const args: ISerializedUser = { id: user.id, accessToken: user.accessToken };
   done(null, args);
-});
-
-export interface IPassportUser extends User {
-  accessToken?: string;
 }
 
-passport.deserializeUser(async (user: ISerializedUser, done) => {
+export async function deserializeUser(
+  user: ISerializedUser,
+  done: (err: any, id?: {}) => void
+) {
   try {
     const graphUser: IPassportUser = await prismaContext.query.user(
       { where: { auth0Id: user.id } },
@@ -126,4 +129,6 @@ passport.deserializeUser(async (user: ISerializedUser, done) => {
   } catch (err) {
     logger.error(`Error deserializing user with ID: ${user.id}\n${err}`);
   }
-});
+}
+
+export default strategy;

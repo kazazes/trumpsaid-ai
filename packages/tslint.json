@@ -29,7 +29,6 @@
     "no-return-await": true,
     "no-string-throw": true,
     "no-var-keyword": true,
-    "only-arrow-functions": true,
     "ordered-imports": true,
     "prefer-const": true,
     "prefer-method-signature": true,
