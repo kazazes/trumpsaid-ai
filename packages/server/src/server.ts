@@ -1,5 +1,11 @@
 import { config } from "dotenv";
-config({ path: __dirname + "/../.env" });
+import { existsSync } from "fs";
+
+const envPath = existsSync(__dirname + "/../.env")
+  ? __dirname + "/../.env"
+  : __dirname + "/../.env.example";
+
+config({ path: envPath });
 // tslint:disable-next-line:no-var-requires
 require("@google-cloud/trace-agent").start({
   projectId: process.env.GOOGLE_PROJECT_ID
