@@ -1,6 +1,6 @@
 <h2 align="center">
 
-<img src="https://trumpsaid.wtf/img/trump.svg" height=100>
+<img src="https://trumpsaid.wtf/img/logo.svg" height=100>
 <br>
 <a href="https://trumpsaid.wtf">Trump Said... WTF?</a>
 </h2>

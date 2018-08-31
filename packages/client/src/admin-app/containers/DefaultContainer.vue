@@ -13,12 +13,12 @@
       >
         <img
           class="navbar-brand-full mh-100"
-          src="/img/trump.svg"
+          src="/img/logo.svg"
           alt="Trump Said... WTF?"
         >
         <img
           class="navbar-brand-minimized"
-          src="/img/trump.svg"
+          src="/img/logo.svg"
           width="30"
         >
       </b-link>
