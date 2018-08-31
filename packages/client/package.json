@@ -73,7 +73,7 @@
     "sass-loader": "^7.1.0",
     "simple-line-icons": "^2.4.1",
     "source-map-loader": "^0.2.4",
-    "style-loader": "^0.22.1",
+    "style-loader": "^0.23.0",
     "text-mask-addons": "^3.8.0",
     "v-calendar": "^0.9.7",
     "validator": "^10.6.0",
