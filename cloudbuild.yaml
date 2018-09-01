@@ -2,8 +2,6 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['pull', 'gcr.io/$PROJECT_ID/app:latest']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['pull', 'gcr.io/$PROJECT_ID/worker:latest']
-  - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'build',
@@ -18,20 +16,7 @@ steps:
     timeout: 600s
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/app:latest']
-  - name: 'gcr.io/cloud-builders/docker'
-    args:
-      [
-        'build',
-        '-t',
-        'gcr.io/$PROJECT_ID/worker',
-        '--cache-from',
-        'gcr.io/$PROJECT_ID/worker',
-        '-f',
-        './worker.dockerfile',
-        '.',
-      ]
     timeout: 600s
 timeout: 2100s
 images:
-  - gcr.io/$PROJECT_ID/worker:latest
   - gcr.io/$PROJECT_ID/app:latest
