@@ -17,7 +17,7 @@ COPY packages/prisma/package.json packages/prisma/package.json
 COPY packages/pubsub/package.json packages/pubsub/package.json 
 COPY packages/workers/package.json packages/workers/package.json 
 COPY packages/common/package.json packages/common/package.json
-RUN yarn --pure-lockfile --perfer-offline
+RUN yarn --pure-lockfile --prefer-offline
 COPY packages packages
 RUN rm -rf packages/client packages/graphql packages/responders packages/server
 RUN ./bin/build-sources.sh
