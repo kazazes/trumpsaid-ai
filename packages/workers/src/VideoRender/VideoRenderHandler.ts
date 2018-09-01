@@ -1,5 +1,6 @@
 import { File } from "@google-cloud/storage";
 // tslint:disable-next-line:no-var-requires
+const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 import {
   createFileInProcessing,
   directoryFromPath,
@@ -29,7 +30,7 @@ import FormatTimestamp from "hh-mm-ss";
 import * as math from "mathjs";
 import moment, { Moment } from "moment";
 import { cpus } from "os";
-import { exec, ls, which } from "shelljs";
+import { exec, ls } from "shelljs";
 import VideoRenderPubSubController from "./VideoRenderPubSubController";
 
 interface IFfmpegStage {
@@ -287,7 +288,7 @@ export default class VideoRenderHandler extends PubSubHandler {
   }
   private getFfmpeg(): FfmpegCommand {
     const ffmpeg = fluentFfmpeg({ logger });
-    return ffmpeg.setFfmpegPath(which("ffmpeg"));
+    return ffmpeg.setFfmpegPath(ffmpegPath);
   }
   private async encodeMP4(
     master: VideoUploadStorageLink

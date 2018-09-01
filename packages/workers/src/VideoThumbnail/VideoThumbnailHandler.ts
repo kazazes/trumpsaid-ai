@@ -1,4 +1,5 @@
 // tslint:disable-next-line:no-var-requires
+const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 import {
   createFileInProcessing,
   directoryFromPath,
@@ -22,7 +23,6 @@ import {
 import sleep from "await-sleep";
 import fluentFfmpeg from "fluent-ffmpeg";
 import sharp from "sharp";
-import { which } from "shelljs";
 import { Duplex } from "stream";
 import VideoThumbnailPubSubController from "./VideoThumbnailPubSubController";
 
@@ -103,7 +103,7 @@ export default class VideoThumbnailHandler extends PubSubHandler {
       const sourceReadStream = getReadStream(masterLink);
 
       const ffmpeg = fluentFfmpeg();
-      ffmpeg.setFfmpegPath(which("ffmpeg"));
+      ffmpeg.setFfmpegPath(ffmpegPath);
       ffmpeg
         .input(sourceReadStream)
         .outputOptions([
