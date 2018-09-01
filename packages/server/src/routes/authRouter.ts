@@ -34,7 +34,7 @@ router.get(
     scope: "openid profile"
   } as IAuth0PassportConfig),
   (_, res) => {
-    res.redirect("/");
+    res.redirect("/admin");
   }
 );
 
