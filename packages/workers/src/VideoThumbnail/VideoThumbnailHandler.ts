@@ -34,6 +34,7 @@ export default class VideoThumbnailHandler extends PubSubHandler {
     if (this.activeJobs >= this.maxJobs) {
       return message.nack();
     }
+    
     this.activeJobs = this.activeJobs + 1;
     const timer = this.startTimer(message);
 

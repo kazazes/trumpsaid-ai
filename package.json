@@ -14,7 +14,7 @@
     "lint": "lerna run lint",
     "watch": "lerna run --parallel watch",
     "deploy": "bin/docker-build.sh && bin/docker-push.sh",
-    "clean": "rimraf packages/*/dist && rimraf packages/*/node_modules && rimraf node_modules",
+    "clean": "rimraf packages/*/dist && rimraf packages/*/node_modules",
     "version": "lerna run version"
   },
   "private": true,
@@ -28,7 +28,7 @@
       "**vue**",
       "**webpack**",
       "**youtube-dl**",
-      "**ffmpeg**"
+      "**/ffmpeg/**"
     ]
   },
   "devDependencies": {

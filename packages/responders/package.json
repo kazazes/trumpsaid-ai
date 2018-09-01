@@ -30,6 +30,7 @@
     "@trumpsaid/pubsub": "^1.0.0",
     "await-sleep": "0.0.1",
     "lodash": "^4.17.10",
+    "long": "^4.0.0",
     "moment": "^2.22.2",
     "music-metadata": "^2.6.0",
     "tslib": "^1.9.3"
