@@ -2,7 +2,7 @@ import { checkJWT, logger } from "@trumpsaid/common";
 import { apollo as graphServer } from "@trumpsaid/graphql";
 import bodyParser from "body-parser";
 import compression from "compression";
-import connectRedis, { RedisStore } from "connect-redis";
+import connectRedis from "connect-redis";
 import csrf from "csurf";
 import express from "express";
 import expressFlash from "express-flash";
