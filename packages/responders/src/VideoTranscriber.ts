@@ -21,8 +21,7 @@ import * as mm from "music-metadata/lib";
 const speech = require("@google-cloud/speech").v1p1beta1;
 
 const client = new speech.SpeechClient({
-  projectId: process.env.GOOGLE_PROJECT_ID,
-  keyFilename: '../../gc-credentials.json'
+  projectId: process.env.GOOGLE_PROJECT_ID
 });
 
 export default class VideoTranscriber {
