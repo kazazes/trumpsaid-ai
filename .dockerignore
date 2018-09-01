@@ -4,7 +4,6 @@ database
 .vscode
 **/*.env
 .git
-**/dist
 Dockerfile
 **/*.dockerfile
 **/*.dockerignore
