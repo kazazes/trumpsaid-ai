@@ -3,12 +3,12 @@ import { apollo as graphServer } from "@trumpsaid/graphql";
 import bodyParser from "body-parser";
 import compression from "compression";
 import connectRedis from "connect-redis";
-import csrf from "csurf";
+// import csrf from "csurf";
 import express from "express";
 import expressFlash from "express-flash";
 import expressSession from "express-session";
 import expressValidator from "express-validator";
-import lusca from "lusca";
+// import lusca from "lusca";
 import morgan from "morgan";
 import passport from "passport";
 import path from "path";
@@ -32,8 +32,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(expressFlash());
-app.use(lusca.xframe("SAMEORIGIN"));
-app.use(lusca.xssProtection(true));
+// app.use(lusca.xframe("SAMEORIGIN"));
+// app.use(lusca.xssProtection(true));
 
 const staticPath = path.join("../client/dist");
 app.use(express.static(staticPath, { maxAge: 31557600000 }));
@@ -51,8 +51,7 @@ app.use(
     saveUninitialized: true,
     resave: true,
     cookie: {
-      expires: false,
-      secure: env === "production"
+      expires: false
     }
   })
 );
@@ -80,15 +79,14 @@ app.use(
 );
 
 app.locals.env = env;
-const csrfProtection = csrf();
 
 /**
  * Primary routes.
  */
-app.use("/", csrfProtection, authRouter);
-app.use("/", csrfProtection, rootRouter);
-app.use("/admin", csrfProtection, adminRouter);
-app.use("/graphql", csrfProtection, checkJWT);
+app.use("/", authRouter);
+app.use("/", rootRouter);
+app.use("/admin", adminRouter);
+app.use("/graphql", checkJWT);
 
 app.use(
   (
