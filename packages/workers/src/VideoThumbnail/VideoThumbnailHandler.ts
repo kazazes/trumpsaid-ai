@@ -35,6 +35,10 @@ export default class VideoThumbnailHandler extends PubSubHandler {
       return message.nack();
     }
     
+    if (await this.jobBeingHandled(message)) {
+      return message.nack();
+    }
+    
     this.activeJobs = this.activeJobs + 1;
     const timer = this.startTimer(message);
 
@@ -115,10 +119,10 @@ export default class VideoThumbnailHandler extends PubSubHandler {
           `-ss ${timestamp}`
         ])
         .on("start", cmdLine => {
-          logger.debug("Started ffmpeg with command:" + cmdLine);
+          logger.info("Started ffmpeg with command:" + cmdLine);
         })
         .on("end", () => {
-          logger.debug("Successfully generated thumbnail.");
+          logger.info(`Successfully generated thumbnail.`);
           sourceReadStream.destroy();
           resolve();
         })

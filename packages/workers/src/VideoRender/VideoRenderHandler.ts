@@ -69,7 +69,7 @@ export default class VideoRenderHandler extends PubSubHandler {
         message
       ) as VideoUpload;
 
-      logger.debug(`Handling render for ${videoUpload.id}`);
+      logger.info(`Handling render for ${videoUpload.id}`);
 
       const storageLinks = videoUpload.storageLinks;
 
@@ -113,7 +113,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       });
 
       if (encodeFormats.length < 1 && transcodeFormats.length < 1) {
-        logger.debug(`Nothing to encode or transcode for ${videoUpload.id}.`);
+        logger.warn(`Nothing to encode or transcode for ${videoUpload.id}.`);
         const response: IVideoRenderSuccessMessage = {
           videoUpload,
           storageLinkCreateInputs: []
@@ -122,16 +122,16 @@ export default class VideoRenderHandler extends PubSubHandler {
         this.succeeded(response, timer);
         return resolve();
       }
-      logger.debug(
+      logger.info(
         `Rendering with ${encodeFormats.length} encode and ${
           transcodeFormats.length
         } transcode jobs.`
       );
       if (encodeFormats.length > 0) {
-        logger.debug(`\tEncode: ${encodeFormats.join(", ")}`);
+        logger.info(`\tEncode: ${encodeFormats.join(", ")}`);
       }
       if (transcodeFormats.length > 0) {
-        logger.debug(`\tTranscode to: ${transcodeFormats.join(", ")}`);
+        logger.info(`\tTranscode to: ${transcodeFormats.join(", ")}`);
       }
 
       const renderResults: VideoUploadStorageLinkCreateInput[] = [];
@@ -319,10 +319,10 @@ export default class VideoRenderHandler extends PubSubHandler {
         .outputOptions("-preset slow")
         .outputOptions("-map_metadata -1")
         .on("start", cmdLine => {
-          logger.debug("Started ffmpeg with command: " + cmdLine);
+          logger.info("Started ffmpeg with command: " + cmdLine);
         })
         .on("end", () => {
-          logger.debug(`Successfully encoded video as MP4 ${start.toNow()}`);
+          logger.info(`Successfully encoded video as MP4 ${start.toNow()}`);
           resolve(renderOutput);
         })
         .on("error", (err, stdout, stderr) => {
@@ -396,10 +396,10 @@ export default class VideoRenderHandler extends PubSubHandler {
         .audioBitrate("128k")
         .noVideo()
         .on("start", cmdLine => {
-          logger.debug("Started ffmpeg with command: " + cmdLine);
+          logger.info("Started ffmpeg with command: " + cmdLine);
         })
         .on("end", () => {
-          logger.debug(`Successfully extracted AAC audio as MP4`);
+          logger.info(`Successfully extracted AAC audio as MP4`);
           resolve(aacOutputPath);
         })
         .on("error", (err, stdout, stderr) => {
@@ -486,10 +486,10 @@ export default class VideoRenderHandler extends PubSubHandler {
         .outputOptions("-preset slow")
         .outputOptions("-map_metadata -1")
         .on("start", cmdLine => {
-          logger.debug("Started ffmpeg with command: " + cmdLine);
+          logger.info("Started ffmpeg with command: " + cmdLine);
         })
         .on("end", () => {
-          logger.debug(
+          logger.info(
             `Successfully encoded video as MP4 DASH ${start.toNow()}`
           );
           resolve(mp4DashOutputPath);
@@ -623,7 +623,7 @@ export default class VideoRenderHandler extends PubSubHandler {
         "-profile onDemand",
         `-out ${localMPDOutput} ${fileArgs}`
       ];
-      logger.debug(
+      logger.info(
         `Starting MP4Box with command: MP4Box ${cmdLineOpts.join(" ")}`
       );
       exec(
@@ -717,10 +717,10 @@ export default class VideoRenderHandler extends PubSubHandler {
         .outputOptions("-qmax 25")
         .outputOptions("-map_metadata -1")
         .on("start", cmdLine => {
-          logger.debug("Started ffmpeg with command: " + cmdLine);
+          logger.info("Started ffmpeg with command: " + cmdLine);
         })
         .on("end", () => {
-          logger.debug(`Successfully encoded video as Webm ${start.toNow()}`);
+          logger.info(`Successfully encoded video as Webm ${start.toNow()}`);
           resolve(renderOutput);
         })
         .on("error", (err, stdout, stderr) => {
@@ -780,10 +780,10 @@ export default class VideoRenderHandler extends PubSubHandler {
         .audioChannels(1)
         .output(flacOutputPath)
         .on("start", cmdLine => {
-          logger.debug("Started ffmpeg with command: " + cmdLine);
+          logger.info("Started ffmpeg with command: " + cmdLine);
         })
         .on("end", () => {
-          logger.debug(`Successfully encoded audio as flac ${start.toNow()}`);
+          logger.info(`Successfully encoded audio as flac ${start.toNow()}`);
           resolve(masterLocalPath);
         })
         .on("error", (err, stdout, stderr) => {

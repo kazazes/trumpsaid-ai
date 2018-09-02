@@ -98,7 +98,7 @@ export default class VideoDownloadHandler extends PubSubHandler {
     path: string
   ) {
     return new Promise<IFileWithType>(resolve => {
-      logger.debug(`Attempting to download ${url} - ${fileType}`);
+      logger.info(`Attempting to download ${url} - ${fileType}`);
       let video: Youtubedl;
       let videoFile: File;
       let videoFileStream: WriteStream;
@@ -148,7 +148,7 @@ export default class VideoDownloadHandler extends PubSubHandler {
           logger.error("Download error", e);
           throw e;
         }
-        logger.debug(`Download started for
+        logger.info(`Download started for
       \tVideo: ${url}
       \tType: ${fileType}
       \tSize: ${info.size}
