@@ -34,7 +34,7 @@ router.get(
     scope: "openid profile"
   } as IAuth0PassportConfig),
   (_, res) => {
-    res.redirect("/admin");
+    res.redirect("/");
   }
 );
 
@@ -47,13 +47,13 @@ router.get("/logout", (req, res) => {
 router.get(
   "/login/callback",
   passport.authenticate("auth0", {
-    failureRedirect: "/"
+    failureRedirect: "/login"
   }),
   (req, res) => {
     logger.info(
       `Logged in user ${req.user.displayName} with ID ${req.user.user_id}`
     );
-    res.redirect(`/admin?token=${req.user.accessToken}`);
+    res.redirect(`/admin`);
   }
 );
 

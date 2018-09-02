@@ -48,9 +48,6 @@ const strategy = new Strategy(
     clientSecret: process.env.AUTH0_SECRET,
     callbackURL: process.env.AUTH0_CALLBACK_URL,
     audience: process.env.AUTH0_AUDIENCE,
-    issuer: process.env.AUTH0_DOMAIN,
-    responseType: "code",
-    scope: "openid profile"
   },
   async (
     accessToken: string,

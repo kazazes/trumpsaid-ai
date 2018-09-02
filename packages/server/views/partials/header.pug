@@ -1,6 +1,14 @@
 nav.navbar.navbar-dark.primary-color
   a.navbar-brand(href='/') 
     img(src="/img/logo.svg", height="80px")
-  a.btn.btn-outline-white(href="https://github.com/kazazes/trumpsaid-wtf")
-    i.fab.fa-github.fa-lg
-    span &nbsp; Find me on GitHub
+  if (!user)
+    a.btn.btn-outline-white.btn-sm(href="https://github.com/kazazes/trumpsaid-wtf")
+      i.fab.fa-github.fa-lg
+      span &nbsp; Fork me on GitHub
+    a.btn.btn-outline-white.btn-sm.d-none.d-sm-block(href="/login")
+      i.far.fa-user.fa-lg
+      span &nbsp; Login
+  else
+    a.btn.btn-outline-white(href="/admin")
+      i.fa.fa-shield-alt
+      span &nbsp; Admin
