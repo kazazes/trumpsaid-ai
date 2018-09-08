@@ -31,5 +31,12 @@
     "tslib": "^1.9.3",
     "validator": "^10.7.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/compression": "^0.0.36",
+    "@types/connect-redis": "^0.0.7",
+    "@types/errorhandler": "^0.0.32",
+    "@types/morgan": "^1.7.35",
+    "@types/passport": "^0.4.6",
+    "@types/validator": "^9.4.1"
+  }
 }

@@ -1,6 +1,6 @@
 #! /bin/sh
 
-set -a
+set -e
 
 ROOT=$PWD
 

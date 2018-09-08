@@ -43,5 +43,11 @@
     "tslib": "^1.9.3",
     "youtube-dl": "^1.12.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/dotenv": "^4.0.3",
+    "@types/fluent-ffmpeg": "^2.1.6",
+    "@types/mathjs": "^4.4.1",
+    "@types/sharp": "^0.17.10",
+    "@types/youtube-dl": "^1.12.0"
+  }
 }

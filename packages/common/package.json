@@ -35,6 +35,10 @@
     "winston": "^2.4.4"
   },
   "devDependencies": {
+    "@types/google-cloud__storage": "^1.7.2",
+    "@types/hasha": "^3.0.0",
+    "@types/redis": "^2.8.6",
+    "@types/shelljs": "^0.8.0",
     "@types/winston": "^2.4.4"
   }
 }
