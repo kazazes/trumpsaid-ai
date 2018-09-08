@@ -113,7 +113,7 @@
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@coreui/icons/-/icons-0.3.0.tgz#d5bece91b1442a9543593d1146bc8042b18489e3"
 
-"@coreui/vue@2.0.0":
+"@coreui/vue@^2.0.0-rc.3":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@coreui/vue/-/vue-2.0.0.tgz#e616234c096bc63dd19f7a0aa8bc5087a448357b"
   dependencies:
@@ -11126,9 +11126,9 @@ void-elements@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-vue-apollo@^3.0.0-beta.19:
-  version "3.0.0-beta.20"
-  resolved "https://registry.yarnpkg.com/vue-apollo/-/vue-apollo-3.0.0-beta.20.tgz#05c9707cbfcb2da5632cdf14354d2ee080519eb0"
+vue-apollo@3.0.0-beta.22:
+  version "3.0.0-beta.22"
+  resolved "https://registry.yarnpkg.com/vue-apollo/-/vue-apollo-3.0.0-beta.22.tgz#eee8d70f4c9be430bba76e44696a2a4edf4644ea"
   dependencies:
     chalk "^2.4.1"
     throttle-debounce "^2.0.0"
