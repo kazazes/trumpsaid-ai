@@ -113,7 +113,7 @@
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@coreui/icons/-/icons-0.3.0.tgz#d5bece91b1442a9543593d1146bc8042b18489e3"
 
-"@coreui/vue@2.0.0":
+"@coreui/vue@^2.0.0-rc.3":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@coreui/vue/-/vue-2.0.0.tgz#e616234c096bc63dd19f7a0aa8bc5087a448357b"
   dependencies:
@@ -11051,13 +11051,9 @@ validate-npm-package-name@^3.0.0:
   dependencies:
     builtins "^1.0.3"
 
-validator@^10.4.0:
-  version "10.6.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-10.6.0.tgz#a9bdce685b3c3e8480e7ebbb9eb95c54cd9733b0"
-
-validator@^10.6.0, validator@^10.7.0:
-  version "10.7.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-10.7.0.tgz#2d6443badcf942c86c19dc3deac7b87c0bd9b60d"
+validator@10.7.1, validator@^10.4.0:
+  version "10.7.1"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-10.7.1.tgz#dd4cc750c2134ce4a15a2acfc7b233669d659c5b"
 
 vary@^1, vary@~1.1.2:
   version "1.1.2"
