@@ -110,6 +110,10 @@
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
-    "@types/mini-css-extract-plugin": "^0.2.0"
+    "@types/autosize": "^3.0.6",
+    "@types/bootstrap": "^4.1.2",
+    "@types/jquery": "^3.3.6",
+    "@types/mini-css-extract-plugin": "^0.2.0",
+    "@types/video.js": "^7.2.3"
   }
 }

@@ -1107,6 +1107,12 @@
   version "2.0.49"
   resolved "https://registry.yarnpkg.com/@types/async/-/async-2.0.49.tgz#92e33d13f74c895cb9a7f38ba97db8431ed14bc0"
 
+"@types/autosize@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@types/autosize/-/autosize-3.0.6.tgz#9022e6a783ec5a4d5e570013701dbc0bfe7667fa"
+  dependencies:
+    "@types/jquery" "*"
+
 "@types/babel-types@*", "@types/babel-types@^7.0.0":
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/@types/babel-types/-/babel-types-7.0.4.tgz#bfd5b0d0d1ba13e351dff65b6e52783b816826c8"
@@ -1123,6 +1129,13 @@
   dependencies:
     "@types/connect" "*"
     "@types/node" "*"
+
+"@types/bootstrap@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-4.1.2.tgz#3d6a3ea111e88ca926803a0e02b1f3d4c9913a5b"
+  dependencies:
+    "@types/jquery" "*"
+    popper.js "^1.14.1"
 
 "@types/caseless@*":
   version "0.12.1"
@@ -1279,6 +1292,10 @@
   dependencies:
     "@types/node" "*"
 
+"@types/jquery@*", "@types/jquery@^3.3.6":
+  version "3.3.6"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.6.tgz#5932ead926307ca21e5b36808257f7c926b06565"
+
 "@types/lodash@^4.14.104":
   version "4.14.116"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.116.tgz#5ccf215653e3e8c786a58390751033a9adca0eb9"
@@ -1388,6 +1405,16 @@
 "@types/validator@^9.4.1":
   version "9.4.1"
   resolved "https://registry.yarnpkg.com/@types/validator/-/validator-9.4.1.tgz#bea5a290e61f1cbf12af3fd878706aeec2ba0087"
+
+"@types/video.js@^7.2.3":
+  version "7.2.3"
+  resolved "https://registry.yarnpkg.com/@types/video.js/-/video.js-7.2.3.tgz#e04953b9af791af30650e49d040402f70e962abe"
+
+"@types/vue@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/vue/-/vue-2.0.0.tgz#ec77b3d89591deb9ca5cb052368aa9c32be088e7"
+  dependencies:
+    vue "*"
 
 "@types/webpack@*":
   version "4.4.11"
@@ -8605,7 +8632,7 @@ pm2@^3.0.4:
   optionalDependencies:
     gkt "https://tgz.pm2.io/gkt-1.0.0.tgz"
 
-popper.js@^1.12.9, popper.js@^1.14.3:
+popper.js@^1.12.9, popper.js@^1.14.1, popper.js@^1.14.3:
   version "1.14.4"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.4.tgz#8eec1d8ff02a5a3a152dd43414a15c7b79fd69b6"
 
@@ -11351,7 +11378,7 @@ vue2-google-maps@^0.10.2:
     babel-runtime "^5.8.0"
     marker-clusterer-plus "^2.1.4"
 
-vue@^2.5.0, vue@^2.5.17:
+vue@*, vue@^2.5.0, vue@^2.5.17:
   version "2.5.17"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
 
