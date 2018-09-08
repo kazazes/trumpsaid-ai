@@ -1418,6 +1418,13 @@
     "@types/events" "*"
     "@types/node" "*"
 
+"@types/ws@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@types/ws/-/ws-6.0.0.tgz#4787c4194c29cc6361208dcf4e580e208794e012"
+  dependencies:
+    "@types/events" "*"
+    "@types/node" "*"
+
 "@types/youtube-dl@^1.12.0":
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/@types/youtube-dl/-/youtube-dl-1.12.0.tgz#fc5d638c2cac0d72433b6300cd3d139c46a2c1d9"
