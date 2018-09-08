@@ -1243,7 +1243,7 @@
     "@types/express" "*"
     "@types/node" "*"
 
-"@types/express-session@^1.15.10":
+"@types/express-session@^1.15.10", "@types/express-session@^1.15.11":
   version "1.15.11"
   resolved "https://registry.yarnpkg.com/@types/express-session/-/express-session-1.15.11.tgz#49bca7a8fb5c00402907e8ec0d3546ee28de2c41"
   dependencies:
@@ -5137,7 +5137,7 @@ file-entry-cache@^2.0.0:
     flat-cache "^1.2.1"
     object-assign "^4.0.1"
 
-file-loader@2.0.0:
+file-loader@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/file-loader/-/file-loader-2.0.0.tgz#39749c82f020b9e85901dcff98e8004e6401cfde"
   dependencies:
@@ -5915,9 +5915,9 @@ graphql-yoga@^1.16.1:
     graphql-tools "^3.0.0"
     subscriptions-transport-ws "^0.9.8"
 
-"graphql@^0.11.0 || ^0.12.0 || ^0.13.0":
+"graphql@^0.11.0 || ^0.12.0 || ^0.13.0", graphql@^0.13.0:
   version "0.13.2"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
+  resolved "http://registry.npmjs.org/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
   dependencies:
     iterall "^1.2.1"
 

@@ -48,6 +48,7 @@
   "devDependencies": {
     "@types/connect-redis": "^0.0.7",
     "@types/csurf": "^1.9.35",
-    "@types/express-rate-limit": "^2.9.3"
+    "@types/express-rate-limit": "^2.9.3",
+    "@types/express-session": "^1.15.11"
   }
 }

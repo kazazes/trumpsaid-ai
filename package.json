@@ -65,7 +65,7 @@
     "cross-env": "^5.2.0",
     "dotenv-cli": "1.4.0",
     "env-cmd": "^8.0.2",
-    "graphql": "^14.0.2",
+    "graphql": "^0.13.0",
     "lerna": "^3.1.4",
     "node-sass": "^4.9.3",
     "nodemon": "1.18.3",
