@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "bin/build-sources.sh",
-    "build-prod": "lerna run build-prod",
+    "build-prod": "bin/build-sources.sh && lerna run webpack",
     "debug": "lerna run --parallel debug",
     "dep-check": "lerna run dep-check",
     "start": "lerna run --parallel start",
