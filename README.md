@@ -40,7 +40,7 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 **Dependencies**
 
 - [**docker**](https://docs.docker.com/install/)
-- [**yarn**](https://yarnpkg.com/en/docs/install) - Note, there are none issues with installing yarn via npm.
+- [**yarn**](https://yarnpkg.com/en/docs/install) - Note, there are known issues with installing yarn via npm.
 
 **Build**
 
