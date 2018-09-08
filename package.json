@@ -10,10 +10,10 @@
     "build-prod": "bin/build-sources.sh && lerna run webpack",
     "debug": "lerna run --parallel debug",
     "dep-check": "lerna run dep-check",
+    "deploy": "git diff --exit-code && yarn run build-prod && bin/deploy-static.sh && bin/deploy-instances.sh",
     "start": "lerna run --parallel start",
     "lint": "lerna run lint",
     "watch": "lerna run --parallel watch",
-    "deploy": "bin/docker-build.sh && bin/docker-push.sh",
     "clean": "rimraf packages/*/dist && rimraf packages/*/node_modules",
     "version": "lerna run version"
   },

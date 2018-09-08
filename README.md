@@ -40,15 +40,15 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 **Dependencies**
 
 - [**docker**](https://docs.docker.com/install/)
-- [**yarn**](https://yarnpkg.com/en/docs/install) - Note, there are none issues with installing yarn via npm.
+- [**yarn**](https://yarnpkg.com/en/docs/install) - Note, there are known issues with installing yarn via npm.
 
 **Build**
 
 1. `git clone git@github.com:trumpsaid-wtf/trumpsaid-wtf.git && cd trumpsaid-wtf`
 2. `source .env.example`
 3. `yarn install` - **Using yarn is required.** The project requires workspace support.
-4. `lerna run build`
-5. `lerna run webpack`
+4. `bin/build-sources.sh`
+5. `yarn run webpack`
 
 **Bootstrap database**
 
