@@ -35,10 +35,6 @@ export default class VideoThumbnailHandler extends PubSubHandler {
       return message.nack();
     }
     
-    if (await this.jobBeingHandled(message)) {
-      return message.nack();
-    }
-    
     this.activeJobs = this.activeJobs + 1;
     const timer = this.startTimer(message);
 
