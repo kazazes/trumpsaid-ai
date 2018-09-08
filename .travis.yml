@@ -12,6 +12,7 @@ cache:
   yarn: true
   directories:
     - node_modules
+    - ./**/node_modules
 addons:
   apt:
     update: true
