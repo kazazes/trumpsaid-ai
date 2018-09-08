@@ -113,7 +113,7 @@
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@coreui/icons/-/icons-0.3.0.tgz#d5bece91b1442a9543593d1146bc8042b18489e3"
 
-"@coreui/vue@2.0.0":
+"@coreui/vue@^2.0.0-rc.3":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@coreui/vue/-/vue-2.0.0.tgz#e616234c096bc63dd19f7a0aa8bc5087a448357b"
   dependencies:
@@ -1312,13 +1312,9 @@
   dependencies:
     "@types/express" "*"
 
-"@types/node@*", "@types/node@^10.7.1":
-  version "10.9.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.9.2.tgz#f0ab8dced5cd6c56b26765e1c0d9e4fdcc9f2a00"
-
-"@types/node@^10.1.0":
-  version "10.7.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.7.1.tgz#b704d7c259aa40ee052eec678758a68d07132a2e"
+"@types/node@*", "@types/node@^10.1.0", "@types/node@^10.7.1":
+  version "10.9.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.9.4.tgz#0f4cb2dc7c1de6096055357f70179043c33e9897"
 
 "@types/node@^9.4.6":
   version "9.6.28"
