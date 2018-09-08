@@ -6,6 +6,7 @@
 </h2>
 <h3 align="center">
 
+![Travis (.org) branch](https://img.shields.io/travis/trumpsaid-wtf/trumpsaid-wtf/master.svg?style=flat-square)
 [![](https://img.shields.io/badge/stage-pre--alpha-red.svg?style=flat-square)]()
 [![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square)](https://github.com/trumpsaid-wtf/trumpsaid-wtf)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts)
