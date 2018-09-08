@@ -53,6 +53,7 @@ module.exports = {
         options: {
           appendTsSuffixTo: [/\.vue$/],
         },
+        exclude: /node_modules/,
       },
       {
         test: /\.vue$/,
