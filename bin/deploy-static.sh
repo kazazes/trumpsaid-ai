@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -x
+
 source .env
 gsutil -m rsync -r -d packages/client/dist/ gs://trumpsaid-wtf-static/web/
 gsutil cp packages/server/.env.gce gs://trumpsaid-wtf-static/env/web.env
