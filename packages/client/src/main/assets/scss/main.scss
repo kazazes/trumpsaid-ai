@@ -3,16 +3,9 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "mdb.scss";
 
-$footer-height: 150px;
-
 html {
   position: relative;
   min-height: 100%;
-}
-
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: $footer-height;
 }
 
 nav {
@@ -31,14 +24,4 @@ nav {
       width: 40px;
     }
   }
-}
-
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: $footer-height;
-  line-height: 60px;
-  background-color: $secondary-color;
-  color: $white;
 }
