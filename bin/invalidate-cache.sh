@@ -1,6 +1,6 @@
 #! /bin/bash
 
+source .env
 set -x
 
-source .env
-cloudflare.sh -E $CF_ACCOUNT -T $CF_TOKEN --debug -d clear cache trumpsaid.wtf
+cloudflare.sh -E $CF_ACCOUNT -T $CF_TOKEN -d clear cache trumpsaid.wtf
