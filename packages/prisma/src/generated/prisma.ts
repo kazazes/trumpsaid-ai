@@ -777,8 +777,10 @@ type NewsSourceEdge {
 type NewsSourceItem implements Node {
   id: ID!
   createdAt: DateTime!
+  createdBy(where: UserWhereInput): User
   source(where: NewsSourceWhereInput): NewsSource
   url: String!
+  title: String
 }
 
 """A connection to a list of items."""
@@ -793,6 +795,8 @@ type NewsSourceItemConnection {
 
 input NewsSourceItemCreateInput {
   url: String!
+  title: String
+  createdBy: UserCreateOneInput
   source: NewsSourceCreateOneWithoutSourceItemsInput
 }
 
@@ -808,6 +812,8 @@ input NewsSourceItemCreateManyWithoutSourceInput {
 
 input NewsSourceItemCreateWithoutSourceInput {
   url: String!
+  title: String
+  createdBy: UserCreateOneInput
 }
 
 """An edge in a connection."""
@@ -826,6 +832,8 @@ enum NewsSourceItemOrderByInput {
   createdAt_DESC
   url_ASC
   url_DESC
+  title_ASC
+  title_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -834,6 +842,7 @@ type NewsSourceItemPreviousValues {
   id: ID!
   createdAt: DateTime!
   url: String!
+  title: String
 }
 
 type NewsSourceItemSubscriptionPayload {
@@ -877,11 +886,15 @@ input NewsSourceItemSubscriptionWhereInput {
 
 input NewsSourceItemUpdateDataInput {
   url: String
+  title: String
+  createdBy: UserUpdateOneInput
   source: NewsSourceUpdateOneWithoutSourceItemsInput
 }
 
 input NewsSourceItemUpdateInput {
   url: String
+  title: String
+  createdBy: UserUpdateOneInput
   source: NewsSourceUpdateOneWithoutSourceItemsInput
 }
 
@@ -905,6 +918,8 @@ input NewsSourceItemUpdateManyWithoutSourceInput {
 
 input NewsSourceItemUpdateWithoutSourceDataInput {
   url: String
+  title: String
+  createdBy: UserUpdateOneInput
 }
 
 input NewsSourceItemUpdateWithWhereUniqueNestedInput {
@@ -1040,6 +1055,47 @@ input NewsSourceItemWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  createdBy: UserWhereInput
   source: NewsSourceWhereInput
 }
 
@@ -4267,6 +4323,8 @@ export type NewsSourceItemOrderByInput =   'id_ASC' |
   'createdAt_DESC' |
   'url_ASC' |
   'url_DESC' |
+  'title_ASC' |
+  'title_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
@@ -4726,6 +4784,21 @@ export interface NewsSourceItemWhereInput {
   url_not_starts_with?: String
   url_ends_with?: String
   url_not_ends_with?: String
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
+  createdBy?: UserWhereInput
   source?: NewsSourceWhereInput
 }
 
@@ -5017,6 +5090,8 @@ export interface VideoConversationUpdateInput {
 
 export interface NewsSourceItemCreateInput {
   url: String
+  title?: String
+  createdBy?: UserCreateOneInput
   source?: NewsSourceCreateOneWithoutSourceItemsInput
 }
 
@@ -5374,6 +5449,8 @@ export interface UserWhereInput {
 
 export interface NewsSourceItemCreateWithoutSourceInput {
   url: String
+  title?: String
+  createdBy?: UserCreateOneInput
 }
 
 export interface DateWhereInput {
@@ -5650,6 +5727,8 @@ export interface VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput {
 
 export interface NewsSourceItemUpdateWithoutSourceDataInput {
   url?: String
+  title?: String
+  createdBy?: UserUpdateOneInput
 }
 
 export interface VideoUploadAdminMetadataUpsertWithoutVideoUploadInput {
@@ -6024,6 +6103,8 @@ export interface NewsSourceUpdateOneWithoutSourceItemsInput {
 
 export interface NewsSourceItemUpdateDataInput {
   url?: String
+  title?: String
+  createdBy?: UserUpdateOneInput
   source?: NewsSourceUpdateOneWithoutSourceItemsInput
 }
 
@@ -6053,6 +6134,8 @@ export interface VideoUploadUpdateOneWithoutMetadataInput {
 
 export interface NewsSourceItemUpdateInput {
   url?: String
+  title?: String
+  createdBy?: UserUpdateOneInput
   source?: NewsSourceUpdateOneWithoutSourceItemsInput
 }
 
@@ -6464,8 +6547,10 @@ export interface VideoConversationConnection {
 export interface NewsSourceItem extends Node {
   id: ID_Output
   createdAt: DateTime
+  createdBy?: User
   source?: NewsSource
   url: String
+  title?: String
 }
 
 export interface AggregateNewsSourceItem {
@@ -6535,6 +6620,7 @@ export interface NewsSourceItemPreviousValues {
   id: ID_Output
   createdAt: DateTime
   url: String
+  title?: String
 }
 
 /*

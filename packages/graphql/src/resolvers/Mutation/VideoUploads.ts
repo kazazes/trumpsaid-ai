@@ -1,7 +1,14 @@
 import { logger } from '@trumpsaid/common';
-import { prismaContext as prisma, VideoUploadCreateInput, VideoUploadMetadataUpdateInput } from '@trumpsaid/prisma';
+import {
+  NewsSourceItemCreateInput,
+  NewsSourceItemCreateManyInput,
+  prismaContext as prisma,
+  VideoUploadCreateInput,
+  VideoUploadMetadataUpdateInput,
+} from '@trumpsaid/prisma';
 import { publishDownloadJob, publishRenderJob, publishThumbnailJob, VideoTranscriber } from '@trumpsaid/responders';
 import { ApolloError } from 'apollo-server-core';
+import normalizeUrl from 'normalize-url';
 import { isURL } from 'validator';
 
 import { IApolloContext } from '../../apollo';
@@ -128,13 +135,60 @@ export default {
   },
   addNewsSourceItems: async (
     obj: any,
-    args: any,
+    args: { id: string, newsItemCreateInputs: NewsSourceItemCreateManyInput},
     ctx: IApolloContext,
     info: any
   ) => {
-    const upload = await ctx.db.query.videoUpload({ where: { id: args.id }}, '{ metadata { id newsSources { url source { name avatarPath } } } }');
-    const update: VideoUploadMetadataUpdateInput = { newsSources: args.newsItemCreateInputs };
+    const createInputs = args.newsItemCreateInputs;
+    const upload = await ctx.db.query.videoUpload({ where: { id: args.id }}, '{ id metadata { id newsSources { url source { name avatarPath } } } }');
+    const existingLinks = upload.metadata.newsSources;
+
+    // Normalize URLs
+    const opts = { removeQueryParameters: [/.+/i], defaultProtocol: 'https:', normalizeProtocol: true }
+    if (Array.isArray(createInputs.create)) {
+      createInputs.create = createInputs.create.map((input: NewsSourceItemCreateInput) => {
+        input.url = normalizeUrl(input.url, opts)
+        input.createdBy = { connect: { id: ctx.user.id } };
+        return input;
+      });
+
+      createInputs.create = createInputs.create.filter((input: NewsSourceItemCreateInput) => {
+        return existingLinks.findIndex((existingLink) => {
+          return existingLink.url === input.url;
+        }) === -1;
+      });
+
+      createInputs.create.forEach((input) => {
+        logger.info(`Creating news link on ${upload.id} to ${input.url}`);
+      });
+    } else {
+      createInputs.create.url = normalizeUrl(createInputs.create.url, opts);
+      createInputs.create.createdBy = { connect: { id: ctx.user.id } };
+      const url = createInputs.create.url;
+      const exists = existingLinks.findIndex((existingLink) => {
+        return existingLink.url === url;
+      });
+      if (exists !== -1) {
+        return upload;
+      }
+      logger.info(`Creating news link on ${upload.id} to ${url}`);
+    }
+
+    const update: VideoUploadMetadataUpdateInput = { newsSources: createInputs };
     await ctx.db.mutation.updateVideoUploadMetadata({ where: { id: upload.metadata.id }, data: update});
-    return ctx.db.query.videoUpload({ where: { id: args.id } }, '{ id metadata { id newsSources { url source { name avatarPath } } } }');
+    return ctx.db.query.videoUpload({ where: { id: args.id } }, '{ id metadata { newsSources { createdAt url source { name avatarPath } } } }');
+  },
+  deleteNewsSourceItem: async (
+    obj: any,
+    args: { id: string},
+    ctx: IApolloContext,
+    info: any
+  ) => {
+    const exists = ctx.db.exists.NewsSourceItem({id: args.id });
+    if (exists) {
+      await ctx.db.mutation.deleteNewsSourceItem({where: {id: args.id}});
+      return true;
+    }
+    return false;
   }
 };

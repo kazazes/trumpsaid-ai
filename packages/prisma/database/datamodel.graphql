@@ -65,8 +65,10 @@ type VideoUploadMetadata {
 type NewsSourceItem {
   id: ID! @unique
   createdAt: DateTime!
+  createdBy: User @relation(name: "NewsSourceItemCreator")
   source: NewsSource @relation(name: "NewsSourceItemRelations")
   url: String!
+  title: String
 }
 
 type NewsSource {

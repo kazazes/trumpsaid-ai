@@ -33,4 +33,5 @@ type Mutation {
     id: ID
     newsItemCreateInputs: NewsSourceItemCreateManyInput
   ): VideoUpload!
+  deleteNewsSourceItem(id: ID): Boolean
 }

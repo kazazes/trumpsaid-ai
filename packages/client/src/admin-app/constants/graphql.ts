@@ -131,8 +131,15 @@ mutation($id: ID!, $newsItemCreateInputs: NewsSourceItemCreateManyInput) {
     metadata {
       newsSources {
         url
+        createdAt
       }
     }
   }
+}
+`
+
+export const DELETE_NEWS_SOURCE_ITEM = gql`
+mutation($id: ID!) {
+  deleteNewsSourceItem(id: $id)
 }
 `
