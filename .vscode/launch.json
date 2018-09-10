@@ -17,7 +17,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch via NPM",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "yarn",
       "runtimeArgs": ["run", "debug"],
       "port": 9229,
       "sourceMaps": true,
