@@ -124,3 +124,15 @@ mutation($id: ID!, $metadata: VideoUploadMetadataUpdateInput!) {
   }
 }
 `;
+
+export const ADD_NEWS_SOURCE_ITEMS = gql`
+mutation($id: ID!, $newsItemCreateInputs: NewsSourceItemCreateManyInput) {
+  addNewsSourceItems(id: $id, newsItemCreateInputs: $newsItemCreateInputs) {
+    metadata {
+      newsSources {
+        url
+      }
+    }
+  }
+}
+`

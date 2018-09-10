@@ -1,17 +1,10 @@
-import { logger } from "@trumpsaid/common";
-import {
-  prismaContext as prisma,
-  VideoUploadCreateInput
-} from "@trumpsaid/prisma";
-import {
-  publishDownloadJob,
-  publishRenderJob,
-  publishThumbnailJob,
-  VideoTranscriber
-} from "@trumpsaid/responders";
-import { ApolloError } from "apollo-server-core";
-import { isURL } from "validator";
-import { IApolloContext } from "../../apollo";
+import { logger } from '@trumpsaid/common';
+import { prismaContext as prisma, VideoUploadCreateInput, VideoUploadMetadataUpdateInput } from '@trumpsaid/prisma';
+import { publishDownloadJob, publishRenderJob, publishThumbnailJob, VideoTranscriber } from '@trumpsaid/responders';
+import { ApolloError } from 'apollo-server-core';
+import { isURL } from 'validator';
+
+import { IApolloContext } from '../../apollo';
 
 export default {
   createVideoUpload: async (
@@ -132,5 +125,16 @@ export default {
       data: update,
       where: { id: metadataId }
     });
+  },
+  addNewsSourceItems: async (
+    obj: any,
+    args: any,
+    ctx: IApolloContext,
+    info: any
+  ) => {
+    const upload = await ctx.db.query.videoUpload({ where: { id: args.id }}, '{ metadata { id newsSources { url source { name avatarPath } } } }');
+    const update: VideoUploadMetadataUpdateInput = { newsSources: args.newsItemCreateInputs };
+    await ctx.db.mutation.updateVideoUploadMetadata({ where: { id: upload.metadata.id }, data: update});
+    return ctx.db.query.videoUpload({ where: { id: args.id } }, '{ id metadata { id newsSources { url source { name avatarPath } } } }');
   }
 };
