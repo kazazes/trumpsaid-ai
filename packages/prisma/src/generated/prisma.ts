@@ -11,9 +11,9 @@ export interface Query {
     videoUploadAdminMetadatas: <T = VideoUploadAdminMetadata[]>(args: { where?: VideoUploadAdminMetadataWhereInput, orderBy?: VideoUploadAdminMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStatusLogItems: <T = VideoUploadStatusLogItem[]>(args: { where?: VideoUploadStatusLogItemWhereInput, orderBy?: VideoUploadStatusLogItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     conversationBlocks: <T = ConversationBlock[]>(args: { where?: ConversationBlockWhereInput, orderBy?: ConversationBlockOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    newsSourceItems: <T = NewsSourceItem[]>(args: { where?: NewsSourceItemWhereInput, orderBy?: NewsSourceItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     dates: <T = Date[]>(args: { where?: DateWhereInput, orderBy?: DateOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoConversations: <T = VideoConversation[]>(args: { where?: VideoConversationWhereInput, orderBy?: VideoConversationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    newsSourceItems: <T = NewsSourceItem[]>(args: { where?: NewsSourceItemWhereInput, orderBy?: NewsSourceItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSourceRootDomains: <T = NewsSourceRootDomain[]>(args: { where?: NewsSourceRootDomainWhereInput, orderBy?: NewsSourceRootDomainOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     speakers: <T = Speaker[]>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -23,8 +23,8 @@ export interface Query {
     newsSource: <T = NewsSource | null>(args: { where: NewsSourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadAdminMetadata: <T = VideoUploadAdminMetadata | null>(args: { where: VideoUploadAdminMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStatusLogItem: <T = VideoUploadStatusLogItem | null>(args: { where: VideoUploadStatusLogItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    videoConversation: <T = VideoConversation | null>(args: { where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSourceItem: <T = NewsSourceItem | null>(args: { where: NewsSourceItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoConversation: <T = VideoConversation | null>(args: { where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSourceRootDomain: <T = NewsSourceRootDomain | null>(args: { where: NewsSourceRootDomainWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     speaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -35,9 +35,9 @@ export interface Query {
     videoUploadAdminMetadatasConnection: <T = VideoUploadAdminMetadataConnection>(args: { where?: VideoUploadAdminMetadataWhereInput, orderBy?: VideoUploadAdminMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStatusLogItemsConnection: <T = VideoUploadStatusLogItemConnection>(args: { where?: VideoUploadStatusLogItemWhereInput, orderBy?: VideoUploadStatusLogItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     conversationBlocksConnection: <T = ConversationBlockConnection>(args: { where?: ConversationBlockWhereInput, orderBy?: ConversationBlockOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    newsSourceItemsConnection: <T = NewsSourceItemConnection>(args: { where?: NewsSourceItemWhereInput, orderBy?: NewsSourceItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     datesConnection: <T = DateConnection>(args: { where?: DateWhereInput, orderBy?: DateOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoConversationsConnection: <T = VideoConversationConnection>(args: { where?: VideoConversationWhereInput, orderBy?: VideoConversationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    newsSourceItemsConnection: <T = NewsSourceItemConnection>(args: { where?: NewsSourceItemWhereInput, orderBy?: NewsSourceItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSourceRootDomainsConnection: <T = NewsSourceRootDomainConnection>(args: { where?: NewsSourceRootDomainWhereInput, orderBy?: NewsSourceRootDomainOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     speakersConnection: <T = SpeakerConnection>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -52,9 +52,9 @@ export interface Mutation {
     createVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata>(args: { data: VideoUploadAdminMetadataCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem>(args: { data: VideoUploadStatusLogItemCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createConversationBlock: <T = ConversationBlock>(args: { data: ConversationBlockCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createNewsSourceItem: <T = NewsSourceItem>(args: { data: NewsSourceItemCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createDate: <T = Date>(args: { data: DateCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideoConversation: <T = VideoConversation>(args: { data: VideoConversationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createNewsSourceItem: <T = NewsSourceItem>(args: { data: NewsSourceItemCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createNewsSourceRootDomain: <T = NewsSourceRootDomain>(args: { data: NewsSourceRootDomainCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createSpeaker: <T = Speaker>(args: { data: SpeakerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -64,8 +64,8 @@ export interface Mutation {
     updateNewsSource: <T = NewsSource | null>(args: { data: NewsSourceUpdateInput, where: NewsSourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata | null>(args: { data: VideoUploadAdminMetadataUpdateInput, where: VideoUploadAdminMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem | null>(args: { data: VideoUploadStatusLogItemUpdateInput, where: VideoUploadStatusLogItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateVideoConversation: <T = VideoConversation | null>(args: { data: VideoConversationUpdateInput, where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateNewsSourceItem: <T = NewsSourceItem | null>(args: { data: NewsSourceItemUpdateInput, where: NewsSourceItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateVideoConversation: <T = VideoConversation | null>(args: { data: VideoConversationUpdateInput, where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateNewsSourceRootDomain: <T = NewsSourceRootDomain | null>(args: { data: NewsSourceRootDomainUpdateInput, where: NewsSourceRootDomainWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateSpeaker: <T = Speaker | null>(args: { data: SpeakerUpdateInput, where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -75,8 +75,8 @@ export interface Mutation {
     deleteNewsSource: <T = NewsSource | null>(args: { where: NewsSourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata | null>(args: { where: VideoUploadAdminMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem | null>(args: { where: VideoUploadStatusLogItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteVideoConversation: <T = VideoConversation | null>(args: { where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteNewsSourceItem: <T = NewsSourceItem | null>(args: { where: NewsSourceItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteVideoConversation: <T = VideoConversation | null>(args: { where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteNewsSourceRootDomain: <T = NewsSourceRootDomain | null>(args: { where: NewsSourceRootDomainWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteSpeaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -86,8 +86,8 @@ export interface Mutation {
     upsertNewsSource: <T = NewsSource>(args: { where: NewsSourceWhereUniqueInput, create: NewsSourceCreateInput, update: NewsSourceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata>(args: { where: VideoUploadAdminMetadataWhereUniqueInput, create: VideoUploadAdminMetadataCreateInput, update: VideoUploadAdminMetadataUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem>(args: { where: VideoUploadStatusLogItemWhereUniqueInput, create: VideoUploadStatusLogItemCreateInput, update: VideoUploadStatusLogItemUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertVideoConversation: <T = VideoConversation>(args: { where: VideoConversationWhereUniqueInput, create: VideoConversationCreateInput, update: VideoConversationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertNewsSourceItem: <T = NewsSourceItem>(args: { where: NewsSourceItemWhereUniqueInput, create: NewsSourceItemCreateInput, update: NewsSourceItemUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertVideoConversation: <T = VideoConversation>(args: { where: VideoConversationWhereUniqueInput, create: VideoConversationCreateInput, update: VideoConversationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertNewsSourceRootDomain: <T = NewsSourceRootDomain>(args: { where: NewsSourceRootDomainWhereUniqueInput, create: NewsSourceRootDomainCreateInput, update: NewsSourceRootDomainUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertSpeaker: <T = Speaker>(args: { where: SpeakerWhereUniqueInput, create: SpeakerCreateInput, update: SpeakerUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -98,9 +98,9 @@ export interface Mutation {
     updateManyVideoUploadAdminMetadatas: <T = BatchPayload>(args: { data: VideoUploadAdminMetadataUpdateInput, where?: VideoUploadAdminMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploadStatusLogItems: <T = BatchPayload>(args: { data: VideoUploadStatusLogItemUpdateInput, where?: VideoUploadStatusLogItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyConversationBlocks: <T = BatchPayload>(args: { data: ConversationBlockUpdateInput, where?: ConversationBlockWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyNewsSourceItems: <T = BatchPayload>(args: { data: NewsSourceItemUpdateInput, where?: NewsSourceItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyDates: <T = BatchPayload>(args: { data: DateUpdateInput, where?: DateWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoConversations: <T = BatchPayload>(args: { data: VideoConversationUpdateInput, where?: VideoConversationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyNewsSourceItems: <T = BatchPayload>(args: { data: NewsSourceItemUpdateInput, where?: NewsSourceItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyNewsSourceRootDomains: <T = BatchPayload>(args: { data: NewsSourceRootDomainUpdateInput, where?: NewsSourceRootDomainWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManySpeakers: <T = BatchPayload>(args: { data: SpeakerUpdateInput, where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -111,9 +111,9 @@ export interface Mutation {
     deleteManyVideoUploadAdminMetadatas: <T = BatchPayload>(args: { where?: VideoUploadAdminMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploadStatusLogItems: <T = BatchPayload>(args: { where?: VideoUploadStatusLogItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyConversationBlocks: <T = BatchPayload>(args: { where?: ConversationBlockWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyNewsSourceItems: <T = BatchPayload>(args: { where?: NewsSourceItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyDates: <T = BatchPayload>(args: { where?: DateWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoConversations: <T = BatchPayload>(args: { where?: VideoConversationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyNewsSourceItems: <T = BatchPayload>(args: { where?: NewsSourceItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyNewsSourceRootDomains: <T = BatchPayload>(args: { where?: NewsSourceRootDomainWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManySpeakers: <T = BatchPayload>(args: { where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
@@ -127,9 +127,9 @@ export interface Subscription {
     videoUploadAdminMetadata: <T = VideoUploadAdminMetadataSubscriptionPayload | null>(args: { where?: VideoUploadAdminMetadataSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     videoUploadStatusLogItem: <T = VideoUploadStatusLogItemSubscriptionPayload | null>(args: { where?: VideoUploadStatusLogItemSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     conversationBlock: <T = ConversationBlockSubscriptionPayload | null>(args: { where?: ConversationBlockSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    newsSourceItem: <T = NewsSourceItemSubscriptionPayload | null>(args: { where?: NewsSourceItemSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     date: <T = DateSubscriptionPayload | null>(args: { where?: DateSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     videoConversation: <T = VideoConversationSubscriptionPayload | null>(args: { where?: VideoConversationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    newsSourceItem: <T = NewsSourceItemSubscriptionPayload | null>(args: { where?: NewsSourceItemSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     newsSourceRootDomain: <T = NewsSourceRootDomainSubscriptionPayload | null>(args: { where?: NewsSourceRootDomainSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     speaker: <T = SpeakerSubscriptionPayload | null>(args: { where?: SpeakerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
@@ -143,9 +143,9 @@ export interface Exists {
   VideoUploadAdminMetadata: (where?: VideoUploadAdminMetadataWhereInput) => Promise<boolean>
   VideoUploadStatusLogItem: (where?: VideoUploadStatusLogItemWhereInput) => Promise<boolean>
   ConversationBlock: (where?: ConversationBlockWhereInput) => Promise<boolean>
+  NewsSourceItem: (where?: NewsSourceItemWhereInput) => Promise<boolean>
   Date: (where?: DateWhereInput) => Promise<boolean>
   VideoConversation: (where?: VideoConversationWhereInput) => Promise<boolean>
-  NewsSourceItem: (where?: NewsSourceItemWhereInput) => Promise<boolean>
   NewsSourceRootDomain: (where?: NewsSourceRootDomainWhereInput) => Promise<boolean>
   Speaker: (where?: SpeakerWhereInput) => Promise<boolean>
   User: (where?: UserWhereInput) => Promise<boolean>
@@ -656,9 +656,9 @@ type Mutation {
   createVideoUploadAdminMetadata(data: VideoUploadAdminMetadataCreateInput!): VideoUploadAdminMetadata!
   createVideoUploadStatusLogItem(data: VideoUploadStatusLogItemCreateInput!): VideoUploadStatusLogItem!
   createConversationBlock(data: ConversationBlockCreateInput!): ConversationBlock!
+  createNewsSourceItem(data: NewsSourceItemCreateInput!): NewsSourceItem!
   createDate(data: DateCreateInput!): Date!
   createVideoConversation(data: VideoConversationCreateInput!): VideoConversation!
-  createNewsSourceItem(data: NewsSourceItemCreateInput!): NewsSourceItem!
   createNewsSourceRootDomain(data: NewsSourceRootDomainCreateInput!): NewsSourceRootDomain!
   createSpeaker(data: SpeakerCreateInput!): Speaker!
   createUser(data: UserCreateInput!): User!
@@ -668,8 +668,8 @@ type Mutation {
   updateNewsSource(data: NewsSourceUpdateInput!, where: NewsSourceWhereUniqueInput!): NewsSource
   updateVideoUploadAdminMetadata(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   updateVideoUploadStatusLogItem(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
-  updateVideoConversation(data: VideoConversationUpdateInput!, where: VideoConversationWhereUniqueInput!): VideoConversation
   updateNewsSourceItem(data: NewsSourceItemUpdateInput!, where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
+  updateVideoConversation(data: VideoConversationUpdateInput!, where: VideoConversationWhereUniqueInput!): VideoConversation
   updateNewsSourceRootDomain(data: NewsSourceRootDomainUpdateInput!, where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
@@ -679,8 +679,8 @@ type Mutation {
   deleteNewsSource(where: NewsSourceWhereUniqueInput!): NewsSource
   deleteVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   deleteVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
-  deleteVideoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
   deleteNewsSourceItem(where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
+  deleteVideoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
   deleteNewsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
   deleteUser(where: UserWhereUniqueInput!): User
@@ -690,8 +690,8 @@ type Mutation {
   upsertNewsSource(where: NewsSourceWhereUniqueInput!, create: NewsSourceCreateInput!, update: NewsSourceUpdateInput!): NewsSource!
   upsertVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!, create: VideoUploadAdminMetadataCreateInput!, update: VideoUploadAdminMetadataUpdateInput!): VideoUploadAdminMetadata!
   upsertVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!, create: VideoUploadStatusLogItemCreateInput!, update: VideoUploadStatusLogItemUpdateInput!): VideoUploadStatusLogItem!
-  upsertVideoConversation(where: VideoConversationWhereUniqueInput!, create: VideoConversationCreateInput!, update: VideoConversationUpdateInput!): VideoConversation!
   upsertNewsSourceItem(where: NewsSourceItemWhereUniqueInput!, create: NewsSourceItemCreateInput!, update: NewsSourceItemUpdateInput!): NewsSourceItem!
+  upsertVideoConversation(where: VideoConversationWhereUniqueInput!, create: VideoConversationCreateInput!, update: VideoConversationUpdateInput!): VideoConversation!
   upsertNewsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!, create: NewsSourceRootDomainCreateInput!, update: NewsSourceRootDomainUpdateInput!): NewsSourceRootDomain!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
@@ -702,9 +702,9 @@ type Mutation {
   updateManyVideoUploadAdminMetadatas(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   updateManyVideoUploadStatusLogItems(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereInput): BatchPayload!
   updateManyConversationBlocks(data: ConversationBlockUpdateInput!, where: ConversationBlockWhereInput): BatchPayload!
+  updateManyNewsSourceItems(data: NewsSourceItemUpdateInput!, where: NewsSourceItemWhereInput): BatchPayload!
   updateManyDates(data: DateUpdateInput!, where: DateWhereInput): BatchPayload!
   updateManyVideoConversations(data: VideoConversationUpdateInput!, where: VideoConversationWhereInput): BatchPayload!
-  updateManyNewsSourceItems(data: NewsSourceItemUpdateInput!, where: NewsSourceItemWhereInput): BatchPayload!
   updateManyNewsSourceRootDomains(data: NewsSourceRootDomainUpdateInput!, where: NewsSourceRootDomainWhereInput): BatchPayload!
   updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
@@ -715,9 +715,9 @@ type Mutation {
   deleteManyVideoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   deleteManyVideoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput): BatchPayload!
   deleteManyConversationBlocks(where: ConversationBlockWhereInput): BatchPayload!
+  deleteManyNewsSourceItems(where: NewsSourceItemWhereInput): BatchPayload!
   deleteManyDates(where: DateWhereInput): BatchPayload!
   deleteManyVideoConversations(where: VideoConversationWhereInput): BatchPayload!
-  deleteManyNewsSourceItems(where: NewsSourceItemWhereInput): BatchPayload!
   deleteManyNewsSourceRootDomains(where: NewsSourceRootDomainWhereInput): BatchPayload!
   deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
@@ -777,8 +777,18 @@ type NewsSourceEdge {
 type NewsSourceItem implements Node {
   id: ID!
   createdAt: DateTime!
-  source(where: NewsSourceWhereInput): NewsSource!
+  createdBy(where: UserWhereInput): User
+  source(where: NewsSourceWhereInput): NewsSource
   url: String!
+  title: String
+  reachable: Boolean!
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
 }
 
 """A connection to a list of items."""
@@ -793,7 +803,17 @@ type NewsSourceItemConnection {
 
 input NewsSourceItemCreateInput {
   url: String!
-  source: NewsSourceCreateOneWithoutSourceItemsInput!
+  title: String
+  reachable: Boolean
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
+  createdBy: UserCreateOneInput
+  source: NewsSourceCreateOneWithoutSourceItemsInput
 }
 
 input NewsSourceItemCreateManyInput {
@@ -808,6 +828,16 @@ input NewsSourceItemCreateManyWithoutSourceInput {
 
 input NewsSourceItemCreateWithoutSourceInput {
   url: String!
+  title: String
+  reachable: Boolean
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
+  createdBy: UserCreateOneInput
 }
 
 """An edge in a connection."""
@@ -826,6 +856,24 @@ enum NewsSourceItemOrderByInput {
   createdAt_DESC
   url_ASC
   url_DESC
+  title_ASC
+  title_DESC
+  reachable_ASC
+  reachable_DESC
+  author_ASC
+  author_DESC
+  publishedDate_ASC
+  publishedDate_DESC
+  lastAccessed_ASC
+  lastAccessed_DESC
+  lang_ASC
+  lang_DESC
+  logo_ASC
+  logo_DESC
+  description_ASC
+  description_DESC
+  publisher_ASC
+  publisher_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -834,6 +882,15 @@ type NewsSourceItemPreviousValues {
   id: ID!
   createdAt: DateTime!
   url: String!
+  title: String
+  reachable: Boolean!
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
 }
 
 type NewsSourceItemSubscriptionPayload {
@@ -877,11 +934,31 @@ input NewsSourceItemSubscriptionWhereInput {
 
 input NewsSourceItemUpdateDataInput {
   url: String
+  title: String
+  reachable: Boolean
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
+  createdBy: UserUpdateOneInput
   source: NewsSourceUpdateOneWithoutSourceItemsInput
 }
 
 input NewsSourceItemUpdateInput {
   url: String
+  title: String
+  reachable: Boolean
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
+  createdBy: UserUpdateOneInput
   source: NewsSourceUpdateOneWithoutSourceItemsInput
 }
 
@@ -905,6 +982,16 @@ input NewsSourceItemUpdateManyWithoutSourceInput {
 
 input NewsSourceItemUpdateWithoutSourceDataInput {
   url: String
+  title: String
+  reachable: Boolean
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
+  createdBy: UserUpdateOneInput
 }
 
 input NewsSourceItemUpdateWithWhereUniqueNestedInput {
@@ -1040,6 +1127,295 @@ input NewsSourceItemWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  reachable: Boolean
+
+  """All values that are not equal to given value."""
+  reachable_not: Boolean
+  author: String
+
+  """All values that are not equal to given value."""
+  author_not: String
+
+  """All values that are contained in given list."""
+  author_in: [String!]
+
+  """All values that are not contained in given list."""
+  author_not_in: [String!]
+
+  """All values less than the given value."""
+  author_lt: String
+
+  """All values less than or equal the given value."""
+  author_lte: String
+
+  """All values greater than the given value."""
+  author_gt: String
+
+  """All values greater than or equal the given value."""
+  author_gte: String
+
+  """All values containing the given string."""
+  author_contains: String
+
+  """All values not containing the given string."""
+  author_not_contains: String
+
+  """All values starting with the given string."""
+  author_starts_with: String
+
+  """All values not starting with the given string."""
+  author_not_starts_with: String
+
+  """All values ending with the given string."""
+  author_ends_with: String
+
+  """All values not ending with the given string."""
+  author_not_ends_with: String
+  publishedDate: DateTime
+
+  """All values that are not equal to given value."""
+  publishedDate_not: DateTime
+
+  """All values that are contained in given list."""
+  publishedDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  publishedDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  publishedDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedDate_lte: DateTime
+
+  """All values greater than the given value."""
+  publishedDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedDate_gte: DateTime
+  lastAccessed: DateTime
+
+  """All values that are not equal to given value."""
+  lastAccessed_not: DateTime
+
+  """All values that are contained in given list."""
+  lastAccessed_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  lastAccessed_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  lastAccessed_lt: DateTime
+
+  """All values less than or equal the given value."""
+  lastAccessed_lte: DateTime
+
+  """All values greater than the given value."""
+  lastAccessed_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  lastAccessed_gte: DateTime
+  lang: String
+
+  """All values that are not equal to given value."""
+  lang_not: String
+
+  """All values that are contained in given list."""
+  lang_in: [String!]
+
+  """All values that are not contained in given list."""
+  lang_not_in: [String!]
+
+  """All values less than the given value."""
+  lang_lt: String
+
+  """All values less than or equal the given value."""
+  lang_lte: String
+
+  """All values greater than the given value."""
+  lang_gt: String
+
+  """All values greater than or equal the given value."""
+  lang_gte: String
+
+  """All values containing the given string."""
+  lang_contains: String
+
+  """All values not containing the given string."""
+  lang_not_contains: String
+
+  """All values starting with the given string."""
+  lang_starts_with: String
+
+  """All values not starting with the given string."""
+  lang_not_starts_with: String
+
+  """All values ending with the given string."""
+  lang_ends_with: String
+
+  """All values not ending with the given string."""
+  lang_not_ends_with: String
+  logo: String
+
+  """All values that are not equal to given value."""
+  logo_not: String
+
+  """All values that are contained in given list."""
+  logo_in: [String!]
+
+  """All values that are not contained in given list."""
+  logo_not_in: [String!]
+
+  """All values less than the given value."""
+  logo_lt: String
+
+  """All values less than or equal the given value."""
+  logo_lte: String
+
+  """All values greater than the given value."""
+  logo_gt: String
+
+  """All values greater than or equal the given value."""
+  logo_gte: String
+
+  """All values containing the given string."""
+  logo_contains: String
+
+  """All values not containing the given string."""
+  logo_not_contains: String
+
+  """All values starting with the given string."""
+  logo_starts_with: String
+
+  """All values not starting with the given string."""
+  logo_not_starts_with: String
+
+  """All values ending with the given string."""
+  logo_ends_with: String
+
+  """All values not ending with the given string."""
+  logo_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  publisher: String
+
+  """All values that are not equal to given value."""
+  publisher_not: String
+
+  """All values that are contained in given list."""
+  publisher_in: [String!]
+
+  """All values that are not contained in given list."""
+  publisher_not_in: [String!]
+
+  """All values less than the given value."""
+  publisher_lt: String
+
+  """All values less than or equal the given value."""
+  publisher_lte: String
+
+  """All values greater than the given value."""
+  publisher_gt: String
+
+  """All values greater than or equal the given value."""
+  publisher_gte: String
+
+  """All values containing the given string."""
+  publisher_contains: String
+
+  """All values not containing the given string."""
+  publisher_not_contains: String
+
+  """All values starting with the given string."""
+  publisher_starts_with: String
+
+  """All values not starting with the given string."""
+  publisher_not_starts_with: String
+
+  """All values ending with the given string."""
+  publisher_ends_with: String
+
+  """All values not ending with the given string."""
+  publisher_not_ends_with: String
+  createdBy: UserWhereInput
   source: NewsSourceWhereInput
 }
 
@@ -1327,6 +1703,7 @@ input NewsSourceUpdateInput {
 input NewsSourceUpdateOneWithoutSourceItemsInput {
   create: NewsSourceCreateWithoutSourceItemsInput
   connect: NewsSourceWhereUniqueInput
+  disconnect: Boolean
   delete: Boolean
   update: NewsSourceUpdateWithoutSourceItemsDataInput
   upsert: NewsSourceUpsertWithoutSourceItemsInput
@@ -1513,9 +1890,9 @@ type Query {
   videoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadAdminMetadata]!
   videoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStatusLogItem]!
   conversationBlocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock]!
+  newsSourceItems(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceItem]!
   dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date]!
   videoConversations(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoConversation]!
-  newsSourceItems(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceItem]!
   newsSourceRootDomains(where: NewsSourceRootDomainWhereInput, orderBy: NewsSourceRootDomainOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceRootDomain]!
   speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
@@ -1525,8 +1902,8 @@ type Query {
   newsSource(where: NewsSourceWhereUniqueInput!): NewsSource
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
-  videoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
   newsSourceItem(where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
+  videoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
   newsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   speaker(where: SpeakerWhereUniqueInput!): Speaker
   user(where: UserWhereUniqueInput!): User
@@ -1537,9 +1914,9 @@ type Query {
   videoUploadAdminMetadatasConnection(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadAdminMetadataConnection!
   videoUploadStatusLogItemsConnection(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStatusLogItemConnection!
   conversationBlocksConnection(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConversationBlockConnection!
+  newsSourceItemsConnection(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceItemConnection!
   datesConnection(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DateConnection!
   videoConversationsConnection(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConversationConnection!
-  newsSourceItemsConnection(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceItemConnection!
   newsSourceRootDomainsConnection(where: NewsSourceRootDomainWhereInput, orderBy: NewsSourceRootDomainOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceRootDomainConnection!
   speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -1864,9 +2241,9 @@ type Subscription {
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataSubscriptionWhereInput): VideoUploadAdminMetadataSubscriptionPayload
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemSubscriptionWhereInput): VideoUploadStatusLogItemSubscriptionPayload
   conversationBlock(where: ConversationBlockSubscriptionWhereInput): ConversationBlockSubscriptionPayload
+  newsSourceItem(where: NewsSourceItemSubscriptionWhereInput): NewsSourceItemSubscriptionPayload
   date(where: DateSubscriptionWhereInput): DateSubscriptionPayload
   videoConversation(where: VideoConversationSubscriptionWhereInput): VideoConversationSubscriptionPayload
-  newsSourceItem(where: NewsSourceItemSubscriptionWhereInput): NewsSourceItemSubscriptionPayload
   newsSourceRootDomain(where: NewsSourceRootDomainSubscriptionWhereInput): NewsSourceRootDomainSubscriptionPayload
   speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -1876,7 +2253,7 @@ type User implements Node {
   id: ID!
   email: String
   auth0Id: String
-  role: Role
+  role: Role!
   displayName: String
   avatar: String
   givenName: String
@@ -1950,7 +2327,7 @@ type UserPreviousValues {
   id: ID!
   email: String
   auth0Id: String
-  role: Role
+  role: Role!
   displayName: String
   avatar: String
   givenName: String
@@ -4266,6 +4643,24 @@ export type NewsSourceItemOrderByInput =   'id_ASC' |
   'createdAt_DESC' |
   'url_ASC' |
   'url_DESC' |
+  'title_ASC' |
+  'title_DESC' |
+  'reachable_ASC' |
+  'reachable_DESC' |
+  'author_ASC' |
+  'author_DESC' |
+  'publishedDate_ASC' |
+  'publishedDate_DESC' |
+  'lastAccessed_ASC' |
+  'lastAccessed_DESC' |
+  'lang_ASC' |
+  'lang_DESC' |
+  'logo_ASC' |
+  'logo_DESC' |
+  'description_ASC' |
+  'description_DESC' |
+  'publisher_ASC' |
+  'publisher_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
@@ -4725,6 +5120,109 @@ export interface NewsSourceItemWhereInput {
   url_not_starts_with?: String
   url_ends_with?: String
   url_not_ends_with?: String
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
+  reachable?: Boolean
+  reachable_not?: Boolean
+  author?: String
+  author_not?: String
+  author_in?: String[] | String
+  author_not_in?: String[] | String
+  author_lt?: String
+  author_lte?: String
+  author_gt?: String
+  author_gte?: String
+  author_contains?: String
+  author_not_contains?: String
+  author_starts_with?: String
+  author_not_starts_with?: String
+  author_ends_with?: String
+  author_not_ends_with?: String
+  publishedDate?: DateTime
+  publishedDate_not?: DateTime
+  publishedDate_in?: DateTime[] | DateTime
+  publishedDate_not_in?: DateTime[] | DateTime
+  publishedDate_lt?: DateTime
+  publishedDate_lte?: DateTime
+  publishedDate_gt?: DateTime
+  publishedDate_gte?: DateTime
+  lastAccessed?: DateTime
+  lastAccessed_not?: DateTime
+  lastAccessed_in?: DateTime[] | DateTime
+  lastAccessed_not_in?: DateTime[] | DateTime
+  lastAccessed_lt?: DateTime
+  lastAccessed_lte?: DateTime
+  lastAccessed_gt?: DateTime
+  lastAccessed_gte?: DateTime
+  lang?: String
+  lang_not?: String
+  lang_in?: String[] | String
+  lang_not_in?: String[] | String
+  lang_lt?: String
+  lang_lte?: String
+  lang_gt?: String
+  lang_gte?: String
+  lang_contains?: String
+  lang_not_contains?: String
+  lang_starts_with?: String
+  lang_not_starts_with?: String
+  lang_ends_with?: String
+  lang_not_ends_with?: String
+  logo?: String
+  logo_not?: String
+  logo_in?: String[] | String
+  logo_not_in?: String[] | String
+  logo_lt?: String
+  logo_lte?: String
+  logo_gt?: String
+  logo_gte?: String
+  logo_contains?: String
+  logo_not_contains?: String
+  logo_starts_with?: String
+  logo_not_starts_with?: String
+  logo_ends_with?: String
+  logo_not_ends_with?: String
+  description?: String
+  description_not?: String
+  description_in?: String[] | String
+  description_not_in?: String[] | String
+  description_lt?: String
+  description_lte?: String
+  description_gt?: String
+  description_gte?: String
+  description_contains?: String
+  description_not_contains?: String
+  description_starts_with?: String
+  description_not_starts_with?: String
+  description_ends_with?: String
+  description_not_ends_with?: String
+  publisher?: String
+  publisher_not?: String
+  publisher_in?: String[] | String
+  publisher_not_in?: String[] | String
+  publisher_lt?: String
+  publisher_lte?: String
+  publisher_gt?: String
+  publisher_gte?: String
+  publisher_contains?: String
+  publisher_not_contains?: String
+  publisher_starts_with?: String
+  publisher_not_starts_with?: String
+  publisher_ends_with?: String
+  publisher_not_ends_with?: String
+  createdBy?: UserWhereInput
   source?: NewsSourceWhereInput
 }
 
@@ -4733,15 +5231,15 @@ export interface NewsSourceUpsertWithoutSourceItemsInput {
   create: NewsSourceCreateWithoutSourceItemsInput
 }
 
-export interface VideoConversationSubscriptionWhereInput {
-  AND?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
-  OR?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
-  NOT?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
+export interface DateSubscriptionWhereInput {
+  AND?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  OR?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  NOT?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: VideoConversationWhereInput
+  node?: DateWhereInput
 }
 
 export interface VideoUploadCreateInput {
@@ -4953,7 +5451,7 @@ export interface UserCreateadminRolesInput {
   set?: AdminRole[] | AdminRole
 }
 
-export interface NewsSourceItemWhereUniqueInput {
+export interface VideoConversationWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -5008,14 +5506,25 @@ export interface NewsSourceItemCreateManyInput {
   connect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
 }
 
-export interface NewsSourceItemUpdateInput {
-  url?: String
-  source?: NewsSourceUpdateOneWithoutSourceItemsInput
+export interface VideoConversationUpdateInput {
+  draft?: Boolean
+  createdBy?: UserUpdateOneInput
+  blocks?: ConversationBlockUpdateManyInput
 }
 
 export interface NewsSourceItemCreateInput {
   url: String
-  source: NewsSourceCreateOneWithoutSourceItemsInput
+  title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
+  createdBy?: UserCreateOneInput
+  source?: NewsSourceCreateOneWithoutSourceItemsInput
 }
 
 export interface VideoUploadUpsertWithoutStatusLogInput {
@@ -5228,15 +5737,15 @@ export interface VideoUploadCreateWithoutMetadataInput {
   submitedBy: UserCreateOneInput
 }
 
-export interface NewsSourceItemSubscriptionWhereInput {
-  AND?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
-  OR?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
-  NOT?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
+export interface VideoConversationSubscriptionWhereInput {
+  AND?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
+  OR?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
+  NOT?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: NewsSourceItemWhereInput
+  node?: VideoConversationWhereInput
 }
 
 export interface NewsSourceCreateInput {
@@ -5246,15 +5755,15 @@ export interface NewsSourceCreateInput {
   sourceItems?: NewsSourceItemCreateManyWithoutSourceInput
 }
 
-export interface DateSubscriptionWhereInput {
-  AND?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  OR?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  NOT?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+export interface NewsSourceItemSubscriptionWhereInput {
+  AND?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
+  OR?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
+  NOT?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: DateWhereInput
+  node?: NewsSourceItemWhereInput
 }
 
 export interface NewsSourceItemCreateManyWithoutSourceInput {
@@ -5372,6 +5881,16 @@ export interface UserWhereInput {
 
 export interface NewsSourceItemCreateWithoutSourceInput {
   url: String
+  title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
+  createdBy?: UserCreateOneInput
 }
 
 export interface DateWhereInput {
@@ -5648,6 +6167,16 @@ export interface VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput {
 
 export interface NewsSourceItemUpdateWithoutSourceDataInput {
   url?: String
+  title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
+  createdBy?: UserUpdateOneInput
 }
 
 export interface VideoUploadAdminMetadataUpsertWithoutVideoUploadInput {
@@ -5831,7 +6360,7 @@ export interface VideoConversationUpdateWithWhereUniqueNestedInput {
   data: VideoConversationUpdateDataInput
 }
 
-export interface VideoConversationWhereUniqueInput {
+export interface NewsSourceItemWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -6014,6 +6543,7 @@ export interface NewsSourceUpdateWithoutSourceItemsDataInput {
 export interface NewsSourceUpdateOneWithoutSourceItemsInput {
   create?: NewsSourceCreateWithoutSourceItemsInput
   connect?: NewsSourceWhereUniqueInput
+  disconnect?: Boolean
   delete?: Boolean
   update?: NewsSourceUpdateWithoutSourceItemsDataInput
   upsert?: NewsSourceUpsertWithoutSourceItemsInput
@@ -6021,6 +6551,16 @@ export interface NewsSourceUpdateOneWithoutSourceItemsInput {
 
 export interface NewsSourceItemUpdateDataInput {
   url?: String
+  title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
+  createdBy?: UserUpdateOneInput
   source?: NewsSourceUpdateOneWithoutSourceItemsInput
 }
 
@@ -6048,10 +6588,19 @@ export interface VideoUploadUpdateOneWithoutMetadataInput {
   upsert?: VideoUploadUpsertWithoutMetadataInput
 }
 
-export interface VideoConversationUpdateInput {
-  draft?: Boolean
+export interface NewsSourceItemUpdateInput {
+  url?: String
+  title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
   createdBy?: UserUpdateOneInput
-  blocks?: ConversationBlockUpdateManyInput
+  source?: NewsSourceUpdateOneWithoutSourceItemsInput
 }
 
 export interface VideoUploadMetadataWhereUniqueInput {
@@ -6081,7 +6630,7 @@ export interface UserPreviousValues {
   id: ID_Output
   email?: String
   auth0Id?: String
-  role?: Role
+  role: Role
   displayName?: String
   avatar?: String
   givenName?: String
@@ -6201,8 +6750,8 @@ export interface SpeakerSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface NewsSourceItemEdge {
-  node: NewsSourceItem
+export interface VideoConversationEdge {
+  node: VideoConversation
   cursor: String
 }
 
@@ -6213,7 +6762,7 @@ export interface VideoUploadSubscriptionPayload {
   previousValues?: VideoUploadPreviousValues
 }
 
-export interface AggregateVideoConversation {
+export interface AggregateDate {
   count: Int
 }
 
@@ -6229,10 +6778,10 @@ export interface VideoUploadPreviousValues {
  * A connection to a list of items.
 
  */
-export interface VideoConversationConnection {
+export interface DateConnection {
   pageInfo: PageInfo
-  edges: VideoConversationEdge[]
-  aggregate: AggregateVideoConversation
+  edges: DateEdge[]
+  aggregate: AggregateDate
 }
 
 export interface Date {
@@ -6245,8 +6794,8 @@ export interface Date {
  * An edge in a connection.
 
  */
-export interface DateEdge {
-  node: Date
+export interface NewsSourceItemEdge {
+  node: NewsSourceItem
   cursor: String
 }
 
@@ -6453,20 +7002,30 @@ export interface VideoUploadStatusLogItemPreviousValues {
  * A connection to a list of items.
 
  */
-export interface NewsSourceItemConnection {
+export interface VideoConversationConnection {
   pageInfo: PageInfo
-  edges: NewsSourceItemEdge[]
-  aggregate: AggregateNewsSourceItem
+  edges: VideoConversationEdge[]
+  aggregate: AggregateVideoConversation
 }
 
 export interface NewsSourceItem extends Node {
   id: ID_Output
   createdAt: DateTime
-  source: NewsSource
+  createdBy?: User
+  source?: NewsSource
   url: String
+  title?: String
+  reachable: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
 }
 
-export interface AggregateDate {
+export interface AggregateNewsSourceItem {
   count: Int
 }
 
@@ -6513,11 +7072,11 @@ export interface AggregateNewsSource {
   count: Int
 }
 
-export interface DateSubscriptionPayload {
+export interface NewsSourceItemSubscriptionPayload {
   mutation: MutationType
-  node?: Date
+  node?: NewsSourceItem
   updatedFields?: String[]
-  previousValues?: DatePreviousValues
+  previousValues?: NewsSourceItemPreviousValues
 }
 
 /*
@@ -6529,10 +7088,19 @@ export interface VideoUploadMetadataEdge {
   cursor: String
 }
 
-export interface DatePreviousValues {
-  month: Int
-  day: Int
-  year: Int
+export interface NewsSourceItemPreviousValues {
+  id: ID_Output
+  createdAt: DateTime
+  url: String
+  title?: String
+  reachable: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
 }
 
 /*
@@ -6561,38 +7129,38 @@ export interface VideoUploadEdge {
   cursor: String
 }
 
-export interface VideoConversationSubscriptionPayload {
+export interface DateSubscriptionPayload {
   mutation: MutationType
-  node?: VideoConversation
+  node?: Date
   updatedFields?: String[]
-  previousValues?: VideoConversationPreviousValues
+  previousValues?: DatePreviousValues
 }
 
-export interface AggregateNewsSourceItem {
+export interface AggregateVideoConversation {
   count: Int
 }
 
-export interface VideoConversationPreviousValues {
-  id: ID_Output
-  createdAt: DateTime
-  draft: Boolean
+export interface DatePreviousValues {
+  month: Int
+  day: Int
+  year: Int
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface DateConnection {
+export interface NewsSourceItemConnection {
   pageInfo: PageInfo
-  edges: DateEdge[]
-  aggregate: AggregateDate
+  edges: NewsSourceItemEdge[]
+  aggregate: AggregateNewsSourceItem
 }
 
 export interface User extends Node {
   id: ID_Output
   email?: String
   auth0Id?: String
-  role?: Role
+  role: Role
   displayName?: String
   avatar?: String
   givenName?: String
@@ -6628,17 +7196,17 @@ export interface VideoConversation extends Node {
   blocks?: ConversationBlock[]
 }
 
-export interface NewsSourceItemPreviousValues {
+export interface VideoConversationPreviousValues {
   id: ID_Output
   createdAt: DateTime
-  url: String
+  draft: Boolean
 }
 
-export interface NewsSourceItemSubscriptionPayload {
+export interface VideoConversationSubscriptionPayload {
   mutation: MutationType
-  node?: NewsSourceItem
+  node?: VideoConversation
   updatedFields?: String[]
-  previousValues?: NewsSourceItemPreviousValues
+  previousValues?: VideoConversationPreviousValues
 }
 
 export interface BatchPayload {
@@ -6663,8 +7231,8 @@ export interface AggregateVideoUploadStatusLogItem {
  * An edge in a connection.
 
  */
-export interface VideoConversationEdge {
-  node: VideoConversation
+export interface DateEdge {
+  node: Date
   cursor: String
 }
 

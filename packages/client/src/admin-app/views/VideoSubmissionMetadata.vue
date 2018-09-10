@@ -24,14 +24,14 @@
             </b-form-group>
           </b-col>
         </b-row>
-        <b-row>
+        <!-- <b-row>
           <b-col md="6">
             <label>Tags:</label>
           </b-col>
           <b-col md="6">
             <label>Suggested:</label>
           </b-col>
-        </b-row>
+        </b-row> -->
         <div class="text-center">
           <b-btn variant="primary" @click="handleAdditionalMetadata">Save</b-btn>
         </div>
@@ -46,7 +46,7 @@
   import { UPDATE_METADATA } from '../constants/graphql';
 
   // tslint:disable-next-line:no-var-requires variable-name
-  const DatePicker = require('vuejs-datepicker');
+  const DatePicker = require('vuejs-datepicker').default;
 
   export default Vue.extend({
     name: 'VideoSubmissionMetadata',

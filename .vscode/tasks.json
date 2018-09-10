@@ -2,99 +2,29 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "identifier": "watch",
-      "type": "npm",
-      "script": "build",
-      "problemMatcher": [
-        "$tsc",
-        "$node-sass"
-      ],
-      "isBackground": true
-    },
-    {
       "type": "typescript",
       "identifier": "tsc: watch",
       "label": "tsc: watch",
       "tsconfig": "tsconfig.json",
       "option": "watch",
-      "problemMatcher": [
-        "$tsc-watch"
-      ]
+      "problemMatcher": ["$tsc-watch"]
     },
     {
       "type": "npm",
-      "script": "build-ts",
-      "problemMatcher": [
-        "$tslint5",
-        "$tsc"
-      ],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "type": "npm",
-      "script": "build-ts",
-      "problemMatcher": [
-        "$tsc"
-      ]
-    },
-    {
-      "type": "npm",
-      "script": "watch-ts",
-      "problemMatcher": [
-        "$tsc-watch"
-      ],
-      "isBackground": true
-    },
-    {
-      "type": "npm",
-      "script": "watch-webpack",
-      "problemMatcher": [
-        "$tsc-watch"
-      ],
+      "script": "watch",
+      "problemMatcher": ["$tsc-watch"],
       "isBackground": true
     },
     {
       "type": "npm",
       "script": "watch",
-      "problemMatcher": [
-        "$tsc-watch"
-      ],
-      "isBackground": true
-    },
-    {
-      "type": "npm",
-      "script": "build",
-      "path": "packages/responders/",
-      "problemMatcher": [
-        "$tsc"
-      ]
-    },
-    {
-      "type": "npm",
-      "script": "build",
-      "path": "packages/workers/",
-      "problemMatcher": [
-        "$tsc"
-      ]
-    },
-    {
-      "type": "npm",
-      "script": "watch",
       "path": "packages/client/",
-      "problemMatcher": [
-        "$tsc"
-      ]
+      "problemMatcher": ["$tsc"]
     },
     {
       "type": "npm",
-      "script": "build-prod",
-      "path": "packages/client/",
-      "problemMatcher": [
-        "$tsc"
-      ]
+      "script": "lint",
+      "problemMatcher": ["$tslint5"]
     }
   ]
 }

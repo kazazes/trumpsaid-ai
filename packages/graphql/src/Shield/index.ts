@@ -16,15 +16,15 @@ const getUserRoles = async (ctx: IApolloContext) => {
 
 export const hasRole = async (role: AdminRole, ctx: IApolloContext) => {
   const roles = await getUserRoles(ctx);
-  const hasRole = includes(roles, role);
-  if (!hasRole) {
+  const doesHaveRole = includes(roles, role);
+  if (!doesHaveRole) {
     logger.warn(
       `Role mismatch error: ${ctx.user.displayName} (${
       ctx.user.id
       }) does not have role ${role}`,
     );
   }
-  return hasRole;
+  return doesHaveRole;
 };
 
 const permissions = shield({

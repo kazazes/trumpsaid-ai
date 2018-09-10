@@ -53,6 +53,15 @@ query videoUpload($videoSubmissionId: ID!) {
           avatarPath
         }
         url
+        title
+        reachable
+        author
+        publishedDate
+        lastAccessed
+        lang
+        logo
+        description
+        publisher
       }
       conversations {
         id
@@ -124,3 +133,22 @@ mutation($id: ID!, $metadata: VideoUploadMetadataUpdateInput!) {
   }
 }
 `;
+
+export const ADD_NEWS_SOURCE_ITEMS = gql`
+mutation($id: ID!, $newsItemCreateInputs: NewsSourceItemCreateManyInput) {
+  addNewsSourceItems(id: $id, newsItemCreateInputs: $newsItemCreateInputs) {
+    metadata {
+      newsSources {
+        url
+        createdAt
+      }
+    }
+  }
+}
+`
+
+export const DELETE_NEWS_SOURCE_ITEM = gql`
+mutation($id: ID!) {
+  deleteNewsSourceItem(id: $id)
+}
+`

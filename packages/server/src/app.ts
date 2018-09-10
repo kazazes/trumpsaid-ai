@@ -1,23 +1,23 @@
-import { checkJWT, logger } from "@trumpsaid/common";
-import { apollo as graphServer } from "@trumpsaid/graphql";
-import bodyParser from "body-parser";
-import compression from "compression";
-import connectRedis from "connect-redis";
+import { checkJWT, logger } from '@trumpsaid/common';
+import { apollo as graphServer } from '@trumpsaid/graphql';
+import bodyParser from 'body-parser';
+import compression from 'compression';
+import connectRedis from 'connect-redis';
+import express from 'express';
+import expressFlash from 'express-flash';
+import expressSession from 'express-session';
+import expressValidator from 'express-validator';
+import morgan from 'morgan';
+import passport from 'passport';
+import path from 'path';
+
+import strategy, { deserializeUser, serializeUser } from './helpers/passport';
+import adminRouter from './routes/adminRouter';
+import authRouter from './routes/authRouter';
+import rootRouter from './routes/rootRouter';
+
 // import csrf from "csurf";
-import express from "express";
-import expressFlash from "express-flash";
-import expressSession from "express-session";
-import expressValidator from "express-validator";
 // import lusca from "lusca";
-import morgan from "morgan";
-import passport from "passport";
-import path from "path";
-
-import strategy, { deserializeUser, serializeUser } from "./helpers/passport";
-import adminRouter from "./routes/adminRouter";
-import authRouter from "./routes/authRouter";
-import rootRouter from "./routes/rootRouter";
-
 const app = express();
 const env = process.env.NODE_ENV;
 
@@ -67,6 +67,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/graphql", checkJWT);
+graphServer.applyMiddleware({ app });
+
 const morganFormat: string =
   process.env.NODE_ENV === "production" ? "combined" : "dev";
 app.use(
@@ -86,7 +89,6 @@ app.locals.env = env;
 app.use("/", authRouter);
 app.use("/", rootRouter);
 app.use("/admin", adminRouter);
-app.use("/graphql", checkJWT);
 
 app.use(
   (
@@ -102,7 +104,5 @@ app.use(
     }
   }
 );
-
-graphServer.applyMiddleware({ app });
 
 export default app;

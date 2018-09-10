@@ -3,6 +3,7 @@
 # import Speaker from '../prisma/prisma.graphql'
 # import ConversationBlockCreateInput from '../prisma/prisma.graphql'
 # import NewsSourceItem from '../prisma/prisma.graphql'
+# import NewsSourceItemCreateManyInput from '../prisma/prisma.graphql'
 
 type Query {
   videoUploads: [VideoUpload!]
@@ -28,4 +29,9 @@ type Mutation {
     blocks: [ConversationBlockCreateInput!]!
   ): VideoUpload!
   updateMetadata(id: ID, metadata: VideoUploadMetadataUpdateInput): VideoUpload!
+  addNewsSourceItems(
+    id: ID
+    newsItemCreateInputs: NewsSourceItemCreateManyInput
+  ): VideoUpload!
+  deleteNewsSourceItem(id: ID): Boolean
 }
