@@ -1,17 +1,24 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
+const DEBUG = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   mode: 'development',
   entry: {
-    admin: ['./src/admin-app/main.ts'],
-    main: ['./src/main/main.ts', './src/main/assets/scss/main.scss'],
+    main: './src/main/main.ts',
+    admin: './src/admin-app/main.ts',
   },
   output: {
     path: `${__dirname}/dist/`,
     filename: 'js/[name].bundle.js',
   },
+  devtool: DEBUG ? 'cheap-module-source-map' : 'hidden-source-map',
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
@@ -23,9 +30,18 @@ module.exports = {
       { from: './src/public/root' },
     ]),
     new VueLoaderPlugin(),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|es|fr)$/),
+    new LodashModuleReplacementPlugin({
+      collections: true,
+      paths: true,
+    }),
+    new ForkTsCheckerWebpackPlugin({
+      workers: ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE,
+    }),
   ],
   stats: {
     children: false,
+    warningsFilter: /export .* was not found in/,
   },
   resolve: {
     extensions: [
@@ -52,12 +68,14 @@ module.exports = {
         loader: 'ts-loader',
         options: {
           appendTsSuffixTo: [/\.vue$/],
+          transpileOnly: true,
         },
         exclude: /node_modules/,
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.s?css$/,
@@ -76,6 +94,19 @@ module.exports = {
         loader: 'file-loader?name=/img/[name].[ext]',
       },
     ],
+  },
+  optimization: {
+    minimizer: [new UglifyJsPlugin({ parallel: true, sourceMap: true })],
+    splitChunks: {
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+        },
+      },
+    },
   },
   target: 'web',
 };

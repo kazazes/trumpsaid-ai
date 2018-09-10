@@ -1,17 +1,17 @@
+// tslint:disable:no-var-requires
+import { default as $ } from 'jquery';
+
+const mainCSS = require('./assets/scss/main.scss');
+
+(window as any).jQuery = $;
+(window as any).$ = $;
+
 import bootstrap from 'bootstrap';
-import * as jquery from 'jquery';
-const mdb = require('mdbootstrap/js/mdb.min.js');
 
-interface IClientWindow extends Window {
-  jQuery: any;
-  $: any;
-}
-
-(window as IClientWindow).jQuery = jquery;
-(window as IClientWindow).$ = jquery;
+require('mdbootstrap/js/mdb.min.js');
 
 module.exports = {
-  jquery,
+  jQuery,
   bootstrap,
-  mdb,
+  mainCSS,
 };

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { ApolloProperty } from 'vue-apollo/types/vue-apollo';
+import { DollarApollo } from 'vue-apollo/types/vue-apollo';
 import { VueApolloComponentOption } from 'vue-apollo/types/options';
 import { Route } from 'vue-router';
 
@@ -16,7 +16,7 @@ declare module 'vue/types' {
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $apollo: ApolloProperty<any>
+    $apollo: DollarApollo<any>;
     apollo: object
   }
 }

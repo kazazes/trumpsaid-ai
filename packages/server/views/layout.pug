@@ -11,8 +11,6 @@ html(lang='en')
     meta(name='description', content='')
     meta(name='csrf-token', content=_csrf)
     link(rel='stylesheet', href='/css/main.css')
-    link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.3.1/css/all.css")
-    link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css")
 
     block extraHead
     include partials/favicon
@@ -31,8 +29,7 @@ html(lang='en')
       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer','GTM-K9LCCM7');
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.7/js/mdb.min.js")
-    
+    script(src="js/vendor~admin~main.bundle.js")
+    script(src="js/vendor~main.bundle.js")
+    script(async src="/js/main.bundle.js")
     block extraScript

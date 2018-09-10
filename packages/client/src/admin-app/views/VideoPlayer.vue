@@ -35,14 +35,15 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 
 (window as any).videojs = videojs;
+// tslint:disable-next-line:no-var-requires
 require('videojs-abloop/dist/videojs-abloop.min.js');
 
 interface IVideoSource {
-  src: String;
-  mimeType: String;
+  src: string;
+  mimeType: string;
 }
 
-export interface PlayerWithLoop extends videojs.Player {
+export interface IPlayerWithLoop extends videojs.Player {
   abLoopPlugin?: any;
 }
 
@@ -71,7 +72,7 @@ export interface PlayerWithLoop extends videojs.Player {
 })
 export default class VideoPlayer extends Vue {
   get player() {
-    return videojs(this.$props.id) as PlayerWithLoop;
+    return videojs(this.$props.id) as IPlayerWithLoop;
   }
 
   get currentTime() {
@@ -86,7 +87,7 @@ export default class VideoPlayer extends Vue {
     }
   }
 
-  mounted() {
+  public mounted() {
     const player = videojs(this.$props.id, {
       plugins: {
         abLoopPlugin: {},
@@ -104,7 +105,7 @@ export default class VideoPlayer extends Vue {
     });
   }
 
-  beforeDestroy() {
+  public beforeDestroy() {
     this.player.dispose();
   }
 }

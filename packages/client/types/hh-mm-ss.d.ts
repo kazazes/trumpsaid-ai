@@ -9,26 +9,18 @@ export function toMs(time: any, format?: any): any;
 export function toS(time: any, format?: any): any;
 
 export namespace fromMs {
-    const prototype: {
-    };
 
 }
 
 export namespace fromS {
-    const prototype: {
-    };
 
 }
 
 export namespace toMs {
-    const prototype: {
-    };
 
 }
 
 export namespace toS {
-    const prototype: {
-    };
 
 }
 
