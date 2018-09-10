@@ -36,7 +36,7 @@ module.exports = {
       paths: true,
     }),
     new ForkTsCheckerWebpackPlugin({
-      workers: ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE,
+      workers: Math.min(ForkTsCheckerWebpackPlugin.TWO_CPUS_FREE, 4),
     }),
   ],
   stats: {
