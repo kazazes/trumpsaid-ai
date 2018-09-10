@@ -36,7 +36,7 @@
                 {{data.value.createdAt | formatTimestamp }}
               </template>
               <template slot="url" slot-scope="data">
-                <a :href="data.item.url" target="_blank">
+                <a class="btn btn-primary btn-sm" :href="data.item.url" target="_blank">
                   <i class="fa fa-external-link"></i>
                 </a>
               </template>
@@ -74,8 +74,23 @@
       return {
         sourceUrlInput: '',
         newsCreateInputs: { create: [] } as NewsSourceItemCreateManyInput,
-        existingItemsFields: ['logo', 'publisher', 'author', {          key: 'publishedDate',
-          label: 'Published'        }, 'title', { key: 'url', label: '' }, { key: 'delete', label: '' }],
+        existingItemsFields: [
+          {
+            key: 'logo',
+            label: ''
+          },
+          'publisher',
+          {
+            key: 'publishedDate',
+            label: 'Published'
+          }, 'title',
+          {
+            key: 'url',
+            label: ''
+          }, {
+            key: 'delete',
+            label: ''
+          }],
         saveDisabled: false
       };
     },
