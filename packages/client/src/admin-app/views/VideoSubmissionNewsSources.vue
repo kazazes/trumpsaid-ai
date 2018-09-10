@@ -14,7 +14,7 @@
             </form>
           </b-modal>
         </div>
-        <div v-if="editableUpload.metadata.newsSources.length === 0 && newsCreateInputs.create.length === 0" class="text-center">
+        <div v-if="videoUpload.metadata.newsSources.length === 0 && newsCreateInputs.create.length === 0" class="text-center">
           <h4 class="text-muted my-4">No News Sources</h4>
         </div>
         <div v-else class="mt-3">
@@ -23,14 +23,25 @@
             <b-table :items="newsCreateInputs.create" thead-class="d-none">
             </b-table>
           </div>
-          <div v-if="editableUpload.metadata.newsSources.length > 0">
+          <div v-if="videoUpload.metadata.newsSources.length > 0">
             <h5 class="text-muted">News Sources</h5>
-            <b-table :items="editableUpload.metadata.newsSources" thead-class="d-none" ref="existingSources" :fields="existingItemsFields">
+            <b-table :items="videoUpload.metadata.newsSources" ref="existingSources" :fields="existingItemsFields">
+              <template slot="logo" slot-scope="data">
+                <img :src="data.item.logo" height="30">
+              </template>
+              <template slot="publishedDate" slot-scope="data">
+                {{data.value.publishedDate | formatTimestamp }}
+              </template>
               <template slot="createdAt" slot-scope="data">
                 {{data.value.createdAt | formatTimestamp }}
               </template>
+              <template slot="url" slot-scope="data">
+                <a :href="data.item.url" target="_blank">
+                  <i class="fa fa-external-link"></i>
+                </a>
+              </template>
               <template slot="delete" slot-scope="data">
-                <a class="btn btn-danger" @click.prevent.stop="deleteNewsItem(data.item.id)">
+                <a class="btn btn-danger btn-sm" @click.prevent.stop="deleteNewsItem(data.item.id)">
                   <i class="icon-trash icons" />
                 </a>
               </template>
@@ -56,21 +67,17 @@
     },
     filters: {
       formatTimestamp: (s: string) => {
-        return moment(s).format('llll');
+        return moment(s).format('l');
       },
     },
     data() {
       return {
-        editableUpload: { metadata: { newsSources: [] } },
         sourceUrlInput: '',
         newsCreateInputs: { create: [] } as NewsSourceItemCreateManyInput,
-        existingItemsFields: ['createdAt', 'url', 'delete'],
+        existingItemsFields: ['logo', 'publisher', 'author', {          key: 'publishedDate',
+          label: 'Published'        }, 'title', { key: 'url', label: '' }, { key: 'delete', label: '' }],
         saveDisabled: false
       };
-    },
-    mounted() {
-      this.editableUpload = JSON.parse(JSON.stringify(this.videoUpload));
-      this.$forceUpdate();
     },
     methods: {
       async deleteNewsItem(id) {
@@ -83,6 +90,10 @@
           variables: {
             id
           },
+        });
+        this.$notify({
+          type: 'success',
+          title: 'Deleted source.',
         });
       },
       handleAddSourceModal() {
@@ -126,16 +137,6 @@
             title: 'There was a problem saving your sources.',
           });
         }
-      },
-      async refreshUpload() {
-        const upload = await this.$apollo.query({
-          query: VIDEO_UPLOAD_DETAILS,
-          variables: {
-            videoSubmissionId: this.videoUpload.id
-          }
-        });
-        this.editableUpload = JSON.parse(JSON.stringify(upload.data.videoUpload));
-        this.$refs.existingSources.refresh();
       }
     },
     apollo: {}

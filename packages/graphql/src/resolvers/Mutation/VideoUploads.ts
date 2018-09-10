@@ -12,6 +12,7 @@ import normalizeUrl from 'normalize-url';
 import { isURL } from 'validator';
 
 import { IApolloContext } from '../../apollo';
+import { processNewsItemMetadata } from '../../helpers/newsLinkMetadata';
 
 export default {
   createVideoUpload: async (
@@ -175,7 +176,9 @@ export default {
     }
 
     const update: VideoUploadMetadataUpdateInput = { newsSources: createInputs };
-    await ctx.db.mutation.updateVideoUploadMetadata({ where: { id: upload.metadata.id }, data: update});
+    const updatedMetadata = 
+      await ctx.db.mutation.updateVideoUploadMetadata({ where: { id: upload.metadata.id }, data: update}, '{ newsSources { id url } }');
+    processNewsItemMetadata(updatedMetadata.newsSources);
     return ctx.db.query.videoUpload({ where: { id: args.id } }, '{ id metadata { newsSources { createdAt url source { name avatarPath } } } }');
   },
   deleteNewsSourceItem: async (

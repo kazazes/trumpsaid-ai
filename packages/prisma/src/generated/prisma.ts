@@ -781,6 +781,14 @@ type NewsSourceItem implements Node {
   source(where: NewsSourceWhereInput): NewsSource
   url: String!
   title: String
+  reachable: Boolean!
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
 }
 
 """A connection to a list of items."""
@@ -796,6 +804,14 @@ type NewsSourceItemConnection {
 input NewsSourceItemCreateInput {
   url: String!
   title: String
+  reachable: Boolean
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
   createdBy: UserCreateOneInput
   source: NewsSourceCreateOneWithoutSourceItemsInput
 }
@@ -813,6 +829,14 @@ input NewsSourceItemCreateManyWithoutSourceInput {
 input NewsSourceItemCreateWithoutSourceInput {
   url: String!
   title: String
+  reachable: Boolean
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
   createdBy: UserCreateOneInput
 }
 
@@ -834,6 +858,22 @@ enum NewsSourceItemOrderByInput {
   url_DESC
   title_ASC
   title_DESC
+  reachable_ASC
+  reachable_DESC
+  author_ASC
+  author_DESC
+  publishedDate_ASC
+  publishedDate_DESC
+  lastAccessed_ASC
+  lastAccessed_DESC
+  lang_ASC
+  lang_DESC
+  logo_ASC
+  logo_DESC
+  description_ASC
+  description_DESC
+  publisher_ASC
+  publisher_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -843,6 +883,14 @@ type NewsSourceItemPreviousValues {
   createdAt: DateTime!
   url: String!
   title: String
+  reachable: Boolean!
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
 }
 
 type NewsSourceItemSubscriptionPayload {
@@ -887,6 +935,14 @@ input NewsSourceItemSubscriptionWhereInput {
 input NewsSourceItemUpdateDataInput {
   url: String
   title: String
+  reachable: Boolean
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
   createdBy: UserUpdateOneInput
   source: NewsSourceUpdateOneWithoutSourceItemsInput
 }
@@ -894,6 +950,14 @@ input NewsSourceItemUpdateDataInput {
 input NewsSourceItemUpdateInput {
   url: String
   title: String
+  reachable: Boolean
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
   createdBy: UserUpdateOneInput
   source: NewsSourceUpdateOneWithoutSourceItemsInput
 }
@@ -919,6 +983,14 @@ input NewsSourceItemUpdateManyWithoutSourceInput {
 input NewsSourceItemUpdateWithoutSourceDataInput {
   url: String
   title: String
+  reachable: Boolean
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
   createdBy: UserUpdateOneInput
 }
 
@@ -1095,6 +1167,254 @@ input NewsSourceItemWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
+  reachable: Boolean
+
+  """All values that are not equal to given value."""
+  reachable_not: Boolean
+  author: String
+
+  """All values that are not equal to given value."""
+  author_not: String
+
+  """All values that are contained in given list."""
+  author_in: [String!]
+
+  """All values that are not contained in given list."""
+  author_not_in: [String!]
+
+  """All values less than the given value."""
+  author_lt: String
+
+  """All values less than or equal the given value."""
+  author_lte: String
+
+  """All values greater than the given value."""
+  author_gt: String
+
+  """All values greater than or equal the given value."""
+  author_gte: String
+
+  """All values containing the given string."""
+  author_contains: String
+
+  """All values not containing the given string."""
+  author_not_contains: String
+
+  """All values starting with the given string."""
+  author_starts_with: String
+
+  """All values not starting with the given string."""
+  author_not_starts_with: String
+
+  """All values ending with the given string."""
+  author_ends_with: String
+
+  """All values not ending with the given string."""
+  author_not_ends_with: String
+  publishedDate: DateTime
+
+  """All values that are not equal to given value."""
+  publishedDate_not: DateTime
+
+  """All values that are contained in given list."""
+  publishedDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  publishedDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  publishedDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  publishedDate_lte: DateTime
+
+  """All values greater than the given value."""
+  publishedDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  publishedDate_gte: DateTime
+  lastAccessed: DateTime
+
+  """All values that are not equal to given value."""
+  lastAccessed_not: DateTime
+
+  """All values that are contained in given list."""
+  lastAccessed_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  lastAccessed_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  lastAccessed_lt: DateTime
+
+  """All values less than or equal the given value."""
+  lastAccessed_lte: DateTime
+
+  """All values greater than the given value."""
+  lastAccessed_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  lastAccessed_gte: DateTime
+  lang: String
+
+  """All values that are not equal to given value."""
+  lang_not: String
+
+  """All values that are contained in given list."""
+  lang_in: [String!]
+
+  """All values that are not contained in given list."""
+  lang_not_in: [String!]
+
+  """All values less than the given value."""
+  lang_lt: String
+
+  """All values less than or equal the given value."""
+  lang_lte: String
+
+  """All values greater than the given value."""
+  lang_gt: String
+
+  """All values greater than or equal the given value."""
+  lang_gte: String
+
+  """All values containing the given string."""
+  lang_contains: String
+
+  """All values not containing the given string."""
+  lang_not_contains: String
+
+  """All values starting with the given string."""
+  lang_starts_with: String
+
+  """All values not starting with the given string."""
+  lang_not_starts_with: String
+
+  """All values ending with the given string."""
+  lang_ends_with: String
+
+  """All values not ending with the given string."""
+  lang_not_ends_with: String
+  logo: String
+
+  """All values that are not equal to given value."""
+  logo_not: String
+
+  """All values that are contained in given list."""
+  logo_in: [String!]
+
+  """All values that are not contained in given list."""
+  logo_not_in: [String!]
+
+  """All values less than the given value."""
+  logo_lt: String
+
+  """All values less than or equal the given value."""
+  logo_lte: String
+
+  """All values greater than the given value."""
+  logo_gt: String
+
+  """All values greater than or equal the given value."""
+  logo_gte: String
+
+  """All values containing the given string."""
+  logo_contains: String
+
+  """All values not containing the given string."""
+  logo_not_contains: String
+
+  """All values starting with the given string."""
+  logo_starts_with: String
+
+  """All values not starting with the given string."""
+  logo_not_starts_with: String
+
+  """All values ending with the given string."""
+  logo_ends_with: String
+
+  """All values not ending with the given string."""
+  logo_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  publisher: String
+
+  """All values that are not equal to given value."""
+  publisher_not: String
+
+  """All values that are contained in given list."""
+  publisher_in: [String!]
+
+  """All values that are not contained in given list."""
+  publisher_not_in: [String!]
+
+  """All values less than the given value."""
+  publisher_lt: String
+
+  """All values less than or equal the given value."""
+  publisher_lte: String
+
+  """All values greater than the given value."""
+  publisher_gt: String
+
+  """All values greater than or equal the given value."""
+  publisher_gte: String
+
+  """All values containing the given string."""
+  publisher_contains: String
+
+  """All values not containing the given string."""
+  publisher_not_contains: String
+
+  """All values starting with the given string."""
+  publisher_starts_with: String
+
+  """All values not starting with the given string."""
+  publisher_not_starts_with: String
+
+  """All values ending with the given string."""
+  publisher_ends_with: String
+
+  """All values not ending with the given string."""
+  publisher_not_ends_with: String
   createdBy: UserWhereInput
   source: NewsSourceWhereInput
 }
@@ -4325,6 +4645,22 @@ export type NewsSourceItemOrderByInput =   'id_ASC' |
   'url_DESC' |
   'title_ASC' |
   'title_DESC' |
+  'reachable_ASC' |
+  'reachable_DESC' |
+  'author_ASC' |
+  'author_DESC' |
+  'publishedDate_ASC' |
+  'publishedDate_DESC' |
+  'lastAccessed_ASC' |
+  'lastAccessed_DESC' |
+  'lang_ASC' |
+  'lang_DESC' |
+  'logo_ASC' |
+  'logo_DESC' |
+  'description_ASC' |
+  'description_DESC' |
+  'publisher_ASC' |
+  'publisher_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
@@ -4798,6 +5134,94 @@ export interface NewsSourceItemWhereInput {
   title_not_starts_with?: String
   title_ends_with?: String
   title_not_ends_with?: String
+  reachable?: Boolean
+  reachable_not?: Boolean
+  author?: String
+  author_not?: String
+  author_in?: String[] | String
+  author_not_in?: String[] | String
+  author_lt?: String
+  author_lte?: String
+  author_gt?: String
+  author_gte?: String
+  author_contains?: String
+  author_not_contains?: String
+  author_starts_with?: String
+  author_not_starts_with?: String
+  author_ends_with?: String
+  author_not_ends_with?: String
+  publishedDate?: DateTime
+  publishedDate_not?: DateTime
+  publishedDate_in?: DateTime[] | DateTime
+  publishedDate_not_in?: DateTime[] | DateTime
+  publishedDate_lt?: DateTime
+  publishedDate_lte?: DateTime
+  publishedDate_gt?: DateTime
+  publishedDate_gte?: DateTime
+  lastAccessed?: DateTime
+  lastAccessed_not?: DateTime
+  lastAccessed_in?: DateTime[] | DateTime
+  lastAccessed_not_in?: DateTime[] | DateTime
+  lastAccessed_lt?: DateTime
+  lastAccessed_lte?: DateTime
+  lastAccessed_gt?: DateTime
+  lastAccessed_gte?: DateTime
+  lang?: String
+  lang_not?: String
+  lang_in?: String[] | String
+  lang_not_in?: String[] | String
+  lang_lt?: String
+  lang_lte?: String
+  lang_gt?: String
+  lang_gte?: String
+  lang_contains?: String
+  lang_not_contains?: String
+  lang_starts_with?: String
+  lang_not_starts_with?: String
+  lang_ends_with?: String
+  lang_not_ends_with?: String
+  logo?: String
+  logo_not?: String
+  logo_in?: String[] | String
+  logo_not_in?: String[] | String
+  logo_lt?: String
+  logo_lte?: String
+  logo_gt?: String
+  logo_gte?: String
+  logo_contains?: String
+  logo_not_contains?: String
+  logo_starts_with?: String
+  logo_not_starts_with?: String
+  logo_ends_with?: String
+  logo_not_ends_with?: String
+  description?: String
+  description_not?: String
+  description_in?: String[] | String
+  description_not_in?: String[] | String
+  description_lt?: String
+  description_lte?: String
+  description_gt?: String
+  description_gte?: String
+  description_contains?: String
+  description_not_contains?: String
+  description_starts_with?: String
+  description_not_starts_with?: String
+  description_ends_with?: String
+  description_not_ends_with?: String
+  publisher?: String
+  publisher_not?: String
+  publisher_in?: String[] | String
+  publisher_not_in?: String[] | String
+  publisher_lt?: String
+  publisher_lte?: String
+  publisher_gt?: String
+  publisher_gte?: String
+  publisher_contains?: String
+  publisher_not_contains?: String
+  publisher_starts_with?: String
+  publisher_not_starts_with?: String
+  publisher_ends_with?: String
+  publisher_not_ends_with?: String
   createdBy?: UserWhereInput
   source?: NewsSourceWhereInput
 }
@@ -5091,6 +5515,14 @@ export interface VideoConversationUpdateInput {
 export interface NewsSourceItemCreateInput {
   url: String
   title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
   createdBy?: UserCreateOneInput
   source?: NewsSourceCreateOneWithoutSourceItemsInput
 }
@@ -5450,6 +5882,14 @@ export interface UserWhereInput {
 export interface NewsSourceItemCreateWithoutSourceInput {
   url: String
   title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
   createdBy?: UserCreateOneInput
 }
 
@@ -5728,6 +6168,14 @@ export interface VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput {
 export interface NewsSourceItemUpdateWithoutSourceDataInput {
   url?: String
   title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
   createdBy?: UserUpdateOneInput
 }
 
@@ -6104,6 +6552,14 @@ export interface NewsSourceUpdateOneWithoutSourceItemsInput {
 export interface NewsSourceItemUpdateDataInput {
   url?: String
   title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
   createdBy?: UserUpdateOneInput
   source?: NewsSourceUpdateOneWithoutSourceItemsInput
 }
@@ -6135,6 +6591,14 @@ export interface VideoUploadUpdateOneWithoutMetadataInput {
 export interface NewsSourceItemUpdateInput {
   url?: String
   title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
   createdBy?: UserUpdateOneInput
   source?: NewsSourceUpdateOneWithoutSourceItemsInput
 }
@@ -6551,6 +7015,14 @@ export interface NewsSourceItem extends Node {
   source?: NewsSource
   url: String
   title?: String
+  reachable: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
 }
 
 export interface AggregateNewsSourceItem {
@@ -6621,6 +7093,14 @@ export interface NewsSourceItemPreviousValues {
   createdAt: DateTime
   url: String
   title?: String
+  reachable: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
 }
 
 /*

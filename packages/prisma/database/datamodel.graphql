@@ -69,6 +69,14 @@ type NewsSourceItem {
   source: NewsSource @relation(name: "NewsSourceItemRelations")
   url: String!
   title: String
+  reachable: Boolean! @default(value: "false")
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
 }
 
 type NewsSource {

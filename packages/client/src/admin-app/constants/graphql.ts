@@ -53,6 +53,15 @@ query videoUpload($videoSubmissionId: ID!) {
           avatarPath
         }
         url
+        title
+        reachable
+        author
+        publishedDate
+        lastAccessed
+        lang
+        logo
+        description
+        publisher
       }
       conversations {
         id
