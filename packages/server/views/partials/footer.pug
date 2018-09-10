@@ -11,5 +11,9 @@ footer.page-footer.font-small(style='background-color: #2e3951;')
             i.fab.fa-twitter.fa-lg.white-text.mr-4  
           a.ins-ic(href="https://www.instagram.com/trumpsaidwtf/")
             i.fab.fa-instagram.fa-lg.white-text.mr-4  
-  .footer-copyright.text-center.py-3
-    | © 2018 Copyright Trump Said... WTF?
+  .footer-copyright.row
+    .col-4.py-3.ml-3.git-revision 
+      a(href='https://github.com/trumpsaid-wtf/trumpsaid-wtf/commit/' + gitHash, style="color: #e83e8c;")
+        code #{gitBranch}/#{gitHash}
+    .col-4.text-center.py-3
+      | © 2018 Copyright Trump Said... WTF?

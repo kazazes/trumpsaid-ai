@@ -7,6 +7,7 @@ import express from 'express';
 import expressFlash from 'express-flash';
 import expressSession from 'express-session';
 import expressValidator from 'express-validator';
+import gitRev from 'git-rev-sync';
 import morgan from 'morgan';
 import passport from 'passport';
 import path from 'path';
@@ -40,6 +41,10 @@ app.use(express.static(staticPath, { maxAge: 31557600000 }));
 
 // tslint:disable-next-line:variable-name
 const RedisStore = connectRedis(expressSession);
+
+app.locals.env = env;
+app.locals.gitHash = gitRev.short();
+app.locals.gitBranch = gitRev.branch();
 
 app.use(
   expressSession({
@@ -80,8 +85,6 @@ app.use(
     }
   })
 );
-
-app.locals.env = env;
 
 /**
  * Primary routes.
