@@ -24,7 +24,7 @@
               {{ timeFromDate(data.item.createdAt) }}
             </template>
             <template slot="delete" slot-scope="data">
-              <a class="badge badge-danger" @click="deleteUpload(data.item.id)">
+              <a class="btn btn-danger" @click.prevent.stop="deleteUpload(data.item.id)">
                 <i class="icon-trash icons" />
               </a>
             </template>
@@ -37,13 +37,13 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
+    import { VideoUpload } from '@trumpsaid/prisma';
   import gql from 'graphql-tag';
   import moment from 'moment';
-  import { VideoUpload } from '@trumpsaid/prisma';
+import Vue from 'vue';
+  import Component from 'vue-class-component';
   import { LIST_UPLOADS } from '../constants/graphql';
   import VideoSubmitModal from '../forms/VideoSubmitModal.vue';
-  import Component from 'vue-class-component';
 
   // tslint:disable-next-line:variable-name
   const Spinner = require('vue-simple-spinner');
@@ -51,8 +51,8 @@
   @Component({
     name: 'VideoSubmissions',
     components: {
-      VideoSubmitModal: VideoSubmitModal,
-      Spinner: Spinner,
+      VideoSubmitModal,
+      Spinner,
     },
     apollo: {
       videoUploads: {

@@ -13,7 +13,7 @@
     "build": "tsc -b",
     "build-prod": "yarn build",
     "dep-check": "npm-check -u",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "lint": "tslint -c ../tslint.json -p tsconfig.json",
     "watch": "tsc -w",
     "clean": "rimraf ./dist"
   },

@@ -15,7 +15,7 @@
     "debug": "nodemon --inspect=9229 ./dist/server.js --ignore ./dist/public",
     "dep-check": "npm-check -u",
     "start": "node ./dist/server.js",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "lint": "tslint -c ../tslint.json -p tsconfig.json",
     "watch": "tsc -w",
     "clean": "rimraf ./dist",
     "serve": "NODE_ENV=production pm2-runtime dist/server.js"
