@@ -18,7 +18,7 @@
     "debug-worker": "nodemon --inspect=9300 dist/worker.js",
     "dep-check": "npm-check -u",
     "start": "node dist/worker.js",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "lint": "tslint -c ../tslint.json -p tsconfig.json",
     "clean": "rimraf ./dist",
     "watch": "tsc -w",
     "serve": "NODE_ENV=production pm2-runtime dist/worker.js"

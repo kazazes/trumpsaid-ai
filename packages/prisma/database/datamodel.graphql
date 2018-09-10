@@ -9,12 +9,12 @@ type User {
   id: ID! @unique
   email: String
   auth0Id: String @unique
-  role: Role @default(value: "USER")
+  role: Role! @default(value: "USER")
   displayName: String
   avatar: String
   givenName: String
   familyName: String
-  adminRoles: [AdminRole] @default(value: [])
+  adminRoles: [AdminRole]
 }
 
 type VideoUpload implements IVideo {
@@ -47,7 +47,8 @@ type VideoUploadStorageLink implements IStorageItem {
 
 type VideoUploadMetadata {
   id: ID! @unique
-  videoUpload: VideoUpload! @unique
+  videoUpload: VideoUpload!
+    @unique
     @relation(name: "VideoUploadMetadataRelation")
   title: String
   subtitle: String
@@ -55,15 +56,27 @@ type VideoUploadMetadata {
   speakers: Int! @default(value: "2")
   renderStart: Float! @default(value: "0")
   renderEnd: Float! @default(value: "0")
-  conversations: [VideoConversation!]! @relation(name: "VideoUploadConversationsRelation", onDelete: CASCADE)
-  newsSources: [NewsSourceItem!]! 
+  conversations: [VideoConversation!]!
+    @relation(name: "VideoUploadConversationsRelation", onDelete: CASCADE)
+  newsSources: [NewsSourceItem!]!
+    @relation(name: "NewsSourceItemVideoMetadataRelation", onDelete: CASCADE)
 }
 
 type NewsSourceItem {
   id: ID! @unique
   createdAt: DateTime!
-  source: NewsSource! @relation(name: "NewsSourceItemRelations")
+  createdBy: User @relation(name: "NewsSourceItemCreator")
+  source: NewsSource @relation(name: "NewsSourceItemRelations")
   url: String!
+  title: String
+  reachable: Boolean! @default(value: "false")
+  author: String
+  publishedDate: DateTime
+  lastAccessed: DateTime
+  lang: String
+  logo: String
+  description: String
+  publisher: String
 }
 
 type NewsSource {
@@ -83,8 +96,9 @@ type VideoConversation {
   id: ID! @unique
   createdAt: DateTime!
   createdBy: User
-  draft: Boolean! @default(value: false)
-  blocks: [ConversationBlock!]! @relation(name: "ConversationBlockRelation", onDelete: CASCADE)
+  draft: Boolean! @default(value: "false")
+  blocks: [ConversationBlock!]!
+    @relation(name: "ConversationBlockRelation", onDelete: CASCADE)
 }
 
 type ConversationBlock {
@@ -96,8 +110,7 @@ type ConversationBlock {
 
 type VideoUploadAdminMetadata {
   id: ID! @unique
-  videoUpload: VideoUpload!
-    @relation(name: "VideoUploadAdminMetadataRelation")
+  videoUpload: VideoUpload! @relation(name: "VideoUploadAdminMetadataRelation")
   advertisingEnabled: Boolean! @default(value: "false")
 }
 

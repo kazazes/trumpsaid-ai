@@ -8,14 +8,17 @@
   "scripts": {
     "build": "bin/build-sources.sh",
     "build-prod": "bin/build-sources.sh && lerna run webpack",
+    "clean": "rimraf packages/*/dist && rimraf packages/*/node_modules",
     "debug": "lerna run --parallel debug",
     "dep-check": "lerna run dep-check",
-    "deploy": "git diff --exit-code && yarn run build-prod && bin/deploy-static.sh && bin/deploy-instances.sh",
-    "start": "lerna run --parallel start",
+    "deploy": "bin/deploy-instances.sh",
+    "deploy:static": "bin/deploy-static.sh",
+    "deploy:prisma": "prisma deploy -e packages/prisma/database/prisma.prod.env",
+    "deploy:prisma:dev": "prisma deploy -e packages/prisma/database/prisma.dev.env",
     "lint": "lerna run lint",
-    "watch": "lerna run --parallel watch",
-    "clean": "rimraf packages/*/dist && rimraf packages/*/node_modules",
-    "version": "lerna run version"
+    "start": "lerna run --parallel start",
+    "version": "lerna run version",
+    "watch": "lerna run --parallel watch"
   },
   "private": true,
   "workspaces": {
