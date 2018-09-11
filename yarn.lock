@@ -5953,13 +5953,6 @@ graphql-import@0.5.2:
   dependencies:
     lodash "^4.17.4"
 
-graphql-import@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/graphql-import/-/graphql-import-0.7.0.tgz#5b7f2e942b28d9af64ed694283e955c72e09beb7"
-  dependencies:
-    lodash "^4.17.4"
-    resolve-from "^4.0.0"
-
 graphql-import@^0.4.0:
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/graphql-import/-/graphql-import-0.4.5.tgz#e2f18c28d335733f46df8e0733d8deb1c6e2a645"
@@ -5977,6 +5970,13 @@ graphql-import@^0.6.0:
   resolved "https://registry.yarnpkg.com/graphql-import/-/graphql-import-0.6.0.tgz#c00cb8a269ceea263e062922c8c81a2272d1ffcb"
   dependencies:
     lodash "^4.17.4"
+
+graphql-import@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/graphql-import/-/graphql-import-0.7.0.tgz#5b7f2e942b28d9af64ed694283e955c72e09beb7"
+  dependencies:
+    lodash "^4.17.4"
+    resolve-from "^4.0.0"
 
 graphql-middleware@1.6.6:
   version "1.6.6"
@@ -8033,9 +8033,9 @@ multimatch@^2.1.0:
     arrify "^1.0.0"
     minimatch "^3.0.0"
 
-music-metadata@^2.6.0:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-2.6.2.tgz#bac161d4f976a2fe489d6de762008e4226964c08"
+music-metadata@2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-2.7.1.tgz#62313342cabaed0a9a27b9081bfa005d255d0297"
   dependencies:
     debug "^3.1.0"
     es6-promise "^4.2.4"
