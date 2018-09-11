@@ -26,7 +26,7 @@
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.15",
     "@google-cloud/debug-agent": "^2.6.0",
-    "@google-cloud/storage": "^1.7.0",
+    "@google-cloud/storage": "^2.0.1",
     "@google-cloud/trace-agent": "^3.1.1",
     "@trumpsaid/common": "^1.0.0",
     "@trumpsaid/prisma": "^1.0.0",
