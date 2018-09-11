@@ -1442,9 +1442,9 @@
   version "9.4.1"
   resolved "https://registry.yarnpkg.com/@types/validator/-/validator-9.4.1.tgz#bea5a290e61f1cbf12af3fd878706aeec2ba0087"
 
-"@types/video.js@^7.2.3":
-  version "7.2.3"
-  resolved "https://registry.yarnpkg.com/@types/video.js/-/video.js-7.2.3.tgz#e04953b9af791af30650e49d040402f70e962abe"
+"@types/video.js@7.2.4":
+  version "7.2.4"
+  resolved "https://registry.yarnpkg.com/@types/video.js/-/video.js-7.2.4.tgz#d56089685e028024872df33b538c27ca981c8782"
 
 "@types/webpack@*":
   version "4.4.11"
@@ -8033,7 +8033,7 @@ multimatch@^2.1.0:
     arrify "^1.0.0"
     minimatch "^3.0.0"
 
-music-metadata@2.8.0:
+music-metadata@^2.6.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-2.8.0.tgz#a601980f5f1e3343a9b804b0332f18f461453eab"
   dependencies:
