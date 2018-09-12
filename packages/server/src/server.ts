@@ -38,7 +38,7 @@ const startServer = async () => {
 
   server = app.listen(app.get("port"), app.get("host"), () => {
     logger.info(
-      `Trump Said WTF webserver is running at http://${app.get(
+      `Trump Said webserver is running at http://${app.get(
         "hostname"
       )}:${app.get("port")} in ${app.get("env")} mode`
     );

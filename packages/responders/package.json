@@ -5,7 +5,7 @@
   "description": "The service workers for trumpsaid.ai",
   "repository": {
     "type": "git",
-    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
+    "url": "https://github.com/trumpsaid-ai/trumpsaid-ai.git"
   },
   "typings": "dist/index",
   "main": "dist/index",

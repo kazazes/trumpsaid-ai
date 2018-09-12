@@ -18,11 +18,11 @@ yarn global add --pure-lockfile typescript pm2
 adduser node --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password
 adduser node web
 
-## Clone trumpsaid-wtf
+## Clone trumpsaid
 cd /var/
-git clone https://github.com/kazazes/trumpsaid-wtf
-chown -R node:web trumpsaid-wtf
-cd /var/trumpsaid-wtf/
+git clone https://github.com/trumpsaid-ai/trumpsaid-ai.git
+chown -R node:web trumpsaid-ai
+cd /var/trumpsaid-ai/
 ## Remove non-essential packages for workers
 rm -rf packages/workers
 sudo -u node yarn --pure-lockfile --prefer-offline
