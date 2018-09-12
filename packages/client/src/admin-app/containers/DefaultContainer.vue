@@ -4,7 +4,7 @@
     <AppHeader fixed>
       <SidebarToggler class="d-lg-none" display="md" mobile />
       <b-link class="navbar-brand" to="#">
-        <img class="navbar-brand-full mh-100" src="/img/logo.svg" alt="Trump Said... WTF?">
+        <img class="navbar-brand-full mh-100" src="/img/logo.svg" alt="trumpsaid.ai Logo">
         <img class="navbar-brand-minimized" src="/img/logo.svg" width="30">
       </b-link>
       <SidebarToggler class="d-md-down-none" display="lg" />
@@ -38,7 +38,7 @@
     </div>
     <TheFooter>
       <span class="mx-auto">
-        &copy; Trump Said... WTF? {{ year }}
+        &copy; trumpsaid.ai {{ year }}
       </span>
     </TheFooter>
   </div>

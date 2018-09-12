@@ -2,7 +2,7 @@
   "name": "@trumpsaid/responders",
   "license": "CC-BY-NC-4.0",
   "version": "1.0.0",
-  "description": "The service workers for Trump Said... WTF?",
+  "description": "The service workers for trumpsaid.ai",
   "repository": {
     "type": "git",
     "url": "git@github.com:kazazes/trumpsaid-wtf.git"

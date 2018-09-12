@@ -1,8 +1,8 @@
 <h2 align="center">
 
-<img src="https://trumpsaid.wtf/img/logo.svg" height=100>
+<img src="https://trumpsaid.ai/img/logo.svg" height=100>
 <br>
-<a href="https://trumpsaid.wtf">Trump Said... WTF?</a>
+<a href="https://trumpsaid.ai">Trump Said...</a>
 </h2>
 <h3 align="center">
 
@@ -19,7 +19,7 @@ This is a project about truth in a "post-truth world." We [keep hearing that phr
 
 #### "What?"
 
-**Trump Said... WTF?** is a rich-media (video, documents and transcript) explorer archiving the _original_, real-life sources of the daily torrent of angry neighbors and news anchors you've been seeing since... _something_ happened to the national psyche around 2015. If that sounds boring and uninspired, just wait what some well applied technology can do.
+**Trump Said...** is a rich-media (video, documents and transcript) explorer archiving the _original_, real-life sources of the daily torrent of angry neighbors and news anchors you've been seeing since... _something_ happened to the national psyche around 2015. If that sounds boring and uninspired, just wait what some well applied technology can do.
 
 #### "Why?"
 
