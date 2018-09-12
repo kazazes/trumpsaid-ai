@@ -1,9 +1,9 @@
 #! /bin/bash
 
-cd /var/trumpsaid-wtf
+cd /var/trumpsaid-ai
 
 git pull
-chown -R node:web /var/trumpsaid-wtf
+chown -R node:web /var/trumpsaid-ai
 
 sudo -u node yarn --pure-lockfile --prefer-offline
 sudo -u node yarn build

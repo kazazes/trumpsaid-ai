@@ -3,7 +3,7 @@ projects:
     schemaPath: packages/prisma/prisma.graphql
     extensions:
       endpoints:
-        default: http://10.142.0.5:4466/trump-said-wtf/
+        default: http://10.142.0.5:4466/trumpsaid/
   database:
     schemaPath: packages/prisma/prisma.graphql
     extensions:

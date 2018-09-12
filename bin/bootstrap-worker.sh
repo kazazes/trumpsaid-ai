@@ -33,11 +33,11 @@ git clone https://github.com/gpac/gpac.git && cd gpac && ./configure --static-mp
 adduser node --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password
 adduser node web
 
-## Clone trumpsaid-wtf
+## Clone trumpsaid
 cd /var/
-git clone https://github.com/kazazes/trumpsaid-wtf
-chown -R node:web trumpsaid-wtf
-cd /var/trumpsaid-wtf/
+git clone https://github.com/trumpsaid-ai/trumpsaid-ai.git
+chown -R node:web trumpsaid-ai
+cd /var/trumpsaid-ai/
 ## Remove non-essential packages for workers
 rm -rf packages/client packages/graphql packages/responders packages/server
 sudo -u node yarn --pure-lockfile --prefer-offline

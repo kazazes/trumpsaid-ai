@@ -3,6 +3,7 @@ import { existsSync } from 'fs';
 import hasha from 'hasha';
 import { mkdirSync } from 'mkdir-recursive';
 import moment from 'moment';
+
 import logger from './logger';
 
 export interface IDownloadableItem {

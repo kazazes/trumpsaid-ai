@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git@github.com:kazazes/trumpsaid-wtf.git"
+    "url": "https://github.com/trumpsaid-ai/trumpsaid-ai.git"
   },
   "typings": "types/client",
   "main": "dist/",

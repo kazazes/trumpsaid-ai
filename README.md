@@ -1,14 +1,14 @@
 <h2 align="center">
 
-<img src="https://trumpsaid.wtf/img/logo.svg" height=100>
+<img src="https://trumpsaid.ai/img/logo.svg" height=100>
 <br>
-<a href="https://trumpsaid.wtf">Trump Said... WTF?</a>
+<a href="https://trumpsaid.ai">Trump Said...</a>
 </h2>
 <h3 align="center">
 
-![Travis (.org) branch](https://img.shields.io/travis/trumpsaid-wtf/trumpsaid-wtf/master.svg?style=flat-square)
+![Travis (.org) branch](https://img.shields.io/travis/trumpsaid-ai/trumpsaid-ai/master.svg?style=flat-square)
 [![](https://img.shields.io/badge/stage-pre--alpha-red.svg?style=flat-square)]()
-[![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square)](https://github.com/trumpsaid-wtf/trumpsaid-wtf)
+[![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat-square)](https://github.com/trumpsaid-ai/trumpsaid-ai)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/kazazes/trumpsaid-wtf.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/kazazes/trumpsaid-wtf/alerts)
 
 </h2>
@@ -19,7 +19,7 @@ This is a project about truth in a "post-truth world." We [keep hearing that phr
 
 #### "What?"
 
-**Trump Said... WTF?** is a rich-media (video, documents and transcript) explorer archiving the _original_, real-life sources of the daily torrent of angry neighbors and news anchors you've been seeing since... _something_ happened to the national psyche around 2015. If that sounds boring and uninspired, just wait what some well applied technology can do.
+**Trump Said...** is a rich-media (video, documents and transcript) explorer archiving the _original_, real-life sources of the daily torrent of angry neighbors and news anchors you've been seeing since... _something_ happened to the national psyche around 2015. If that sounds boring and uninspired, just wait what some well applied technology can do.
 
 #### "Why?"
 
@@ -31,7 +31,7 @@ Our choice of media outlet has become a defacto litmus test of likeability. We l
 
 [Wikipedia Current Events](https://en.wikipedia.org/wiki/Portal:Current_events) has been one of the most objective sources of primary source current events material on the internet for fifteen years. Jimmy Wales changed the world then. There's a need for a rich media/artificial inteligence analog. And this is the place to start.
 
-We're almost ready for our first release; [progress can be tracked here](https://github.com/trumpsaid-wtf/trumpsaid-wtf/projects/2). The dream scenario is to scale the platform to those who cannot freely access or disseminate the information that we as Americans can.
+We're almost ready for our first release; [progress can be tracked here](https://github.com/trumpsaid-ai/trumpsaid-ai/projects/2). The dream scenario is to scale the platform to those who cannot freely access or disseminate the information that we as Americans can.
 
 While this may seem hyperbolic, it's fair to say that deep inside of us all there is a fear that we're losing whatever _did_ make us exceptional. No one, of any political pursuasion, wants this environment to endure. This platform will not take sides. It will not selectivly curate content. It won't have to, the content will speak for itself.
 
@@ -44,7 +44,7 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 
 **Build**
 
-1. `git clone git@github.com:trumpsaid-wtf/trumpsaid-wtf.git && cd trumpsaid-wtf`
+1. `git clone git@github.com:trumpsaid-ai/trumpsaid-ai.git && cd trumpsaid-ai`
 2. `source .env.example`
 3. `yarn install` - **Using yarn is required.** The project requires workspace support.
 4. `bin/build-sources.sh`
@@ -57,4 +57,4 @@ While this may seem hyperbolic, it's fair to say that deep inside of us all ther
 
 **Run**
 
-1. `cd packages/server && yarn debug` _Working on decoupling from GCE for local development. Track progress on [#40](https://github.com/trumpsaid-wtf/trumpsaid-wtf/issues/40)._
+1. `cd packages/server && yarn debug` _Working on decoupling from GCE for local development. Track progress on [#40](https://github.com/trumpsaid-ai/trumpsaid-ai/issues/40)._
