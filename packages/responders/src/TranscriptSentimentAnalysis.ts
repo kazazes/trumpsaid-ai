@@ -1,5 +1,7 @@
 import { logger } from '@trumpsaid/common';
 
+// USE AN MQ
+
 // tslint:disable-next-line:no-var-requires
 const language = require('@google-cloud/language');
 
@@ -20,7 +22,7 @@ export class TranscriptSentimentAnalysis {
     // Detects sentiment of entities in the document
     this.client
       .analyzeEntitySentiment({ document })
-      .then((results: IAnalyzeSentimentResponse) => {
+      .then((results: any) => {
         const entities: IEntity[] = results[0].entities;
 
         logger.debug(`Entities and sentiments:`);
@@ -31,7 +33,7 @@ export class TranscriptSentimentAnalysis {
           logger.debug(`  Magnitude: ${entity.sentiment.magnitude}`);
         });
       })
-      .catch((err) => {
+      .catch((err: any) => {
         logger.error('ERROR:', err);
       });
   }
@@ -74,9 +76,4 @@ interface IEntity {
 interface IEntityMetadata {
   wikipedia_url?: string;
   mid?: string;
-}
-
-interface IAnalyzeEntitySentimentResponse {
-  entities: IEntity[];
-  language: string;
 }
