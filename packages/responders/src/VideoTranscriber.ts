@@ -11,8 +11,6 @@ import Long from 'long';
 import moment from 'moment';
 import * as mm from 'music-metadata/lib';
 
-import { TranscriptSentimentAnalysis } from './TranscriptSentimentAnalysis';
-
 // tslint:disable-next-line:no-submodule-imports
 // tslint:disable-next-line:no-var-requires
 const speech = require("@google-cloud/speech").v1p1beta1;

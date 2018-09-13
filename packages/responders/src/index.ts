@@ -9,4 +9,6 @@ export { default as VideoThumbnailResponseHandler } from './VideoThumbnail/Video
 
 export { default as VideoTranscriber } from './VideoTranscriber';
 
+export { default as TranscriptSentimentAnalysis } from './TranscriptSentimentAnalysis';
+
 export { publishDownloadJob, publishRenderJob, publishThumbnailJob } from './VideoUploadJobPublisher';

@@ -1,6 +1,6 @@
 import { logger } from '@trumpsaid/common';
 
-// USE AN MQ
+// TODO: USE AN MQ
 
 // tslint:disable-next-line:no-var-requires
 const language = require('@google-cloud/language');
