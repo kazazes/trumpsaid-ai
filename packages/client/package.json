@@ -74,7 +74,7 @@
     "vue-resize": "^0.4.4",
     "vue-router": "^3.0.1",
     "vue-select": "^2.4.0",
-    "vue-simple-calendar": "^3.0.2",
+    "vue-simple-calendar": "^4.0.2",
     "vue-simple-spinner": "^1.2.8",
     "vue-template-compiler": "^2.5.17",
     "vue-text-mask": "^6.1.2",
