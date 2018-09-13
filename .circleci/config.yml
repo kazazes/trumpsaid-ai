@@ -4,7 +4,6 @@ jobs:
     branches:
       ignore:
         - /dependabot-.*/
-        - /feature-.*/
     docker:
       - image: circleci/node:carbon-stretch-browsers
     working_directory: ~/repo
