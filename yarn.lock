@@ -2252,7 +2252,7 @@ babel-core@^6.0.0, babel-core@^6.26.0:
     slash "^1.0.0"
     source-map "^0.5.7"
 
-babel-eslint@9.0.0:
+babel-eslint@^9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-9.0.0.tgz#7d9445f81ed9f60aff38115f838970df9f2b6220"
   dependencies:
@@ -11610,7 +11610,7 @@ vue-functional-data-merge@^2.0.5:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-2.0.6.tgz#f08055adfb92458debcf2ad10c3aa712277f7fc2"
 
-vue-grid-layout@2.2.0:
+vue-grid-layout@^2.1.13:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/vue-grid-layout/-/vue-grid-layout-2.2.0.tgz#91d7b51739b15033e9cec3b568b7be61d0a088d6"
   dependencies:
@@ -11668,7 +11668,7 @@ vue-select@^2.4.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-2.5.1.tgz#9886e7123150a52dc8dbfe3202d0387268835aaa"
 
-vue-simple-calendar@4.0.2:
+vue-simple-calendar@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/vue-simple-calendar/-/vue-simple-calendar-4.0.2.tgz#b2c7530759e6e07314b27848f96705ee18029875"
   dependencies:
@@ -11811,9 +11811,9 @@ webpack-sources@^1.1.0, webpack-sources@^1.2.0:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.16.5:
-  version "4.18.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.18.1.tgz#029042c815443fce23424de1548d9317cfca148a"
+webpack@4.19.0:
+  version "4.19.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.19.0.tgz#252296c8af2d21c0994911007defdb3913a7bc66"
   dependencies:
     "@webassemblyjs/ast" "1.7.6"
     "@webassemblyjs/helper-module-context" "1.7.6"
