@@ -1,22 +1,19 @@
-import {
-  getFileSize,
-  getReadStream,
-  logger,
-  writeVideoUploadLog
-} from "@trumpsaid/common";
+import { getFileSize, getReadStream, logger, writeVideoUploadLog } from '@trumpsaid/common';
 import {
   ConversationBlockCreateInput,
   prismaContext,
   VideoConversationCreateInput,
   VideoUpload,
-  VideoUploadStorageLink
-} from "@trumpsaid/prisma";
-import { findIndex, slice, take } from "lodash";
-import Long from "long";
-import moment from "moment";
-// tslint:disable-next-line:no-submodule-imports
-import * as mm from "music-metadata/lib";
+  VideoUploadStorageLink,
+} from '@trumpsaid/prisma';
+import { findIndex, slice, take } from 'lodash';
+import Long from 'long';
+import moment from 'moment';
+import * as mm from 'music-metadata/lib';
 
+import { TranscriptSentimentAnalysis } from './TranscriptSentimentAnalysis';
+
+// tslint:disable-next-line:no-submodule-imports
 // tslint:disable-next-line:no-var-requires
 const speech = require("@google-cloud/speech").v1p1beta1;
 
@@ -61,7 +58,7 @@ export default class VideoTranscriber {
     const audioReadStream = getReadStream(this.flacLink);
     const audioFileSize = await getFileSize(this.flacLink);
 
-    const metadata = await mm.parseStream(audioReadStream, "audio/flac", {
+    const audioMetadata = await mm.parseStream(audioReadStream, "audio/flac", {
       duration: false,
       skipCovers: true,
       fileSize: audioFileSize,
@@ -72,7 +69,7 @@ export default class VideoTranscriber {
 
     logger.silly(
       `Audio of video ${this.video.id} metadata:\n ${JSON.stringify(
-        metadata,
+        audioMetadata,
         null,
         2
       )}`
@@ -84,7 +81,7 @@ export default class VideoTranscriber {
       languageCode: "en-US",
       enableSpeakerDiarization: true,
       model: "video",
-      sampleRateHertz: metadata.format.sampleRate,
+      sampleRateHertz: audioMetadata.format.sampleRate,
       enableAutomaticPunctuation: true,
       useEnhanced: true,
       enableWordTimeOffsets: true,
@@ -114,12 +111,14 @@ export default class VideoTranscriber {
           this.video.id
         }, setting an empty one.`
       );
+      return null;
     } else {
       const lastWords = lastResult.alternatives[0].words;
       const conversation = this.wordsToConversation(lastWords);
-      await this.storeConversation(conversation);
+      const metadata = await this.storeConversation(conversation);
       writeVideoUploadLog(this.video, "FINISHED", "TRANSCRIPTION");
       logger.info(`Set GC Speech API conversation on video ${this.video.id}`);
+      return new TranscriptSentimentAnalysis(metadata);
     }
   }
 
@@ -150,7 +149,7 @@ export default class VideoTranscriber {
     return prismaContext.mutation.updateVideoUploadMetadata({
       where: { id: this.video.metadata.id },
       data: { conversations: { create: mappedConversation } }
-    });
+    }, ' { conversations { blocks { speaker content } } } ');
   }
 
   private wordsToConversation(words: IWord[]) {
