@@ -8,14 +8,14 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - ts-dependencies-{{ checksum "package.json" }}
+            - ts-dependencies-{{ checksum "yarn.lock" }}
             - ts-dependencies-
       - run: yarn install
       - save_cache:
           paths:
             - node_modules
             - packages/*/node_modules
-          key: ts-dependencies-{{ checksum "package.json" }}
+          key: ts-dependencies-{{ checksum "yarn.lock" }}
       - run: yarn run build-prod
       - persist_to_workspace:
           root: ~/repo
