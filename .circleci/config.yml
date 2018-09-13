@@ -15,19 +15,20 @@ jobs:
           paths:
             - node_modules
             - ~/.cache/yarn
+
+          key: ts-dependencies-{{ checksum "package.json" }}
       - run: yarn run build-prod
-          key: v1-dependencies-{{ checksum "package.json" }}
       - store_artifacts:
           path: packages/client/dist/
           prefix: client
-  # deploy:
-  #   docker:
-  #     - image: google/cloud-sdk
-  #   steps:
-  #     - run:
-  #         name: Store Service Account
-  #         command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
-  #     - run: |
-  #         sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-  #         sudo gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-  #         sudo gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+  deploy:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - run:
+          name: Store Service Account
+          command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+      - run: |
+          sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+          sudo gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          sudo gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
