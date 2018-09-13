@@ -10,7 +10,7 @@ jobs:
           keys:
             - ts-dependencies-{{ checksum "yarn.lock" }}
             - ts-dependencies-
-      - run: yarn install
+      - run: yarn install --pure-lockfile
       - save_cache:
           paths:
             - node_modules
