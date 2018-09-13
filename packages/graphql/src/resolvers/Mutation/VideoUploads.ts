@@ -178,7 +178,10 @@ export default {
     const update: VideoUploadMetadataUpdateInput = { newsSources: createInputs };
     const updatedMetadata = 
       await ctx.db.mutation.updateVideoUploadMetadata({ where: { id: upload.metadata.id }, data: update}, '{ newsSources { id url } }');
-    processNewsItemMetadata(updatedMetadata.newsSources);
+    processNewsItemMetadata(updatedMetadata.newsSources)
+      .catch((e) => {
+        logger.error(`Error setting news item metadata: ${JSON.stringify(e)}`)
+      });
     return ctx.db.query.videoUpload({ where: { id: args.id } }, '{ id metadata { newsSources { createdAt url source { name avatarPath } } } }');
   },
   deleteNewsSourceItem: async (
