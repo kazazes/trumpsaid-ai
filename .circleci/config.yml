@@ -24,9 +24,9 @@ jobs:
   deploy:
     docker:
       - image: google/cloud-sdk
-    attach_workspace:
-      at: /tmp/client/
     steps:
+      - attach_workspace:
+          at: /tmp/client/
       - run: |
           echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
           gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
