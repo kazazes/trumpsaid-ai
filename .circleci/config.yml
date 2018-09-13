@@ -39,8 +39,6 @@ jobs:
           bin/deploy-static-ci.sh
 workflows:
   version: 2
-  build:
-    jobs: build
   build-deploy:
     jobs:
       - build
