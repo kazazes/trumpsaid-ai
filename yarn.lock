@@ -347,7 +347,7 @@
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@google-cloud/promisify/-/promisify-0.3.1.tgz#f641e6d944a8e0a05ee0cb1091dfa60089becdba"
 
-"@google-cloud/pubsub@0.20.0":
+"@google-cloud/pubsub@^0.20.0":
   version "0.20.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/pubsub/-/pubsub-0.20.0.tgz#d9a5621424e8e54065369075b557580a777ec4a3"
   dependencies:
@@ -2164,10 +2164,6 @@ async@^1.5.0:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/async/-/async-1.0.0.tgz#f8fc04ca3a13784ade9e1641af98578cfbd647a9"
-
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -3501,10 +3497,6 @@ colornames@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/colornames/-/colornames-1.1.1.tgz#f8889030685c7c4ff9e2a559f5077eb76a816f96"
 
-colors@1.0.x:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
-
 colors@>=0.6.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.3.1.tgz#4accdb89cf2cabc7f982771925e9468784f32f3d"
@@ -4065,10 +4057,6 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-cycle@1.0.x:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/cycle/-/cycle-1.0.3.tgz#21e80b2be8580f98b468f379430662b046c34ad2"
-
 cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
@@ -4291,7 +4279,7 @@ dezalgo@^1.0.0:
     asap "^2.0.0"
     wrappy "1"
 
-diagnostics@^1.0.1:
+diagnostics@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/diagnostics/-/diagnostics-1.1.1.tgz#cab6ac33df70c9d9a727490ae43ac995a769b22a"
   dependencies:
@@ -5099,10 +5087,6 @@ extsprintf@1.3.0:
 extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
-
-eyes@0.1.x:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
 
 fast-deep-equal@^1.0.0:
   version "1.1.0"
@@ -6841,7 +6825,7 @@ isostring@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/isostring/-/isostring-0.0.1.tgz#ddb608efbfc89cda86db9cb16be090a788134c7f"
 
-isstream@0.1.x, isstream@~0.1.2:
+isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
@@ -7361,7 +7345,7 @@ log-driver@1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/log-driver/-/log-driver-1.2.7.tgz#63b95021f0702fedfa2c9bb0a24e7797d71871d8"
 
-logform@^1.9.0:
+logform@^1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/logform/-/logform-1.9.1.tgz#58b29d7b11c332456d7a217e17b48a13ad69d60a"
   dependencies:
@@ -11911,30 +11895,19 @@ winston-transport@^4.2.0:
     readable-stream "^2.3.6"
     triple-beam "^1.2.0"
 
-winston@*:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/winston/-/winston-3.0.0.tgz#1f0b24a96586798bcf0cd149fb07ed47cb01a1b2"
+winston@*, winston@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/winston/-/winston-3.1.0.tgz#80724376aef164e024f316100d5b178d78ac5331"
   dependencies:
     async "^2.6.0"
-    diagnostics "^1.0.1"
+    diagnostics "^1.1.1"
     is-stream "^1.1.0"
-    logform "^1.9.0"
+    logform "^1.9.1"
     one-time "0.0.4"
     readable-stream "^2.3.6"
     stack-trace "0.0.x"
     triple-beam "^1.3.0"
     winston-transport "^4.2.0"
-
-winston@^2.4.4:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/winston/-/winston-2.4.4.tgz#a01e4d1d0a103cf4eada6fc1f886b3110d71c34b"
-  dependencies:
-    async "~1.0.0"
-    colors "1.0.x"
-    cycle "1.0.x"
-    eyes "0.1.x"
-    isstream "0.1.x"
-    stack-trace "0.0.x"
 
 with@^5.0.0:
   version "5.1.1"
