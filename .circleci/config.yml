@@ -14,8 +14,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-            - ~/.cache/yarn
-
+            - packages/*/node_modules
           key: ts-dependencies-{{ checksum "package.json" }}
       - run: yarn run build-prod
       - persist_to_workspace:
