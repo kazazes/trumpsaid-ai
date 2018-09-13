@@ -19,7 +19,7 @@ jobs:
           key: ts-dependencies-{{ checksum "package.json" }}
       - run: yarn run build-prod
       - persist_to_workspace:
-          root: workspace
+          root: ~/repo
           paths:
             - packages/client/dist/
       - store_artifacts:
