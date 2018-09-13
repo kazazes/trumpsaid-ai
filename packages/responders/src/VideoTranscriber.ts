@@ -111,14 +111,12 @@ export default class VideoTranscriber {
           this.video.id
         }, setting an empty one.`
       );
-      return null;
     } else {
       const lastWords = lastResult.alternatives[0].words;
       const conversation = this.wordsToConversation(lastWords);
-      const metadata = await this.storeConversation(conversation);
+      await this.storeConversation(conversation);
       writeVideoUploadLog(this.video, "FINISHED", "TRANSCRIPTION");
       logger.info(`Set GC Speech API conversation on video ${this.video.id}`);
-      return new TranscriptSentimentAnalysis(metadata);
     }
   }
 
