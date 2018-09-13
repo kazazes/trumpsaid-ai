@@ -1,17 +1,15 @@
-import { logger, makeFilePublic, writeVideoUploadLog } from "@trumpsaid/common";
-import {
-  prismaContext,
-  VideoUploadStorageLinkCreateInput
-} from "@trumpsaid/prisma";
+import { logger, makeFilePublic, writeVideoUploadLog } from '@trumpsaid/common';
+import { prismaContext, VideoUploadStorageLinkCreateInput } from '@trumpsaid/prisma';
 import {
   IPubSubConsumerPayload,
   IVideoRenderFailedMessage,
   IVideoRenderSuccessMessage,
-  PubSubResponseHandler
-} from "@trumpsaid/pubsub";
-import sleep from "await-sleep";
-import VideoTranscriber from "../VideoTranscriber";
-import VideoRenderPubSubController from "./VideoRenderPubSubController";
+  PubSubResponseHandler,
+} from '@trumpsaid/pubsub';
+import { VideoTranscriber } from '@trumpsaid/web-workers';
+import sleep from 'await-sleep';
+
+import VideoRenderPubSubController from './VideoRenderPubSubController';
 
 export default class VideoRenderResponseHandler extends PubSubResponseHandler {
   constructor(pubSubController: VideoRenderPubSubController) {

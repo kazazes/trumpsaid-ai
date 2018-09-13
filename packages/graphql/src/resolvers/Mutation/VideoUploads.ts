@@ -6,13 +6,13 @@ import {
   VideoUploadCreateInput,
   VideoUploadMetadataUpdateInput,
 } from '@trumpsaid/prisma';
-import { publishDownloadJob, publishRenderJob, publishThumbnailJob, VideoTranscriber } from '@trumpsaid/responders';
+import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '@trumpsaid/responders';
+import { processNewsItemMetadata, VideoTranscriber } from '@trumpsaid/web-workers';
 import { ApolloError } from 'apollo-server-core';
 import normalizeUrl from 'normalize-url';
 import { isURL } from 'validator';
 
 import { IApolloContext } from '../../apollo';
-import { processNewsItemMetadata } from '../../helpers/newsLinkMetadata';
 
 export default {
   createVideoUpload: async (
@@ -178,7 +178,10 @@ export default {
     const update: VideoUploadMetadataUpdateInput = { newsSources: createInputs };
     const updatedMetadata = 
       await ctx.db.mutation.updateVideoUploadMetadata({ where: { id: upload.metadata.id }, data: update}, '{ newsSources { id url } }');
-    processNewsItemMetadata(updatedMetadata.newsSources);
+    processNewsItemMetadata(updatedMetadata.newsSources)
+      .catch((e: any) => {
+        logger.error(`Error setting news item metadata: ${JSON.stringify(e)}`)
+      });
     return ctx.db.query.videoUpload({ where: { id: args.id } }, '{ id metadata { newsSources { createdAt url source { name avatarPath } } } }');
   },
   deleteNewsSourceItem: async (

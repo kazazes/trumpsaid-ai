@@ -39,7 +39,7 @@ git clone https://github.com/trumpsaid-ai/trumpsaid-ai.git
 chown -R node:web trumpsaid-ai
 cd /var/trumpsaid-ai/
 ## Remove non-essential packages for workers
-rm -rf packages/client packages/graphql packages/responders packages/server
+rm -rf packages/client packages/graphql packages/responders packages/server packages/web-workers
 sudo -u node yarn --pure-lockfile --prefer-offline
 
 ## Build

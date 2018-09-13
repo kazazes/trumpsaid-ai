@@ -16,9 +16,10 @@ if [ -d "$ROOT/packages/common" ]; then
   yarn run --focus build-prod
 fi
 
-if [ -d "$ROOT/packages/narnia" ]; then
-  echo "I'm in narnia"
-  sleep 500
+if [ -d "$ROOT/packages/web-workers" ]; then
+  cd $ROOT/packages/web-workers
+  echo "Building @trumpsaid/web-workers"
+  yarn run --focus build-prod
 fi
 
 if [ -d "$ROOT/packages/pubsub" ]; then
@@ -27,15 +28,15 @@ if [ -d "$ROOT/packages/pubsub" ]; then
   yarn run --focus build-prod
 fi
 
-if [ -d "$ROOT/packages/responders" ]; then
-  cd $ROOT/packages/responders
-  echo "Building @trumpsaid/responders"
-  yarn run --focus build-prod
-fi
-
 if [ -d "$ROOT/packages/workers" ]; then
   cd $ROOT/packages/workers
   echo "Building @trumpsaid/workers"
+  yarn run --focus build-prod
+fi
+
+if [ -d "$ROOT/packages/responders" ]; then
+  cd $ROOT/packages/responders
+  echo "Building @trumpsaid/responders"
   yarn run --focus build-prod
 fi
 

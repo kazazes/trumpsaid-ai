@@ -13,7 +13,7 @@
     "build-prod": "yarn build",
     "debug-remote": "node --inspect=0.0.0.0:9229 ./dist/server.js",
     "debug": "nodemon --inspect=9229 ./dist/server.js --ignore ./dist/public",
-    "dep-check": "npm-check -u",
+    "dep-update": "npm-check -u",
     "start": "node ./dist/server.js",
     "lint": "tslint -c ../tslint.json -p tsconfig.json",
     "watch": "tsc -w",

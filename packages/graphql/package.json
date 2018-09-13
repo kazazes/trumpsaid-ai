@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc -b",
     "build-prod": "yarn build",
-    "dep-check": "npm-check -u",
+    "dep-update": "npm-check -u",
     "lint": "tslint -c ../tslint.json -p tsconfig.json",
     "clean": "rimraf ./dist",
     "watch": "tsc -w"
@@ -21,6 +21,7 @@
     "@trumpsaid/common": "^1.0.0",
     "@trumpsaid/prisma": "^1.0.0",
     "@trumpsaid/responders": "^1.0.0",
+    "@trumpsaid/web-workers": "^1.0.0",
     "apollo-server-core": "^2.0.4",
     "apollo-server-express": "^2.0.4",
     "got": "^9.2.1",
@@ -29,15 +30,6 @@
     "graphql-shield": "^3.2.1",
     "graphql-tools": "^3.1.1",
     "lodash": "^4.17.10",
-    "metascraper": "^4.3.2",
-    "metascraper-author": "^4.3.2",
-    "metascraper-clearbit-logo": "^4.3.0",
-    "metascraper-date": "^4.3.2",
-    "metascraper-description": "^4.3.2",
-    "metascraper-lang": "^4.3.2",
-    "metascraper-lang-detector": "^4.3.2",
-    "metascraper-publisher": "^4.3.2",
-    "metascraper-title": "^4.3.2",
     "normalize-url": "^3.3.0",
     "tslib": "^1.9.3",
     "validator": "^10.7.0"
