@@ -10,7 +10,7 @@
     "build-prod": "bin/build-sources.sh && lerna run webpack",
     "clean": "rimraf packages/*/dist && rimraf packages/*/node_modules",
     "debug": "lerna run --parallel debug",
-    "dep-check": "lerna run dep-check",
+    "dep-update": "lerna run dep-update",
     "deploy": "bin/deploy-instances.sh",
     "deploy:static": "bin/deploy-static.sh",
     "deploy:prisma": "prisma deploy -e packages/prisma/database/prisma.prod.env",

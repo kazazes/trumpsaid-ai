@@ -4,8 +4,10 @@
     { "path": "common" },
     { "path": "server" },
     { "path": "workers" },
+    { "path": "web-workers" },
     { "path": "prisma" },
+    { "path": "pubsub" },
     { "path": "responders" },
-    { "path": "pubsub" }
+    { "path": "graphql" }
   ]
 }

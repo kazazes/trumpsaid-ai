@@ -1,0 +1,19 @@
+{
+  "references": [
+    {
+      "path": "../common"
+    },
+    {
+      "path": "../prisma"
+    }
+  ],
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "paths": {
+      "*": ["node_modules/*", "types/*"]
+    },
+    "baseUrl": "."
+  }
+}

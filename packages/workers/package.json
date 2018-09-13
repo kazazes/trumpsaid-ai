@@ -16,7 +16,7 @@
     "build-prod": "yarn build",
     "debug-worker-remote": "node --inspect=0.0.0.0:9300 dist/worker.js",
     "debug-worker": "nodemon --inspect=9300 dist/worker.js",
-    "dep-check": "npm-check -u",
+    "dep-update": "npm-check -u",
     "start": "node dist/worker.js",
     "lint": "tslint -c ../tslint.json -p tsconfig.json",
     "clean": "rimraf ./dist",

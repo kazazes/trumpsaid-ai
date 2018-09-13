@@ -10,27 +10,42 @@ import metaLang from 'metascraper-lang';
 import metaPublisher from 'metascraper-publisher';
 import metaTitle from 'metascraper-title';
 
-const scraper = metascraper([metaAuthor(), metaDate(), metaTitle(), metaLang(), 
-  metaClearbitLogo({ size: 256, format: 'png' }), metaDescription(), metaPublisher()]);
+const scraper = metascraper([
+  metaAuthor(),
+  metaDate(),
+  metaTitle(),
+  metaLang(),
+  metaClearbitLogo({ size: 256, format: 'png' }),
+  metaDescription(),
+  metaPublisher(),
+]);
 
-export async function processNewsItemMetadata(newsItems: NewsSourceItem | NewsSourceItem[]) {
+export default async function processNewsItemMetadata(
+  newsItems: NewsSourceItem | NewsSourceItem[]
+) {
   let items = newsItems;
   if (!Array.isArray(items)) {
     items = [items];
   }
 
-  const itemMetadata = await Promise.all(items.map((item) => {
-    return fetchMetadata(item);
-  }));
+  const itemMetadata = await Promise.all(
+    items.map((item) => {
+      return fetchMetadata(item);
+    })
+  );
 
-  const updatedMetadata = await Promise.all(itemMetadata.map((itemMeta) => {
-    return updateNewsItemMetadata(itemMeta);
-  }));
+  const updatedMetadata = await Promise.all(
+    itemMetadata.map((itemMeta) => {
+      return updateNewsItemMetadata(itemMeta);
+    })
+  );
 
   return updatedMetadata;
 }
 
-async function fetchMetadata(item: NewsSourceItem): Promise<[NewsSourceItem, any]> {
+async function fetchMetadata(
+  item: NewsSourceItem
+): Promise<[NewsSourceItem, any]> {
   try {
     const { body: html, url } = await got(item.url);
     const metadata = await scraper({ html, url });
@@ -40,7 +55,7 @@ async function fetchMetadata(item: NewsSourceItem): Promise<[NewsSourceItem, any
     return [item, metadata];
   } catch (e) {
     logger.error(JSON.stringify(e, null, 2));
-    return [item, e]; 
+    return [item, e];
   }
 }
 
@@ -61,6 +76,15 @@ async function updateNewsItemMetadata(itemMeta: [NewsSourceItem, any]) {
     update.logo = metadata.logo;
     update.lastAccessed = new Date().toISOString();
   }
-  logger.debug(`Updating metadata for ${item.id}, ${item.url}: ${JSON.stringify(update, null, 2)}`);
-  return prismaContext.mutation.updateNewsSourceItem({ where: { id: item.id }, data: update }, ' { url reachable title }');
+  logger.debug(
+    `Updating metadata for ${item.id}, ${item.url}: ${JSON.stringify(
+      update,
+      null,
+      2
+    )}`
+  );
+  return prismaContext.mutation.updateNewsSourceItem(
+    { where: { id: item.id }, data: update },
+    ' { url reachable title }'
+  );
 }

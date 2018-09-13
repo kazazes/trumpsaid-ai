@@ -12,7 +12,7 @@
   "scripts": {
     "webpack": "webpack --progress --colors",
     "build-prod": "NODE_ENV=production webpack --mode=production",
-    "dep-check": "npm-check -u",
+    "dep-update": "npm-check -u",
     "watch": "webpack --progress --display-error-details --watch",
     "clean": "rimraf ./dist"
   },

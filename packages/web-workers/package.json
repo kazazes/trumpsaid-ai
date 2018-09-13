@@ -1,0 +1,43 @@
+{
+  "name": "@trumpsaid/web-workers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trumpsaid-ai/trumpsaid-ai.git"
+  },
+  "author": "Peter Kazazes",
+  "license": "CC-BY-NC-4.0",
+  "bugs": {
+    "url": "https://github.com/trumpsaid-ai/trumpsaid-ai/issues"
+  },
+  "homepage": "https://github.com/trumpsaid-ai/trumpsaid-ai#readme",
+  "scripts": {
+    "build": "tsc -b",
+    "build-prod": "yarn build",
+    "dep-update": "npm-check -u",
+    "lint": "tslint -c ../tslint.json -p tsconfig.json",
+    "clean": "rimraf ./dist",
+    "watch": "tsc -w",
+    "serve": "NODE_ENV=production pm2-runtime dist/worker.js"
+  },
+  "dependencies": {
+    "@google-cloud/language": "^1.2.0",
+    "@google-cloud/speech": "^2.1.0",
+    "@trumpsaid/common": "^1.0.0",
+    "@trumpsaid/prisma": "^1.0.0",
+    "got": "^9.2.1",
+    "lodash": "^4.17.11",
+    "metascraper": "^4.3.2",
+    "metascraper-author": "^4.3.2",
+    "metascraper-clearbit-logo": "^4.3.0",
+    "metascraper-date": "^4.3.2",
+    "metascraper-description": "^4.3.2",
+    "metascraper-lang": "^4.3.2",
+    "metascraper-publisher": "^4.3.2",
+    "metascraper-title": "^4.3.2",
+    "moment": "^2.22.2",
+    "music-metadata": "^2.8.0"
+  }
+}
