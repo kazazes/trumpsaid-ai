@@ -7,7 +7,7 @@ export class TranscriptSentimentAnalysis {
   private client: any;
   constructor() {
     this.client = language.v1.LanguageServiceClient({
-      projectId: process.env.GOOGLE_PROJECT_ID;
+      projectId: process.env.GOOGLE_PROJECT_ID
     });
   }
 
@@ -20,7 +20,7 @@ export class TranscriptSentimentAnalysis {
     // Detects sentiment of entities in the document
     this.client
       .analyzeEntitySentiment({ document })
-      .then((results) => {
+      .then((results: IAnalyzeSentimentResponse) => {
         const entities: IEntity[] = results[0].entities;
 
         logger.debug(`Entities and sentiments:`);
@@ -74,4 +74,9 @@ interface IEntity {
 interface IEntityMetadata {
   wikipedia_url?: string;
   mid?: string;
+}
+
+interface IAnalyzeEntitySentimentResponse {
+  entities: IEntity[];
+  language: string;
 }
