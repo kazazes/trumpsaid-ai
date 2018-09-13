@@ -22,9 +22,6 @@ jobs:
           root: ~/repo
           paths:
             - packages/client/dist/
-      - store_artifacts:
-          path: packages/client/dist/
-          prefix: client
   deploy:
     docker:
       - image: google/cloud-sdk
