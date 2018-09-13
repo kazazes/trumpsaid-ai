@@ -29,7 +29,7 @@ jobs:
     docker:
       - image: google/cloud-sdk
     attach_workspace:
-      at: /tmp/client
+      at: /tmp/client/
     steps:
       - run: |
           echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
