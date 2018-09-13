@@ -1,0 +1,47 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:carbon-stretch-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - ts-dependencies-{{ checksum "yarn.lock" }}
+            - ts-dependencies-
+      - run: yarn install --pure-lockfile
+      - save_cache:
+          paths:
+            - node_modules
+            - ~/.cache/yarn
+          key: ts-dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn run build-prod
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - packages/client/dist/
+  deploy:
+    docker:
+      - image: google/cloud-sdk
+    attach_workspace:
+      at: /tmp/client/
+    steps:
+      - run: |
+          echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+          gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+          gsutil -m rsync -r -d /tmp/client/ gs://${GOOGLE_STORAGE_STATIC_BUCKET}/web/
+          gcloud beta compute instance-groups managed rolling-action replace ${GOOGLE_INSTANCE_GROUPS_WEB} --region=us-east1
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
