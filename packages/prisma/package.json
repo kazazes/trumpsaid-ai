@@ -15,7 +15,7 @@
     "build": "tsc -b",
     "build-prod": "yarn build",
     "clean": "rimraf ./dist",
-    "dep-check": "npm-check -u",
+    "dep-update": "npm-check -u",
     "deploy": "cd database && prisma deploy -e prisma.prod.env",
     "watch": "tsc -w",
     "token": "cd database && prisma token -e prisma.prod.env"

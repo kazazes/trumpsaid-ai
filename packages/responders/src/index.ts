@@ -7,8 +7,4 @@ export { default as VideoRenderResponseHandler } from './VideoRender/VideoRender
 export { default as VideoThumbnailPubSubController } from './VideoThumbnail/VideoThumbnailPubSubController';
 export { default as VideoThumbnailResponseHandler } from './VideoThumbnail/VideoThumbnailResponseHandler';
 
-export { default as VideoTranscriber } from './VideoTranscriber';
-
-export { default as TranscriptSentimentAnalysis } from './TranscriptSentimentAnalysis';
-
 export { publishDownloadJob, publishRenderJob, publishThumbnailJob } from './VideoUploadJobPublisher';

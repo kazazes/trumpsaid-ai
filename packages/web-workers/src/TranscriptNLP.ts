@@ -5,7 +5,7 @@ import { logger } from '@trumpsaid/common';
 // tslint:disable-next-line:no-var-requires
 const language = require('@google-cloud/language');
 
-export class TranscriptSentimentAnalysis {
+export class TranscriptNLP {
   private client: any;
   constructor() {
     this.client = language.v1.LanguageServiceClient({
