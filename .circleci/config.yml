@@ -20,6 +20,7 @@ jobs:
           root: ~/repo
           paths:
             - packages/client/dist/
+            - ~/.cache/yarn
   deploy:
     docker:
       - image: google/cloud-sdk
@@ -31,7 +32,7 @@ jobs:
           sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
           sudo gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
           sudo gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-          bin/deploy-static-ci.sh && bin/deploy-instances.sh
+          bin/deploy-static-ci.sh && bin/deploy-instances.shgit
 workflows:
   version: 2
   build-deploy:
