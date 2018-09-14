@@ -5,19 +5,21 @@ const envPath = existsSync(__dirname + "/../.env")
   ? __dirname + "/../.env"
   : __dirname + "/../.env.example";
 
-config({ path: envPath });
-// tslint:disable-next-line:no-var-requires
-require("@google-cloud/trace-agent").start({
-  projectId: process.env.GOOGLE_PROJECT_ID
-});
-// tslint:disable-next-line:no-var-requires
-require("@google-cloud/debug-agent").start({
-  projectId: process.env.GOOGLE_PROJECT_ID,
-  serviceContext: {
-    service: process.env.SERVER_TYPE,
-    version: "ALPHA"
-  }
-});
+config({ path: envPath }); 
+if (process.env.NODE_ENV === 'production') {
+  // tslint:disable-next-line:no-var-requires
+  require("@google-cloud/trace-agent").start({
+    projectId: process.env.GOOGLE_PROJECT_ID
+  });
+  // tslint:disable-next-line:no-var-requires
+  require("@google-cloud/debug-agent").start({
+    projectId: process.env.GOOGLE_PROJECT_ID,
+    serviceContext: {
+      service: process.env.SERVER_TYPE,
+      version: "ALPHA"
+    }
+  });
+}
 
 import checkEnvironment from "./helpers/checkEnv";
 checkEnvironment();
