@@ -1,13 +1,9 @@
 {
-  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "extends": ["tslint:latest", "tslint-config-airbnb"],
   "linterOptions": {
     "exclude": ["src/graphql/generated/**", "node_modules/**", "**/*.d.ts"]
   },
   "rules": {
-    "await-promise": {
-      "options": [],
-      "severity": "error"
-    },
     "object-literal-sort-keys": false,
     "import-name": false,
     "interface-name": true,
@@ -18,13 +14,10 @@
         "limit": 150
       }
     ],
+    "no-boolean-literal-compare": false,
     "no-consecutive-blank-lines": true,
     "no-console": true,
     "no-duplicate-imports": true,
-    "no-floating-promises": {
-      "options": [],
-      "severity": "error"
-    },
     "no-irregular-whitespace": true,
     "no-return-await": true,
     "no-string-throw": true,
