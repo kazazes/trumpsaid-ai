@@ -1,13 +1,10 @@
 // tslint:disable-next-line:variable-name
-import PubSub, { Subscription, Topic } from "@google-cloud/pubsub";
-import { logger } from "@trumpsaid/common";
-import PubSubHandler from "./PubSubHandler";
-import PubSubResponseHandler from "./PubSubResponseHandler";
-import {
-  IPubSubConsumerFailedResponse,
-  IPubSubConsumerSuccessMessage,
-  ITopicSubscriptionNames
-} from "./PubSubTypes";
+import PubSub, { Subscription, Topic } from '@google-cloud/pubsub';
+import { logger } from '@trumpsaid/common';
+
+import PubSubHandler from './PubSubHandler';
+import PubSubResponseHandler from './PubSubResponseHandler';
+import { IPubSubConsumerFailedResponse, IPubSubConsumerSuccessMessage, ITopicSubscriptionNames } from './PubSubTypes';
 
 export default abstract class PubSubController {
   public pubsub: PubSub.PubSub;
