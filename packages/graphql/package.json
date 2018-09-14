@@ -14,6 +14,7 @@
     "build-prod": "yarn build",
     "dep-update": "npm-check -u",
     "lint": "tslint -c ../tslint.json -p tsconfig.json",
+    "lint:fix": "tslint -c ../tslint.json -p tsconfig.json --fix",
     "clean": "rimraf ./dist",
     "watch": "tsc -w"
   },

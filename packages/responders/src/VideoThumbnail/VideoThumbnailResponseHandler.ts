@@ -1,13 +1,13 @@
-import { logger, makeFilePublic, writeVideoUploadLog } from "@trumpsaid/common";
-import { prismaContext } from "@trumpsaid/prisma";
+import { logger, makeFilePublic, writeVideoUploadLog } from '@trumpsaid/common';
+import { prismaContext } from '@trumpsaid/prisma';
 import {
   IPubSubConsumerPayload,
   IThumbnailFailedMessage,
   IThumbnailResponseMessage,
-  PubSubResponseHandler
-} from "@trumpsaid/pubsub";
-import sleep from "await-sleep";
-import VideoThumbnailPubSubController from "./VideoThumbnailPubSubController";
+  PubSubResponseHandler,
+} from '@trumpsaid/pubsub';
+import sleep from 'await-sleep';
+import VideoThumbnailPubSubController from './VideoThumbnailPubSubController';
 
 export default class VideoThumbnailResponseHandler extends PubSubResponseHandler {
   constructor(pubSubController: VideoThumbnailPubSubController) {
@@ -30,37 +30,37 @@ export default class VideoThumbnailResponseHandler extends PubSubResponseHandler
     message.ack();
 
     await prismaContext.mutation.deleteManyVideoUploadStorageLinks({
-      where: { videoUpload: { id }, fileType: "THUMBNAIL" }
+      where: { videoUpload: { id }, fileType: 'THUMBNAIL' },
     });
 
     await Promise.all(
-      response.storageLinkCreateInputs.map(async linkCreateInput => {
+      response.storageLinkCreateInputs.map(async (linkCreateInput) => {
         logger.debug(
           `Created ${linkCreateInput.version}/${
             linkCreateInput.fileType
-          } storage link on ${id}`
+          } storage link on ${id}`,
         );
         await sleep(3000);
         makeFilePublic(linkCreateInput.bucket, linkCreateInput.path);
         return prismaContext.mutation.createVideoUploadStorageLink({
-          data: linkCreateInput
+          data: linkCreateInput,
         });
-      })
-    ).catch(e => {
+      }),
+    ).catch((e) => {
       logger.error(`Error setting storage links on ${id}`, e);
     });
   }
 
   protected async handleError(
     messageData: IThumbnailFailedMessage,
-    message: IPubSubConsumerPayload
+    message: IPubSubConsumerPayload,
   ) {
     const messageError: IThumbnailFailedMessage = messageData;
     const id = messageError.requestPayload.id;
     const exists = await prismaContext.exists.VideoUpload({ id });
     if (!exists) {
       logger.debug(
-        `Thumbnail error handler nacking because ${id} does not exist in this environment`
+        `Thumbnail error handler nacking because ${id} does not exist in this environment`,
       );
       return message.nack();
     }
@@ -69,11 +69,11 @@ export default class VideoThumbnailResponseHandler extends PubSubResponseHandler
 
     const upload = await prismaContext.query.videoUpload({ where: { id } });
 
-    writeVideoUploadLog(upload, "FAILED", "THUMBNAIL", messageError.error);
+    writeVideoUploadLog(upload, 'FAILED', 'THUMBNAIL', messageError.error);
     logger.error(
       `Received thumbnail handler error response: \n ${JSON.stringify(
-        messageData.error
-      )}`
+        messageData.error,
+      )}`,
     );
   }
 }

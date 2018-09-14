@@ -16,6 +16,7 @@
     "dep-update": "npm-check -u",
     "start": "node ./dist/server.js",
     "lint": "tslint -c ../tslint.json -p tsconfig.json",
+    "lint:fix": "tslint -c ../tslint.json -p tsconfig.json --fix",
     "watch": "tsc -w",
     "clean": "rimraf ./dist",
     "serve": "NODE_ENV=production pm2-runtime dist/server.js"

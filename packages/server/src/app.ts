@@ -24,10 +24,10 @@ const env = process.env.NODE_ENV;
 
 // Express configuration
 // tslint:disable-next-line:no-magic-numbers
-app.set("port", process.env.PORT || 3000);
-app.set("hostname", process.env.HOST || "127.0.0.1");
-app.set("views", "./views");
-app.set("view engine", "pug");
+app.set('port', process.env.PORT || 3000);
+app.set('hostname', process.env.HOST || '127.0.0.1');
+app.set('views', './views');
+app.set('view engine', 'pug');
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,7 +36,7 @@ app.use(expressFlash());
 // app.use(lusca.xframe("SAMEORIGIN"));
 // app.use(lusca.xssProtection(true));
 
-const staticPath = path.join("../client/dist");
+const staticPath = path.join('../client/dist');
 app.use(express.static(staticPath, { maxAge: 31557600000 }));
 
 // tslint:disable-next-line:variable-name
@@ -50,15 +50,15 @@ app.use(
   expressSession({
     store: new RedisStore({
       host: process.env.REDIS_HOST,
-      port: Number(process.env.REDIS_PORT)
+      port: Number(process.env.REDIS_PORT),
     }),
     secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     resave: true,
     cookie: {
-      expires: false
-    }
-  })
+      expires: false,
+    },
+  }),
 );
 
 passport.use(strategy);
@@ -72,40 +72,40 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/graphql", checkJWT);
+app.use('/graphql', checkJWT);
 graphServer.applyMiddleware({ app });
 
 const morganFormat: string =
-  process.env.NODE_ENV === "production" ? "combined" : "dev";
+  process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 app.use(
   morgan(morganFormat, {
     stream: {
       write: message =>
-        logger.debug(message.substring(0, message.lastIndexOf("\n")))
-    }
-  })
+        logger.debug(message.substring(0, message.lastIndexOf('\n'))),
+    },
+  }),
 );
 
 /**
  * Primary routes.
  */
-app.use("/", authRouter);
-app.use("/", rootRouter);
-app.use("/admin", adminRouter);
+app.use('/', authRouter);
+app.use('/', rootRouter);
+app.use('/admin', adminRouter);
 
 app.use(
   (
     err: any,
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction
+    next: express.NextFunction,
   ) => {
     if (err.status === 401) {
-      res.redirect("/login");
+      res.redirect('/login');
     } else {
       next();
     }
-  }
+  },
 );
 
 export default app;

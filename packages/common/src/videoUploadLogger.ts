@@ -2,10 +2,10 @@ import {
   prismaContext,
   VideoUpload,
   VideoUploadLogItemEvent,
-  VideoUploadLogItemStatus
-} from "@trumpsaid/prisma";
-import { Moment } from "moment";
-import logger from "./logger";
+  VideoUploadLogItemStatus,
+} from '@trumpsaid/prisma';
+import { Moment } from 'moment';
+import logger from './logger';
 
 /**
  * Writes a log message to a VideoUpload's log.
@@ -20,7 +20,7 @@ export const writeToVideoUploadLog = (
   status: VideoUploadLogItemStatus,
   event: VideoUploadLogItemEvent,
   message?: any,
-  timeout?: Moment
+  timeout?: Moment,
 ) => {
   let timesoutAt;
 
@@ -29,7 +29,7 @@ export const writeToVideoUploadLog = (
   }
 
   const msg: string =
-    typeof message === "string" ? message : JSON.stringify(message);
+    typeof message === 'string' ? message : JSON.stringify(message);
 
   prismaContext.mutation
     .createVideoUploadStatusLogItem({
@@ -38,17 +38,17 @@ export const writeToVideoUploadLog = (
         event,
         timesoutAt,
         message: msg,
-        videoUpload: { connect: { id: videoUpload.id } }
-      }
+        videoUpload: { connect: { id: videoUpload.id } },
+      },
     })
     .catch(e =>
       logger.error(
         `Writing to VideoUpload ${videoUpload.id} failed: \n ${JSON.stringify(
           e,
           null,
-          2
-        )}`
-      )
+          2,
+        )}`,
+      ),
     );
 };
 

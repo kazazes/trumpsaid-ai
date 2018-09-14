@@ -33,35 +33,35 @@ export default class VideoRenderResponseHandler extends PubSubResponseHandler {
 
     const deleted = await this.deleteExistingDuplicateLinkTypes(
       response.storageLinkCreateInputs,
-      id
+      id,
     );
     if (Number(deleted.count) > 0) {
       logger.debug(
-        `Deleted ${deleted.count} existing encodes before creating new ones.`
+        `Deleted ${deleted.count} existing encodes before creating new ones.`,
       );
     }
 
     await Promise.all(
-      response.storageLinkCreateInputs.map(async linkCreateInput => {
+      response.storageLinkCreateInputs.map(async (linkCreateInput) => {
         logger.debug(
           `Created ${linkCreateInput.version}/${
             linkCreateInput.fileType
-          } storage link on ${id}`
+          } storage link on ${id}`,
         );
         await sleep(5000);
         makeFilePublic(linkCreateInput.bucket, linkCreateInput.path);
         return prismaContext.mutation.createVideoUploadStorageLink({
-          data: linkCreateInput
+          data: linkCreateInput,
         });
-      })
-    ).catch(e => {
+      }),
+    ).catch((e) => {
       logger.error(`Error setting storage links on ${id}`, e);
     });
 
     // If Audio Web in response, trigger transcribe
     if (
       response.storageLinkCreateInputs.filter(
-        link => link.fileType === "AUDIO" && link.version === "WEB"
+        link => link.fileType === 'AUDIO' && link.version === 'WEB',
       ).length > 0
     ) {
       // TODO: Move transcription to PubSub
@@ -72,14 +72,14 @@ export default class VideoRenderResponseHandler extends PubSubResponseHandler {
   }
   protected async handleError(
     messageData: IVideoRenderFailedMessage,
-    message: IPubSubConsumerPayload
+    message: IPubSubConsumerPayload,
   ) {
     const messageError: IVideoRenderFailedMessage = messageData;
     const id = messageError.requestPayload.id;
     const exists = await prismaContext.exists.VideoUpload({ id });
     if (!exists) {
       logger.debug(
-        `Video render error handler nacking because ${id} does not exist in this environment`
+        `Video render error handler nacking because ${id} does not exist in this environment`,
       );
       return message.nack();
     }
@@ -87,25 +87,25 @@ export default class VideoRenderResponseHandler extends PubSubResponseHandler {
     message.ack();
     const upload = await prismaContext.query.videoUpload({ where: { id } });
 
-    writeVideoUploadLog(upload, "FAILED", "ENCODE", messageError.error);
+    writeVideoUploadLog(upload, 'FAILED', 'ENCODE', messageError.error);
     logger.error(
       `Received render handler error response: \n ${JSON.stringify(
-        messageData.error
-      )}`
+        messageData.error,
+      )}`,
     );
   }
 
   private async deleteExistingDuplicateLinkTypes(
     storageLinkCreateInputs: VideoUploadStorageLinkCreateInput[],
-    id: string
+    id: string,
   ) {
     const { storageLinks } = await prismaContext.query.videoUpload(
       { where: { id } },
-      " { storageLinks { id path version bucket fileType } }"
+      ' { storageLinks { id path version bucket fileType } }',
     );
     const toDelete = storageLinks
-      .filter(existingLink => {
-        return storageLinkCreateInputs.find(newLink => {
+      .filter((existingLink) => {
+        return storageLinkCreateInputs.find((newLink) => {
           if (
             newLink.version === existingLink.version &&
             newLink.fileType === existingLink.fileType
@@ -119,7 +119,7 @@ export default class VideoRenderResponseHandler extends PubSubResponseHandler {
       .map(link => link.fileType);
 
     return prismaContext.mutation.deleteManyVideoUploadStorageLinks({
-      where: { id_in: toDelete }
+      where: { id_in: toDelete },
     });
   }
 }

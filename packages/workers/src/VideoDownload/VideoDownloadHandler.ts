@@ -1,26 +1,26 @@
-import { File } from "@google-cloud/storage";
+import { File } from '@google-cloud/storage';
 import {
   createFileInProcessing,
   deleteFolderInProcessing,
   delimiter,
-  logger
-} from "@trumpsaid/common";
+  logger,
+} from '@trumpsaid/common';
 import {
   IPubSubConsumerFailedResponse,
   IPubSubConsumerPayload,
   IVideoDownloadResponseMessage,
-  PubSubHandler
-} from "@trumpsaid/pubsub";
-import { WriteStream } from "fs";
-import youtubedl, { Youtubedl } from "youtube-dl";
-import VideoDownloadPubSubController from "./VideoDownloadPubSubController";
+  PubSubHandler,
+} from '@trumpsaid/pubsub';
+import { WriteStream } from 'fs';
+import youtubedl, { Youtubedl } from 'youtube-dl';
+import VideoDownloadPubSubController from './VideoDownloadPubSubController';
 
 import {
   VideoUpload,
   VideoUploadFileLinkType,
   VideoUploadFileLinkVersion,
-  VideoUploadStorageLinkCreateInput
-} from "@trumpsaid/prisma";
+  VideoUploadStorageLinkCreateInput,
+} from '@trumpsaid/prisma';
 
 interface IFileWithType {
   file: File;
@@ -41,7 +41,7 @@ export default class VideoDownloadHandler extends PubSubHandler {
     message.ack();
 
     const videoUpload = this.pubSubController.parseMessageData(
-      message
+      message,
     ) as VideoUpload;
 
     // Delete existing download folder
@@ -49,14 +49,14 @@ export default class VideoDownloadHandler extends PubSubHandler {
     const path = storagePrefix + delimiter;
     await deleteFolderInProcessing(path);
 
-    const desiredVersions: VideoUploadFileLinkType[] = ["AUDIO", "MP4", "WEBM"];
+    const desiredVersions: VideoUploadFileLinkType[] = ['AUDIO', 'MP4', 'WEBM'];
     const versions: IFileWithType[] = await Promise.all(
-      desiredVersions.map(version => {
+      desiredVersions.map((version) => {
         return this.download(videoUpload.submitedUrl, version, path);
-      })
+      }),
     );
 
-    const filteredVersions: IFileWithType[] = versions.filter(v => {
+    const filteredVersions: IFileWithType[] = versions.filter((v) => {
       return v !== undefined;
     });
 
@@ -64,7 +64,7 @@ export default class VideoDownloadHandler extends PubSubHandler {
       (fileAndType: IFileWithType) => {
         const { file, fileType, mimeType } = fileAndType;
         if (mimeType === undefined) {
-          throw new Error("MIME type undefined");
+          throw new Error('MIME type undefined');
         }
         return {
           fileType,
@@ -72,14 +72,14 @@ export default class VideoDownloadHandler extends PubSubHandler {
           path: file.name,
           bucket: process.env.VIDEO_PROCESSING_BUCKET,
           videoUpload: { connect: { id: videoUpload.id } },
-          version: "MASTER" as VideoUploadFileLinkVersion
+          version: 'MASTER' as VideoUploadFileLinkVersion,
         };
-      }
+      },
     );
 
     const response: IVideoDownloadResponseMessage = {
       videoUpload,
-      storageLinkCreateInputs: storageLinks
+      storageLinkCreateInputs: storageLinks,
     };
 
     this.succeeded(response, timer);
@@ -87,7 +87,7 @@ export default class VideoDownloadHandler extends PubSubHandler {
   protected timedOut(payload: IPubSubConsumerPayload): void {
     const resp: IPubSubConsumerFailedResponse = {
       requestPayload: payload,
-      error: new Error("Download handler timed out")
+      error: new Error('Download handler timed out'),
     };
     this.failed(resp);
   }
@@ -95,9 +95,9 @@ export default class VideoDownloadHandler extends PubSubHandler {
   private download(
     url: string,
     fileType: VideoUploadFileLinkType,
-    path: string
+    path: string,
   ) {
-    return new Promise<IFileWithType>(resolve => {
+    return new Promise<IFileWithType>((resolve) => {
       logger.info(`Attempting to download ${url} - ${fileType}`);
       let video: Youtubedl;
       let videoFile: File;
@@ -105,47 +105,47 @@ export default class VideoDownloadHandler extends PubSubHandler {
       let mimeType: string;
 
       switch (fileType) {
-        case "WEBM":
-          video = youtubedl(url, ["-f best[ext=webm]"], {});
-          mimeType = "video/webm";
+        case 'WEBM':
+          video = youtubedl(url, ['-f best[ext=webm]'], {});
+          mimeType = 'video/webm';
           break;
-        case "MP4":
-          video = youtubedl(url, ["-f best[ext=mp4]"], {});
-          mimeType = "video/mp4";
+        case 'MP4':
+          video = youtubedl(url, ['-f best[ext=mp4]'], {});
+          mimeType = 'video/mp4';
           break;
-        case "AUDIO":
+        case 'AUDIO':
           video = youtubedl(
             url,
-            ["-f bestaudio", "--extract-audio", "--audio-quality 0"],
-            {}
+            ['-f bestaudio', '--extract-audio', '--audio-quality 0'],
+            {},
           );
           break;
         default:
           video = youtubedl(url, [], {});
           break;
       }
-      video.on("info", info => {
+      video.on('info', (info) => {
         try {
           videoFile = createFileInProcessing(path, info._filename);
           videoFileStream = videoFile.createWriteStream({
-            contentType: mimeType
+            contentType: mimeType,
           });
           video.pipe(videoFileStream);
-          videoFileStream.on("finish", () => {
-            videoFile.makePublic().catch(e => {
+          videoFileStream.on('finish', () => {
+            videoFile.makePublic().catch((e) => {
               logger.error(`Error making file public: ${JSON.stringify(e)}`);
             });
 
             logger.info(
               `Downloaded ${url}, ${fileType} to ${path}/${
                 info._filename
-              } and made public`
+              } and made public`,
             );
 
             resolve({ mimeType, fileType, file: videoFile });
           });
         } catch (e) {
-          logger.error("Download error", e);
+          logger.error('Download error', e);
           throw e;
         }
         logger.info(`Download started for
@@ -155,9 +155,9 @@ export default class VideoDownloadHandler extends PubSubHandler {
       \tTitle: ${info._filename}`);
       });
 
-      video.on("error", err => {
+      video.on('error', (err) => {
         logger.error(
-          `Failed to download ${url}, ${fileType}: \n ${JSON.stringify(err)}`
+          `Failed to download ${url}, ${fileType}: \n ${JSON.stringify(err)}`,
         );
         resolve();
       });

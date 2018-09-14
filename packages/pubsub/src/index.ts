@@ -1,6 +1,6 @@
-export { default as PubSubController } from "./PubSubController";
-export { default as PubSubResponseHandler } from "./PubSubResponseHandler";
-export { default as PubSubHandler } from "./PubSubHandler";
+export { default as PubSubController } from './PubSubController';
+export { default as PubSubResponseHandler } from './PubSubResponseHandler';
+export { default as PubSubHandler } from './PubSubHandler';
 export {
   IPubSubConsumerFailedResponse,
   IPubSubConsumerPayload,
@@ -13,5 +13,5 @@ export {
   IVideoRenderSuccessMessage,
   IThumbnailFailedMessage,
   IThumbnailRequest,
-  IThumbnailResponseMessage
-} from "./PubSubTypes";
+  IThumbnailResponseMessage,
+} from './PubSubTypes';

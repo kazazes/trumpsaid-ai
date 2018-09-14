@@ -1,12 +1,12 @@
-import { PubSubController } from "@trumpsaid/pubsub";
-import VideoDownloadHandler from "./VideoDownloadHandler";
+import { PubSubController } from '@trumpsaid/pubsub';
+import VideoDownloadHandler from './VideoDownloadHandler';
 
 export default class VideoDownloadPubSubController extends PubSubController {
   public topicSubcriptionNames = {
-    consumerTopicName: "video-download",
-    consumerSubscriptionName: "node-downloader",
-    responderTopicName: "video-download-response",
-    responderSubscriptionName: "node-response"
+    consumerTopicName: 'video-download',
+    consumerSubscriptionName: 'node-downloader',
+    responderTopicName: 'video-download-response',
+    responderSubscriptionName: 'node-response',
   };
   constructor() {
     super();

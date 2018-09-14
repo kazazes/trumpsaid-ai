@@ -9,14 +9,14 @@ import {
 import { findIndex, slice, take } from 'lodash';
 import Long from 'long';
 import moment from 'moment';
-import * as mm from 'music-metadata/lib';
+import * as mm from 'music-metadata';
 
 // tslint:disable-next-line:no-submodule-imports
 // tslint:disable-next-line:no-var-requires
-const speech = require("@google-cloud/speech").v1p1beta1;
+const speech = require('@google-cloud/speech').v1p1beta1;
 
 const client = new speech.SpeechClient({
-  projectId: process.env.GOOGLE_PROJECT_ID
+  projectId: process.env.GOOGLE_PROJECT_ID,
 });
 
 export default class VideoTranscriber {
@@ -32,35 +32,35 @@ export default class VideoTranscriber {
   public async recognize() {
     this.video = await prismaContext.query.videoUpload(
       { where: { id: this.videoID } },
-      " { id storageLinks { id version fileType bucket path } metadata { id speakers conversations { id } } } "
+      ' { id storageLinks { id version fileType bucket path } metadata { id speakers conversations { id } } } ',
     );
     this.flacLink = this.video.storageLinks.find(
-      link => link.version === "WEB" && link.fileType === "AUDIO"
+      link => link.version === 'WEB' && link.fileType === 'AUDIO',
     );
     if (!this.flacLink) {
-      const err = `Transcriber was passed an upload without a FLAC link.`;
+      const err = 'Transcriber was passed an upload without a FLAC link.';
       logger.error(err);
-      writeVideoUploadLog(this.video, "FAILED", "TRANSCRIPTION", err);
+      writeVideoUploadLog(this.video, 'FAILED', 'TRANSCRIPTION', err);
       throw new Error(err);
     }
     this.uri = `gs://${this.flacLink.bucket}/${this.flacLink.path}`;
     logger.info(`Starting transcription job for ${this.video.id}.`);
     writeVideoUploadLog(
       this.video,
-      "STARTED",
-      "TRANSCRIPTION",
+      'STARTED',
+      'TRANSCRIPTION',
       null,
-      moment().add(30, "minutes")
+      moment().add(30, 'minutes'),
     );
 
     const audioReadStream = getReadStream(this.flacLink);
     const audioFileSize = await getFileSize(this.flacLink);
 
-    const audioMetadata = await mm.parseStream(audioReadStream, "audio/flac", {
+    const audioMetadata = await mm.parseStream(audioReadStream, 'audio/flac', {
       duration: false,
       skipCovers: true,
       fileSize: audioFileSize,
-      skipPostHeaders: true
+      skipPostHeaders: true,
     });
 
     audioReadStream.destroy();
@@ -69,16 +69,16 @@ export default class VideoTranscriber {
       `Audio of video ${this.video.id} metadata:\n ${JSON.stringify(
         audioMetadata,
         null,
-        2
-      )}`
+        2,
+      )}`,
     );
     logger.info(`Dispatching transcription job for ${this.video.id}.`);
 
     const speechApiConfig = {
-      encoding: "FLAC",
-      languageCode: "en-US",
+      encoding: 'FLAC',
+      languageCode: 'en-US',
       enableSpeakerDiarization: true,
-      model: "video",
+      model: 'video',
       sampleRateHertz: audioMetadata.format.sampleRate,
       enableAutomaticPunctuation: true,
       useEnhanced: true,
@@ -88,13 +88,13 @@ export default class VideoTranscriber {
       metadata: {
         interactionType: 1, // "Discussion" https://cloud.google.com/nodejs/docs/reference/speech/2.0.x/google.cloud.speech.v1p1beta1#.InteractionType
         industryNaicsCodeOfAudio: 813940, // Political orgs. https://www.naics.com/naics-code-description/?code=813940
-        originalMediaType: 2 // Video https://cloud.google.com/nodejs/docs/reference/speech/2.0.x/google.cloud.speech.v1p1beta1#.OriginalMediaType
-      }
+        originalMediaType: 2, // Video https://cloud.google.com/nodejs/docs/reference/speech/2.0.x/google.cloud.speech.v1p1beta1#.OriginalMediaType
+      },
     };
 
     const clientData = await client.longRunningRecognize({
       config: speechApiConfig,
-      audio: { uri: this.uri }
+      audio: { uri: this.uri },
     });
 
     const fullData = await clientData[0].promise();
@@ -107,13 +107,13 @@ export default class VideoTranscriber {
       logger.warn(
         `No transcription received back for ${
           this.video.id
-        }, setting an empty one.`
+        }, setting an empty one.`,
       );
     } else {
       const lastWords = lastResult.alternatives[0].words;
       const conversation = this.wordsToConversation(lastWords);
       await this.storeConversation(conversation);
-      writeVideoUploadLog(this.video, "FINISHED", "TRANSCRIPTION");
+      writeVideoUploadLog(this.video, 'FINISHED', 'TRANSCRIPTION');
       logger.info(`Set GC Speech API conversation on video ${this.video.id}`);
     }
   }
@@ -121,8 +121,8 @@ export default class VideoTranscriber {
   private async storeConversation(apiConversation: IWord[][]) {
     const mappedBlocks: ConversationBlockCreateInput[] = [];
 
-    apiConversation.map(rawBlock => {
-      const content = rawBlock.map(word => word.word).join(" ");
+    apiConversation.map((rawBlock) => {
+      const content = rawBlock.map(word => word.word).join(' ');
 
       const blockCreateInput: ConversationBlockCreateInput = {
         content,
@@ -132,20 +132,20 @@ export default class VideoTranscriber {
         end:
           rawBlock[rawBlock.length - 1].endTime.seconds.toNumber() +
           rawBlock[rawBlock.length - 1].endTime.nanos / 1000000000,
-        speaker: undefined
+        speaker: undefined,
       };
 
       mappedBlocks.push(blockCreateInput);
     });
 
     const mappedConversation: VideoConversationCreateInput = {
-      blocks: { create: mappedBlocks }
+      blocks: { create: mappedBlocks },
     };
 
     return prismaContext.mutation.updateVideoUploadMetadata({
       where: { id: this.video.metadata.id },
-      data: { conversations: { create: mappedConversation } }
-    }, ' { conversations { blocks { speaker content } } } ');
+      data: { conversations: { create: mappedConversation } },
+    },                                                      ' { conversations { blocks { speaker content } } } ');
   }
 
   private wordsToConversation(words: IWord[]) {
@@ -153,7 +153,7 @@ export default class VideoTranscriber {
     const conversation: IWord[][] = [];
     while (mutableWords.length > 0) {
       const speaker = mutableWords[0].speakerTag;
-      let end = findIndex(mutableWords, word => {
+      let end = findIndex(mutableWords, (word) => {
         return word.speakerTag !== speaker;
       });
 

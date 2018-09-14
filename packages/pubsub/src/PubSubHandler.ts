@@ -1,10 +1,10 @@
-import PubSubController from "./PubSubController";
+import PubSubController from './PubSubController';
 import {
   IPubSubConsumerFailedResponse,
   IPubSubConsumerPayload,
   IPubSubConsumerSuccessMessage,
-  IPubSubConsumerUpdateMessage
-} from "./PubSubTypes";
+  IPubSubConsumerUpdateMessage,
+} from './PubSubTypes';
 
 export abstract class PubSubHandler {
   public timeout: number;
@@ -16,17 +16,17 @@ export abstract class PubSubHandler {
     this.pubSubController = controller;
   }
   public abstract requestHandler(
-    message: IPubSubConsumerPayload
+    message: IPubSubConsumerPayload,
   ): Promise<void>;
   protected abstract timedOut(payload: IPubSubConsumerPayload): void;
   protected startTimer(payload: IPubSubConsumerPayload): NodeJS.Timer {
     return setInterval(() => {
       this.timedOut(payload);
-    }, this.timeout);
+    },                 this.timeout);
   }
   protected succeeded(
     response: IPubSubConsumerSuccessMessage,
-    timer: NodeJS.Timer
+    timer: NodeJS.Timer,
   ): void {
     clearTimeout(timer);
     if (response) {
@@ -39,7 +39,7 @@ export abstract class PubSubHandler {
   }
   protected failed(
     response: IPubSubConsumerFailedResponse,
-    timer?: NodeJS.Timer
+    timer?: NodeJS.Timer,
   ): void {
     if (timer) {
       clearTimeout(timer);
