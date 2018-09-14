@@ -16,6 +16,7 @@
     "deploy:prisma": "prisma deploy -e packages/prisma/database/prisma.prod.env",
     "deploy:prisma:dev": "prisma deploy -e packages/prisma/database/prisma.dev.env",
     "lint": "lerna run lint",
+    "lint:fix": "lerna run --parallel lint:fix",
     "start": "lerna run --parallel start",
     "version": "lerna run version",
     "watch": "lerna run --parallel watch"

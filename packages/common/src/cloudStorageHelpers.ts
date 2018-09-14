@@ -74,7 +74,7 @@ export const downloadSourceFile = async (sourceFile: Storage.File) => {
     const remoteMD5 = fileMetadata.md5Hash;
     const localMD5 = hasha.fromFileSync(destination, { algorithm: 'md5', encoding: 'base64' });
     if (remoteMD5 === localMD5) {
-      logger.verbose(`Remote MD5 matches local file, skipping.`);
+      logger.verbose('Remote MD5 matches local file, skipping.');
       return destination;
     }
   }
@@ -104,7 +104,7 @@ export const downloadNewStorageItems = async (storageItems: IDownloadableItem[])
     return downloadNewStorageItem(item);
   }))
   .catch((e) => {
-    logger.error(`Could not download new source links locally`, e);
+    logger.error('Could not download new source links locally', e);
     return Promise.reject();
   });
 };

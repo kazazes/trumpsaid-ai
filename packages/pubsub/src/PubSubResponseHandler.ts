@@ -1,8 +1,8 @@
-import PubSubController from "./PubSubController";
+import PubSubController from './PubSubController';
 import {
   IPubSubConsumerFailedResponse,
-  IPubSubConsumerPayload
-} from "./PubSubTypes";
+  IPubSubConsumerPayload,
+} from './PubSubTypes';
 
 export default abstract class PubSubResponseHandler {
   public pubSubController: PubSubController;
@@ -13,10 +13,10 @@ export default abstract class PubSubResponseHandler {
   }
 
   public abstract responseHandler(
-    message: IPubSubConsumerPayload
+    message: IPubSubConsumerPayload,
   ): Promise<any>;
   protected abstract handleError(
     messageData: IPubSubConsumerFailedResponse,
-    message: IPubSubConsumerPayload
+    message: IPubSubConsumerPayload,
   ): Promise<any>;
 }

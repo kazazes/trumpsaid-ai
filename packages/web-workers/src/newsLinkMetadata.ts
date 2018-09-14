@@ -21,7 +21,7 @@ const scraper = metascraper([
 ]);
 
 export default async function processNewsItemMetadata(
-  newsItems: NewsSourceItem | NewsSourceItem[]
+  newsItems: NewsSourceItem | NewsSourceItem[],
 ) {
   let items = newsItems;
   if (!Array.isArray(items)) {
@@ -31,20 +31,20 @@ export default async function processNewsItemMetadata(
   const itemMetadata = await Promise.all(
     items.map((item) => {
       return fetchMetadata(item);
-    })
+    }),
   );
 
   const updatedMetadata = await Promise.all(
     itemMetadata.map((itemMeta) => {
       return updateNewsItemMetadata(itemMeta);
-    })
+    }),
   );
 
   return updatedMetadata;
 }
 
 async function fetchMetadata(
-  item: NewsSourceItem
+  item: NewsSourceItem,
 ): Promise<[NewsSourceItem, any]> {
   try {
     const { body: html, url } = await got(item.url);
@@ -80,11 +80,11 @@ async function updateNewsItemMetadata(itemMeta: [NewsSourceItem, any]) {
     `Updating metadata for ${item.id}, ${item.url}: ${JSON.stringify(
       update,
       null,
-      2
-    )}`
+      2,
+    )}`,
   );
   return prismaContext.mutation.updateNewsSourceItem(
     { where: { id: item.id }, data: update },
-    ' { url reachable title }'
+    ' { url reachable title }',
   );
 }

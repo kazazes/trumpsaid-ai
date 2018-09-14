@@ -1,6 +1,6 @@
-import { File } from "@google-cloud/storage";
+import { File } from '@google-cloud/storage';
 // tslint:disable-next-line:no-var-requires
-const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 import {
   createFileInProcessing,
   directoryFromPath,
@@ -8,30 +8,30 @@ import {
   downloadStorageItem,
   filenameWithoutPathOrExtension,
   getExtension,
-  logger
-} from "@trumpsaid/common";
+  logger,
+} from '@trumpsaid/common';
 import {
   VideoUpload,
   VideoUploadFileLinkType,
   VideoUploadStorageLink,
-  VideoUploadStorageLinkCreateInput
-} from "@trumpsaid/prisma";
+  VideoUploadStorageLinkCreateInput,
+} from '@trumpsaid/prisma';
 import {
   IPubSubConsumerFailedResponse,
   IPubSubConsumerPayload,
   IVideoRenderFailedMessage,
   IVideoRenderSuccessMessage,
-  PubSubHandler
-} from "@trumpsaid/pubsub";
-import sleep from "await-sleep";
-import fluentFfmpeg, { FfmpegCommand } from "fluent-ffmpeg";
-import fs from "fs";
-import FormatTimestamp from "hh-mm-ss";
-import * as math from "mathjs";
-import moment, { Moment } from "moment";
-import { cpus } from "os";
-import { exec, ls } from "shelljs";
-import VideoRenderPubSubController from "./VideoRenderPubSubController";
+  PubSubHandler,
+} from '@trumpsaid/pubsub';
+import sleep from 'await-sleep';
+import fluentFfmpeg, { FfmpegCommand } from 'fluent-ffmpeg';
+import fs from 'fs';
+import FormatTimestamp from 'hh-mm-ss';
+import * as math from 'mathjs';
+import moment, { Moment } from 'moment';
+import { cpus } from 'os';
+import { exec, ls } from 'shelljs';
+import VideoRenderPubSubController from './VideoRenderPubSubController';
 
 interface IFfmpegStage {
   ffmpeg: FfmpegCommand;
@@ -66,27 +66,27 @@ export default class VideoRenderHandler extends PubSubHandler {
     const timer = this.startTimer(message);
     return new Promise<void>(async (resolve, reject) => {
       const videoUpload = this.pubSubController.parseMessageData(
-        message
+        message,
       ) as VideoUpload;
 
       logger.info(`Handling render for ${videoUpload.id}`);
 
       const storageLinks = videoUpload.storageLinks;
 
-      const hasAMaster = storageLinks.find(link => {
+      const hasAMaster = storageLinks.find((link) => {
         return (
-          link.version === "MASTER" &&
-          (link.fileType === "MP4" || link.fileType === "WEBM")
+          link.version === 'MASTER' &&
+          (link.fileType === 'MP4' || link.fileType === 'WEBM')
         );
       });
 
       if (!hasAMaster) {
         const err =
-          "Renderer was given a job which has no video masters. Aborting.";
+          'Renderer was given a job which has no video masters. Aborting.';
         logger.error(err);
         const resp: IVideoRenderFailedMessage = {
           requestPayload: videoUpload,
-          error: err
+          error: err,
         };
         this.failed(resp, timer);
         return reject();
@@ -96,14 +96,14 @@ export default class VideoRenderHandler extends PubSubHandler {
       const transcodeFormats: VideoUploadFileLinkType[] = [];
 
       // Don't include MP4_DASH, as it is automatically generated with MP4 Encode
-      const formats: VideoUploadFileLinkType[] = ["MP4", "WEBM", "AUDIO"];
-      formats.map(fileLinkType => {
-        const hasMaster = storageLinks.find(link => {
-          return link.fileType === fileLinkType && link.version === "MASTER";
+      const formats: VideoUploadFileLinkType[] = ['MP4', 'WEBM', 'AUDIO'];
+      formats.map((fileLinkType) => {
+        const hasMaster = storageLinks.find((link) => {
+          return link.fileType === fileLinkType && link.version === 'MASTER';
         });
 
-        const hasWeb = storageLinks.find(link => {
-          return link.fileType === fileLinkType && link.version === "WEB";
+        const hasWeb = storageLinks.find((link) => {
+          return link.fileType === fileLinkType && link.version === 'WEB';
         });
         if (hasMaster && !hasWeb) {
           encodeFormats.push(fileLinkType as VideoUploadFileLinkType);
@@ -116,7 +116,7 @@ export default class VideoRenderHandler extends PubSubHandler {
         logger.warn(`Nothing to encode or transcode for ${videoUpload.id}.`);
         const response: IVideoRenderSuccessMessage = {
           videoUpload,
-          storageLinkCreateInputs: []
+          storageLinkCreateInputs: [],
         };
 
         this.succeeded(response, timer);
@@ -125,13 +125,13 @@ export default class VideoRenderHandler extends PubSubHandler {
       logger.info(
         `Rendering with ${encodeFormats.length} encode and ${
           transcodeFormats.length
-        } transcode jobs.`
+        } transcode jobs.`,
       );
       if (encodeFormats.length > 0) {
-        logger.info(`\tEncode: ${encodeFormats.join(", ")}`);
+        logger.info(`\tEncode: ${encodeFormats.join(', ')}`);
       }
       if (transcodeFormats.length > 0) {
-        logger.info(`\tTranscode to: ${transcodeFormats.join(", ")}`);
+        logger.info(`\tTranscode to: ${transcodeFormats.join(', ')}`);
       }
 
       const renderResults: VideoUploadStorageLinkCreateInput[] = [];
@@ -140,17 +140,17 @@ export default class VideoRenderHandler extends PubSubHandler {
         try {
           const storageCreateInputs = await this.transcode(
             format,
-            storageLinks
+            storageLinks,
           );
           storageCreateInputs.forEach(createInput =>
-            renderResults.push(createInput)
+            renderResults.push(createInput),
           );
           this.update({
             videoUpload,
-            storageLinkCreateInputs: storageCreateInputs
+            storageLinkCreateInputs: storageCreateInputs,
           });
         } catch (e) {
-          logger.error("Rendering error occured! See above.");
+          logger.error('Rendering error occured! See above.');
           logger.error(JSON.stringify(e));
         }
       }
@@ -159,19 +159,19 @@ export default class VideoRenderHandler extends PubSubHandler {
         try {
           const storageCreateInputs = await this.encode(format, storageLinks);
           storageCreateInputs.forEach(createInput =>
-            renderResults.push(createInput)
+            renderResults.push(createInput),
           );
           this.update({
             videoUpload,
-            storageLinkCreateInputs: storageCreateInputs
+            storageLinkCreateInputs: storageCreateInputs,
           });
         } catch (e) {
-          logger.error("Rendering error occured! See above.");
+          logger.error('Rendering error occured! See above.');
           logger.error(JSON.stringify(e));
         }
       }
 
-      if (process.env.NODE_ENV !== "production") {
+      if (process.env.NODE_ENV !== 'production') {
         await sleep(5000);
         await downloadNewStorageItems(renderResults);
       }
@@ -183,23 +183,23 @@ export default class VideoRenderHandler extends PubSubHandler {
   protected timedOut(payload: IPubSubConsumerPayload): void {
     const resp: IPubSubConsumerFailedResponse = {
       requestPayload: payload,
-      error: new Error("Render handler timed out")
+      error: new Error('Render handler timed out'),
     };
     this.failed(resp);
   }
   private async encode(
     format: VideoUploadFileLinkType,
-    storageLinks: VideoUploadStorageLink[]
+    storageLinks: VideoUploadStorageLink[],
   ): Promise<VideoUploadStorageLinkCreateInput[]> {
-    const master = storageLinks.find(link => {
-      return link.version === "MASTER" && link.fileType === format;
+    const master = storageLinks.find((link) => {
+      return link.version === 'MASTER' && link.fileType === format;
     });
     switch (format) {
-      case "MP4":
+      case 'MP4':
         return this.encodeMP4(master);
-      case "WEBM":
+      case 'WEBM':
         return this.encodeWebM(master);
-      case "AUDIO":
+      case 'AUDIO':
         return this.encodeAudio(master);
       default:
         logger.error(`${format} does not match any known encode types.`);
@@ -208,25 +208,25 @@ export default class VideoRenderHandler extends PubSubHandler {
   }
   private async transcode(
     format: VideoUploadFileLinkType,
-    storageLinks: VideoUploadStorageLink[]
+    storageLinks: VideoUploadStorageLink[],
   ): Promise<VideoUploadStorageLinkCreateInput[]> {
     let master;
     switch (format) {
-      case "MP4":
+      case 'MP4':
         master = storageLinks.find(
-          link => link.version === "MASTER" && link.fileType === "WEBM"
+          link => link.version === 'MASTER' && link.fileType === 'WEBM',
         );
         break;
-      case "WEBM":
+      case 'WEBM':
         master = storageLinks.find(
-          link => link.version === "MASTER" && link.fileType === "MP4"
+          link => link.version === 'MASTER' && link.fileType === 'MP4',
         );
         break;
-      case "AUDIO":
+      case 'AUDIO':
         master = storageLinks.find(
           link =>
-            link.version === "MASTER" &&
-            (link.fileType === "MP4" || link.fileType === "WEBM")
+            link.version === 'MASTER' &&
+            (link.fileType === 'MP4' || link.fileType === 'WEBM'),
         );
         break;
       default:
@@ -240,11 +240,11 @@ export default class VideoRenderHandler extends PubSubHandler {
     }
 
     switch (format) {
-      case "MP4":
+      case 'MP4':
         return this.transcodeToMP4(master);
-      case "WEBM":
+      case 'WEBM':
         return this.transcodeToWebM(master);
-      case "AUDIO":
+      case 'AUDIO':
         return this.transcodeToAudio(master);
       default:
         logger.error(`${format} does not match any known transcode types.`);
@@ -254,7 +254,7 @@ export default class VideoRenderHandler extends PubSubHandler {
   private async stageRender(
     master: VideoUploadStorageLink,
     extension: string,
-    existingMasterPath?: string
+    existingMasterPath?: string,
   ): Promise<IFfmpegStage> {
     const inputFormat = getExtension(master.path);
     let masterLocalPath = existingMasterPath;
@@ -266,15 +266,15 @@ export default class VideoRenderHandler extends PubSubHandler {
     const path = `${remoteDirectory}${strippedFilename}${extension}`;
     const renderOutput = createFileInProcessing(
       remoteDirectory,
-      strippedFilename + extension
+      strippedFilename + extension,
     );
     const ffmpeg = this.getFfmpeg();
     const renderStart = FormatTimestamp.fromS(
       master.videoUpload.metadata.renderStart,
-      "hh:mm:ss"
+      'hh:mm:ss',
     );
     const end = master.videoUpload.metadata.renderEnd;
-    const renderEnd = FormatTimestamp.fromS(end > 0 ? end : 7200, "hh:mm:ss");
+    const renderEnd = FormatTimestamp.fromS(end > 0 ? end : 7200, 'hh:mm:ss');
     return {
       path,
       ffmpeg,
@@ -283,7 +283,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       inputFormat,
       renderStart,
       renderEnd,
-      start: moment()
+      start: moment(),
     };
   }
   private getFfmpeg(): FfmpegCommand {
@@ -291,9 +291,9 @@ export default class VideoRenderHandler extends PubSubHandler {
     return ffmpeg.setFfmpegPath(ffmpegPath);
   }
   private async encodeMP4(
-    master: VideoUploadStorageLink
+    master: VideoUploadStorageLink,
   ): Promise<VideoUploadStorageLinkCreateInput[]> {
-    const stage = await this.stageRender(master, "-web.mp4");
+    const stage = await this.stageRender(master, '-web.mp4');
     const {
       ffmpeg,
       renderOutput,
@@ -302,43 +302,43 @@ export default class VideoRenderHandler extends PubSubHandler {
       start,
       inputFormat,
       renderEnd,
-      renderStart
+      renderStart,
     } = stage;
     await new Promise<File>((resolve, reject) => {
       ffmpeg
         .input(masterLocalPath)
         .inputFormat(inputFormat)
-        .format("mp4")
-        .videoCodec("libx264")
-        .audioCodec("aac")
+        .format('mp4')
+        .videoCodec('libx264')
+        .audioCodec('aac')
         .seekInput(renderStart)
         .outputOptions(`-to ${renderEnd}`)
-        .outputOptions("-vprofile high")
-        .outputOptions("-crf 24")
-        .outputOptions("-movflags faststart+frag_keyframe+empty_moov")
-        .outputOptions("-preset slow")
-        .outputOptions("-map_metadata -1")
-        .on("start", cmdLine => {
-          logger.info("Started ffmpeg with command: " + cmdLine);
+        .outputOptions('-vprofile high')
+        .outputOptions('-crf 24')
+        .outputOptions('-movflags faststart+frag_keyframe+empty_moov')
+        .outputOptions('-preset slow')
+        .outputOptions('-map_metadata -1')
+        .on('start', (cmdLine) => {
+          logger.info('Started ffmpeg with command: ' + cmdLine);
         })
-        .on("end", () => {
+        .on('end', () => {
           logger.info(`Successfully encoded video as MP4 ${start.toNow()}`);
           resolve(renderOutput);
         })
-        .on("error", (err, stdout, stderr) => {
+        .on('error', (err, stdout, stderr) => {
           logger.error(
-            "An error occured during encoding: ",
-            JSON.stringify(err)
+            'An error occured during encoding: ',
+            JSON.stringify(err),
           );
           logger.error(stdout);
           logger.error(stderr);
           reject(err);
         })
         .writeToStream(
-          renderOutput.createWriteStream({ contentType: "video/mp4" }),
-          { end: true }
+          renderOutput.createWriteStream({ contentType: 'video/mp4' }),
+          { end: true },
         );
-    }).catch(e => {
+    }).catch((e) => {
       logger.error(JSON.stringify(e));
       throw e;
     });
@@ -346,10 +346,10 @@ export default class VideoRenderHandler extends PubSubHandler {
     const mp4CreateInput: VideoUploadStorageLinkCreateInput = {
       path,
       bucket: process.env.VIDEO_PROCESSING_BUCKET,
-      version: "WEB",
-      fileType: "MP4",
-      mimeType: "video/mp4",
-      videoUpload: { connect: { id: master.videoUpload.id } }
+      version: 'WEB',
+      fileType: 'MP4',
+      mimeType: 'video/mp4',
+      videoUpload: { connect: { id: master.videoUpload.id } },
     };
 
     const mp4DashVersions = await this.encodeMP4Dash(masterLocalPath, master);
@@ -369,19 +369,19 @@ export default class VideoRenderHandler extends PubSubHandler {
   }
   private async encodeAACAudio(
     masterPath: string,
-    master: VideoUploadStorageLink
+    master: VideoUploadStorageLink,
   ): Promise<[VideoUploadStorageLinkCreateInput, string]> {
-    const stage = await this.stageRender(master, `-web-audio.mp4`, masterPath);
+    const stage = await this.stageRender(master, '-web-audio.mp4', masterPath);
     const {
       ffmpeg,
       renderOutput,
       path,
       inputFormat,
       renderStart,
-      renderEnd
+      renderEnd,
     } = stage;
     const aacOutputPath = `/tmp/ts-wtf/${directoryFromPath(
-      master.path
+      master.path,
     )}${filenameWithoutPathOrExtension(master.path)}-web-audio.mp4`;
 
     await new Promise<string>((resolve, reject) => {
@@ -390,22 +390,22 @@ export default class VideoRenderHandler extends PubSubHandler {
         .seekInput(renderStart)
         .outputOptions(`-to ${renderEnd}`)
         .inputFormat(inputFormat)
-        .outputFormat("mp4")
-        .audioCodec("aac")
+        .outputFormat('mp4')
+        .audioCodec('aac')
         .audioChannels(2)
-        .audioBitrate("128k")
+        .audioBitrate('128k')
         .noVideo()
-        .on("start", cmdLine => {
-          logger.info("Started ffmpeg with command: " + cmdLine);
+        .on('start', (cmdLine) => {
+          logger.info('Started ffmpeg with command: ' + cmdLine);
         })
-        .on("end", () => {
-          logger.info(`Successfully extracted AAC audio as MP4`);
+        .on('end', () => {
+          logger.info('Successfully extracted AAC audio as MP4');
           resolve(aacOutputPath);
         })
-        .on("error", (err, stdout, stderr) => {
+        .on('error', (err, stdout, stderr) => {
           logger.error(
-            "An error occured during audio extraction: ",
-            JSON.stringify(err)
+            'An error occured during audio extraction: ',
+            JSON.stringify(err),
           );
           logger.error(stdout);
           logger.error(stderr);
@@ -413,28 +413,28 @@ export default class VideoRenderHandler extends PubSubHandler {
         })
         .output(aacOutputPath)
         .run();
-    }).catch(e => {
+    }).catch((e) => {
       logger.error(JSON.stringify(e));
       throw e;
     });
 
     const writeStream = renderOutput.createWriteStream({
-      contentType: "video/mp4",
-      resumable: false
+      contentType: 'video/mp4',
+      resumable: false,
     });
     const aacFileLocal = fs.createReadStream(aacOutputPath);
     aacFileLocal.pipe(
       writeStream,
-      { end: true }
+      { end: true },
     );
 
     const mp4CreateInput: VideoUploadStorageLinkCreateInput = {
       path,
       bucket: process.env.VIDEO_PROCESSING_BUCKET,
-      version: "WEB",
-      fileType: "MP4_DASH",
-      mimeType: "video/mp4",
-      videoUpload: { connect: { id: master.videoUpload.id } }
+      version: 'WEB',
+      fileType: 'MP4_DASH',
+      mimeType: 'video/mp4',
+      videoUpload: { connect: { id: master.videoUpload.id } },
     };
 
     return [mp4CreateInput, aacOutputPath];
@@ -442,12 +442,12 @@ export default class VideoRenderHandler extends PubSubHandler {
   private async encodeMP4DashWithOptions(
     masterPath: string,
     master: VideoUploadStorageLink,
-    format: IMP4DashOption
+    format: IMP4DashOption,
   ): Promise<[VideoUploadStorageLinkCreateInput, string]> {
     const stage = await this.stageRender(
       master,
       `-web-${format.height}.mp4`,
-      masterPath
+      masterPath,
     );
     const {
       ffmpeg,
@@ -457,47 +457,47 @@ export default class VideoRenderHandler extends PubSubHandler {
       start,
       inputFormat,
       renderEnd,
-      renderStart
+      renderStart,
     } = stage;
     const mp4DashOutputPath = `/tmp/ts-wtf/${directoryFromPath(
-      master.path
+      master.path,
     )}${filenameWithoutPathOrExtension(master.path)}-web-${format.height}.mp4`;
     await new Promise<string>((resolve, reject) => {
       ffmpeg
         .input(masterLocalPath)
         .inputFormat(inputFormat)
         .noAudio()
-        .format("mp4")
-        .videoCodec("libx264")
+        .format('mp4')
+        .videoCodec('libx264')
         .seekInput(renderStart)
         .outputOptions(`-to ${renderEnd}`)
         .outputOptions(
           `-x264opts keyint=${format.fps.toFixed(0)}:min-keyint=${
             format.fps
-          }:no-scenecut`
+          }:no-scenecut`,
         )
         .videoBitrate(format.bitrate)
         .outputOptions(`-maxrate ${format.bitrate}`)
         .outputOptions(`-bufsize ${format.bufferSize}`)
         .outputOptions(`-vf scale=-1:${format.scaleHeight}`)
-        .outputOptions("-vprofile high")
-        .outputOptions("-crf 24")
-        .outputOptions("-movflags faststart+frag_keyframe+empty_moov")
-        .outputOptions("-preset slow")
-        .outputOptions("-map_metadata -1")
-        .on("start", cmdLine => {
-          logger.info("Started ffmpeg with command: " + cmdLine);
+        .outputOptions('-vprofile high')
+        .outputOptions('-crf 24')
+        .outputOptions('-movflags faststart+frag_keyframe+empty_moov')
+        .outputOptions('-preset slow')
+        .outputOptions('-map_metadata -1')
+        .on('start', (cmdLine) => {
+          logger.info('Started ffmpeg with command: ' + cmdLine);
         })
-        .on("end", () => {
+        .on('end', () => {
           logger.info(
-            `Successfully encoded video as MP4 DASH ${start.toNow()}`
+            `Successfully encoded video as MP4 DASH ${start.toNow()}`,
           );
           resolve(mp4DashOutputPath);
         })
-        .on("error", (err, stdout, stderr) => {
+        .on('error', (err, stdout, stderr) => {
           logger.error(
-            "An error occured during encoding: ",
-            JSON.stringify(err)
+            'An error occured during encoding: ',
+            JSON.stringify(err),
           );
           logger.error(stdout);
           logger.error(stderr);
@@ -505,35 +505,35 @@ export default class VideoRenderHandler extends PubSubHandler {
         })
         .output(mp4DashOutputPath)
         .run();
-    }).catch(e => {
+    }).catch((e) => {
       logger.error(JSON.stringify(e));
       throw e;
     });
 
     const writeStream = renderOutput.createWriteStream({
-      contentType: "video/mp4",
-      resumable: false
+      contentType: 'video/mp4',
+      resumable: false,
     });
     const mp4FileLocal = fs.createReadStream(mp4DashOutputPath);
     mp4FileLocal.pipe(
       writeStream,
-      { end: true }
+      { end: true },
     );
 
     const mp4CreateInput: VideoUploadStorageLinkCreateInput = {
       path,
       bucket: process.env.VIDEO_PROCESSING_BUCKET,
-      version: "WEB",
-      fileType: "MP4_DASH",
-      mimeType: "video/mp4",
-      videoUpload: { connect: { id: master.videoUpload.id } }
+      version: 'WEB',
+      fileType: 'MP4_DASH',
+      mimeType: 'video/mp4',
+      videoUpload: { connect: { id: master.videoUpload.id } },
     };
 
     return [mp4CreateInput, mp4DashOutputPath];
   }
   private async encodeMP4Dash(
     masterPath: string,
-    master: VideoUploadStorageLink
+    master: VideoUploadStorageLink,
   ): Promise<VideoUploadStorageLinkCreateInput[]> {
     const metadata = await this.getMetadata(masterPath);
     const maxHeight = Number(metadata.height);
@@ -545,40 +545,40 @@ export default class VideoRenderHandler extends PubSubHandler {
     const desiredMP4Formats: IMP4DashOption[] = [
       {
         fps,
-        bitrate: "5300k",
-        bufferSize: "2650k",
+        bitrate: '5300k',
+        bufferSize: '2650k',
         height: 1080,
-        scaleHeight: 1080
+        scaleHeight: 1080,
       },
       {
         fps,
-        bitrate: "2400k",
-        bufferSize: "1200k",
+        bitrate: '2400k',
+        bufferSize: '1200k',
         height: 720,
-        scaleHeight: 720
+        scaleHeight: 720,
       },
       {
         fps,
-        bitrate: "1060k",
-        bufferSize: "530k",
+        bitrate: '1060k',
+        bufferSize: '530k',
         height: 480,
-        scaleHeight: 478
+        scaleHeight: 478,
       },
       {
         fps,
-        bitrate: "600k",
-        bufferSize: "300k",
+        bitrate: '600k',
+        bufferSize: '300k',
         height: 360,
-        scaleHeight: 360
+        scaleHeight: 360,
       },
       {
         fps,
-        bitrate: "260k",
-        bufferSize: "130k",
+        bitrate: '260k',
+        bufferSize: '130k',
         height: 240,
-        scaleHeight: 242
-      }
-    ].filter(format => {
+        scaleHeight: 242,
+      },
+    ].filter((format) => {
       return format.height <= maxHeight;
     });
 
@@ -588,7 +588,7 @@ export default class VideoRenderHandler extends PubSubHandler {
       const dash = await this.encodeMP4DashWithOptions(
         masterPath,
         master,
-        desiredFormat
+        desiredFormat,
       );
       dashLinkCreateInputs.push(dash[0]);
       dashLocalPaths.push(dash[1]);
@@ -597,7 +597,7 @@ export default class VideoRenderHandler extends PubSubHandler {
     const mp4DashInit = await this.generateMPD(
       dashLinkCreateInputs,
       dashLocalPaths,
-      audioTrackPath
+      audioTrackPath,
     );
 
     return [audioTrackCreate, ...dashLinkCreateInputs, ...mp4DashInit];
@@ -605,29 +605,29 @@ export default class VideoRenderHandler extends PubSubHandler {
   private async generateMPD(
     dashLinkCreateInputs: VideoUploadStorageLinkCreateInput[],
     dashLocalPaths: string[],
-    audioTrackPath: string
+    audioTrackPath: string,
   ): Promise<VideoUploadStorageLinkCreateInput[]> {
     const outputDir = directoryFromPath(dashLocalPaths[0]);
     const localMPDOutput = `"${outputDir}${filenameWithoutPathOrExtension(
-      dashLocalPaths[0]
+      dashLocalPaths[0],
     )}-web.mpd"`;
     await new Promise((resolve, reject) => {
       dashLocalPaths.push(audioTrackPath);
       const fileArgs = dashLocalPaths
         .map(localPath => `"${localPath}"`)
-        .join(" ");
+        .join(' ');
       const cmdLineOpts = [
-        "-dash 1000",
-        "-rap",
-        "-frag-rap",
-        "-profile onDemand",
-        `-out ${localMPDOutput} ${fileArgs}`
+        '-dash 1000',
+        '-rap',
+        '-frag-rap',
+        '-profile onDemand',
+        `-out ${localMPDOutput} ${fileArgs}`,
       ];
       logger.info(
-        `Starting MP4Box with command: MP4Box ${cmdLineOpts.join(" ")}`
+        `Starting MP4Box with command: MP4Box ${cmdLineOpts.join(' ')}`,
       );
       exec(
-        `MP4Box ${cmdLineOpts.join(" ")}`,
+        `MP4Box ${cmdLineOpts.join(' ')}`,
         { silent: false },
         (code, stdout, stderr) => {
           if (code !== 0) {
@@ -637,18 +637,18 @@ export default class VideoRenderHandler extends PubSubHandler {
           }
 
           resolve();
-        }
+        },
       );
     });
 
-    const lsOutputDir = ls(outputDir).filter(filename => {
-      return filename.indexOf("mpd") > 0 || filename.indexOf("dashinit") > 0;
+    const lsOutputDir = ls(outputDir).filter((filename) => {
+      return filename.indexOf('mpd') > 0 || filename.indexOf('dashinit') > 0;
     });
 
-    const hasMPD = lsOutputDir.find(filename => filename.indexOf("mpd") > 0);
+    const hasMPD = lsOutputDir.find(filename => filename.indexOf('mpd') > 0);
 
     if (!hasMPD) {
-      const error = "No MPD file found. MP4Box command failed.";
+      const error = 'No MPD file found. MP4Box command failed.';
       logger.error(error);
       throw new Error(error);
     }
@@ -657,24 +657,24 @@ export default class VideoRenderHandler extends PubSubHandler {
     const remoteDirectory = directoryFromPath(dashLinkCreateInputs[0].path);
     for (const fileToUpload of lsOutputDir) {
       const fileUploadLocalPath = `${outputDir}${fileToUpload}`;
-      const isMPD = fileUploadLocalPath.indexOf(".mpd") > 0;
+      const isMPD = fileUploadLocalPath.indexOf('.mpd') > 0;
       const remoteFile = createFileInProcessing(remoteDirectory, fileToUpload);
-      const contentType = isMPD ? "application/dash+xml" : "video/mp4";
+      const contentType = isMPD ? 'application/dash+xml' : 'video/mp4';
       const writeStream = remoteFile.createWriteStream({ contentType });
       const localDashStream = fs.createReadStream(fileUploadLocalPath);
 
       const createInput: VideoUploadStorageLinkCreateInput = {
         path: remoteDirectory + fileToUpload,
         bucket: process.env.VIDEO_PROCESSING_BUCKET,
-        version: "WEB",
-        fileType: isMPD ? "MP4_DASH_MANIFEST" : "MP4_DASH",
+        version: 'WEB',
+        fileType: isMPD ? 'MP4_DASH_MANIFEST' : 'MP4_DASH',
         mimeType: contentType,
-        videoUpload: dashLinkCreateInputs[0].videoUpload
+        videoUpload: dashLinkCreateInputs[0].videoUpload,
       };
 
       localDashStream.pipe(
         writeStream,
-        { end: true }
+        { end: true },
       );
       fileLinkCreateInputs.push(createInput);
     }
@@ -683,9 +683,9 @@ export default class VideoRenderHandler extends PubSubHandler {
     return fileLinkCreateInputs;
   }
   private async encodeWebM(
-    master: VideoUploadStorageLink
+    master: VideoUploadStorageLink,
   ): Promise<VideoUploadStorageLinkCreateInput[]> {
-    const stage = await this.stageRender(master, "-web.webm");
+    const stage = await this.stageRender(master, '-web.webm');
     const {
       ffmpeg,
       renderOutput,
@@ -694,39 +694,39 @@ export default class VideoRenderHandler extends PubSubHandler {
       start,
       inputFormat,
       renderEnd,
-      renderStart
+      renderStart,
     } = stage;
     const writeStream = renderOutput.createWriteStream({
-      contentType: "video/webm",
-      resumable: false
+      contentType: 'video/webm',
+      resumable: false,
     });
     await new Promise<File>((resolve, reject) => {
       ffmpeg
         .input(masterLocalPath)
         .inputFormat(inputFormat)
-        .format("webm")
-        .videoCodec("libvpx")
-        .audioCodec("libvorbis")
+        .format('webm')
+        .videoCodec('libvpx')
+        .audioCodec('libvorbis')
         .outputOption(`-threads ${cpus().length}`)
-        .outputOption("-quality good")
-        .outputOption("-speed 0")
-        .videoBitrate("1000")
+        .outputOption('-quality good')
+        .outputOption('-speed 0')
+        .videoBitrate('1000')
         .seekInput(renderStart)
         .outputOptions(`-to ${renderEnd}`)
-        .outputOptions("-qmin 0")
-        .outputOptions("-qmax 25")
-        .outputOptions("-map_metadata -1")
-        .on("start", cmdLine => {
-          logger.info("Started ffmpeg with command: " + cmdLine);
+        .outputOptions('-qmin 0')
+        .outputOptions('-qmax 25')
+        .outputOptions('-map_metadata -1')
+        .on('start', (cmdLine) => {
+          logger.info('Started ffmpeg with command: ' + cmdLine);
         })
-        .on("end", () => {
+        .on('end', () => {
           logger.info(`Successfully encoded video as Webm ${start.toNow()}`);
           resolve(renderOutput);
         })
-        .on("error", (err, stdout, stderr) => {
+        .on('error', (err, stdout, stderr) => {
           logger.error(
-            "An error occured during encoding: ",
-            JSON.stringify(err)
+            'An error occured during encoding: ',
+            JSON.stringify(err),
           );
           logger.error(stdout);
           logger.error(stderr);
@@ -734,9 +734,9 @@ export default class VideoRenderHandler extends PubSubHandler {
         })
         .pipe(
           writeStream,
-          { end: true }
+          { end: true },
         );
-    }).catch(e => {
+    }).catch((e) => {
       logger.error(JSON.stringify(e));
       throw e;
     });
@@ -745,17 +745,17 @@ export default class VideoRenderHandler extends PubSubHandler {
       {
         path,
         bucket: process.env.VIDEO_PROCESSING_BUCKET,
-        version: "WEB",
-        fileType: "WEBM",
-        mimeType: "video/webm",
-        videoUpload: { connect: { id: master.videoUpload.id } }
-      }
+        version: 'WEB',
+        fileType: 'WEBM',
+        mimeType: 'video/webm',
+        videoUpload: { connect: { id: master.videoUpload.id } },
+      },
     ];
   }
   private async encodeAudio(
-    master: VideoUploadStorageLink
+    master: VideoUploadStorageLink,
   ): Promise<VideoUploadStorageLinkCreateInput[]> {
-    const stage = await this.stageRender(master, "-web.flac");
+    const stage = await this.stageRender(master, '-web.flac');
     const {
       ffmpeg,
       renderOutput,
@@ -764,10 +764,10 @@ export default class VideoRenderHandler extends PubSubHandler {
       start,
       inputFormat,
       renderEnd,
-      renderStart
+      renderStart,
     } = stage;
     const flacOutputPath = `/tmp/ts-wtf/${directoryFromPath(
-      master.path
+      master.path,
     )}${filenameWithoutPathOrExtension(master.path)}.flac`;
     await new Promise<string>((resolve, reject) => {
       ffmpeg
@@ -776,63 +776,63 @@ export default class VideoRenderHandler extends PubSubHandler {
         .seekInput(renderStart)
         .outputOptions(`-to ${renderEnd}`)
         .noVideo()
-        .format("flac")
+        .format('flac')
         .audioChannels(1)
         .output(flacOutputPath)
-        .on("start", cmdLine => {
-          logger.info("Started ffmpeg with command: " + cmdLine);
+        .on('start', (cmdLine) => {
+          logger.info('Started ffmpeg with command: ' + cmdLine);
         })
-        .on("end", () => {
+        .on('end', () => {
           logger.info(`Successfully encoded audio as flac ${start.toNow()}`);
           resolve(masterLocalPath);
         })
-        .on("error", (err, stdout, stderr) => {
+        .on('error', (err, stdout, stderr) => {
           logger.error(
-            "An error occured during encoding: ",
-            JSON.stringify(err)
+            'An error occured during encoding: ',
+            JSON.stringify(err),
           );
           logger.error(stdout);
           logger.error(stderr);
           reject(err);
         })
         .run();
-    }).catch(e => {
+    }).catch((e) => {
       logger.error(JSON.stringify(e));
       throw e;
     });
 
     const writeStream = renderOutput.createWriteStream({
-      contentType: "audio/flac"
+      contentType: 'audio/flac',
     });
     const flacFileLocal = fs.createReadStream(flacOutputPath);
     flacFileLocal.pipe(
       writeStream,
-      { end: true }
+      { end: true },
     );
 
     return [
       {
         path,
         bucket: process.env.VIDEO_PROCESSING_BUCKET,
-        version: "WEB",
-        mimeType: "audio/flac",
-        fileType: "AUDIO",
-        videoUpload: { connect: { id: master.videoUpload.id } }
-      }
+        version: 'WEB',
+        mimeType: 'audio/flac',
+        fileType: 'AUDIO',
+        videoUpload: { connect: { id: master.videoUpload.id } },
+      },
     ];
   }
   private async transcodeToMP4(
-    master: VideoUploadStorageLink
+    master: VideoUploadStorageLink,
   ): Promise<VideoUploadStorageLinkCreateInput[]> {
     return this.encodeMP4(master);
   }
   private async transcodeToWebM(
-    master: VideoUploadStorageLink
+    master: VideoUploadStorageLink,
   ): Promise<VideoUploadStorageLinkCreateInput[]> {
     return this.encodeWebM(master);
   }
   private async transcodeToAudio(
-    master: VideoUploadStorageLink
+    master: VideoUploadStorageLink,
   ): Promise<VideoUploadStorageLinkCreateInput[]> {
     return this.encodeAudio(master);
   }

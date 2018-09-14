@@ -7,7 +7,9 @@
       "label": "tsc: watch",
       "tsconfig": "tsconfig.json",
       "option": "watch",
-      "problemMatcher": ["$tsc-watch"],
+      "problemMatcher": [
+        "$tsc-watch"
+      ],
       "isBackground": true,
       "presentation": {
         "echo": true,
@@ -24,24 +26,39 @@
     {
       "type": "npm",
       "script": "watch",
-      "problemMatcher": ["$tsc-watch"],
+      "problemMatcher": [
+        "$tsc-watch"
+      ],
       "isBackground": true
     },
     {
       "type": "npm",
       "script": "watch",
       "path": "packages/client/",
-      "problemMatcher": ["$tsc"]
+      "problemMatcher": [
+        "$tsc"
+      ]
     },
     {
       "type": "npm",
       "script": "lint",
-      "problemMatcher": ["$tslint5"]
+      "problemMatcher": [
+        "$tslint5"
+      ]
     },
     {
       "type": "npm",
       "script": "build",
-      "problemMatcher": ["$tsc"]
+      "problemMatcher": [
+        "$tsc"
+      ]
+    },
+    {
+      "type": "npm",
+      "script": "lint:fix",
+      "problemMatcher": [
+        "$tslint5"
+      ]
     }
   ]
 }

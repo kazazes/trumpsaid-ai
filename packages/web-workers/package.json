@@ -18,6 +18,7 @@
     "build-prod": "yarn build",
     "dep-update": "npm-check -u",
     "lint": "tslint -c ../tslint.json -p tsconfig.json",
+    "lint:fix": "tslint -c ../tslint.json -p tsconfig.json --fix",
     "clean": "rimraf ./dist",
     "watch": "tsc -w",
     "serve": "NODE_ENV=production pm2-runtime dist/worker.js"
@@ -29,6 +30,7 @@
     "@trumpsaid/prisma": "^1.0.0",
     "got": "^9.2.1",
     "lodash": "^4.17.11",
+    "long": "^4.0.0",
     "metascraper": "^4.3.2",
     "metascraper-author": "^4.3.2",
     "metascraper-clearbit-logo": "^4.3.0",

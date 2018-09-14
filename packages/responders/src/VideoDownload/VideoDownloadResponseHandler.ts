@@ -1,15 +1,15 @@
-import { logger, makeFilePublic, writeVideoUploadLog } from "@trumpsaid/common";
+import { logger, makeFilePublic, writeVideoUploadLog } from '@trumpsaid/common';
 import {
   prismaContext,
-  VideoUploadStorageLinkCreateInput
-} from "@trumpsaid/prisma";
+  VideoUploadStorageLinkCreateInput,
+} from '@trumpsaid/prisma';
 import {
   IPubSubConsumerPayload,
   IVideoDownloadFailedMessage,
   IVideoDownloadResponseMessage,
-  PubSubResponseHandler
-} from "@trumpsaid/pubsub";
-import VideoDownloadPubSubController from "./VideoDownloadPubSubController";
+  PubSubResponseHandler,
+} from '@trumpsaid/pubsub';
+import VideoDownloadPubSubController from './VideoDownloadPubSubController';
 
 export default class VideoDownloadResponseHandler extends PubSubResponseHandler {
   constructor(pubSubController: VideoDownloadPubSubController) {
@@ -38,13 +38,13 @@ export default class VideoDownloadResponseHandler extends PubSubResponseHandler 
         logger.debug(
           `Deleted ${
             deleted.count
-          } linked video sources before setting new ones.`
+          } linked video sources before setting new ones.`,
         );
       }
     } catch (e) {
       logger.error(
         `Failed to delete existing video upload storage links on ${id}.`,
-        e
+        e,
       );
     }
 
@@ -52,31 +52,31 @@ export default class VideoDownloadResponseHandler extends PubSubResponseHandler 
       response.storageLinkCreateInputs.map(
         (linkCreateInput: VideoUploadStorageLinkCreateInput) => {
           logger.debug(
-            `Created ${linkCreateInput.version} storage link on ${id}`
+            `Created ${linkCreateInput.version} storage link on ${id}`,
           );
           makeFilePublic(linkCreateInput.bucket, linkCreateInput.path);
           return prismaContext.mutation.createVideoUploadStorageLink({
-            data: linkCreateInput
+            data: linkCreateInput,
           });
-        }
-      )
-    ).catch(e => {
+        },
+      ),
+    ).catch((e) => {
       logger.error(
-        `Error setting storage links on ${id}: ${JSON.stringify(e, null, 2)}`
+        `Error setting storage links on ${id}: ${JSON.stringify(e, null, 2)}`,
       );
     });
   }
 
   protected async handleError(
     messageData: IVideoDownloadFailedMessage,
-    message: IPubSubConsumerPayload
+    message: IPubSubConsumerPayload,
   ) {
     const messageError: IVideoDownloadFailedMessage = messageData;
     const id = messageError.requestPayload.id;
     const exists = await prismaContext.exists.VideoUpload({ id });
     if (!exists) {
       logger.debug(
-        `Video download error handler nacking because ${id} does not exist in this environment`
+        `Video download error handler nacking because ${id} does not exist in this environment`,
       );
       return message.nack();
     }
@@ -84,17 +84,17 @@ export default class VideoDownloadResponseHandler extends PubSubResponseHandler 
     message.ack();
     const upload = await prismaContext.query.videoUpload({ where: { id } });
 
-    writeVideoUploadLog(upload, "FAILED", "DOWNLOAD", messageError.error);
+    writeVideoUploadLog(upload, 'FAILED', 'DOWNLOAD', messageError.error);
     logger.error(
       `Received download handler error response: \n ${JSON.stringify(
-        messageData.error
-      )}`
+        messageData.error,
+      )}`,
     );
   }
 
   private deleteExistingVideoSources(videoUploadId: string) {
     return prismaContext.mutation.deleteManyVideoUploadStorageLinks({
-      where: { videoUpload: { id: videoUploadId } }
+      where: { videoUpload: { id: videoUploadId } },
     });
   }
 }
