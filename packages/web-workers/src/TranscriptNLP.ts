@@ -1,70 +1,73 @@
 import { logger } from '@trumpsaid/common';
-
-// TODO: USE AN MQ
+import { VideoConversation } from '@trumpsaid/prisma';
 
 // tslint:disable-next-line:no-var-requires
 const language = require('@google-cloud/language');
 
-export class TranscriptNLP {
+export default class TranscriptNLP {
   private client: any;
   constructor() {
     this.client = language.v1.LanguageServiceClient({
-      projectId: process.env.GOOGLE_PROJECT_ID
+      projectId: process.env.GOOGLE_PROJECT_ID,
     });
   }
 
-  public analyzeEntitySentimentOfText(text: string) {
+  public async augmentTranscriptWithNLP(transcript: VideoConversation) {
+    const analysis = transcript.blocks.map((block) => {
+      return [block, this.analyzeEntitySentimentOfText(block.content)];
+    });
+
+    await Promise.all(analysis);
+    logger.debug(`Entities and sentiment results: ${JSON.stringify(analysis, null, 2)}`);
+  }
+
+  public async analyzeEntitySentimentOfText(text: string) {
     const document: ILanguageDocument = {
       content: text,
       type: 'PLAIN_TEXT',
     };
 
-    // Detects sentiment of entities in the document
-    this.client
-      .analyzeEntitySentiment({ document })
-      .then((results: any) => {
-        const entities: IEntity[] = results[0].entities;
+    const results: any = await this.client.analyzeEntitySentiment({ document });
+    const entities: IEntity[] = results[0].entities;
 
-        logger.debug(`Entities and sentiments:`);
-        entities.forEach(entity => {
-          logger.debug(`  Name: ${entity.name}`);
-          logger.debug(`  Type: ${entity.type}`);
-          logger.debug(`  Score: ${entity.sentiment.score}`);
-          logger.debug(`  Magnitude: ${entity.sentiment.magnitude}`);
-        });
-      })
-      .catch((err: any) => {
-        logger.error('ERROR:', err);
-      });
+    logger.debug('Entities and sentiments:');
+    entities.forEach((entity) => {
+      logger.debug(`  Name: ${entity.name}`);
+      logger.debug(`  Type: ${entity.type}`);
+      logger.debug(`  Score: ${entity.sentiment.score}`);
+      logger.debug(`  Magnitude: ${entity.sentiment.magnitude}`);
+    });
+
+    return results;
   }
 }
 
-interface ILanguageDocument {
+export interface ILanguageDocument {
   content: string;
   type: string;
 }
 
 // https://cloud.google.com/nodejs/docs/reference/language/1.2.x/google.cloud.language.v1#.TextSpan
-interface ITextSpan {
+export interface ITextSpan {
   content: string;
   beginOffset: number;
 }
 
 // https://cloud.google.com/nodejs/docs/reference/language/1.2.x/google.cloud.language.v1#.Sentiment
-interface ISentiment {
+export interface ISentiment {
   magnitude: number;
-  score: number;  
+  score: number;
 }
 
 // https://cloud.google.com/nodejs/docs/reference/language/1.2.x/google.cloud.language.v1#.EntityMention
-interface IEntityMention {
+export interface IEntityMention {
   text: ITextSpan;
   type: number;
   sentiment: ISentiment;
 }
 
 // https://cloud.google.com/nodejs/docs/reference/language/1.2.x/google.cloud.language.v1.html#.Entity
-interface IEntity {
+export interface IEntity {
   name: string;
   type: number;
   metadata: IEntityMetadata;
@@ -73,7 +76,7 @@ interface IEntity {
   sentiment: ISentiment;
 }
 
-interface IEntityMetadata {
+export interface IEntityMetadata {
   wikipedia_url?: string;
   mid?: string;
 }

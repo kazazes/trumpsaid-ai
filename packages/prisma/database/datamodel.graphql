@@ -97,11 +97,14 @@ type VideoConversation {
   createdAt: DateTime!
   createdBy: User
   draft: Boolean! @default(value: "false")
+  videoMetadata: VideoUploadMetadata!
+    @relation(name: "ConversationMetadataRelation")
   blocks: [ConversationBlock!]!
     @relation(name: "ConversationBlockRelation", onDelete: CASCADE)
 }
 
 type ConversationBlock {
+  id: ID! @unique
   speaker: Speaker
   start: Float!
   end: Float!

@@ -139,13 +139,14 @@ export default class VideoTranscriber {
     });
 
     const mappedConversation: VideoConversationCreateInput = {
-      blocks: { create: mappedBlocks }
+      blocks: { create: mappedBlocks },
+      videoMetadata: { connect: {id: this.video.metadata.id }}
     };
 
     return prismaContext.mutation.updateVideoUploadMetadata({
       where: { id: this.video.metadata.id },
       data: { conversations: { create: mappedConversation } }
-    }, ' { conversations { blocks { speaker content } } } ');
+    }, ' { conversations { blocks { speaker { name id avatarPath } content } } } ');
   }
 
   private wordsToConversation(words: IWord[]) {
