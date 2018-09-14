@@ -1378,13 +1378,13 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/validator@9.4.2":
+"@types/validator@^9.4.1":
   version "9.4.2"
   resolved "https://registry.yarnpkg.com/@types/validator/-/validator-9.4.2.tgz#9fec264b35f0ea21d0967eeec2dcd6a798b34350"
 
-"@types/video.js@^7.2.3":
-  version "7.2.3"
-  resolved "https://registry.yarnpkg.com/@types/video.js/-/video.js-7.2.3.tgz#e04953b9af791af30650e49d040402f70e962abe"
+"@types/video.js@7.2.5":
+  version "7.2.5"
+  resolved "https://registry.yarnpkg.com/@types/video.js/-/video.js-7.2.5.tgz#20896c81141d3517c3a89bb6eb97c6a191aa5d4c"
 
 "@types/webpack@*":
   version "4.4.11"
