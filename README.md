@@ -33,7 +33,7 @@ Our choice of media outlet has become a defacto litmus test of likeability. We l
 
 We're almost ready for our first release; [progress can be tracked here](https://github.com/trumpsaid-ai/trumpsaid-ai/projects/2). The dream scenario is to scale the platform to those who cannot freely access or disseminate the information that we as Americans can.
 
-While this may seem hyperbolic, it's fair to say that deep inside of us all there is a fear that we're losing whatever _did_ make us exceptional. No one, of any political pursuasion, wants this environment to endure. This platform will not take sides. It will not selectivly curate content. It won't have to, the content will speak for itself.
+While this may seem hyperbolic, it's fair to say that deep inside of us all there is a fear that we're losing whatever made us exceptional. No one of any political pursuasion wants this environment to endure. This platform will not take sides. It will not selectivly curate content. It won't have to, the content will speak for itself.
 
 ## Development
 
