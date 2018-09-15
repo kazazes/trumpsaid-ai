@@ -9,7 +9,7 @@
     "build": "bin/build-sources.sh",
     "build-prod": "bin/build-sources.sh && lerna run webpack",
     "clean": "rimraf packages/*/dist && rimraf packages/*/node_modules",
-    "debug": "lerna run --parallel debug",
+    "debug": "yarn workspace @trumpsaid/server run debug",
     "dep-update": "lerna run dep-update",
     "deploy": "bin/deploy-instances.sh",
     "deploy:static": "bin/deploy-static.sh",

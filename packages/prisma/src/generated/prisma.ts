@@ -6,8 +6,9 @@ import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 export interface Query {
     videoUploads: <T = VideoUpload[]>(args: { where?: VideoUploadWhereInput, orderBy?: VideoUploadOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStorageLinks: <T = VideoUploadStorageLink[]>(args: { where?: VideoUploadStorageLinkWhereInput, orderBy?: VideoUploadStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    videoUploadMetadatas: <T = VideoUploadMetadata[]>(args: { where?: VideoUploadMetadataWhereInput, orderBy?: VideoUploadMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSources: <T = NewsSource[]>(args: { where?: NewsSourceWhereInput, orderBy?: NewsSourceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    entities: <T = Entity[]>(args: { where?: EntityWhereInput, orderBy?: EntityOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    entityMentions: <T = EntityMention[]>(args: { where?: EntityMentionWhereInput, orderBy?: EntityMentionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadAdminMetadatas: <T = VideoUploadAdminMetadata[]>(args: { where?: VideoUploadAdminMetadataWhereInput, orderBy?: VideoUploadAdminMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStatusLogItems: <T = VideoUploadStatusLogItem[]>(args: { where?: VideoUploadStatusLogItemWhereInput, orderBy?: VideoUploadStatusLogItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     conversationBlocks: <T = ConversationBlock[]>(args: { where?: ConversationBlockWhereInput, orderBy?: ConversationBlockOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -16,22 +17,26 @@ export interface Query {
     videoConversations: <T = VideoConversation[]>(args: { where?: VideoConversationWhereInput, orderBy?: VideoConversationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSourceRootDomains: <T = NewsSourceRootDomain[]>(args: { where?: NewsSourceRootDomainWhereInput, orderBy?: NewsSourceRootDomainOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     speakers: <T = Speaker[]>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoUploadMetadatas: <T = VideoUploadMetadata[]>(args: { where?: VideoUploadMetadataWhereInput, orderBy?: VideoUploadMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUpload: <T = VideoUpload | null>(args: { where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStorageLink: <T = VideoUploadStorageLink | null>(args: { where: VideoUploadStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    videoUploadMetadata: <T = VideoUploadMetadata | null>(args: { where: VideoUploadMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSource: <T = NewsSource | null>(args: { where: NewsSourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    entity: <T = Entity | null>(args: { where: EntityWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadAdminMetadata: <T = VideoUploadAdminMetadata | null>(args: { where: VideoUploadAdminMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStatusLogItem: <T = VideoUploadStatusLogItem | null>(args: { where: VideoUploadStatusLogItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    conversationBlock: <T = ConversationBlock | null>(args: { where: ConversationBlockWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSourceItem: <T = NewsSourceItem | null>(args: { where: NewsSourceItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoConversation: <T = VideoConversation | null>(args: { where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSourceRootDomain: <T = NewsSourceRootDomain | null>(args: { where: NewsSourceRootDomainWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     speaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoUploadMetadata: <T = VideoUploadMetadata | null>(args: { where: VideoUploadMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadsConnection: <T = VideoUploadConnection>(args: { where?: VideoUploadWhereInput, orderBy?: VideoUploadOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStorageLinksConnection: <T = VideoUploadStorageLinkConnection>(args: { where?: VideoUploadStorageLinkWhereInput, orderBy?: VideoUploadStorageLinkOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    videoUploadMetadatasConnection: <T = VideoUploadMetadataConnection>(args: { where?: VideoUploadMetadataWhereInput, orderBy?: VideoUploadMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSourcesConnection: <T = NewsSourceConnection>(args: { where?: NewsSourceWhereInput, orderBy?: NewsSourceOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    entitiesConnection: <T = EntityConnection>(args: { where?: EntityWhereInput, orderBy?: EntityOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    entityMentionsConnection: <T = EntityMentionConnection>(args: { where?: EntityMentionWhereInput, orderBy?: EntityMentionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadAdminMetadatasConnection: <T = VideoUploadAdminMetadataConnection>(args: { where?: VideoUploadAdminMetadataWhereInput, orderBy?: VideoUploadAdminMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     videoUploadStatusLogItemsConnection: <T = VideoUploadStatusLogItemConnection>(args: { where?: VideoUploadStatusLogItemWhereInput, orderBy?: VideoUploadStatusLogItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     conversationBlocksConnection: <T = ConversationBlockConnection>(args: { where?: ConversationBlockWhereInput, orderBy?: ConversationBlockOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -40,6 +45,7 @@ export interface Query {
     videoConversationsConnection: <T = VideoConversationConnection>(args: { where?: VideoConversationWhereInput, orderBy?: VideoConversationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     newsSourceRootDomainsConnection: <T = NewsSourceRootDomainConnection>(args: { where?: NewsSourceRootDomainWhereInput, orderBy?: NewsSourceRootDomainOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     speakersConnection: <T = SpeakerConnection>(args: { where?: SpeakerWhereInput, orderBy?: SpeakerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    videoUploadMetadatasConnection: <T = VideoUploadMetadataConnection>(args: { where?: VideoUploadMetadataWhereInput, orderBy?: VideoUploadMetadataOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
@@ -47,8 +53,9 @@ export interface Query {
 export interface Mutation {
     createVideoUpload: <T = VideoUpload>(args: { data: VideoUploadCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideoUploadStorageLink: <T = VideoUploadStorageLink>(args: { data: VideoUploadStorageLinkCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createVideoUploadMetadata: <T = VideoUploadMetadata>(args: { data: VideoUploadMetadataCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createNewsSource: <T = NewsSource>(args: { data: NewsSourceCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createEntity: <T = Entity>(args: { data: EntityCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createEntityMention: <T = EntityMention>(args: { data: EntityMentionCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata>(args: { data: VideoUploadAdminMetadataCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem>(args: { data: VideoUploadStatusLogItemCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createConversationBlock: <T = ConversationBlock>(args: { data: ConversationBlockCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -57,44 +64,52 @@ export interface Mutation {
     createVideoConversation: <T = VideoConversation>(args: { data: VideoConversationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createNewsSourceRootDomain: <T = NewsSourceRootDomain>(args: { data: NewsSourceRootDomainCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createSpeaker: <T = Speaker>(args: { data: SpeakerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createVideoUploadMetadata: <T = VideoUploadMetadata>(args: { data: VideoUploadMetadataCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUpload: <T = VideoUpload | null>(args: { data: VideoUploadUpdateInput, where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUploadStorageLink: <T = VideoUploadStorageLink | null>(args: { data: VideoUploadStorageLinkUpdateInput, where: VideoUploadStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateVideoUploadMetadata: <T = VideoUploadMetadata | null>(args: { data: VideoUploadMetadataUpdateInput, where: VideoUploadMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateNewsSource: <T = NewsSource | null>(args: { data: NewsSourceUpdateInput, where: NewsSourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateEntity: <T = Entity | null>(args: { data: EntityUpdateInput, where: EntityWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata | null>(args: { data: VideoUploadAdminMetadataUpdateInput, where: VideoUploadAdminMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem | null>(args: { data: VideoUploadStatusLogItemUpdateInput, where: VideoUploadStatusLogItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateConversationBlock: <T = ConversationBlock | null>(args: { data: ConversationBlockUpdateInput, where: ConversationBlockWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateNewsSourceItem: <T = NewsSourceItem | null>(args: { data: NewsSourceItemUpdateInput, where: NewsSourceItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateVideoConversation: <T = VideoConversation | null>(args: { data: VideoConversationUpdateInput, where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateNewsSourceRootDomain: <T = NewsSourceRootDomain | null>(args: { data: NewsSourceRootDomainUpdateInput, where: NewsSourceRootDomainWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateSpeaker: <T = Speaker | null>(args: { data: SpeakerUpdateInput, where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateVideoUploadMetadata: <T = VideoUploadMetadata | null>(args: { data: VideoUploadMetadataUpdateInput, where: VideoUploadMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUpload: <T = VideoUpload | null>(args: { where: VideoUploadWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUploadStorageLink: <T = VideoUploadStorageLink | null>(args: { where: VideoUploadStorageLinkWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteVideoUploadMetadata: <T = VideoUploadMetadata | null>(args: { where: VideoUploadMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteNewsSource: <T = NewsSource | null>(args: { where: NewsSourceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteEntity: <T = Entity | null>(args: { where: EntityWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata | null>(args: { where: VideoUploadAdminMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem | null>(args: { where: VideoUploadStatusLogItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteConversationBlock: <T = ConversationBlock | null>(args: { where: ConversationBlockWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteNewsSourceItem: <T = NewsSourceItem | null>(args: { where: NewsSourceItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteVideoConversation: <T = VideoConversation | null>(args: { where: VideoConversationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteNewsSourceRootDomain: <T = NewsSourceRootDomain | null>(args: { where: NewsSourceRootDomainWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteSpeaker: <T = Speaker | null>(args: { where: SpeakerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteVideoUploadMetadata: <T = VideoUploadMetadata | null>(args: { where: VideoUploadMetadataWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUpload: <T = VideoUpload>(args: { where: VideoUploadWhereUniqueInput, create: VideoUploadCreateInput, update: VideoUploadUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUploadStorageLink: <T = VideoUploadStorageLink>(args: { where: VideoUploadStorageLinkWhereUniqueInput, create: VideoUploadStorageLinkCreateInput, update: VideoUploadStorageLinkUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertVideoUploadMetadata: <T = VideoUploadMetadata>(args: { where: VideoUploadMetadataWhereUniqueInput, create: VideoUploadMetadataCreateInput, update: VideoUploadMetadataUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertNewsSource: <T = NewsSource>(args: { where: NewsSourceWhereUniqueInput, create: NewsSourceCreateInput, update: NewsSourceUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertEntity: <T = Entity>(args: { where: EntityWhereUniqueInput, create: EntityCreateInput, update: EntityUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUploadAdminMetadata: <T = VideoUploadAdminMetadata>(args: { where: VideoUploadAdminMetadataWhereUniqueInput, create: VideoUploadAdminMetadataCreateInput, update: VideoUploadAdminMetadataUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoUploadStatusLogItem: <T = VideoUploadStatusLogItem>(args: { where: VideoUploadStatusLogItemWhereUniqueInput, create: VideoUploadStatusLogItemCreateInput, update: VideoUploadStatusLogItemUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertConversationBlock: <T = ConversationBlock>(args: { where: ConversationBlockWhereUniqueInput, create: ConversationBlockCreateInput, update: ConversationBlockUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertNewsSourceItem: <T = NewsSourceItem>(args: { where: NewsSourceItemWhereUniqueInput, create: NewsSourceItemCreateInput, update: NewsSourceItemUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertVideoConversation: <T = VideoConversation>(args: { where: VideoConversationWhereUniqueInput, create: VideoConversationCreateInput, update: VideoConversationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertNewsSourceRootDomain: <T = NewsSourceRootDomain>(args: { where: NewsSourceRootDomainWhereUniqueInput, create: NewsSourceRootDomainCreateInput, update: NewsSourceRootDomainUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertSpeaker: <T = Speaker>(args: { where: SpeakerWhereUniqueInput, create: SpeakerCreateInput, update: SpeakerUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertVideoUploadMetadata: <T = VideoUploadMetadata>(args: { where: VideoUploadMetadataWhereUniqueInput, create: VideoUploadMetadataCreateInput, update: VideoUploadMetadataUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploads: <T = BatchPayload>(args: { data: VideoUploadUpdateInput, where?: VideoUploadWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploadStorageLinks: <T = BatchPayload>(args: { data: VideoUploadStorageLinkUpdateInput, where?: VideoUploadStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyVideoUploadMetadatas: <T = BatchPayload>(args: { data: VideoUploadMetadataUpdateInput, where?: VideoUploadMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyNewsSources: <T = BatchPayload>(args: { data: NewsSourceUpdateInput, where?: NewsSourceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyEntities: <T = BatchPayload>(args: { data: EntityUpdateInput, where?: EntityWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyEntityMentions: <T = BatchPayload>(args: { data: EntityMentionUpdateInput, where?: EntityMentionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploadAdminMetadatas: <T = BatchPayload>(args: { data: VideoUploadAdminMetadataUpdateInput, where?: VideoUploadAdminMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyVideoUploadStatusLogItems: <T = BatchPayload>(args: { data: VideoUploadStatusLogItemUpdateInput, where?: VideoUploadStatusLogItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyConversationBlocks: <T = BatchPayload>(args: { data: ConversationBlockUpdateInput, where?: ConversationBlockWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -103,11 +118,13 @@ export interface Mutation {
     updateManyVideoConversations: <T = BatchPayload>(args: { data: VideoConversationUpdateInput, where?: VideoConversationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyNewsSourceRootDomains: <T = BatchPayload>(args: { data: NewsSourceRootDomainUpdateInput, where?: NewsSourceRootDomainWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManySpeakers: <T = BatchPayload>(args: { data: SpeakerUpdateInput, where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyVideoUploadMetadatas: <T = BatchPayload>(args: { data: VideoUploadMetadataUpdateInput, where?: VideoUploadMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploads: <T = BatchPayload>(args: { where?: VideoUploadWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploadStorageLinks: <T = BatchPayload>(args: { where?: VideoUploadStorageLinkWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyVideoUploadMetadatas: <T = BatchPayload>(args: { where?: VideoUploadMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyNewsSources: <T = BatchPayload>(args: { where?: NewsSourceWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyEntities: <T = BatchPayload>(args: { where?: EntityWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyEntityMentions: <T = BatchPayload>(args: { where?: EntityMentionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploadAdminMetadatas: <T = BatchPayload>(args: { where?: VideoUploadAdminMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyVideoUploadStatusLogItems: <T = BatchPayload>(args: { where?: VideoUploadStatusLogItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyConversationBlocks: <T = BatchPayload>(args: { where?: ConversationBlockWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -116,14 +133,16 @@ export interface Mutation {
     deleteManyVideoConversations: <T = BatchPayload>(args: { where?: VideoConversationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyNewsSourceRootDomains: <T = BatchPayload>(args: { where?: NewsSourceRootDomainWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManySpeakers: <T = BatchPayload>(args: { where?: SpeakerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyVideoUploadMetadatas: <T = BatchPayload>(args: { where?: VideoUploadMetadataWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {
     videoUpload: <T = VideoUploadSubscriptionPayload | null>(args: { where?: VideoUploadSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     videoUploadStorageLink: <T = VideoUploadStorageLinkSubscriptionPayload | null>(args: { where?: VideoUploadStorageLinkSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    videoUploadMetadata: <T = VideoUploadMetadataSubscriptionPayload | null>(args: { where?: VideoUploadMetadataSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     newsSource: <T = NewsSourceSubscriptionPayload | null>(args: { where?: NewsSourceSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    entity: <T = EntitySubscriptionPayload | null>(args: { where?: EntitySubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    entityMention: <T = EntityMentionSubscriptionPayload | null>(args: { where?: EntityMentionSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     videoUploadAdminMetadata: <T = VideoUploadAdminMetadataSubscriptionPayload | null>(args: { where?: VideoUploadAdminMetadataSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     videoUploadStatusLogItem: <T = VideoUploadStatusLogItemSubscriptionPayload | null>(args: { where?: VideoUploadStatusLogItemSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     conversationBlock: <T = ConversationBlockSubscriptionPayload | null>(args: { where?: ConversationBlockSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
@@ -132,14 +151,16 @@ export interface Subscription {
     videoConversation: <T = VideoConversationSubscriptionPayload | null>(args: { where?: VideoConversationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     newsSourceRootDomain: <T = NewsSourceRootDomainSubscriptionPayload | null>(args: { where?: NewsSourceRootDomainSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     speaker: <T = SpeakerSubscriptionPayload | null>(args: { where?: SpeakerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    videoUploadMetadata: <T = VideoUploadMetadataSubscriptionPayload | null>(args: { where?: VideoUploadMetadataSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
 
 export interface Exists {
   VideoUpload: (where?: VideoUploadWhereInput) => Promise<boolean>
   VideoUploadStorageLink: (where?: VideoUploadStorageLinkWhereInput) => Promise<boolean>
-  VideoUploadMetadata: (where?: VideoUploadMetadataWhereInput) => Promise<boolean>
   NewsSource: (where?: NewsSourceWhereInput) => Promise<boolean>
+  Entity: (where?: EntityWhereInput) => Promise<boolean>
+  EntityMention: (where?: EntityMentionWhereInput) => Promise<boolean>
   VideoUploadAdminMetadata: (where?: VideoUploadAdminMetadataWhereInput) => Promise<boolean>
   VideoUploadStatusLogItem: (where?: VideoUploadStatusLogItemWhereInput) => Promise<boolean>
   ConversationBlock: (where?: ConversationBlockWhereInput) => Promise<boolean>
@@ -148,6 +169,7 @@ export interface Exists {
   VideoConversation: (where?: VideoConversationWhereInput) => Promise<boolean>
   NewsSourceRootDomain: (where?: NewsSourceRootDomainWhereInput) => Promise<boolean>
   Speaker: (where?: SpeakerWhereInput) => Promise<boolean>
+  VideoUploadMetadata: (where?: VideoUploadMetadataWhereInput) => Promise<boolean>
   User: (where?: UserWhereInput) => Promise<boolean>
 }
 
@@ -187,6 +209,14 @@ type AggregateConversationBlock {
 }
 
 type AggregateDate {
+  count: Int!
+}
+
+type AggregateEntity {
+  count: Int!
+}
+
+type AggregateEntityMention {
   count: Int!
 }
 
@@ -239,11 +269,13 @@ type BatchPayload {
   count: Long!
 }
 
-type ConversationBlock {
+type ConversationBlock implements Node {
+  id: ID!
   speaker(where: SpeakerWhereInput): Speaker
   start: Float!
   end: Float!
   content: String!
+  entityMentions(where: EntityMentionWhereInput, orderBy: EntityMentionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EntityMention!]
 }
 
 """A connection to a list of items."""
@@ -261,10 +293,24 @@ input ConversationBlockCreateInput {
   end: Float!
   content: String!
   speaker: SpeakerCreateOneInput
+  entityMentions: EntityMentionCreateManyWithoutConversationBlockInput
 }
 
 input ConversationBlockCreateManyInput {
   create: [ConversationBlockCreateInput!]
+  connect: [ConversationBlockWhereUniqueInput!]
+}
+
+input ConversationBlockCreateOneWithoutEntityMentionsInput {
+  create: ConversationBlockCreateWithoutEntityMentionsInput
+  connect: ConversationBlockWhereUniqueInput
+}
+
+input ConversationBlockCreateWithoutEntityMentionsInput {
+  start: Float!
+  end: Float!
+  content: String!
+  speaker: SpeakerCreateOneInput
 }
 
 """An edge in a connection."""
@@ -277,14 +323,14 @@ type ConversationBlockEdge {
 }
 
 enum ConversationBlockOrderByInput {
+  id_ASC
+  id_DESC
   start_ASC
   start_DESC
   end_ASC
   end_DESC
   content_ASC
   content_DESC
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -292,6 +338,7 @@ enum ConversationBlockOrderByInput {
 }
 
 type ConversationBlockPreviousValues {
+  id: ID!
   start: Float!
   end: Float!
   content: String!
@@ -336,15 +383,61 @@ input ConversationBlockSubscriptionWhereInput {
   node: ConversationBlockWhereInput
 }
 
+input ConversationBlockUpdateDataInput {
+  start: Float
+  end: Float
+  content: String
+  speaker: SpeakerUpdateOneInput
+  entityMentions: EntityMentionUpdateManyWithoutConversationBlockInput
+}
+
 input ConversationBlockUpdateInput {
+  start: Float
+  end: Float
+  content: String
+  speaker: SpeakerUpdateOneInput
+  entityMentions: EntityMentionUpdateManyWithoutConversationBlockInput
+}
+
+input ConversationBlockUpdateManyInput {
+  create: [ConversationBlockCreateInput!]
+  connect: [ConversationBlockWhereUniqueInput!]
+  disconnect: [ConversationBlockWhereUniqueInput!]
+  delete: [ConversationBlockWhereUniqueInput!]
+  update: [ConversationBlockUpdateWithWhereUniqueNestedInput!]
+  upsert: [ConversationBlockUpsertWithWhereUniqueNestedInput!]
+}
+
+input ConversationBlockUpdateOneWithoutEntityMentionsInput {
+  create: ConversationBlockCreateWithoutEntityMentionsInput
+  connect: ConversationBlockWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ConversationBlockUpdateWithoutEntityMentionsDataInput
+  upsert: ConversationBlockUpsertWithoutEntityMentionsInput
+}
+
+input ConversationBlockUpdateWithoutEntityMentionsDataInput {
   start: Float
   end: Float
   content: String
   speaker: SpeakerUpdateOneInput
 }
 
-input ConversationBlockUpdateManyInput {
-  create: [ConversationBlockCreateInput!]
+input ConversationBlockUpdateWithWhereUniqueNestedInput {
+  where: ConversationBlockWhereUniqueInput!
+  data: ConversationBlockUpdateDataInput!
+}
+
+input ConversationBlockUpsertWithoutEntityMentionsInput {
+  update: ConversationBlockUpdateWithoutEntityMentionsDataInput!
+  create: ConversationBlockCreateWithoutEntityMentionsInput!
+}
+
+input ConversationBlockUpsertWithWhereUniqueNestedInput {
+  where: ConversationBlockWhereUniqueInput!
+  update: ConversationBlockUpdateDataInput!
+  create: ConversationBlockCreateInput!
 }
 
 input ConversationBlockWhereInput {
@@ -356,6 +449,46 @@ input ConversationBlockWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [ConversationBlockWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   start: Float
 
   """All values that are not equal to given value."""
@@ -441,6 +574,13 @@ input ConversationBlockWhereInput {
   """All values not ending with the given string."""
   content_not_ends_with: String
   speaker: SpeakerWhereInput
+  entityMentions_every: EntityMentionWhereInput
+  entityMentions_some: EntityMentionWhereInput
+  entityMentions_none: EntityMentionWhereInput
+}
+
+input ConversationBlockWhereUniqueInput {
+  id: ID
 }
 
 type Date {
@@ -642,6 +782,608 @@ input DateWhereInput {
   year_gte: Int
 }
 
+type Entity implements Node {
+  id: ID!
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  mentions(where: EntityMentionWhereInput, orderBy: EntityMentionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EntityMention!]
+  hash: String!
+}
+
+"""A connection to a list of items."""
+type EntityConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [EntityEdge]!
+  aggregate: AggregateEntity!
+}
+
+input EntityCreateInput {
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  hash: String!
+  mentions: EntityMentionCreateManyWithoutEntityInput
+}
+
+input EntityCreateOneWithoutMentionsInput {
+  create: EntityCreateWithoutMentionsInput
+  connect: EntityWhereUniqueInput
+}
+
+input EntityCreateWithoutMentionsInput {
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  hash: String!
+}
+
+"""An edge in a connection."""
+type EntityEdge {
+  """The item at the end of the edge."""
+  node: Entity!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+type EntityMention {
+  entity(where: EntityWhereInput): Entity
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  conversationBlock(where: ConversationBlockWhereInput): ConversationBlock
+}
+
+"""A connection to a list of items."""
+type EntityMentionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [EntityMentionEdge]!
+  aggregate: AggregateEntityMention!
+}
+
+input EntityMentionCreateInput {
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  entity: EntityCreateOneWithoutMentionsInput
+  conversationBlock: ConversationBlockCreateOneWithoutEntityMentionsInput
+}
+
+input EntityMentionCreateManyWithoutConversationBlockInput {
+  create: [EntityMentionCreateWithoutConversationBlockInput!]
+}
+
+input EntityMentionCreateManyWithoutEntityInput {
+  create: [EntityMentionCreateWithoutEntityInput!]
+}
+
+input EntityMentionCreateWithoutConversationBlockInput {
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  entity: EntityCreateOneWithoutMentionsInput
+}
+
+input EntityMentionCreateWithoutEntityInput {
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  conversationBlock: ConversationBlockCreateOneWithoutEntityMentionsInput
+}
+
+"""An edge in a connection."""
+type EntityMentionEdge {
+  """The item at the end of the edge."""
+  node: EntityMention!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum EntityMentionOrderByInput {
+  salience_ASC
+  salience_DESC
+  sentiment_ASC
+  sentiment_DESC
+  sentimentMagnitude_ASC
+  sentimentMagnitude_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type EntityMentionPreviousValues {
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+}
+
+type EntityMentionSubscriptionPayload {
+  mutation: MutationType!
+  node: EntityMention
+  updatedFields: [String!]
+  previousValues: EntityMentionPreviousValues
+}
+
+input EntityMentionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EntityMentionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EntityMentionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EntityMentionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: EntityMentionWhereInput
+}
+
+input EntityMentionUpdateInput {
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  entity: EntityUpdateOneWithoutMentionsInput
+  conversationBlock: ConversationBlockUpdateOneWithoutEntityMentionsInput
+}
+
+input EntityMentionUpdateManyWithoutConversationBlockInput {
+  create: [EntityMentionCreateWithoutConversationBlockInput!]
+}
+
+input EntityMentionUpdateManyWithoutEntityInput {
+  create: [EntityMentionCreateWithoutEntityInput!]
+}
+
+input EntityMentionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EntityMentionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EntityMentionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EntityMentionWhereInput!]
+  salience: Float
+
+  """All values that are not equal to given value."""
+  salience_not: Float
+
+  """All values that are contained in given list."""
+  salience_in: [Float!]
+
+  """All values that are not contained in given list."""
+  salience_not_in: [Float!]
+
+  """All values less than the given value."""
+  salience_lt: Float
+
+  """All values less than or equal the given value."""
+  salience_lte: Float
+
+  """All values greater than the given value."""
+  salience_gt: Float
+
+  """All values greater than or equal the given value."""
+  salience_gte: Float
+  sentiment: Float
+
+  """All values that are not equal to given value."""
+  sentiment_not: Float
+
+  """All values that are contained in given list."""
+  sentiment_in: [Float!]
+
+  """All values that are not contained in given list."""
+  sentiment_not_in: [Float!]
+
+  """All values less than the given value."""
+  sentiment_lt: Float
+
+  """All values less than or equal the given value."""
+  sentiment_lte: Float
+
+  """All values greater than the given value."""
+  sentiment_gt: Float
+
+  """All values greater than or equal the given value."""
+  sentiment_gte: Float
+  sentimentMagnitude: Float
+
+  """All values that are not equal to given value."""
+  sentimentMagnitude_not: Float
+
+  """All values that are contained in given list."""
+  sentimentMagnitude_in: [Float!]
+
+  """All values that are not contained in given list."""
+  sentimentMagnitude_not_in: [Float!]
+
+  """All values less than the given value."""
+  sentimentMagnitude_lt: Float
+
+  """All values less than or equal the given value."""
+  sentimentMagnitude_lte: Float
+
+  """All values greater than the given value."""
+  sentimentMagnitude_gt: Float
+
+  """All values greater than or equal the given value."""
+  sentimentMagnitude_gte: Float
+  entity: EntityWhereInput
+  conversationBlock: ConversationBlockWhereInput
+}
+
+enum EntityOrderByInput {
+  id_ASC
+  id_DESC
+  googleMetadataId_ASC
+  googleMetadataId_DESC
+  wikipediaURL_ASC
+  wikipediaURL_DESC
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  hash_ASC
+  hash_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type EntityPreviousValues {
+  id: ID!
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  hash: String!
+}
+
+type EntitySubscriptionPayload {
+  mutation: MutationType!
+  node: Entity
+  updatedFields: [String!]
+  previousValues: EntityPreviousValues
+}
+
+input EntitySubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EntitySubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EntitySubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EntitySubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: EntityWhereInput
+}
+
+enum EntityType {
+  UNKNOWN
+  PERSON
+  LOCATION
+  ORGANIZATION
+  EVENT
+  WORK_OF_ART
+  CONSUMER_GOOD
+  OTHER
+}
+
+input EntityUpdateInput {
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  hash: String
+  mentions: EntityMentionUpdateManyWithoutEntityInput
+}
+
+input EntityUpdateOneWithoutMentionsInput {
+  create: EntityCreateWithoutMentionsInput
+  connect: EntityWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: EntityUpdateWithoutMentionsDataInput
+  upsert: EntityUpsertWithoutMentionsInput
+}
+
+input EntityUpdateWithoutMentionsDataInput {
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  hash: String
+}
+
+input EntityUpsertWithoutMentionsInput {
+  update: EntityUpdateWithoutMentionsDataInput!
+  create: EntityCreateWithoutMentionsInput!
+}
+
+input EntityWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EntityWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EntityWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EntityWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  googleMetadataId: String
+
+  """All values that are not equal to given value."""
+  googleMetadataId_not: String
+
+  """All values that are contained in given list."""
+  googleMetadataId_in: [String!]
+
+  """All values that are not contained in given list."""
+  googleMetadataId_not_in: [String!]
+
+  """All values less than the given value."""
+  googleMetadataId_lt: String
+
+  """All values less than or equal the given value."""
+  googleMetadataId_lte: String
+
+  """All values greater than the given value."""
+  googleMetadataId_gt: String
+
+  """All values greater than or equal the given value."""
+  googleMetadataId_gte: String
+
+  """All values containing the given string."""
+  googleMetadataId_contains: String
+
+  """All values not containing the given string."""
+  googleMetadataId_not_contains: String
+
+  """All values starting with the given string."""
+  googleMetadataId_starts_with: String
+
+  """All values not starting with the given string."""
+  googleMetadataId_not_starts_with: String
+
+  """All values ending with the given string."""
+  googleMetadataId_ends_with: String
+
+  """All values not ending with the given string."""
+  googleMetadataId_not_ends_with: String
+  wikipediaURL: String
+
+  """All values that are not equal to given value."""
+  wikipediaURL_not: String
+
+  """All values that are contained in given list."""
+  wikipediaURL_in: [String!]
+
+  """All values that are not contained in given list."""
+  wikipediaURL_not_in: [String!]
+
+  """All values less than the given value."""
+  wikipediaURL_lt: String
+
+  """All values less than or equal the given value."""
+  wikipediaURL_lte: String
+
+  """All values greater than the given value."""
+  wikipediaURL_gt: String
+
+  """All values greater than or equal the given value."""
+  wikipediaURL_gte: String
+
+  """All values containing the given string."""
+  wikipediaURL_contains: String
+
+  """All values not containing the given string."""
+  wikipediaURL_not_contains: String
+
+  """All values starting with the given string."""
+  wikipediaURL_starts_with: String
+
+  """All values not starting with the given string."""
+  wikipediaURL_not_starts_with: String
+
+  """All values ending with the given string."""
+  wikipediaURL_ends_with: String
+
+  """All values not ending with the given string."""
+  wikipediaURL_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  type: EntityType
+
+  """All values that are not equal to given value."""
+  type_not: EntityType
+
+  """All values that are contained in given list."""
+  type_in: [EntityType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [EntityType!]
+  hash: String
+
+  """All values that are not equal to given value."""
+  hash_not: String
+
+  """All values that are contained in given list."""
+  hash_in: [String!]
+
+  """All values that are not contained in given list."""
+  hash_not_in: [String!]
+
+  """All values less than the given value."""
+  hash_lt: String
+
+  """All values less than or equal the given value."""
+  hash_lte: String
+
+  """All values greater than the given value."""
+  hash_gt: String
+
+  """All values greater than or equal the given value."""
+  hash_gte: String
+
+  """All values containing the given string."""
+  hash_contains: String
+
+  """All values not containing the given string."""
+  hash_not_contains: String
+
+  """All values starting with the given string."""
+  hash_starts_with: String
+
+  """All values not starting with the given string."""
+  hash_not_starts_with: String
+
+  """All values ending with the given string."""
+  hash_ends_with: String
+
+  """All values not ending with the given string."""
+  hash_not_ends_with: String
+  mentions_every: EntityMentionWhereInput
+  mentions_some: EntityMentionWhereInput
+  mentions_none: EntityMentionWhereInput
+}
+
+input EntityWhereUniqueInput {
+  id: ID
+  googleMetadataId: String
+  hash: String
+}
+
 """
 The \`Long\` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -651,8 +1393,9 @@ scalar Long
 type Mutation {
   createVideoUpload(data: VideoUploadCreateInput!): VideoUpload!
   createVideoUploadStorageLink(data: VideoUploadStorageLinkCreateInput!): VideoUploadStorageLink!
-  createVideoUploadMetadata(data: VideoUploadMetadataCreateInput!): VideoUploadMetadata!
   createNewsSource(data: NewsSourceCreateInput!): NewsSource!
+  createEntity(data: EntityCreateInput!): Entity!
+  createEntityMention(data: EntityMentionCreateInput!): EntityMention!
   createVideoUploadAdminMetadata(data: VideoUploadAdminMetadataCreateInput!): VideoUploadAdminMetadata!
   createVideoUploadStatusLogItem(data: VideoUploadStatusLogItemCreateInput!): VideoUploadStatusLogItem!
   createConversationBlock(data: ConversationBlockCreateInput!): ConversationBlock!
@@ -661,44 +1404,52 @@ type Mutation {
   createVideoConversation(data: VideoConversationCreateInput!): VideoConversation!
   createNewsSourceRootDomain(data: NewsSourceRootDomainCreateInput!): NewsSourceRootDomain!
   createSpeaker(data: SpeakerCreateInput!): Speaker!
+  createVideoUploadMetadata(data: VideoUploadMetadataCreateInput!): VideoUploadMetadata!
   createUser(data: UserCreateInput!): User!
   updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateVideoUploadStorageLink(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
-  updateVideoUploadMetadata(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   updateNewsSource(data: NewsSourceUpdateInput!, where: NewsSourceWhereUniqueInput!): NewsSource
+  updateEntity(data: EntityUpdateInput!, where: EntityWhereUniqueInput!): Entity
   updateVideoUploadAdminMetadata(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   updateVideoUploadStatusLogItem(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
+  updateConversationBlock(data: ConversationBlockUpdateInput!, where: ConversationBlockWhereUniqueInput!): ConversationBlock
   updateNewsSourceItem(data: NewsSourceItemUpdateInput!, where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
   updateVideoConversation(data: VideoConversationUpdateInput!, where: VideoConversationWhereUniqueInput!): VideoConversation
   updateNewsSourceRootDomain(data: NewsSourceRootDomainUpdateInput!, where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
+  updateVideoUploadMetadata(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
-  deleteVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   deleteNewsSource(where: NewsSourceWhereUniqueInput!): NewsSource
+  deleteEntity(where: EntityWhereUniqueInput!): Entity
   deleteVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   deleteVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
+  deleteConversationBlock(where: ConversationBlockWhereUniqueInput!): ConversationBlock
   deleteNewsSourceItem(where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
   deleteVideoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
   deleteNewsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
+  deleteVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   deleteUser(where: UserWhereUniqueInput!): User
   upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!, create: VideoUploadStorageLinkCreateInput!, update: VideoUploadStorageLinkUpdateInput!): VideoUploadStorageLink!
-  upsertVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!, create: VideoUploadMetadataCreateInput!, update: VideoUploadMetadataUpdateInput!): VideoUploadMetadata!
   upsertNewsSource(where: NewsSourceWhereUniqueInput!, create: NewsSourceCreateInput!, update: NewsSourceUpdateInput!): NewsSource!
+  upsertEntity(where: EntityWhereUniqueInput!, create: EntityCreateInput!, update: EntityUpdateInput!): Entity!
   upsertVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!, create: VideoUploadAdminMetadataCreateInput!, update: VideoUploadAdminMetadataUpdateInput!): VideoUploadAdminMetadata!
   upsertVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!, create: VideoUploadStatusLogItemCreateInput!, update: VideoUploadStatusLogItemUpdateInput!): VideoUploadStatusLogItem!
+  upsertConversationBlock(where: ConversationBlockWhereUniqueInput!, create: ConversationBlockCreateInput!, update: ConversationBlockUpdateInput!): ConversationBlock!
   upsertNewsSourceItem(where: NewsSourceItemWhereUniqueInput!, create: NewsSourceItemCreateInput!, update: NewsSourceItemUpdateInput!): NewsSourceItem!
   upsertVideoConversation(where: VideoConversationWhereUniqueInput!, create: VideoConversationCreateInput!, update: VideoConversationUpdateInput!): VideoConversation!
   upsertNewsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!, create: NewsSourceRootDomainCreateInput!, update: NewsSourceRootDomainUpdateInput!): NewsSourceRootDomain!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
+  upsertVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!, create: VideoUploadMetadataCreateInput!, update: VideoUploadMetadataUpdateInput!): VideoUploadMetadata!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
   updateManyVideoUploadStorageLinks(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereInput): BatchPayload!
-  updateManyVideoUploadMetadatas(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereInput): BatchPayload!
   updateManyNewsSources(data: NewsSourceUpdateInput!, where: NewsSourceWhereInput): BatchPayload!
+  updateManyEntities(data: EntityUpdateInput!, where: EntityWhereInput): BatchPayload!
+  updateManyEntityMentions(data: EntityMentionUpdateInput!, where: EntityMentionWhereInput): BatchPayload!
   updateManyVideoUploadAdminMetadatas(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   updateManyVideoUploadStatusLogItems(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereInput): BatchPayload!
   updateManyConversationBlocks(data: ConversationBlockUpdateInput!, where: ConversationBlockWhereInput): BatchPayload!
@@ -707,11 +1458,13 @@ type Mutation {
   updateManyVideoConversations(data: VideoConversationUpdateInput!, where: VideoConversationWhereInput): BatchPayload!
   updateManyNewsSourceRootDomains(data: NewsSourceRootDomainUpdateInput!, where: NewsSourceRootDomainWhereInput): BatchPayload!
   updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
+  updateManyVideoUploadMetadatas(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
   deleteManyVideoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput): BatchPayload!
-  deleteManyVideoUploadMetadatas(where: VideoUploadMetadataWhereInput): BatchPayload!
   deleteManyNewsSources(where: NewsSourceWhereInput): BatchPayload!
+  deleteManyEntities(where: EntityWhereInput): BatchPayload!
+  deleteManyEntityMentions(where: EntityMentionWhereInput): BatchPayload!
   deleteManyVideoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   deleteManyVideoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput): BatchPayload!
   deleteManyConversationBlocks(where: ConversationBlockWhereInput): BatchPayload!
@@ -720,6 +1473,7 @@ type Mutation {
   deleteManyVideoConversations(where: VideoConversationWhereInput): BatchPayload!
   deleteManyNewsSourceRootDomains(where: NewsSourceRootDomainWhereInput): BatchPayload!
   deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
+  deleteManyVideoUploadMetadatas(where: VideoUploadMetadataWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
@@ -1885,8 +2639,9 @@ type PageInfo {
 type Query {
   videoUploads(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUpload]!
   videoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStorageLink]!
-  videoUploadMetadatas(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadMetadata]!
   newsSources(where: NewsSourceWhereInput, orderBy: NewsSourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSource]!
+  entities(where: EntityWhereInput, orderBy: EntityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Entity]!
+  entityMentions(where: EntityMentionWhereInput, orderBy: EntityMentionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EntityMention]!
   videoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadAdminMetadata]!
   videoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStatusLogItem]!
   conversationBlocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock]!
@@ -1895,22 +2650,26 @@ type Query {
   videoConversations(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoConversation]!
   newsSourceRootDomains(where: NewsSourceRootDomainWhereInput, orderBy: NewsSourceRootDomainOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceRootDomain]!
   speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
+  videoUploadMetadatas(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadMetadata]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   videoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
-  videoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   newsSource(where: NewsSourceWhereUniqueInput!): NewsSource
+  entity(where: EntityWhereUniqueInput!): Entity
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
+  conversationBlock(where: ConversationBlockWhereUniqueInput!): ConversationBlock
   newsSourceItem(where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
   videoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
   newsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   speaker(where: SpeakerWhereUniqueInput!): Speaker
+  videoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
   user(where: UserWhereUniqueInput!): User
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
   videoUploadStorageLinksConnection(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStorageLinkConnection!
-  videoUploadMetadatasConnection(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadMetadataConnection!
   newsSourcesConnection(where: NewsSourceWhereInput, orderBy: NewsSourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceConnection!
+  entitiesConnection(where: EntityWhereInput, orderBy: EntityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EntityConnection!
+  entityMentionsConnection(where: EntityMentionWhereInput, orderBy: EntityMentionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EntityMentionConnection!
   videoUploadAdminMetadatasConnection(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadAdminMetadataConnection!
   videoUploadStatusLogItemsConnection(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStatusLogItemConnection!
   conversationBlocksConnection(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConversationBlockConnection!
@@ -1919,6 +2678,7 @@ type Query {
   videoConversationsConnection(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConversationConnection!
   newsSourceRootDomainsConnection(where: NewsSourceRootDomainWhereInput, orderBy: NewsSourceRootDomainOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceRootDomainConnection!
   speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
+  videoUploadMetadatasConnection(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadMetadataConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
@@ -2236,8 +2996,9 @@ input SpeakerWhereUniqueInput {
 type Subscription {
   videoUpload(where: VideoUploadSubscriptionWhereInput): VideoUploadSubscriptionPayload
   videoUploadStorageLink(where: VideoUploadStorageLinkSubscriptionWhereInput): VideoUploadStorageLinkSubscriptionPayload
-  videoUploadMetadata(where: VideoUploadMetadataSubscriptionWhereInput): VideoUploadMetadataSubscriptionPayload
   newsSource(where: NewsSourceSubscriptionWhereInput): NewsSourceSubscriptionPayload
+  entity(where: EntitySubscriptionWhereInput): EntitySubscriptionPayload
+  entityMention(where: EntityMentionSubscriptionWhereInput): EntityMentionSubscriptionPayload
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataSubscriptionWhereInput): VideoUploadAdminMetadataSubscriptionPayload
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemSubscriptionWhereInput): VideoUploadStatusLogItemSubscriptionPayload
   conversationBlock(where: ConversationBlockSubscriptionWhereInput): ConversationBlockSubscriptionPayload
@@ -2246,6 +3007,7 @@ type Subscription {
   videoConversation(where: VideoConversationSubscriptionWhereInput): VideoConversationSubscriptionPayload
   newsSourceRootDomain(where: NewsSourceRootDomainSubscriptionWhereInput): NewsSourceRootDomainSubscriptionPayload
   speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
+  videoUploadMetadata(where: VideoUploadMetadataSubscriptionWhereInput): VideoUploadMetadataSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -2725,6 +3487,7 @@ type VideoConversation implements Node {
   createdAt: DateTime!
   createdBy(where: UserWhereInput): User
   draft: Boolean!
+  videoMetadata(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
   blocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock!]
 }
 
@@ -2741,6 +3504,7 @@ type VideoConversationConnection {
 input VideoConversationCreateInput {
   draft: Boolean
   createdBy: UserCreateOneInput
+  videoMetadata: VideoUploadMetadataCreateOneInput!
   blocks: ConversationBlockCreateManyInput
 }
 
@@ -2817,12 +3581,14 @@ input VideoConversationSubscriptionWhereInput {
 input VideoConversationUpdateDataInput {
   draft: Boolean
   createdBy: UserUpdateOneInput
+  videoMetadata: VideoUploadMetadataUpdateOneInput
   blocks: ConversationBlockUpdateManyInput
 }
 
 input VideoConversationUpdateInput {
   draft: Boolean
   createdBy: UserUpdateOneInput
+  videoMetadata: VideoUploadMetadataUpdateOneInput
   blocks: ConversationBlockUpdateManyInput
 }
 
@@ -2922,6 +3688,7 @@ input VideoConversationWhereInput {
   """All values that are not equal to given value."""
   draft_not: Boolean
   createdBy: UserWhereInput
+  videoMetadata: VideoUploadMetadataWhereInput
   blocks_every: ConversationBlockWhereInput
   blocks_some: ConversationBlockWhereInput
   blocks_none: ConversationBlockWhereInput
@@ -3280,6 +4047,11 @@ input VideoUploadMetadataCreateInput {
   newsSources: NewsSourceItemCreateManyInput
 }
 
+input VideoUploadMetadataCreateOneInput {
+  create: VideoUploadMetadataCreateInput
+  connect: VideoUploadMetadataWhereUniqueInput
+}
+
 input VideoUploadMetadataCreateOneWithoutVideoUploadInput {
   create: VideoUploadMetadataCreateWithoutVideoUploadInput
   connect: VideoUploadMetadataWhereUniqueInput
@@ -3372,6 +4144,18 @@ input VideoUploadMetadataSubscriptionWhereInput {
   node: VideoUploadMetadataWhereInput
 }
 
+input VideoUploadMetadataUpdateDataInput {
+  title: String
+  subtitle: String
+  speakers: Int
+  renderStart: Float
+  renderEnd: Float
+  videoUpload: VideoUploadUpdateOneWithoutMetadataInput
+  dateRecorded: DateUpdateOneInput
+  conversations: VideoConversationUpdateManyInput
+  newsSources: NewsSourceItemUpdateManyInput
+}
+
 input VideoUploadMetadataUpdateInput {
   title: String
   subtitle: String
@@ -3382,6 +4166,14 @@ input VideoUploadMetadataUpdateInput {
   dateRecorded: DateUpdateOneInput
   conversations: VideoConversationUpdateManyInput
   newsSources: NewsSourceItemUpdateManyInput
+}
+
+input VideoUploadMetadataUpdateOneInput {
+  create: VideoUploadMetadataCreateInput
+  connect: VideoUploadMetadataWhereUniqueInput
+  delete: Boolean
+  update: VideoUploadMetadataUpdateDataInput
+  upsert: VideoUploadMetadataUpsertNestedInput
 }
 
 input VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
@@ -3401,6 +4193,11 @@ input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   dateRecorded: DateUpdateOneInput
   conversations: VideoConversationUpdateManyInput
   newsSources: NewsSourceItemUpdateManyInput
+}
+
+input VideoUploadMetadataUpsertNestedInput {
+  update: VideoUploadMetadataUpdateDataInput!
+  create: VideoUploadMetadataCreateInput!
 }
 
 input VideoUploadMetadataUpsertWithoutVideoUploadInput {
@@ -4613,30 +5410,6 @@ export type NewsSourceRootDomainOrderByInput =   'id_ASC' |
 export type VideoUploadFileLinkVersion =   'WEB' |
   'MASTER'
 
-export type Role =   'USER' |
-  'ADMIN'
-
-export type UserOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'email_ASC' |
-  'email_DESC' |
-  'auth0Id_ASC' |
-  'auth0Id_DESC' |
-  'role_ASC' |
-  'role_DESC' |
-  'displayName_ASC' |
-  'displayName_DESC' |
-  'avatar_ASC' |
-  'avatar_DESC' |
-  'givenName_ASC' |
-  'givenName_DESC' |
-  'familyName_ASC' |
-  'familyName_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
 export type NewsSourceItemOrderByInput =   'id_ASC' |
   'id_DESC' |
   'createdAt_ASC' |
@@ -4664,12 +5437,33 @@ export type NewsSourceItemOrderByInput =   'id_ASC' |
   'updatedAt_ASC' |
   'updatedAt_DESC'
 
-export type DateOrderByInput =   'month_ASC' |
-  'month_DESC' |
-  'day_ASC' |
-  'day_DESC' |
-  'year_ASC' |
-  'year_DESC' |
+export type UserOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'email_ASC' |
+  'email_DESC' |
+  'auth0Id_ASC' |
+  'auth0Id_DESC' |
+  'role_ASC' |
+  'role_DESC' |
+  'displayName_ASC' |
+  'displayName_DESC' |
+  'avatar_ASC' |
+  'avatar_DESC' |
+  'givenName_ASC' |
+  'givenName_DESC' |
+  'familyName_ASC' |
+  'familyName_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type EntityMentionOrderByInput =   'salience_ASC' |
+  'salience_DESC' |
+  'sentiment_ASC' |
+  'sentiment_DESC' |
+  'sentimentMagnitude_ASC' |
+  'sentimentMagnitude_DESC' |
   'id_ASC' |
   'id_DESC' |
   'updatedAt_ASC' |
@@ -4677,18 +5471,49 @@ export type DateOrderByInput =   'month_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type ConversationBlockOrderByInput =   'start_ASC' |
+export type SpeakerOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'avatarPath_ASC' |
+  'avatarPath_DESC' |
+  'title_ASC' |
+  'title_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type ConversationBlockOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'start_ASC' |
   'start_DESC' |
   'end_ASC' |
   'end_DESC' |
   'content_ASC' |
   'content_DESC' |
-  'id_ASC' |
-  'id_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
+
+export type VideoUploadAdminMetadataOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'advertisingEnabled_ASC' |
+  'advertisingEnabled_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type EntityType =   'UNKNOWN' |
+  'PERSON' |
+  'LOCATION' |
+  'ORGANIZATION' |
+  'EVENT' |
+  'WORK_OF_ART' |
+  'CONSUMER_GOOD' |
+  'OTHER'
 
 export type NewsSourceOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -4708,22 +5533,20 @@ export type AdminRole =   'CREATE_UPLOAD' |
   'PUBLISH_UPLOAD' |
   'DELETE_UPLOADS'
 
-export type VideoUploadStorageLinkOrderByInput =   'id_ASC' |
+export type VideoUploadStatusLogItemOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'path_ASC' |
-  'path_DESC' |
-  'bucket_ASC' |
-  'bucket_DESC' |
-  'version_ASC' |
-  'version_DESC' |
-  'fileType_ASC' |
-  'fileType_DESC' |
-  'mimeType_ASC' |
-  'mimeType_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
+  'status_ASC' |
+  'status_DESC' |
+  'event_ASC' |
+  'event_DESC' |
   'createdAt_ASC' |
-  'createdAt_DESC'
+  'createdAt_DESC' |
+  'timesoutAt_ASC' |
+  'timesoutAt_DESC' |
+  'message_ASC' |
+  'message_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC'
 
 export type VideoConversationOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -4771,34 +5594,6 @@ export type VideoUploadOrderByInput =   'id_ASC' |
   'submitedUrl_ASC' |
   'submitedUrl_DESC'
 
-export type SpeakerOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'avatarPath_ASC' |
-  'avatarPath_DESC' |
-  'title_ASC' |
-  'title_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type VideoUploadStatusLogItemOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'status_ASC' |
-  'status_DESC' |
-  'event_ASC' |
-  'event_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC' |
-  'timesoutAt_ASC' |
-  'timesoutAt_DESC' |
-  'message_ASC' |
-  'message_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC'
-
 export type VideoUploadMetadataOrderByInput =   'id_ASC' |
   'id_DESC' |
   'title_ASC' |
@@ -4816,18 +5611,62 @@ export type VideoUploadMetadataOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type VideoUploadAdminMetadataOrderByInput =   'id_ASC' |
+export type Role =   'USER' |
+  'ADMIN'
+
+export type VideoUploadStorageLinkOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'advertisingEnabled_ASC' |
-  'advertisingEnabled_DESC' |
+  'path_ASC' |
+  'path_DESC' |
+  'bucket_ASC' |
+  'bucket_DESC' |
+  'version_ASC' |
+  'version_DESC' |
+  'fileType_ASC' |
+  'fileType_DESC' |
+  'mimeType_ASC' |
+  'mimeType_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export interface VideoUploadStorageLinkCreateManyWithoutVideoUploadInput {
-  create?: VideoUploadStorageLinkCreateWithoutVideoUploadInput[] | VideoUploadStorageLinkCreateWithoutVideoUploadInput
-  connect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
+export type EntityOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'googleMetadataId_ASC' |
+  'googleMetadataId_DESC' |
+  'wikipediaURL_ASC' |
+  'wikipediaURL_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'type_ASC' |
+  'type_DESC' |
+  'hash_ASC' |
+  'hash_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type DateOrderByInput =   'month_ASC' |
+  'month_DESC' |
+  'day_ASC' |
+  'day_DESC' |
+  'year_ASC' |
+  'year_DESC' |
+  'id_ASC' |
+  'id_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export interface EntityCreateWithoutMentionsInput {
+  googleMetadataId?: String
+  wikipediaURL?: String
+  name?: String
+  type?: EntityType
+  hash: String
 }
 
 export interface VideoUploadWhereInput {
@@ -5007,25 +5846,27 @@ export interface NewsSourceRootDomainWhereInput {
   url_not_ends_with?: String
 }
 
-export interface VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput {
-  status?: VideoUploadLogItemStatus
-  event?: VideoUploadLogItemEvent
-  timesoutAt?: Int
-  message?: String
+export interface NewsSourceRootDomainUpsertWithWhereUniqueNestedInput {
+  where: NewsSourceRootDomainWhereUniqueInput
+  update: NewsSourceRootDomainUpdateDataInput
+  create: NewsSourceRootDomainCreateInput
 }
 
-export interface NewsSourceRootDomainUpdateManyInput {
-  create?: NewsSourceRootDomainCreateInput[] | NewsSourceRootDomainCreateInput
-  connect?: NewsSourceRootDomainWhereUniqueInput[] | NewsSourceRootDomainWhereUniqueInput
-  disconnect?: NewsSourceRootDomainWhereUniqueInput[] | NewsSourceRootDomainWhereUniqueInput
-  delete?: NewsSourceRootDomainWhereUniqueInput[] | NewsSourceRootDomainWhereUniqueInput
-  update?: NewsSourceRootDomainUpdateWithWhereUniqueNestedInput[] | NewsSourceRootDomainUpdateWithWhereUniqueNestedInput
-  upsert?: NewsSourceRootDomainUpsertWithWhereUniqueNestedInput[] | NewsSourceRootDomainUpsertWithWhereUniqueNestedInput
+export interface NewsSourceUpdateWithoutSourceItemsDataInput {
+  name?: String
+  avatarPath?: String
+  rootDomains?: NewsSourceRootDomainUpdateManyInput
 }
 
-export interface VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput {
-  where: VideoUploadStatusLogItemWhereUniqueInput
-  data: VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput
+export interface VideoUploadCreateInput {
+  published?: Boolean
+  submitedUrl: String
+  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  publishedBy?: UserCreateOneInput
+  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
+  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
+  submitedBy: UserCreateOneInput
 }
 
 export interface VideoUploadCreateWithoutAdminMetadataInput {
@@ -5038,13 +5879,24 @@ export interface VideoUploadCreateWithoutAdminMetadataInput {
   submitedBy: UserCreateOneInput
 }
 
-export interface VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput {
-  create?: VideoUploadStatusLogItemCreateWithoutVideoUploadInput[] | VideoUploadStatusLogItemCreateWithoutVideoUploadInput
-  connect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
-  disconnect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
-  delete?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
-  update?: VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput
-  upsert?: VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput
+export interface VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput {
+  create?: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
+  connect?: VideoUploadAdminMetadataWhereUniqueInput
+}
+
+export interface VideoUploadMetadataSubscriptionWhereInput {
+  AND?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
+  OR?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
+  NOT?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoUploadMetadataWhereInput
+}
+
+export interface VideoUploadAdminMetadataCreateWithoutVideoUploadInput {
+  advertisingEnabled?: Boolean
 }
 
 export interface SpeakerSubscriptionWhereInput {
@@ -5058,26 +5910,9 @@ export interface SpeakerSubscriptionWhereInput {
   node?: SpeakerWhereInput
 }
 
-export interface VideoUploadMetadataUpsertWithoutVideoUploadInput {
-  update: VideoUploadMetadataUpdateWithoutVideoUploadDataInput
-  create: VideoUploadMetadataCreateWithoutVideoUploadInput
-}
-
-export interface NewsSourceRootDomainSubscriptionWhereInput {
-  AND?: NewsSourceRootDomainSubscriptionWhereInput[] | NewsSourceRootDomainSubscriptionWhereInput
-  OR?: NewsSourceRootDomainSubscriptionWhereInput[] | NewsSourceRootDomainSubscriptionWhereInput
-  NOT?: NewsSourceRootDomainSubscriptionWhereInput[] | NewsSourceRootDomainSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: NewsSourceRootDomainWhereInput
-}
-
-export interface NewsSourceItemUpsertWithWhereUniqueNestedInput {
-  where: NewsSourceItemWhereUniqueInput
-  update: NewsSourceItemUpdateDataInput
-  create: NewsSourceItemCreateInput
+export interface VideoUploadMetadataCreateOneWithoutVideoUploadInput {
+  create?: VideoUploadMetadataCreateWithoutVideoUploadInput
+  connect?: VideoUploadMetadataWhereUniqueInput
 }
 
 export interface NewsSourceItemWhereInput {
@@ -5226,37 +6061,122 @@ export interface NewsSourceItemWhereInput {
   source?: NewsSourceWhereInput
 }
 
-export interface NewsSourceUpsertWithoutSourceItemsInput {
-  update: NewsSourceUpdateWithoutSourceItemsDataInput
-  create: NewsSourceCreateWithoutSourceItemsInput
+export interface VideoUploadMetadataCreateWithoutVideoUploadInput {
+  title?: String
+  subtitle?: String
+  speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
+  dateRecorded?: DateCreateOneInput
+  conversations?: VideoConversationCreateManyInput
+  newsSources?: NewsSourceItemCreateManyInput
 }
 
-export interface DateSubscriptionWhereInput {
-  AND?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  OR?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
-  NOT?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+export interface VideoConversationSubscriptionWhereInput {
+  AND?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
+  OR?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
+  NOT?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: DateWhereInput
+  node?: VideoConversationWhereInput
 }
 
-export interface VideoUploadCreateInput {
-  published?: Boolean
-  submitedUrl: String
-  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
-  publishedBy?: UserCreateOneInput
-  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
-  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
-  submitedBy: UserCreateOneInput
+export interface DateCreateOneInput {
+  create?: DateCreateInput
+}
+
+export interface EntityMentionWhereInput {
+  AND?: EntityMentionWhereInput[] | EntityMentionWhereInput
+  OR?: EntityMentionWhereInput[] | EntityMentionWhereInput
+  NOT?: EntityMentionWhereInput[] | EntityMentionWhereInput
+  salience?: Float
+  salience_not?: Float
+  salience_in?: Float[] | Float
+  salience_not_in?: Float[] | Float
+  salience_lt?: Float
+  salience_lte?: Float
+  salience_gt?: Float
+  salience_gte?: Float
+  sentiment?: Float
+  sentiment_not?: Float
+  sentiment_in?: Float[] | Float
+  sentiment_not_in?: Float[] | Float
+  sentiment_lt?: Float
+  sentiment_lte?: Float
+  sentiment_gt?: Float
+  sentiment_gte?: Float
+  sentimentMagnitude?: Float
+  sentimentMagnitude_not?: Float
+  sentimentMagnitude_in?: Float[] | Float
+  sentimentMagnitude_not_in?: Float[] | Float
+  sentimentMagnitude_lt?: Float
+  sentimentMagnitude_lte?: Float
+  sentimentMagnitude_gt?: Float
+  sentimentMagnitude_gte?: Float
+  entity?: EntityWhereInput
+  conversationBlock?: ConversationBlockWhereInput
+}
+
+export interface DateCreateInput {
+  month: Int
+  day: Int
+  year: Int
+}
+
+export interface ConversationBlockSubscriptionWhereInput {
+  AND?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
+  OR?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
+  NOT?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: ConversationBlockWhereInput
+}
+
+export interface VideoConversationCreateManyInput {
+  create?: VideoConversationCreateInput[] | VideoConversationCreateInput
+  connect?: VideoConversationWhereUniqueInput[] | VideoConversationWhereUniqueInput
+}
+
+export interface VideoUploadStatusLogItemSubscriptionWhereInput {
+  AND?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
+  OR?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
+  NOT?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoUploadStatusLogItemWhereInput
+}
+
+export interface VideoConversationCreateInput {
+  draft?: Boolean
+  createdBy?: UserCreateOneInput
+  videoMetadata: VideoUploadMetadataCreateOneInput
+  blocks?: ConversationBlockCreateManyInput
 }
 
 export interface ConversationBlockWhereInput {
   AND?: ConversationBlockWhereInput[] | ConversationBlockWhereInput
   OR?: ConversationBlockWhereInput[] | ConversationBlockWhereInput
   NOT?: ConversationBlockWhereInput[] | ConversationBlockWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
   start?: Float
   start_not?: Float
   start_in?: Float[] | Float
@@ -5288,487 +6208,14 @@ export interface ConversationBlockWhereInput {
   content_ends_with?: String
   content_not_ends_with?: String
   speaker?: SpeakerWhereInput
-}
-
-export interface VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput {
-  create?: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
-  connect?: VideoUploadAdminMetadataWhereUniqueInput
-}
-
-export interface VideoUploadStatusLogItemSubscriptionWhereInput {
-  AND?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
-  OR?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
-  NOT?: VideoUploadStatusLogItemSubscriptionWhereInput[] | VideoUploadStatusLogItemSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoUploadStatusLogItemWhereInput
-}
-
-export interface VideoUploadAdminMetadataCreateWithoutVideoUploadInput {
-  advertisingEnabled?: Boolean
-}
-
-export interface VideoUploadAdminMetadataSubscriptionWhereInput {
-  AND?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
-  OR?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
-  NOT?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoUploadAdminMetadataWhereInput
-}
-
-export interface VideoUploadMetadataCreateOneWithoutVideoUploadInput {
-  create?: VideoUploadMetadataCreateWithoutVideoUploadInput
-  connect?: VideoUploadMetadataWhereUniqueInput
-}
-
-export interface NewsSourceSubscriptionWhereInput {
-  AND?: NewsSourceSubscriptionWhereInput[] | NewsSourceSubscriptionWhereInput
-  OR?: NewsSourceSubscriptionWhereInput[] | NewsSourceSubscriptionWhereInput
-  NOT?: NewsSourceSubscriptionWhereInput[] | NewsSourceSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: NewsSourceWhereInput
-}
-
-export interface VideoUploadMetadataCreateWithoutVideoUploadInput {
-  title?: String
-  subtitle?: String
-  speakers?: Int
-  renderStart?: Float
-  renderEnd?: Float
-  dateRecorded?: DateCreateOneInput
-  conversations?: VideoConversationCreateManyInput
-  newsSources?: NewsSourceItemCreateManyInput
-}
-
-export interface VideoUploadMetadataSubscriptionWhereInput {
-  AND?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
-  OR?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
-  NOT?: VideoUploadMetadataSubscriptionWhereInput[] | VideoUploadMetadataSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoUploadMetadataWhereInput
-}
-
-export interface DateCreateOneInput {
-  create?: DateCreateInput
-}
-
-export interface VideoUploadSubscriptionWhereInput {
-  AND?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
-  OR?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
-  NOT?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoUploadWhereInput
-}
-
-export interface DateCreateInput {
-  month: Int
-  day: Int
-  year: Int
-}
-
-export interface VideoUploadAdminMetadataWhereInput {
-  AND?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
-  OR?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
-  NOT?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  advertisingEnabled?: Boolean
-  advertisingEnabled_not?: Boolean
-  videoUpload?: VideoUploadWhereInput
-}
-
-export interface VideoConversationCreateManyInput {
-  create?: VideoConversationCreateInput[] | VideoConversationCreateInput
-  connect?: VideoConversationWhereUniqueInput[] | VideoConversationWhereUniqueInput
-}
-
-export interface SpeakerUpsertNestedInput {
-  update: SpeakerUpdateDataInput
-  create: SpeakerCreateInput
-}
-
-export interface VideoConversationCreateInput {
-  draft?: Boolean
-  createdBy?: UserCreateOneInput
-  blocks?: ConversationBlockCreateManyInput
-}
-
-export interface VideoUploadStorageLinkWhereUniqueInput {
-  id?: ID_Input
+  entityMentions_every?: EntityMentionWhereInput
+  entityMentions_some?: EntityMentionWhereInput
+  entityMentions_none?: EntityMentionWhereInput
 }
 
 export interface UserCreateOneInput {
   create?: UserCreateInput
   connect?: UserWhereUniqueInput
-}
-
-export interface NewsSourceWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserCreateInput {
-  email?: String
-  auth0Id?: String
-  role?: Role
-  displayName?: String
-  avatar?: String
-  givenName?: String
-  familyName?: String
-  adminRoles?: UserCreateadminRolesInput
-}
-
-export interface VideoUploadStatusLogItemWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserCreateadminRolesInput {
-  set?: AdminRole[] | AdminRole
-}
-
-export interface VideoConversationWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface ConversationBlockCreateManyInput {
-  create?: ConversationBlockCreateInput[] | ConversationBlockCreateInput
-}
-
-export interface SpeakerWhereUniqueInput {
-  id?: ID_Input
-  name?: String
-}
-
-export interface ConversationBlockCreateInput {
-  start: Float
-  end: Float
-  content: String
-  speaker?: SpeakerCreateOneInput
-}
-
-export interface SpeakerUpdateDataInput {
-  name?: String
-  avatarPath?: String
-  title?: String
-}
-
-export interface SpeakerCreateOneInput {
-  create?: SpeakerCreateInput
-  connect?: SpeakerWhereUniqueInput
-}
-
-export interface ConversationBlockUpdateInput {
-  start?: Float
-  end?: Float
-  content?: String
-  speaker?: SpeakerUpdateOneInput
-}
-
-export interface SpeakerCreateInput {
-  name: String
-  avatarPath?: String
-  title?: String
-}
-
-export interface SpeakerUpdateInput {
-  name?: String
-  avatarPath?: String
-  title?: String
-}
-
-export interface NewsSourceItemCreateManyInput {
-  create?: NewsSourceItemCreateInput[] | NewsSourceItemCreateInput
-  connect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
-}
-
-export interface VideoConversationUpdateInput {
-  draft?: Boolean
-  createdBy?: UserUpdateOneInput
-  blocks?: ConversationBlockUpdateManyInput
-}
-
-export interface NewsSourceItemCreateInput {
-  url: String
-  title?: String
-  reachable?: Boolean
-  author?: String
-  publishedDate?: DateTime
-  lastAccessed?: DateTime
-  lang?: String
-  logo?: String
-  description?: String
-  publisher?: String
-  createdBy?: UserCreateOneInput
-  source?: NewsSourceCreateOneWithoutSourceItemsInput
-}
-
-export interface VideoUploadUpsertWithoutStatusLogInput {
-  update: VideoUploadUpdateWithoutStatusLogDataInput
-  create: VideoUploadCreateWithoutStatusLogInput
-}
-
-export interface NewsSourceCreateOneWithoutSourceItemsInput {
-  create?: NewsSourceCreateWithoutSourceItemsInput
-  connect?: NewsSourceWhereUniqueInput
-}
-
-export interface VideoUploadUpdateOneWithoutStatusLogInput {
-  create?: VideoUploadCreateWithoutStatusLogInput
-  connect?: VideoUploadWhereUniqueInput
-  delete?: Boolean
-  update?: VideoUploadUpdateWithoutStatusLogDataInput
-  upsert?: VideoUploadUpsertWithoutStatusLogInput
-}
-
-export interface NewsSourceCreateWithoutSourceItemsInput {
-  name?: String
-  avatarPath?: String
-  rootDomains?: NewsSourceRootDomainCreateManyInput
-}
-
-export interface VideoUploadUpsertWithoutAdminMetadataInput {
-  update: VideoUploadUpdateWithoutAdminMetadataDataInput
-  create: VideoUploadCreateWithoutAdminMetadataInput
-}
-
-export interface NewsSourceRootDomainCreateManyInput {
-  create?: NewsSourceRootDomainCreateInput[] | NewsSourceRootDomainCreateInput
-  connect?: NewsSourceRootDomainWhereUniqueInput[] | NewsSourceRootDomainWhereUniqueInput
-}
-
-export interface VideoUploadUpdateOneWithoutAdminMetadataInput {
-  create?: VideoUploadCreateWithoutAdminMetadataInput
-  connect?: VideoUploadWhereUniqueInput
-  delete?: Boolean
-  update?: VideoUploadUpdateWithoutAdminMetadataDataInput
-  upsert?: VideoUploadUpsertWithoutAdminMetadataInput
-}
-
-export interface NewsSourceRootDomainCreateInput {
-  url: String
-}
-
-export interface NewsSourceItemUpsertWithWhereUniqueWithoutSourceInput {
-  where: NewsSourceItemWhereUniqueInput
-  update: NewsSourceItemUpdateWithoutSourceDataInput
-  create: NewsSourceItemCreateWithoutSourceInput
-}
-
-export interface VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput {
-  create?: VideoUploadStatusLogItemCreateWithoutVideoUploadInput[] | VideoUploadStatusLogItemCreateWithoutVideoUploadInput
-  connect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
-}
-
-export interface NewsSourceItemUpdateWithWhereUniqueWithoutSourceInput {
-  where: NewsSourceItemWhereUniqueInput
-  data: NewsSourceItemUpdateWithoutSourceDataInput
-}
-
-export interface VideoUploadStatusLogItemCreateWithoutVideoUploadInput {
-  status: VideoUploadLogItemStatus
-  event: VideoUploadLogItemEvent
-  timesoutAt?: Int
-  message?: String
-}
-
-export interface NewsSourceUpdateInput {
-  name?: String
-  avatarPath?: String
-  rootDomains?: NewsSourceRootDomainUpdateManyInput
-  sourceItems?: NewsSourceItemUpdateManyWithoutSourceInput
-}
-
-export interface NewsSourceRootDomainUpsertWithWhereUniqueNestedInput {
-  where: NewsSourceRootDomainWhereUniqueInput
-  update: NewsSourceRootDomainUpdateDataInput
-  create: NewsSourceRootDomainCreateInput
-}
-
-export interface VideoUploadUpdateWithoutMetadataDataInput {
-  published?: Boolean
-  submitedUrl?: String
-  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy?: UserUpdateOneInput
-  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
-  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
-  submitedBy?: UserUpdateOneInput
-}
-
-export interface VideoUploadStorageLinkCreateWithoutVideoUploadInput {
-  path: String
-  bucket: String
-  version: VideoUploadFileLinkVersion
-  fileType: VideoUploadFileLinkType
-  mimeType: String
-}
-
-export interface VideoUploadMetadataUpdateInput {
-  title?: String
-  subtitle?: String
-  speakers?: Int
-  renderStart?: Float
-  renderEnd?: Float
-  videoUpload?: VideoUploadUpdateOneWithoutMetadataInput
-  dateRecorded?: DateUpdateOneInput
-  conversations?: VideoConversationUpdateManyInput
-  newsSources?: NewsSourceItemUpdateManyInput
-}
-
-export interface VideoUploadStorageLinkCreateInput {
-  path: String
-  bucket: String
-  version: VideoUploadFileLinkVersion
-  fileType: VideoUploadFileLinkType
-  mimeType: String
-  videoUpload: VideoUploadCreateOneWithoutStorageLinksInput
-}
-
-export interface VideoUploadUpdateWithoutStorageLinksDataInput {
-  published?: Boolean
-  submitedUrl?: String
-  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
-  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy?: UserUpdateOneInput
-  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
-  submitedBy?: UserUpdateOneInput
-}
-
-export interface VideoUploadCreateOneWithoutStorageLinksInput {
-  create?: VideoUploadCreateWithoutStorageLinksInput
-  connect?: VideoUploadWhereUniqueInput
-}
-
-export interface VideoUploadStorageLinkUpdateInput {
-  path?: String
-  bucket?: String
-  version?: VideoUploadFileLinkVersion
-  fileType?: VideoUploadFileLinkType
-  mimeType?: String
-  videoUpload?: VideoUploadUpdateOneWithoutStorageLinksInput
-}
-
-export interface VideoUploadCreateWithoutStorageLinksInput {
-  published?: Boolean
-  submitedUrl: String
-  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
-  publishedBy?: UserCreateOneInput
-  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
-  submitedBy: UserCreateOneInput
-}
-
-export interface VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput {
-  path?: String
-  bucket?: String
-  version?: VideoUploadFileLinkVersion
-  fileType?: VideoUploadFileLinkType
-  mimeType?: String
-}
-
-export interface VideoUploadMetadataCreateInput {
-  title?: String
-  subtitle?: String
-  speakers?: Int
-  renderStart?: Float
-  renderEnd?: Float
-  videoUpload: VideoUploadCreateOneWithoutMetadataInput
-  dateRecorded?: DateCreateOneInput
-  conversations?: VideoConversationCreateManyInput
-  newsSources?: NewsSourceItemCreateManyInput
-}
-
-export interface VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput {
-  create?: VideoUploadStorageLinkCreateWithoutVideoUploadInput[] | VideoUploadStorageLinkCreateWithoutVideoUploadInput
-  connect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
-  disconnect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
-  delete?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
-  update?: VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput
-  upsert?: VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput
-}
-
-export interface VideoUploadCreateOneWithoutMetadataInput {
-  create?: VideoUploadCreateWithoutMetadataInput
-  connect?: VideoUploadWhereUniqueInput
-}
-
-export interface UserSubscriptionWhereInput {
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: UserWhereInput
-}
-
-export interface VideoUploadCreateWithoutMetadataInput {
-  published?: Boolean
-  submitedUrl: String
-  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  publishedBy?: UserCreateOneInput
-  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
-  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
-  submitedBy: UserCreateOneInput
-}
-
-export interface VideoConversationSubscriptionWhereInput {
-  AND?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
-  OR?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
-  NOT?: VideoConversationSubscriptionWhereInput[] | VideoConversationSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoConversationWhereInput
-}
-
-export interface NewsSourceCreateInput {
-  name?: String
-  avatarPath?: String
-  rootDomains?: NewsSourceRootDomainCreateManyInput
-  sourceItems?: NewsSourceItemCreateManyWithoutSourceInput
-}
-
-export interface NewsSourceItemSubscriptionWhereInput {
-  AND?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
-  OR?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
-  NOT?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: NewsSourceItemWhereInput
-}
-
-export interface NewsSourceItemCreateManyWithoutSourceInput {
-  create?: NewsSourceItemCreateWithoutSourceInput[] | NewsSourceItemCreateWithoutSourceInput
-  connect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
 }
 
 export interface UserWhereInput {
@@ -5879,18 +6326,54 @@ export interface UserWhereInput {
   familyName_not_ends_with?: String
 }
 
-export interface NewsSourceItemCreateWithoutSourceInput {
-  url: String
-  title?: String
-  reachable?: Boolean
-  author?: String
-  publishedDate?: DateTime
-  lastAccessed?: DateTime
-  lang?: String
-  logo?: String
-  description?: String
-  publisher?: String
-  createdBy?: UserCreateOneInput
+export interface UserCreateInput {
+  email?: String
+  auth0Id?: String
+  role?: Role
+  displayName?: String
+  avatar?: String
+  givenName?: String
+  familyName?: String
+  adminRoles?: UserCreateadminRolesInput
+}
+
+export interface VideoConversationWhereInput {
+  AND?: VideoConversationWhereInput[] | VideoConversationWhereInput
+  OR?: VideoConversationWhereInput[] | VideoConversationWhereInput
+  NOT?: VideoConversationWhereInput[] | VideoConversationWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  draft?: Boolean
+  draft_not?: Boolean
+  createdBy?: UserWhereInput
+  videoMetadata?: VideoUploadMetadataWhereInput
+  blocks_every?: ConversationBlockWhereInput
+  blocks_some?: ConversationBlockWhereInput
+  blocks_none?: ConversationBlockWhereInput
+}
+
+export interface UserCreateadminRolesInput {
+  set?: AdminRole[] | AdminRole
 }
 
 export interface DateWhereInput {
@@ -5921,6 +6404,611 @@ export interface DateWhereInput {
   year_lte?: Int
   year_gt?: Int
   year_gte?: Int
+}
+
+export interface VideoUploadMetadataCreateOneInput {
+  create?: VideoUploadMetadataCreateInput
+  connect?: VideoUploadMetadataWhereUniqueInput
+}
+
+export interface VideoUploadSubscriptionWhereInput {
+  AND?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
+  OR?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
+  NOT?: VideoUploadSubscriptionWhereInput[] | VideoUploadSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoUploadWhereInput
+}
+
+export interface VideoUploadMetadataCreateInput {
+  title?: String
+  subtitle?: String
+  speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
+  videoUpload: VideoUploadCreateOneWithoutMetadataInput
+  dateRecorded?: DateCreateOneInput
+  conversations?: VideoConversationCreateManyInput
+  newsSources?: NewsSourceItemCreateManyInput
+}
+
+export interface VideoUploadAdminMetadataWhereInput {
+  AND?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
+  OR?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
+  NOT?: VideoUploadAdminMetadataWhereInput[] | VideoUploadAdminMetadataWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  advertisingEnabled?: Boolean
+  advertisingEnabled_not?: Boolean
+  videoUpload?: VideoUploadWhereInput
+}
+
+export interface VideoUploadCreateOneWithoutMetadataInput {
+  create?: VideoUploadCreateWithoutMetadataInput
+  connect?: VideoUploadWhereUniqueInput
+}
+
+export interface ConversationBlockUpsertWithoutEntityMentionsInput {
+  update: ConversationBlockUpdateWithoutEntityMentionsDataInput
+  create: ConversationBlockCreateWithoutEntityMentionsInput
+}
+
+export interface VideoUploadCreateWithoutMetadataInput {
+  published?: Boolean
+  submitedUrl: String
+  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
+  publishedBy?: UserCreateOneInput
+  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
+  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
+  submitedBy: UserCreateOneInput
+}
+
+export interface VideoUploadStorageLinkWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput {
+  create?: VideoUploadStatusLogItemCreateWithoutVideoUploadInput[] | VideoUploadStatusLogItemCreateWithoutVideoUploadInput
+  connect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
+}
+
+export interface EntityWhereUniqueInput {
+  id?: ID_Input
+  googleMetadataId?: String
+  hash?: String
+}
+
+export interface VideoUploadStatusLogItemCreateWithoutVideoUploadInput {
+  status: VideoUploadLogItemStatus
+  event: VideoUploadLogItemEvent
+  timesoutAt?: Int
+  message?: String
+}
+
+export interface VideoUploadStatusLogItemWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface VideoUploadStorageLinkCreateManyWithoutVideoUploadInput {
+  create?: VideoUploadStorageLinkCreateWithoutVideoUploadInput[] | VideoUploadStorageLinkCreateWithoutVideoUploadInput
+  connect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
+}
+
+export interface NewsSourceItemWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface VideoUploadStorageLinkCreateWithoutVideoUploadInput {
+  path: String
+  bucket: String
+  version: VideoUploadFileLinkVersion
+  fileType: VideoUploadFileLinkType
+  mimeType: String
+}
+
+export interface NewsSourceRootDomainWhereUniqueInput {
+  id?: ID_Input
+  url?: String
+}
+
+export interface NewsSourceItemCreateManyInput {
+  create?: NewsSourceItemCreateInput[] | NewsSourceItemCreateInput
+  connect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
+}
+
+export interface VideoUploadMetadataWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface NewsSourceItemCreateInput {
+  url: String
+  title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
+  createdBy?: UserCreateOneInput
+  source?: NewsSourceCreateOneWithoutSourceItemsInput
+}
+
+export interface ConversationBlockUpdateWithoutEntityMentionsDataInput {
+  start?: Float
+  end?: Float
+  content?: String
+  speaker?: SpeakerUpdateOneInput
+}
+
+export interface NewsSourceCreateOneWithoutSourceItemsInput {
+  create?: NewsSourceCreateWithoutSourceItemsInput
+  connect?: NewsSourceWhereUniqueInput
+}
+
+export interface EntityUpsertWithoutMentionsInput {
+  update: EntityUpdateWithoutMentionsDataInput
+  create: EntityCreateWithoutMentionsInput
+}
+
+export interface NewsSourceCreateWithoutSourceItemsInput {
+  name?: String
+  avatarPath?: String
+  rootDomains?: NewsSourceRootDomainCreateManyInput
+}
+
+export interface EntityUpdateOneWithoutMentionsInput {
+  create?: EntityCreateWithoutMentionsInput
+  connect?: EntityWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: EntityUpdateWithoutMentionsDataInput
+  upsert?: EntityUpsertWithoutMentionsInput
+}
+
+export interface NewsSourceRootDomainCreateManyInput {
+  create?: NewsSourceRootDomainCreateInput[] | NewsSourceRootDomainCreateInput
+  connect?: NewsSourceRootDomainWhereUniqueInput[] | NewsSourceRootDomainWhereUniqueInput
+}
+
+export interface UserUpdateInput {
+  email?: String
+  auth0Id?: String
+  role?: Role
+  displayName?: String
+  avatar?: String
+  givenName?: String
+  familyName?: String
+  adminRoles?: UserUpdateadminRolesInput
+}
+
+export interface NewsSourceRootDomainCreateInput {
+  url: String
+}
+
+export interface SpeakerUpdateInput {
+  name?: String
+  avatarPath?: String
+  title?: String
+}
+
+export interface ConversationBlockCreateManyInput {
+  create?: ConversationBlockCreateInput[] | ConversationBlockCreateInput
+  connect?: ConversationBlockWhereUniqueInput[] | ConversationBlockWhereUniqueInput
+}
+
+export interface VideoConversationUpdateInput {
+  draft?: Boolean
+  createdBy?: UserUpdateOneInput
+  videoMetadata?: VideoUploadMetadataUpdateOneInput
+  blocks?: ConversationBlockUpdateManyInput
+}
+
+export interface ConversationBlockCreateInput {
+  start: Float
+  end: Float
+  content: String
+  speaker?: SpeakerCreateOneInput
+  entityMentions?: EntityMentionCreateManyWithoutConversationBlockInput
+}
+
+export interface ConversationBlockUpdateInput {
+  start?: Float
+  end?: Float
+  content?: String
+  speaker?: SpeakerUpdateOneInput
+  entityMentions?: EntityMentionUpdateManyWithoutConversationBlockInput
+}
+
+export interface SpeakerCreateOneInput {
+  create?: SpeakerCreateInput
+  connect?: SpeakerWhereUniqueInput
+}
+
+export interface VideoUploadUpdateWithoutStatusLogDataInput {
+  published?: Boolean
+  submitedUrl?: String
+  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
+  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
+  publishedBy?: UserUpdateOneInput
+  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
+  submitedBy?: UserUpdateOneInput
+}
+
+export interface SpeakerCreateInput {
+  name: String
+  avatarPath?: String
+  title?: String
+}
+
+export interface VideoUploadStatusLogItemUpdateInput {
+  status?: VideoUploadLogItemStatus
+  event?: VideoUploadLogItemEvent
+  timesoutAt?: Int
+  message?: String
+  videoUpload?: VideoUploadUpdateOneWithoutStatusLogInput
+}
+
+export interface EntityMentionCreateManyWithoutConversationBlockInput {
+  create?: EntityMentionCreateWithoutConversationBlockInput[] | EntityMentionCreateWithoutConversationBlockInput
+}
+
+export interface VideoUploadUpdateWithoutAdminMetadataDataInput {
+  published?: Boolean
+  submitedUrl?: String
+  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
+  publishedBy?: UserUpdateOneInput
+  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
+  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
+  submitedBy?: UserUpdateOneInput
+}
+
+export interface EntityMentionCreateWithoutConversationBlockInput {
+  salience?: Float
+  sentiment?: Float
+  sentimentMagnitude?: Float
+  entity?: EntityCreateOneWithoutMentionsInput
+}
+
+export interface VideoUploadAdminMetadataUpdateInput {
+  advertisingEnabled?: Boolean
+  videoUpload?: VideoUploadUpdateOneWithoutAdminMetadataInput
+}
+
+export interface EntityCreateOneWithoutMentionsInput {
+  create?: EntityCreateWithoutMentionsInput
+  connect?: EntityWhereUniqueInput
+}
+
+export interface EntityUpdateInput {
+  googleMetadataId?: String
+  wikipediaURL?: String
+  name?: String
+  type?: EntityType
+  hash?: String
+  mentions?: EntityMentionUpdateManyWithoutEntityInput
+}
+
+export interface NewsSourceRootDomainUpdateDataInput {
+  url?: String
+}
+
+export interface NewsSourceItemUpdateWithoutSourceDataInput {
+  url?: String
+  title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
+  createdBy?: UserUpdateOneInput
+}
+
+export interface VideoUploadStorageLinkCreateInput {
+  path: String
+  bucket: String
+  version: VideoUploadFileLinkVersion
+  fileType: VideoUploadFileLinkType
+  mimeType: String
+  videoUpload: VideoUploadCreateOneWithoutStorageLinksInput
+}
+
+export interface NewsSourceItemUpdateManyWithoutSourceInput {
+  create?: NewsSourceItemCreateWithoutSourceInput[] | NewsSourceItemCreateWithoutSourceInput
+  connect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
+  disconnect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
+  delete?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
+  update?: NewsSourceItemUpdateWithWhereUniqueWithoutSourceInput[] | NewsSourceItemUpdateWithWhereUniqueWithoutSourceInput
+  upsert?: NewsSourceItemUpsertWithWhereUniqueWithoutSourceInput[] | NewsSourceItemUpsertWithWhereUniqueWithoutSourceInput
+}
+
+export interface VideoUploadCreateOneWithoutStorageLinksInput {
+  create?: VideoUploadCreateWithoutStorageLinksInput
+  connect?: VideoUploadWhereUniqueInput
+}
+
+export interface VideoUploadUpsertWithoutStorageLinksInput {
+  update: VideoUploadUpdateWithoutStorageLinksDataInput
+  create: VideoUploadCreateWithoutStorageLinksInput
+}
+
+export interface VideoUploadCreateWithoutStorageLinksInput {
+  published?: Boolean
+  submitedUrl: String
+  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  publishedBy?: UserCreateOneInput
+  statusLog?: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
+  submitedBy: UserCreateOneInput
+}
+
+export interface VideoUploadUpdateOneWithoutStorageLinksInput {
+  create?: VideoUploadCreateWithoutStorageLinksInput
+  connect?: VideoUploadWhereUniqueInput
+  delete?: Boolean
+  update?: VideoUploadUpdateWithoutStorageLinksDataInput
+  upsert?: VideoUploadUpsertWithoutStorageLinksInput
+}
+
+export interface NewsSourceCreateInput {
+  name?: String
+  avatarPath?: String
+  rootDomains?: NewsSourceRootDomainCreateManyInput
+  sourceItems?: NewsSourceItemCreateManyWithoutSourceInput
+}
+
+export interface VideoUploadMetadataUpsertWithoutVideoUploadInput {
+  update: VideoUploadMetadataUpdateWithoutVideoUploadDataInput
+  create: VideoUploadMetadataCreateWithoutVideoUploadInput
+}
+
+export interface NewsSourceItemCreateManyWithoutSourceInput {
+  create?: NewsSourceItemCreateWithoutSourceInput[] | NewsSourceItemCreateWithoutSourceInput
+  connect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
+}
+
+export interface ConversationBlockUpsertWithWhereUniqueNestedInput {
+  where: ConversationBlockWhereUniqueInput
+  update: ConversationBlockUpdateDataInput
+  create: ConversationBlockCreateInput
+}
+
+export interface NewsSourceItemCreateWithoutSourceInput {
+  url: String
+  title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
+  createdBy?: UserCreateOneInput
+}
+
+export interface SpeakerUpsertNestedInput {
+  update: SpeakerUpdateDataInput
+  create: SpeakerCreateInput
+}
+
+export interface EntityCreateInput {
+  googleMetadataId?: String
+  wikipediaURL?: String
+  name?: String
+  type?: EntityType
+  hash: String
+  mentions?: EntityMentionCreateManyWithoutEntityInput
+}
+
+export interface SpeakerUpdateOneInput {
+  create?: SpeakerCreateInput
+  connect?: SpeakerWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: SpeakerUpdateDataInput
+  upsert?: SpeakerUpsertNestedInput
+}
+
+export interface EntityMentionCreateManyWithoutEntityInput {
+  create?: EntityMentionCreateWithoutEntityInput[] | EntityMentionCreateWithoutEntityInput
+}
+
+export interface ConversationBlockUpdateWithWhereUniqueNestedInput {
+  where: ConversationBlockWhereUniqueInput
+  data: ConversationBlockUpdateDataInput
+}
+
+export interface EntityMentionCreateWithoutEntityInput {
+  salience?: Float
+  sentiment?: Float
+  sentimentMagnitude?: Float
+  conversationBlock?: ConversationBlockCreateOneWithoutEntityMentionsInput
+}
+
+export interface VideoUploadMetadataUpsertNestedInput {
+  update: VideoUploadMetadataUpdateDataInput
+  create: VideoUploadMetadataCreateInput
+}
+
+export interface ConversationBlockCreateOneWithoutEntityMentionsInput {
+  create?: ConversationBlockCreateWithoutEntityMentionsInput
+  connect?: ConversationBlockWhereUniqueInput
+}
+
+export interface NewsSourceUpsertWithoutSourceItemsInput {
+  update: NewsSourceUpdateWithoutSourceItemsDataInput
+  create: NewsSourceCreateWithoutSourceItemsInput
+}
+
+export interface ConversationBlockCreateWithoutEntityMentionsInput {
+  start: Float
+  end: Float
+  content: String
+  speaker?: SpeakerCreateOneInput
+}
+
+export interface NewsSourceWhereInput {
+  AND?: NewsSourceWhereInput[] | NewsSourceWhereInput
+  OR?: NewsSourceWhereInput[] | NewsSourceWhereInput
+  NOT?: NewsSourceWhereInput[] | NewsSourceWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  avatarPath?: String
+  avatarPath_not?: String
+  avatarPath_in?: String[] | String
+  avatarPath_not_in?: String[] | String
+  avatarPath_lt?: String
+  avatarPath_lte?: String
+  avatarPath_gt?: String
+  avatarPath_gte?: String
+  avatarPath_contains?: String
+  avatarPath_not_contains?: String
+  avatarPath_starts_with?: String
+  avatarPath_not_starts_with?: String
+  avatarPath_ends_with?: String
+  avatarPath_not_ends_with?: String
+  rootDomains_every?: NewsSourceRootDomainWhereInput
+  rootDomains_some?: NewsSourceRootDomainWhereInput
+  rootDomains_none?: NewsSourceRootDomainWhereInput
+  sourceItems_every?: NewsSourceItemWhereInput
+  sourceItems_some?: NewsSourceItemWhereInput
+  sourceItems_none?: NewsSourceItemWhereInput
+}
+
+export interface EntityMentionCreateInput {
+  salience?: Float
+  sentiment?: Float
+  sentimentMagnitude?: Float
+  entity?: EntityCreateOneWithoutMentionsInput
+  conversationBlock?: ConversationBlockCreateOneWithoutEntityMentionsInput
+}
+
+export interface EntityWhereInput {
+  AND?: EntityWhereInput[] | EntityWhereInput
+  OR?: EntityWhereInput[] | EntityWhereInput
+  NOT?: EntityWhereInput[] | EntityWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  googleMetadataId?: String
+  googleMetadataId_not?: String
+  googleMetadataId_in?: String[] | String
+  googleMetadataId_not_in?: String[] | String
+  googleMetadataId_lt?: String
+  googleMetadataId_lte?: String
+  googleMetadataId_gt?: String
+  googleMetadataId_gte?: String
+  googleMetadataId_contains?: String
+  googleMetadataId_not_contains?: String
+  googleMetadataId_starts_with?: String
+  googleMetadataId_not_starts_with?: String
+  googleMetadataId_ends_with?: String
+  googleMetadataId_not_ends_with?: String
+  wikipediaURL?: String
+  wikipediaURL_not?: String
+  wikipediaURL_in?: String[] | String
+  wikipediaURL_not_in?: String[] | String
+  wikipediaURL_lt?: String
+  wikipediaURL_lte?: String
+  wikipediaURL_gt?: String
+  wikipediaURL_gte?: String
+  wikipediaURL_contains?: String
+  wikipediaURL_not_contains?: String
+  wikipediaURL_starts_with?: String
+  wikipediaURL_not_starts_with?: String
+  wikipediaURL_ends_with?: String
+  wikipediaURL_not_ends_with?: String
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  type?: EntityType
+  type_not?: EntityType
+  type_in?: EntityType[] | EntityType
+  type_not_in?: EntityType[] | EntityType
+  hash?: String
+  hash_not?: String
+  hash_in?: String[] | String
+  hash_not_in?: String[] | String
+  hash_lt?: String
+  hash_lte?: String
+  hash_gt?: String
+  hash_gte?: String
+  hash_contains?: String
+  hash_not_contains?: String
+  hash_starts_with?: String
+  hash_not_starts_with?: String
+  hash_ends_with?: String
+  hash_not_ends_with?: String
+  mentions_every?: EntityMentionWhereInput
+  mentions_some?: EntityMentionWhereInput
+  mentions_none?: EntityMentionWhereInput
 }
 
 export interface VideoUploadStatusLogItemWhereInput {
@@ -5980,6 +7068,335 @@ export interface VideoUploadStatusLogItemWhereInput {
   message_ends_with?: String
   message_not_ends_with?: String
   videoUpload?: VideoUploadWhereInput
+}
+
+export interface NewsSourceItemSubscriptionWhereInput {
+  AND?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
+  OR?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
+  NOT?: NewsSourceItemSubscriptionWhereInput[] | NewsSourceItemSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: NewsSourceItemWhereInput
+}
+
+export interface NewsSourceRootDomainUpdateWithWhereUniqueNestedInput {
+  where: NewsSourceRootDomainWhereUniqueInput
+  data: NewsSourceRootDomainUpdateDataInput
+}
+
+export interface VideoUploadAdminMetadataSubscriptionWhereInput {
+  AND?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
+  OR?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
+  NOT?: VideoUploadAdminMetadataSubscriptionWhereInput[] | VideoUploadAdminMetadataSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoUploadAdminMetadataWhereInput
+}
+
+export interface NewsSourceRootDomainUpdateManyInput {
+  create?: NewsSourceRootDomainCreateInput[] | NewsSourceRootDomainCreateInput
+  connect?: NewsSourceRootDomainWhereUniqueInput[] | NewsSourceRootDomainWhereUniqueInput
+  disconnect?: NewsSourceRootDomainWhereUniqueInput[] | NewsSourceRootDomainWhereUniqueInput
+  delete?: NewsSourceRootDomainWhereUniqueInput[] | NewsSourceRootDomainWhereUniqueInput
+  update?: NewsSourceRootDomainUpdateWithWhereUniqueNestedInput[] | NewsSourceRootDomainUpdateWithWhereUniqueNestedInput
+  upsert?: NewsSourceRootDomainUpsertWithWhereUniqueNestedInput[] | NewsSourceRootDomainUpsertWithWhereUniqueNestedInput
+}
+
+export interface EntitySubscriptionWhereInput {
+  AND?: EntitySubscriptionWhereInput[] | EntitySubscriptionWhereInput
+  OR?: EntitySubscriptionWhereInput[] | EntitySubscriptionWhereInput
+  NOT?: EntitySubscriptionWhereInput[] | EntitySubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: EntityWhereInput
+}
+
+export interface VideoUploadStatusLogItemCreateInput {
+  status: VideoUploadLogItemStatus
+  event: VideoUploadLogItemEvent
+  timesoutAt?: Int
+  message?: String
+  videoUpload: VideoUploadCreateOneWithoutStatusLogInput
+}
+
+export interface VideoUploadStorageLinkSubscriptionWhereInput {
+  AND?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
+  OR?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
+  NOT?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: VideoUploadStorageLinkWhereInput
+}
+
+export interface VideoUploadCreateOneWithoutStatusLogInput {
+  create?: VideoUploadCreateWithoutStatusLogInput
+  connect?: VideoUploadWhereUniqueInput
+}
+
+export interface DateUpdateInput {
+  month?: Int
+  day?: Int
+  year?: Int
+}
+
+export interface VideoUploadCreateWithoutStatusLogInput {
+  published?: Boolean
+  submitedUrl: String
+  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
+  publishedBy?: UserCreateOneInput
+  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
+  submitedBy: UserCreateOneInput
+}
+
+export interface NewsSourceWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface VideoUploadUpdateInput {
+  published?: Boolean
+  submitedUrl?: String
+  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
+  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
+  publishedBy?: UserUpdateOneInput
+  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
+  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
+  submitedBy?: UserUpdateOneInput
+}
+
+export interface ConversationBlockWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput {
+  create?: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
+  connect?: VideoUploadAdminMetadataWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput
+  upsert?: VideoUploadAdminMetadataUpsertWithoutVideoUploadInput
+}
+
+export interface SpeakerWhereUniqueInput {
+  id?: ID_Input
+  name?: String
+}
+
+export interface VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput {
+  advertisingEnabled?: Boolean
+}
+
+export interface ConversationBlockUpdateOneWithoutEntityMentionsInput {
+  create?: ConversationBlockCreateWithoutEntityMentionsInput
+  connect?: ConversationBlockWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: ConversationBlockUpdateWithoutEntityMentionsDataInput
+  upsert?: ConversationBlockUpsertWithoutEntityMentionsInput
+}
+
+export interface VideoUploadAdminMetadataUpsertWithoutVideoUploadInput {
+  update: VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput
+  create: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
+}
+
+export interface EntityMentionUpdateInput {
+  salience?: Float
+  sentiment?: Float
+  sentimentMagnitude?: Float
+  entity?: EntityUpdateOneWithoutMentionsInput
+  conversationBlock?: ConversationBlockUpdateOneWithoutEntityMentionsInput
+}
+
+export interface VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
+  create?: VideoUploadMetadataCreateWithoutVideoUploadInput
+  connect?: VideoUploadMetadataWhereUniqueInput
+  delete?: Boolean
+  update?: VideoUploadMetadataUpdateWithoutVideoUploadDataInput
+  upsert?: VideoUploadMetadataUpsertWithoutVideoUploadInput
+}
+
+export interface NewsSourceRootDomainUpdateInput {
+  url?: String
+}
+
+export interface VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
+  title?: String
+  subtitle?: String
+  speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
+  dateRecorded?: DateUpdateOneInput
+  conversations?: VideoConversationUpdateManyInput
+  newsSources?: NewsSourceItemUpdateManyInput
+}
+
+export interface VideoUploadUpsertWithoutStatusLogInput {
+  update: VideoUploadUpdateWithoutStatusLogDataInput
+  create: VideoUploadCreateWithoutStatusLogInput
+}
+
+export interface DateUpdateOneInput {
+  create?: DateCreateInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: DateUpdateDataInput
+  upsert?: DateUpsertNestedInput
+}
+
+export interface VideoUploadUpsertWithoutAdminMetadataInput {
+  update: VideoUploadUpdateWithoutAdminMetadataDataInput
+  create: VideoUploadCreateWithoutAdminMetadataInput
+}
+
+export interface DateUpdateDataInput {
+  month?: Int
+  day?: Int
+  year?: Int
+}
+
+export interface EntityMentionUpdateManyWithoutEntityInput {
+  create?: EntityMentionCreateWithoutEntityInput[] | EntityMentionCreateWithoutEntityInput
+}
+
+export interface DateUpsertNestedInput {
+  update: DateUpdateDataInput
+  create: DateCreateInput
+}
+
+export interface NewsSourceItemUpdateWithWhereUniqueWithoutSourceInput {
+  where: NewsSourceItemWhereUniqueInput
+  data: NewsSourceItemUpdateWithoutSourceDataInput
+}
+
+export interface VideoConversationUpdateManyInput {
+  create?: VideoConversationCreateInput[] | VideoConversationCreateInput
+  connect?: VideoConversationWhereUniqueInput[] | VideoConversationWhereUniqueInput
+  disconnect?: VideoConversationWhereUniqueInput[] | VideoConversationWhereUniqueInput
+  delete?: VideoConversationWhereUniqueInput[] | VideoConversationWhereUniqueInput
+  update?: VideoConversationUpdateWithWhereUniqueNestedInput[] | VideoConversationUpdateWithWhereUniqueNestedInput
+  upsert?: VideoConversationUpsertWithWhereUniqueNestedInput[] | VideoConversationUpsertWithWhereUniqueNestedInput
+}
+
+export interface VideoUploadUpdateWithoutStorageLinksDataInput {
+  published?: Boolean
+  submitedUrl?: String
+  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
+  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
+  publishedBy?: UserUpdateOneInput
+  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
+  submitedBy?: UserUpdateOneInput
+}
+
+export interface VideoConversationUpdateWithWhereUniqueNestedInput {
+  where: VideoConversationWhereUniqueInput
+  data: VideoConversationUpdateDataInput
+}
+
+export interface VideoConversationUpsertWithWhereUniqueNestedInput {
+  where: VideoConversationWhereUniqueInput
+  update: VideoConversationUpdateDataInput
+  create: VideoConversationCreateInput
+}
+
+export interface VideoConversationUpdateDataInput {
+  draft?: Boolean
+  createdBy?: UserUpdateOneInput
+  videoMetadata?: VideoUploadMetadataUpdateOneInput
+  blocks?: ConversationBlockUpdateManyInput
+}
+
+export interface SpeakerUpdateDataInput {
+  name?: String
+  avatarPath?: String
+  title?: String
+}
+
+export interface UserUpdateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: UserUpdateDataInput
+  upsert?: UserUpsertNestedInput
+}
+
+export interface ConversationBlockUpdateManyInput {
+  create?: ConversationBlockCreateInput[] | ConversationBlockCreateInput
+  connect?: ConversationBlockWhereUniqueInput[] | ConversationBlockWhereUniqueInput
+  disconnect?: ConversationBlockWhereUniqueInput[] | ConversationBlockWhereUniqueInput
+  delete?: ConversationBlockWhereUniqueInput[] | ConversationBlockWhereUniqueInput
+  update?: ConversationBlockUpdateWithWhereUniqueNestedInput[] | ConversationBlockUpdateWithWhereUniqueNestedInput
+  upsert?: ConversationBlockUpsertWithWhereUniqueNestedInput[] | ConversationBlockUpsertWithWhereUniqueNestedInput
+}
+
+export interface UserUpdateDataInput {
+  email?: String
+  auth0Id?: String
+  role?: Role
+  displayName?: String
+  avatar?: String
+  givenName?: String
+  familyName?: String
+  adminRoles?: UserUpdateadminRolesInput
+}
+
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserWhereInput
+}
+
+export interface UserUpdateadminRolesInput {
+  set?: AdminRole[] | AdminRole
+}
+
+export interface DateSubscriptionWhereInput {
+  AND?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  OR?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  NOT?: DateSubscriptionWhereInput[] | DateSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: DateWhereInput
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput
+  create: UserCreateInput
+}
+
+export interface EntityMentionSubscriptionWhereInput {
+  AND?: EntityMentionSubscriptionWhereInput[] | EntityMentionSubscriptionWhereInput
+  OR?: EntityMentionSubscriptionWhereInput[] | EntityMentionSubscriptionWhereInput
+  NOT?: EntityMentionSubscriptionWhereInput[] | EntityMentionSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: EntityMentionWhereInput
+}
+
+export interface VideoUploadMetadataUpdateOneInput {
+  create?: VideoUploadMetadataCreateInput
+  connect?: VideoUploadMetadataWhereUniqueInput
+  delete?: Boolean
+  update?: VideoUploadMetadataUpdateDataInput
+  upsert?: VideoUploadMetadataUpsertNestedInput
 }
 
 export interface VideoUploadMetadataWhereInput {
@@ -6062,110 +7479,170 @@ export interface VideoUploadMetadataWhereInput {
   newsSources_none?: NewsSourceItemWhereInput
 }
 
-export interface NewsSourceRootDomainUpdateDataInput {
-  url?: String
-}
-
-export interface VideoUploadWhereUniqueInput {
-  id?: ID_Input
-  submitedUrl?: String
-}
-
-export interface NewsSourceRootDomainUpdateWithWhereUniqueNestedInput {
-  where: NewsSourceRootDomainWhereUniqueInput
-  data: NewsSourceRootDomainUpdateDataInput
+export interface VideoUploadMetadataUpdateDataInput {
+  title?: String
+  subtitle?: String
+  speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
+  videoUpload?: VideoUploadUpdateOneWithoutMetadataInput
+  dateRecorded?: DateUpdateOneInput
+  conversations?: VideoConversationUpdateManyInput
+  newsSources?: NewsSourceItemUpdateManyInput
 }
 
 export interface VideoUploadAdminMetadataWhereUniqueInput {
   id?: ID_Input
 }
 
-export interface VideoUploadStatusLogItemCreateInput {
-  status: VideoUploadLogItemStatus
-  event: VideoUploadLogItemEvent
-  timesoutAt?: Int
-  message?: String
-  videoUpload: VideoUploadCreateOneWithoutStatusLogInput
+export interface VideoUploadUpdateOneWithoutMetadataInput {
+  create?: VideoUploadCreateWithoutMetadataInput
+  connect?: VideoUploadWhereUniqueInput
+  delete?: Boolean
+  update?: VideoUploadUpdateWithoutMetadataDataInput
+  upsert?: VideoUploadUpsertWithoutMetadataInput
 }
 
-export interface NewsSourceRootDomainWhereUniqueInput {
+export interface UserWhereUniqueInput {
   id?: ID_Input
-  url?: String
+  auth0Id?: String
 }
 
-export interface VideoUploadCreateOneWithoutStatusLogInput {
+export interface VideoUploadUpdateWithoutMetadataDataInput {
+  published?: Boolean
+  submitedUrl?: String
+  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
+  publishedBy?: UserUpdateOneInput
+  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
+  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
+  submitedBy?: UserUpdateOneInput
+}
+
+export interface VideoUploadMetadataUpdateInput {
+  title?: String
+  subtitle?: String
+  speakers?: Int
+  renderStart?: Float
+  renderEnd?: Float
+  videoUpload?: VideoUploadUpdateOneWithoutMetadataInput
+  dateRecorded?: DateUpdateOneInput
+  conversations?: VideoConversationUpdateManyInput
+  newsSources?: NewsSourceItemUpdateManyInput
+}
+
+export interface VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput {
+  create?: VideoUploadStatusLogItemCreateWithoutVideoUploadInput[] | VideoUploadStatusLogItemCreateWithoutVideoUploadInput
+  connect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
+  disconnect?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
+  delete?: VideoUploadStatusLogItemWhereUniqueInput[] | VideoUploadStatusLogItemWhereUniqueInput
+  update?: VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput
+  upsert?: VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput
+}
+
+export interface VideoUploadUpdateOneWithoutStatusLogInput {
   create?: VideoUploadCreateWithoutStatusLogInput
   connect?: VideoUploadWhereUniqueInput
-}
-
-export interface SpeakerUpdateOneInput {
-  create?: SpeakerCreateInput
-  connect?: SpeakerWhereUniqueInput
-  disconnect?: Boolean
   delete?: Boolean
-  update?: SpeakerUpdateDataInput
-  upsert?: SpeakerUpsertNestedInput
+  update?: VideoUploadUpdateWithoutStatusLogDataInput
+  upsert?: VideoUploadUpsertWithoutStatusLogInput
 }
 
-export interface VideoUploadCreateWithoutStatusLogInput {
-  published?: Boolean
-  submitedUrl: String
-  adminMetadata?: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput
-  publishedBy?: UserCreateOneInput
-  storageLinks?: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
-  submitedBy: UserCreateOneInput
+export interface VideoUploadStatusLogItemUpdateWithWhereUniqueWithoutVideoUploadInput {
+  where: VideoUploadStatusLogItemWhereUniqueInput
+  data: VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput
 }
 
-export interface NewsSourceRootDomainUpdateInput {
-  url?: String
+export interface NewsSourceItemUpsertWithWhereUniqueWithoutSourceInput {
+  where: NewsSourceItemWhereUniqueInput
+  update: NewsSourceItemUpdateWithoutSourceDataInput
+  create: NewsSourceItemCreateWithoutSourceInput
 }
 
-export interface VideoUploadUpdateInput {
-  published?: Boolean
-  submitedUrl?: String
-  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
-  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy?: UserUpdateOneInput
-  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
-  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
-  submitedBy?: UserUpdateOneInput
+export interface VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput {
+  status?: VideoUploadLogItemStatus
+  event?: VideoUploadLogItemEvent
+  timesoutAt?: Int
+  message?: String
 }
 
-export interface VideoUploadUpdateWithoutStatusLogDataInput {
-  published?: Boolean
-  submitedUrl?: String
-  adminMetadata?: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
-  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy?: UserUpdateOneInput
-  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
-  submitedBy?: UserUpdateOneInput
+export interface VideoUploadStorageLinkUpdateInput {
+  path?: String
+  bucket?: String
+  version?: VideoUploadFileLinkVersion
+  fileType?: VideoUploadFileLinkType
+  mimeType?: String
+  videoUpload?: VideoUploadUpdateOneWithoutStorageLinksInput
 }
 
-export interface VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput {
-  create?: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
-  connect?: VideoUploadAdminMetadataWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput
-  upsert?: VideoUploadAdminMetadataUpsertWithoutVideoUploadInput
+export interface VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput {
+  where: VideoUploadStatusLogItemWhereUniqueInput
+  update: VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput
+  create: VideoUploadStatusLogItemCreateWithoutVideoUploadInput
 }
 
-export interface VideoUploadUpdateWithoutAdminMetadataDataInput {
-  published?: Boolean
-  submitedUrl?: String
-  metadata?: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy?: UserUpdateOneInput
-  statusLog?: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
-  storageLinks?: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
-  submitedBy?: UserUpdateOneInput
+export interface ConversationBlockUpdateDataInput {
+  start?: Float
+  end?: Float
+  content?: String
+  speaker?: SpeakerUpdateOneInput
+  entityMentions?: EntityMentionUpdateManyWithoutConversationBlockInput
 }
 
-export interface VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput {
-  advertisingEnabled?: Boolean
+export interface VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput {
+  create?: VideoUploadStorageLinkCreateWithoutVideoUploadInput[] | VideoUploadStorageLinkCreateWithoutVideoUploadInput
+  connect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
+  disconnect?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
+  delete?: VideoUploadStorageLinkWhereUniqueInput[] | VideoUploadStorageLinkWhereUniqueInput
+  update?: VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput
+  upsert?: VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput[] | VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput
 }
 
-export interface NewsSourceItemUpdateWithoutSourceDataInput {
+export interface NewsSourceRootDomainSubscriptionWhereInput {
+  AND?: NewsSourceRootDomainSubscriptionWhereInput[] | NewsSourceRootDomainSubscriptionWhereInput
+  OR?: NewsSourceRootDomainSubscriptionWhereInput[] | NewsSourceRootDomainSubscriptionWhereInput
+  NOT?: NewsSourceRootDomainSubscriptionWhereInput[] | NewsSourceRootDomainSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: NewsSourceRootDomainWhereInput
+}
+
+export interface VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput {
+  where: VideoUploadStorageLinkWhereUniqueInput
+  data: VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput
+}
+
+export interface NewsSourceSubscriptionWhereInput {
+  AND?: NewsSourceSubscriptionWhereInput[] | NewsSourceSubscriptionWhereInput
+  OR?: NewsSourceSubscriptionWhereInput[] | NewsSourceSubscriptionWhereInput
+  NOT?: NewsSourceSubscriptionWhereInput[] | NewsSourceSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: NewsSourceWhereInput
+}
+
+export interface VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput {
+  path?: String
+  bucket?: String
+  version?: VideoUploadFileLinkVersion
+  fileType?: VideoUploadFileLinkType
+  mimeType?: String
+}
+
+export interface VideoConversationWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput {
+  where: VideoUploadStorageLinkWhereUniqueInput
+  update: VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput
+  create: VideoUploadStorageLinkCreateWithoutVideoUploadInput
+}
+
+export interface NewsSourceItemUpdateInput {
   url?: String
   title?: String
   reachable?: Boolean
@@ -6177,11 +7654,7 @@ export interface NewsSourceItemUpdateWithoutSourceDataInput {
   description?: String
   publisher?: String
   createdBy?: UserUpdateOneInput
-}
-
-export interface VideoUploadAdminMetadataUpsertWithoutVideoUploadInput {
-  update: VideoUploadAdminMetadataUpdateWithoutVideoUploadDataInput
-  create: VideoUploadAdminMetadataCreateWithoutVideoUploadInput
+  source?: NewsSourceUpdateOneWithoutSourceItemsInput
 }
 
 export interface VideoUploadUpsertWithoutMetadataInput {
@@ -6189,54 +7662,55 @@ export interface VideoUploadUpsertWithoutMetadataInput {
   create: VideoUploadCreateWithoutMetadataInput
 }
 
-export interface VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
-  create?: VideoUploadMetadataCreateWithoutVideoUploadInput
-  connect?: VideoUploadMetadataWhereUniqueInput
-  delete?: Boolean
-  update?: VideoUploadMetadataUpdateWithoutVideoUploadDataInput
-  upsert?: VideoUploadMetadataUpsertWithoutVideoUploadInput
+export interface NewsSourceUpdateInput {
+  name?: String
+  avatarPath?: String
+  rootDomains?: NewsSourceRootDomainUpdateManyInput
+  sourceItems?: NewsSourceItemUpdateManyWithoutSourceInput
 }
 
-export interface VideoUploadUpsertWithoutStorageLinksInput {
-  update: VideoUploadUpdateWithoutStorageLinksDataInput
-  create: VideoUploadCreateWithoutStorageLinksInput
+export interface NewsSourceItemUpsertWithWhereUniqueNestedInput {
+  where: NewsSourceItemWhereUniqueInput
+  update: NewsSourceItemUpdateDataInput
+  create: NewsSourceItemCreateInput
 }
 
-export interface VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
-  title?: String
-  subtitle?: String
-  speakers?: Int
-  renderStart?: Float
-  renderEnd?: Float
-  dateRecorded?: DateUpdateOneInput
-  conversations?: VideoConversationUpdateManyInput
-  newsSources?: NewsSourceItemUpdateManyInput
-}
-
-export interface VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput {
-  where: VideoUploadStorageLinkWhereUniqueInput
-  update: VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput
-  create: VideoUploadStorageLinkCreateWithoutVideoUploadInput
-}
-
-export interface DateUpdateOneInput {
-  create?: DateCreateInput
+export interface NewsSourceUpdateOneWithoutSourceItemsInput {
+  create?: NewsSourceCreateWithoutSourceItemsInput
+  connect?: NewsSourceWhereUniqueInput
   disconnect?: Boolean
   delete?: Boolean
-  update?: DateUpdateDataInput
-  upsert?: DateUpsertNestedInput
+  update?: NewsSourceUpdateWithoutSourceItemsDataInput
+  upsert?: NewsSourceUpsertWithoutSourceItemsInput
 }
 
-export interface VideoUploadStatusLogItemUpsertWithWhereUniqueWithoutVideoUploadInput {
-  where: VideoUploadStatusLogItemWhereUniqueInput
-  update: VideoUploadStatusLogItemUpdateWithoutVideoUploadDataInput
-  create: VideoUploadStatusLogItemCreateWithoutVideoUploadInput
+export interface NewsSourceItemUpdateDataInput {
+  url?: String
+  title?: String
+  reachable?: Boolean
+  author?: String
+  publishedDate?: DateTime
+  lastAccessed?: DateTime
+  lang?: String
+  logo?: String
+  description?: String
+  publisher?: String
+  createdBy?: UserUpdateOneInput
+  source?: NewsSourceUpdateOneWithoutSourceItemsInput
 }
 
-export interface DateUpdateDataInput {
-  month?: Int
-  day?: Int
-  year?: Int
+export interface NewsSourceItemUpdateWithWhereUniqueNestedInput {
+  where: NewsSourceItemWhereUniqueInput
+  data: NewsSourceItemUpdateDataInput
+}
+
+export interface NewsSourceItemUpdateManyInput {
+  create?: NewsSourceItemCreateInput[] | NewsSourceItemCreateInput
+  connect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
+  disconnect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
+  delete?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
+  update?: NewsSourceItemUpdateWithWhereUniqueNestedInput[] | NewsSourceItemUpdateWithWhereUniqueNestedInput
+  upsert?: NewsSourceItemUpsertWithWhereUniqueNestedInput[] | NewsSourceItemUpsertWithWhereUniqueNestedInput
 }
 
 export interface SpeakerWhereInput {
@@ -6301,310 +7775,29 @@ export interface SpeakerWhereInput {
   title_not_ends_with?: String
 }
 
-export interface DateUpsertNestedInput {
-  update: DateUpdateDataInput
-  create: DateCreateInput
+export interface EntityMentionUpdateManyWithoutConversationBlockInput {
+  create?: EntityMentionCreateWithoutConversationBlockInput[] | EntityMentionCreateWithoutConversationBlockInput
 }
 
-export interface VideoConversationWhereInput {
-  AND?: VideoConversationWhereInput[] | VideoConversationWhereInput
-  OR?: VideoConversationWhereInput[] | VideoConversationWhereInput
-  NOT?: VideoConversationWhereInput[] | VideoConversationWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  draft?: Boolean
-  draft_not?: Boolean
-  createdBy?: UserWhereInput
-  blocks_every?: ConversationBlockWhereInput
-  blocks_some?: ConversationBlockWhereInput
-  blocks_none?: ConversationBlockWhereInput
-}
-
-export interface VideoConversationUpdateManyInput {
-  create?: VideoConversationCreateInput[] | VideoConversationCreateInput
-  connect?: VideoConversationWhereUniqueInput[] | VideoConversationWhereUniqueInput
-  disconnect?: VideoConversationWhereUniqueInput[] | VideoConversationWhereUniqueInput
-  delete?: VideoConversationWhereUniqueInput[] | VideoConversationWhereUniqueInput
-  update?: VideoConversationUpdateWithWhereUniqueNestedInput[] | VideoConversationUpdateWithWhereUniqueNestedInput
-  upsert?: VideoConversationUpsertWithWhereUniqueNestedInput[] | VideoConversationUpsertWithWhereUniqueNestedInput
-}
-
-export interface DateUpdateInput {
-  month?: Int
-  day?: Int
-  year?: Int
-}
-
-export interface VideoConversationUpdateWithWhereUniqueNestedInput {
-  where: VideoConversationWhereUniqueInput
-  data: VideoConversationUpdateDataInput
-}
-
-export interface NewsSourceItemWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface VideoConversationUpdateDataInput {
-  draft?: Boolean
-  createdBy?: UserUpdateOneInput
-  blocks?: ConversationBlockUpdateManyInput
-}
-
-export interface UserUpdateInput {
-  email?: String
-  auth0Id?: String
-  role?: Role
-  displayName?: String
-  avatar?: String
-  givenName?: String
-  familyName?: String
-  adminRoles?: UserUpdateadminRolesInput
-}
-
-export interface UserUpdateOneInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: UserUpdateDataInput
-  upsert?: UserUpsertNestedInput
-}
-
-export interface VideoUploadStatusLogItemUpdateInput {
-  status?: VideoUploadLogItemStatus
-  event?: VideoUploadLogItemEvent
-  timesoutAt?: Int
-  message?: String
-  videoUpload?: VideoUploadUpdateOneWithoutStatusLogInput
-}
-
-export interface UserUpdateDataInput {
-  email?: String
-  auth0Id?: String
-  role?: Role
-  displayName?: String
-  avatar?: String
-  givenName?: String
-  familyName?: String
-  adminRoles?: UserUpdateadminRolesInput
-}
-
-export interface NewsSourceItemUpdateManyWithoutSourceInput {
-  create?: NewsSourceItemCreateWithoutSourceInput[] | NewsSourceItemCreateWithoutSourceInput
-  connect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
-  disconnect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
-  delete?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
-  update?: NewsSourceItemUpdateWithWhereUniqueWithoutSourceInput[] | NewsSourceItemUpdateWithWhereUniqueWithoutSourceInput
-  upsert?: NewsSourceItemUpsertWithWhereUniqueWithoutSourceInput[] | NewsSourceItemUpsertWithWhereUniqueWithoutSourceInput
-}
-
-export interface UserUpdateadminRolesInput {
-  set?: AdminRole[] | AdminRole
-}
-
-export interface VideoUploadUpdateOneWithoutStorageLinksInput {
-  create?: VideoUploadCreateWithoutStorageLinksInput
+export interface VideoUploadUpdateOneWithoutAdminMetadataInput {
+  create?: VideoUploadCreateWithoutAdminMetadataInput
   connect?: VideoUploadWhereUniqueInput
   delete?: Boolean
-  update?: VideoUploadUpdateWithoutStorageLinksDataInput
-  upsert?: VideoUploadUpsertWithoutStorageLinksInput
+  update?: VideoUploadUpdateWithoutAdminMetadataDataInput
+  upsert?: VideoUploadUpsertWithoutAdminMetadataInput
 }
 
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput
-  create: UserCreateInput
-}
-
-export interface NewsSourceWhereInput {
-  AND?: NewsSourceWhereInput[] | NewsSourceWhereInput
-  OR?: NewsSourceWhereInput[] | NewsSourceWhereInput
-  NOT?: NewsSourceWhereInput[] | NewsSourceWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
+export interface EntityUpdateWithoutMentionsDataInput {
+  googleMetadataId?: String
+  wikipediaURL?: String
   name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  avatarPath?: String
-  avatarPath_not?: String
-  avatarPath_in?: String[] | String
-  avatarPath_not_in?: String[] | String
-  avatarPath_lt?: String
-  avatarPath_lte?: String
-  avatarPath_gt?: String
-  avatarPath_gte?: String
-  avatarPath_contains?: String
-  avatarPath_not_contains?: String
-  avatarPath_starts_with?: String
-  avatarPath_not_starts_with?: String
-  avatarPath_ends_with?: String
-  avatarPath_not_ends_with?: String
-  rootDomains_every?: NewsSourceRootDomainWhereInput
-  rootDomains_some?: NewsSourceRootDomainWhereInput
-  rootDomains_none?: NewsSourceRootDomainWhereInput
-  sourceItems_every?: NewsSourceItemWhereInput
-  sourceItems_some?: NewsSourceItemWhereInput
-  sourceItems_none?: NewsSourceItemWhereInput
+  type?: EntityType
+  hash?: String
 }
 
-export interface ConversationBlockUpdateManyInput {
-  create?: ConversationBlockCreateInput[] | ConversationBlockCreateInput
-}
-
-export interface VideoUploadStorageLinkSubscriptionWhereInput {
-  AND?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
-  OR?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
-  NOT?: VideoUploadStorageLinkSubscriptionWhereInput[] | VideoUploadStorageLinkSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: VideoUploadStorageLinkWhereInput
-}
-
-export interface VideoConversationUpsertWithWhereUniqueNestedInput {
-  where: VideoConversationWhereUniqueInput
-  update: VideoConversationUpdateDataInput
-  create: VideoConversationCreateInput
-}
-
-export interface UserWhereUniqueInput {
+export interface VideoUploadWhereUniqueInput {
   id?: ID_Input
-  auth0Id?: String
-}
-
-export interface NewsSourceItemUpdateManyInput {
-  create?: NewsSourceItemCreateInput[] | NewsSourceItemCreateInput
-  connect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
-  disconnect?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
-  delete?: NewsSourceItemWhereUniqueInput[] | NewsSourceItemWhereUniqueInput
-  update?: NewsSourceItemUpdateWithWhereUniqueNestedInput[] | NewsSourceItemUpdateWithWhereUniqueNestedInput
-  upsert?: NewsSourceItemUpsertWithWhereUniqueNestedInput[] | NewsSourceItemUpsertWithWhereUniqueNestedInput
-}
-
-export interface VideoUploadAdminMetadataUpdateInput {
-  advertisingEnabled?: Boolean
-  videoUpload?: VideoUploadUpdateOneWithoutAdminMetadataInput
-}
-
-export interface VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput {
-  where: VideoUploadStorageLinkWhereUniqueInput
-  data: VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput
-}
-
-export interface NewsSourceUpdateWithoutSourceItemsDataInput {
-  name?: String
-  avatarPath?: String
-  rootDomains?: NewsSourceRootDomainUpdateManyInput
-}
-
-export interface NewsSourceUpdateOneWithoutSourceItemsInput {
-  create?: NewsSourceCreateWithoutSourceItemsInput
-  connect?: NewsSourceWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: NewsSourceUpdateWithoutSourceItemsDataInput
-  upsert?: NewsSourceUpsertWithoutSourceItemsInput
-}
-
-export interface NewsSourceItemUpdateDataInput {
-  url?: String
-  title?: String
-  reachable?: Boolean
-  author?: String
-  publishedDate?: DateTime
-  lastAccessed?: DateTime
-  lang?: String
-  logo?: String
-  description?: String
-  publisher?: String
-  createdBy?: UserUpdateOneInput
-  source?: NewsSourceUpdateOneWithoutSourceItemsInput
-}
-
-export interface NewsSourceItemUpdateWithWhereUniqueNestedInput {
-  where: NewsSourceItemWhereUniqueInput
-  data: NewsSourceItemUpdateDataInput
-}
-
-export interface ConversationBlockSubscriptionWhereInput {
-  AND?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
-  OR?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
-  NOT?: ConversationBlockSubscriptionWhereInput[] | ConversationBlockSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: ConversationBlockWhereInput
-}
-
-export interface VideoUploadUpdateOneWithoutMetadataInput {
-  create?: VideoUploadCreateWithoutMetadataInput
-  connect?: VideoUploadWhereUniqueInput
-  delete?: Boolean
-  update?: VideoUploadUpdateWithoutMetadataDataInput
-  upsert?: VideoUploadUpsertWithoutMetadataInput
-}
-
-export interface NewsSourceItemUpdateInput {
-  url?: String
-  title?: String
-  reachable?: Boolean
-  author?: String
-  publishedDate?: DateTime
-  lastAccessed?: DateTime
-  lang?: String
-  logo?: String
-  description?: String
-  publisher?: String
-  createdBy?: UserUpdateOneInput
-  source?: NewsSourceUpdateOneWithoutSourceItemsInput
-}
-
-export interface VideoUploadMetadataWhereUniqueInput {
-  id?: ID_Input
+  submitedUrl?: String
 }
 
 /*
@@ -6668,9 +7861,11 @@ export interface VideoUpload extends Node {
   submitedUrl: String
 }
 
-export interface NewsSourceRootDomainPreviousValues {
+export interface SpeakerPreviousValues {
   id: ID_Output
-  url: String
+  name: String
+  avatarPath?: String
+  title?: String
 }
 
 export interface AggregateUser {
@@ -6700,8 +7895,8 @@ export interface UserConnection {
  * An edge in a connection.
 
  */
-export interface SpeakerEdge {
-  node: Speaker
+export interface VideoUploadMetadataEdge {
+  node: VideoUploadMetadata
   cursor: String
 }
 
@@ -6718,144 +7913,7 @@ export interface VideoUploadMetadata extends Node {
   newsSources?: NewsSourceItem[]
 }
 
-export interface AggregateNewsSourceRootDomain {
-  count: Int
-}
-
-export interface SpeakerPreviousValues {
-  id: ID_Output
-  name: String
-  avatarPath?: String
-  title?: String
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface NewsSourceRootDomainConnection {
-  pageInfo: PageInfo
-  edges: NewsSourceRootDomainEdge[]
-  aggregate: AggregateNewsSourceRootDomain
-}
-
-export interface SpeakerSubscriptionPayload {
-  mutation: MutationType
-  node?: Speaker
-  updatedFields?: String[]
-  previousValues?: SpeakerPreviousValues
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface VideoConversationEdge {
-  node: VideoConversation
-  cursor: String
-}
-
-export interface VideoUploadSubscriptionPayload {
-  mutation: MutationType
-  node?: VideoUpload
-  updatedFields?: String[]
-  previousValues?: VideoUploadPreviousValues
-}
-
-export interface AggregateDate {
-  count: Int
-}
-
-export interface VideoUploadPreviousValues {
-  id: ID_Output
-  createdAt: DateTime
-  updatedAt: DateTime
-  published: Boolean
-  submitedUrl: String
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface DateConnection {
-  pageInfo: PageInfo
-  edges: DateEdge[]
-  aggregate: AggregateDate
-}
-
-export interface Date {
-  month: Int
-  day: Int
-  year: Int
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface NewsSourceItemEdge {
-  node: NewsSourceItem
-  cursor: String
-}
-
-export interface VideoUploadStorageLinkSubscriptionPayload {
-  mutation: MutationType
-  node?: VideoUploadStorageLink
-  updatedFields?: String[]
-  previousValues?: VideoUploadStorageLinkPreviousValues
-}
-
-export interface AggregateConversationBlock {
-  count: Int
-}
-
-export interface VideoUploadStorageLinkPreviousValues {
-  id: ID_Output
-  path: String
-  bucket: String
-  version: VideoUploadFileLinkVersion
-  fileType: VideoUploadFileLinkType
-  mimeType: String
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface ConversationBlockConnection {
-  pageInfo: PageInfo
-  edges: ConversationBlockEdge[]
-  aggregate: AggregateConversationBlock
-}
-
-export interface VideoUploadStorageLink extends Node {
-  id: ID_Output
-  videoUpload: VideoUpload
-  path: String
-  bucket: String
-  version: VideoUploadFileLinkVersion
-  fileType: VideoUploadFileLinkType
-  mimeType: String
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface VideoUploadStatusLogItemEdge {
-  node: VideoUploadStatusLogItem
-  cursor: String
-}
-
-export interface VideoUploadMetadataSubscriptionPayload {
-  mutation: MutationType
-  node?: VideoUploadMetadata
-  updatedFields?: String[]
-  previousValues?: VideoUploadMetadataPreviousValues
-}
-
-export interface AggregateVideoUploadAdminMetadata {
+export interface AggregateSpeaker {
   count: Int
 }
 
@@ -6872,10 +7930,146 @@ export interface VideoUploadMetadataPreviousValues {
  * A connection to a list of items.
 
  */
-export interface VideoUploadAdminMetadataConnection {
+export interface SpeakerConnection {
   pageInfo: PageInfo
-  edges: VideoUploadAdminMetadataEdge[]
-  aggregate: AggregateVideoUploadAdminMetadata
+  edges: SpeakerEdge[]
+  aggregate: AggregateSpeaker
+}
+
+export interface VideoUploadMetadataSubscriptionPayload {
+  mutation: MutationType
+  node?: VideoUploadMetadata
+  updatedFields?: String[]
+  previousValues?: VideoUploadMetadataPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface NewsSourceRootDomainEdge {
+  node: NewsSourceRootDomain
+  cursor: String
+}
+
+export interface VideoUploadSubscriptionPayload {
+  mutation: MutationType
+  node?: VideoUpload
+  updatedFields?: String[]
+  previousValues?: VideoUploadPreviousValues
+}
+
+export interface AggregateVideoConversation {
+  count: Int
+}
+
+export interface VideoUploadPreviousValues {
+  id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
+  published: Boolean
+  submitedUrl: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface VideoConversationConnection {
+  pageInfo: PageInfo
+  edges: VideoConversationEdge[]
+  aggregate: AggregateVideoConversation
+}
+
+export interface Date {
+  month: Int
+  day: Int
+  year: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface DateEdge {
+  node: Date
+  cursor: String
+}
+
+export interface VideoUploadStorageLinkSubscriptionPayload {
+  mutation: MutationType
+  node?: VideoUploadStorageLink
+  updatedFields?: String[]
+  previousValues?: VideoUploadStorageLinkPreviousValues
+}
+
+export interface AggregateNewsSourceItem {
+  count: Int
+}
+
+export interface VideoUploadStorageLinkPreviousValues {
+  id: ID_Output
+  path: String
+  bucket: String
+  version: VideoUploadFileLinkVersion
+  fileType: VideoUploadFileLinkType
+  mimeType: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface NewsSourceItemConnection {
+  pageInfo: PageInfo
+  edges: NewsSourceItemEdge[]
+  aggregate: AggregateNewsSourceItem
+}
+
+export interface VideoUploadStorageLink extends Node {
+  id: ID_Output
+  videoUpload: VideoUpload
+  path: String
+  bucket: String
+  version: VideoUploadFileLinkVersion
+  fileType: VideoUploadFileLinkType
+  mimeType: String
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface ConversationBlockEdge {
+  node: ConversationBlock
+  cursor: String
+}
+
+export interface NewsSourceSubscriptionPayload {
+  mutation: MutationType
+  node?: NewsSource
+  updatedFields?: String[]
+  previousValues?: NewsSourcePreviousValues
+}
+
+export interface AggregateVideoUploadStatusLogItem {
+  count: Int
+}
+
+export interface NewsSourcePreviousValues {
+  id: ID_Output
+  name?: String
+  avatarPath?: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface VideoUploadStatusLogItemConnection {
+  pageInfo: PageInfo
+  edges: VideoUploadStatusLogItemEdge[]
+  aggregate: AggregateVideoUploadStatusLogItem
 }
 
 export interface VideoUploadStatusLogItem extends Node {
@@ -6892,36 +8086,39 @@ export interface VideoUploadStatusLogItem extends Node {
  * An edge in a connection.
 
  */
-export interface NewsSourceEdge {
-  node: NewsSource
+export interface VideoUploadAdminMetadataEdge {
+  node: VideoUploadAdminMetadata
   cursor: String
 }
 
-export interface NewsSourceSubscriptionPayload {
+export interface EntitySubscriptionPayload {
   mutation: MutationType
-  node?: NewsSource
+  node?: Entity
   updatedFields?: String[]
-  previousValues?: NewsSourcePreviousValues
+  previousValues?: EntityPreviousValues
 }
 
-export interface AggregateVideoUploadMetadata {
+export interface AggregateEntityMention {
   count: Int
 }
 
-export interface NewsSourcePreviousValues {
+export interface EntityPreviousValues {
   id: ID_Output
+  googleMetadataId?: String
+  wikipediaURL?: String
   name?: String
-  avatarPath?: String
+  type?: EntityType
+  hash: String
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface VideoUploadMetadataConnection {
+export interface EntityMentionConnection {
   pageInfo: PageInfo
-  edges: VideoUploadMetadataEdge[]
-  aggregate: AggregateVideoUploadMetadata
+  edges: EntityMentionEdge[]
+  aggregate: AggregateEntityMention
 }
 
 export interface NewsSourceRootDomain extends Node {
@@ -6933,32 +8130,36 @@ export interface NewsSourceRootDomain extends Node {
  * An edge in a connection.
 
  */
-export interface VideoUploadStorageLinkEdge {
-  node: VideoUploadStorageLink
+export interface EntityEdge {
+  node: Entity
   cursor: String
 }
 
-export interface VideoUploadAdminMetadataSubscriptionPayload {
+export interface EntityMentionSubscriptionPayload {
   mutation: MutationType
-  node?: VideoUploadAdminMetadata
+  node?: EntityMention
   updatedFields?: String[]
-  previousValues?: VideoUploadAdminMetadataPreviousValues
+  previousValues?: EntityMentionPreviousValues
 }
 
-export interface AggregateVideoUpload {
+export interface AggregateNewsSource {
   count: Int
 }
 
-export interface VideoUploadAdminMetadataPreviousValues {
-  id: ID_Output
-  advertisingEnabled: Boolean
+export interface EntityMentionPreviousValues {
+  salience?: Float
+  sentiment?: Float
+  sentimentMagnitude?: Float
 }
 
-export interface UserSubscriptionPayload {
-  mutation: MutationType
-  node?: User
-  updatedFields?: String[]
-  previousValues?: UserPreviousValues
+/*
+ * A connection to a list of items.
+
+ */
+export interface NewsSourceConnection {
+  pageInfo: PageInfo
+  edges: NewsSourceEdge[]
+  aggregate: AggregateNewsSource
 }
 
 export interface NewsSource extends Node {
@@ -6969,43 +8170,33 @@ export interface NewsSource extends Node {
   sourceItems?: NewsSourceItem[]
 }
 
-export interface AggregateSpeaker {
-  count: Int
+export interface BatchPayload {
+  count: Long
 }
 
-export interface VideoUploadStatusLogItemSubscriptionPayload {
+export interface VideoUploadAdminMetadataSubscriptionPayload {
   mutation: MutationType
-  node?: VideoUploadStatusLogItem
+  node?: VideoUploadAdminMetadata
   updatedFields?: String[]
-  previousValues?: VideoUploadStatusLogItemPreviousValues
+  previousValues?: VideoUploadAdminMetadataPreviousValues
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface NewsSourceRootDomainEdge {
-  node: NewsSourceRootDomain
+export interface VideoUploadStorageLinkEdge {
+  node: VideoUploadStorageLink
   cursor: String
 }
 
-export interface VideoUploadStatusLogItemPreviousValues {
+export interface VideoUploadAdminMetadataPreviousValues {
   id: ID_Output
-  status: VideoUploadLogItemStatus
-  event: VideoUploadLogItemEvent
-  createdAt: DateTime
-  timesoutAt?: Int
-  message?: String
+  advertisingEnabled: Boolean
 }
 
-/*
- * A connection to a list of items.
-
- */
-export interface VideoConversationConnection {
-  pageInfo: PageInfo
-  edges: VideoConversationEdge[]
-  aggregate: AggregateVideoConversation
+export interface AggregateVideoUpload {
+  count: Int
 }
 
 export interface NewsSourceItem extends Node {
@@ -7025,7 +8216,56 @@ export interface NewsSourceItem extends Node {
   publisher?: String
 }
 
-export interface AggregateNewsSourceItem {
+export interface AggregateVideoUploadMetadata {
+  count: Int
+}
+
+export interface VideoUploadStatusLogItemSubscriptionPayload {
+  mutation: MutationType
+  node?: VideoUploadStatusLogItem
+  updatedFields?: String[]
+  previousValues?: VideoUploadStatusLogItemPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface SpeakerEdge {
+  node: Speaker
+  cursor: String
+}
+
+export interface VideoUploadStatusLogItemPreviousValues {
+  id: ID_Output
+  status: VideoUploadLogItemStatus
+  event: VideoUploadLogItemEvent
+  createdAt: DateTime
+  timesoutAt?: Int
+  message?: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface NewsSourceRootDomainConnection {
+  pageInfo: PageInfo
+  edges: NewsSourceRootDomainEdge[]
+  aggregate: AggregateNewsSourceRootDomain
+}
+
+export interface Entity extends Node {
+  id: ID_Output
+  googleMetadataId?: String
+  wikipediaURL?: String
+  name?: String
+  type?: EntityType
+  mentions?: EntityMention[]
+  hash: String
+}
+
+export interface AggregateDate {
   count: Int
 }
 
@@ -7040,12 +8280,13 @@ export interface ConversationBlockSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface ConversationBlockEdge {
-  node: ConversationBlock
+export interface NewsSourceItemEdge {
+  node: NewsSourceItem
   cursor: String
 }
 
 export interface ConversationBlockPreviousValues {
+  id: ID_Output
   start: Float
   end: Float
   content: String
@@ -7055,20 +8296,21 @@ export interface ConversationBlockPreviousValues {
  * A connection to a list of items.
 
  */
-export interface VideoUploadStatusLogItemConnection {
+export interface ConversationBlockConnection {
   pageInfo: PageInfo
-  edges: VideoUploadStatusLogItemEdge[]
-  aggregate: AggregateVideoUploadStatusLogItem
+  edges: ConversationBlockEdge[]
+  aggregate: AggregateConversationBlock
 }
 
-export interface Speaker extends Node {
-  id: ID_Output
-  name: String
-  avatarPath?: String
-  title?: String
+export interface EntityMention {
+  entity?: Entity
+  salience?: Float
+  sentiment?: Float
+  sentimentMagnitude?: Float
+  conversationBlock?: ConversationBlock
 }
 
-export interface AggregateNewsSource {
+export interface AggregateVideoUploadAdminMetadata {
   count: Int
 }
 
@@ -7083,8 +8325,8 @@ export interface NewsSourceItemSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface VideoUploadMetadataEdge {
-  node: VideoUploadMetadata
+export interface EntityMentionEdge {
+  node: EntityMention
   cursor: String
 }
 
@@ -7107,26 +8349,21 @@ export interface NewsSourceItemPreviousValues {
  * A connection to a list of items.
 
  */
-export interface VideoUploadStorageLinkConnection {
+export interface EntityConnection {
   pageInfo: PageInfo
-  edges: VideoUploadStorageLinkEdge[]
-  aggregate: AggregateVideoUploadStorageLink
+  edges: EntityEdge[]
+  aggregate: AggregateEntity
 }
 
-export interface ConversationBlock {
-  speaker?: Speaker
-  start: Float
-  end: Float
-  content: String
+export interface Speaker extends Node {
+  id: ID_Output
+  name: String
+  avatarPath?: String
+  title?: String
 }
 
-/*
- * An edge in a connection.
-
- */
-export interface VideoUploadEdge {
-  node: VideoUpload
-  cursor: String
+export interface AggregateVideoUploadStorageLink {
+  count: Int
 }
 
 export interface DateSubscriptionPayload {
@@ -7136,8 +8373,14 @@ export interface DateSubscriptionPayload {
   previousValues?: DatePreviousValues
 }
 
-export interface AggregateVideoConversation {
-  count: Int
+/*
+ * A connection to a list of items.
+
+ */
+export interface VideoUploadStorageLinkConnection {
+  pageInfo: PageInfo
+  edges: VideoUploadStorageLinkEdge[]
+  aggregate: AggregateVideoUploadStorageLink
 }
 
 export interface DatePreviousValues {
@@ -7150,10 +8393,55 @@ export interface DatePreviousValues {
  * A connection to a list of items.
 
  */
-export interface NewsSourceItemConnection {
+export interface VideoUploadMetadataConnection {
   pageInfo: PageInfo
-  edges: NewsSourceItemEdge[]
-  aggregate: AggregateNewsSourceItem
+  edges: VideoUploadMetadataEdge[]
+  aggregate: AggregateVideoUploadMetadata
+}
+
+export interface ConversationBlock extends Node {
+  id: ID_Output
+  speaker?: Speaker
+  start: Float
+  end: Float
+  content: String
+  entityMentions?: EntityMention[]
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface VideoConversationEdge {
+  node: VideoConversation
+  cursor: String
+}
+
+export interface VideoConversationSubscriptionPayload {
+  mutation: MutationType
+  node?: VideoConversation
+  updatedFields?: String[]
+  previousValues?: VideoConversationPreviousValues
+}
+
+export interface AggregateConversationBlock {
+  count: Int
+}
+
+export interface VideoConversationPreviousValues {
+  id: ID_Output
+  createdAt: DateTime
+  draft: Boolean
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface VideoUploadAdminMetadataConnection {
+  pageInfo: PageInfo
+  edges: VideoUploadAdminMetadataEdge[]
+  aggregate: AggregateVideoUploadAdminMetadata
 }
 
 export interface User extends Node {
@@ -7172,13 +8460,39 @@ export interface User extends Node {
  * An edge in a connection.
 
  */
-export interface VideoUploadAdminMetadataEdge {
-  node: VideoUploadAdminMetadata
+export interface NewsSourceEdge {
+  node: NewsSource
   cursor: String
 }
 
-export interface AggregateVideoUploadStorageLink {
-  count: Int
+/*
+ * An edge in a connection.
+
+ */
+export interface VideoUploadEdge {
+  node: VideoUpload
+  cursor: String
+}
+
+export interface SpeakerSubscriptionPayload {
+  mutation: MutationType
+  node?: Speaker
+  updatedFields?: String[]
+  previousValues?: SpeakerPreviousValues
+}
+
+export interface VideoConversation extends Node {
+  id: ID_Output
+  createdAt: DateTime
+  createdBy?: User
+  draft: Boolean
+  videoMetadata: VideoUploadMetadata
+  blocks?: ConversationBlock[]
+}
+
+export interface NewsSourceRootDomainPreviousValues {
+  id: ID_Output
+  url: String
 }
 
 export interface NewsSourceRootDomainSubscriptionPayload {
@@ -7188,42 +8502,18 @@ export interface NewsSourceRootDomainSubscriptionPayload {
   previousValues?: NewsSourceRootDomainPreviousValues
 }
 
-export interface VideoConversation extends Node {
-  id: ID_Output
-  createdAt: DateTime
-  createdBy?: User
-  draft: Boolean
-  blocks?: ConversationBlock[]
+export interface AggregateNewsSourceRootDomain {
+  count: Int
 }
 
-export interface VideoConversationPreviousValues {
-  id: ID_Output
-  createdAt: DateTime
-  draft: Boolean
-}
-
-export interface VideoConversationSubscriptionPayload {
+export interface UserSubscriptionPayload {
   mutation: MutationType
-  node?: VideoConversation
+  node?: User
   updatedFields?: String[]
-  previousValues?: VideoConversationPreviousValues
+  previousValues?: UserPreviousValues
 }
 
-export interface BatchPayload {
-  count: Long
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface NewsSourceConnection {
-  pageInfo: PageInfo
-  edges: NewsSourceEdge[]
-  aggregate: AggregateNewsSource
-}
-
-export interface AggregateVideoUploadStatusLogItem {
+export interface AggregateEntity {
   count: Int
 }
 
@@ -7231,8 +8521,8 @@ export interface AggregateVideoUploadStatusLogItem {
  * An edge in a connection.
 
  */
-export interface DateEdge {
-  node: Date
+export interface VideoUploadStatusLogItemEdge {
+  node: VideoUploadStatusLogItem
   cursor: String
 }
 
@@ -7240,10 +8530,10 @@ export interface DateEdge {
  * A connection to a list of items.
 
  */
-export interface SpeakerConnection {
+export interface DateConnection {
   pageInfo: PageInfo
-  edges: SpeakerEdge[]
-  aggregate: AggregateSpeaker
+  edges: DateEdge[]
+  aggregate: AggregateDate
 }
 
 /*

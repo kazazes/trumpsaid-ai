@@ -9,12 +9,14 @@
       "request": "launch",
       "name": "Launch via NPM",
       "runtimeExecutable": "yarn",
-      "runtimeArgs": ["run", "debug"],
+      "runtimeArgs": ["workspace", "@trumpsaid/server", "run", "debug"],
       "port": 9229,
       "sourceMaps": true,
       "protocol": "inspector",
       "restart": true,
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "outFiles": ["packages/**/dist/**"]
     },
     {
       "type": "node",
