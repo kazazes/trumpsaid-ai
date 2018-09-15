@@ -32,7 +32,7 @@ jobs:
           gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
           gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-          gsutil -m rsync -r -d /tmp/client/ gs://${GOOGLE_STORAGE_STATIC_BUCKET}/web/
+          gsutil -m rsync -r -d /tmp/client/packages/client/dist gs://${GOOGLE_STORAGE_STATIC_BUCKET}/web/
           gcloud beta compute instance-groups managed rolling-action replace ${GOOGLE_INSTANCE_GROUPS_WEB} --region=us-east1
 workflows:
   version: 2
