@@ -1,5 +1,5 @@
 # source: http://10.142.0.5:4466/trumpsaid/development
-# timestamp: Fri Sep 14 2018 16:20:29 GMT-0400 (EDT)
+# timestamp: Fri Sep 14 2018 21:20:50 GMT-0400 (EDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -15,6 +15,14 @@ type AggregateConversationBlock {
 }
 
 type AggregateDate {
+  count: Int!
+}
+
+type AggregateEntity {
+  count: Int!
+}
+
+type AggregateEntityMention {
   count: Int!
 }
 
@@ -73,6 +81,7 @@ type ConversationBlock implements Node {
   start: Float!
   end: Float!
   content: String!
+  entityMentions(where: EntityMentionWhereInput, orderBy: EntityMentionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EntityMention!]
 }
 
 """A connection to a list of items."""
@@ -90,11 +99,24 @@ input ConversationBlockCreateInput {
   end: Float!
   content: String!
   speaker: SpeakerCreateOneInput
+  entityMentions: EntityMentionCreateManyWithoutConversationBlockInput
 }
 
 input ConversationBlockCreateManyInput {
   create: [ConversationBlockCreateInput!]
   connect: [ConversationBlockWhereUniqueInput!]
+}
+
+input ConversationBlockCreateOneWithoutEntityMentionsInput {
+  create: ConversationBlockCreateWithoutEntityMentionsInput
+  connect: ConversationBlockWhereUniqueInput
+}
+
+input ConversationBlockCreateWithoutEntityMentionsInput {
+  start: Float!
+  end: Float!
+  content: String!
+  speaker: SpeakerCreateOneInput
 }
 
 """An edge in a connection."""
@@ -172,6 +194,7 @@ input ConversationBlockUpdateDataInput {
   end: Float
   content: String
   speaker: SpeakerUpdateOneInput
+  entityMentions: EntityMentionUpdateManyWithoutConversationBlockInput
 }
 
 input ConversationBlockUpdateInput {
@@ -179,6 +202,7 @@ input ConversationBlockUpdateInput {
   end: Float
   content: String
   speaker: SpeakerUpdateOneInput
+  entityMentions: EntityMentionUpdateManyWithoutConversationBlockInput
 }
 
 input ConversationBlockUpdateManyInput {
@@ -190,9 +214,30 @@ input ConversationBlockUpdateManyInput {
   upsert: [ConversationBlockUpsertWithWhereUniqueNestedInput!]
 }
 
+input ConversationBlockUpdateOneWithoutEntityMentionsInput {
+  create: ConversationBlockCreateWithoutEntityMentionsInput
+  connect: ConversationBlockWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ConversationBlockUpdateWithoutEntityMentionsDataInput
+  upsert: ConversationBlockUpsertWithoutEntityMentionsInput
+}
+
+input ConversationBlockUpdateWithoutEntityMentionsDataInput {
+  start: Float
+  end: Float
+  content: String
+  speaker: SpeakerUpdateOneInput
+}
+
 input ConversationBlockUpdateWithWhereUniqueNestedInput {
   where: ConversationBlockWhereUniqueInput!
   data: ConversationBlockUpdateDataInput!
+}
+
+input ConversationBlockUpsertWithoutEntityMentionsInput {
+  update: ConversationBlockUpdateWithoutEntityMentionsDataInput!
+  create: ConversationBlockCreateWithoutEntityMentionsInput!
 }
 
 input ConversationBlockUpsertWithWhereUniqueNestedInput {
@@ -335,6 +380,9 @@ input ConversationBlockWhereInput {
   """All values not ending with the given string."""
   content_not_ends_with: String
   speaker: SpeakerWhereInput
+  entityMentions_every: EntityMentionWhereInput
+  entityMentions_some: EntityMentionWhereInput
+  entityMentions_none: EntityMentionWhereInput
 }
 
 input ConversationBlockWhereUniqueInput {
@@ -540,6 +588,608 @@ input DateWhereInput {
   year_gte: Int
 }
 
+type Entity implements Node {
+  id: ID!
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  mentions(where: EntityMentionWhereInput, orderBy: EntityMentionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EntityMention!]
+  hash: String!
+}
+
+"""A connection to a list of items."""
+type EntityConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [EntityEdge]!
+  aggregate: AggregateEntity!
+}
+
+input EntityCreateInput {
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  hash: String!
+  mentions: EntityMentionCreateManyWithoutEntityInput
+}
+
+input EntityCreateOneWithoutMentionsInput {
+  create: EntityCreateWithoutMentionsInput
+  connect: EntityWhereUniqueInput
+}
+
+input EntityCreateWithoutMentionsInput {
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  hash: String!
+}
+
+"""An edge in a connection."""
+type EntityEdge {
+  """The item at the end of the edge."""
+  node: Entity!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+type EntityMention {
+  entity(where: EntityWhereInput): Entity
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  conversationBlock(where: ConversationBlockWhereInput): ConversationBlock
+}
+
+"""A connection to a list of items."""
+type EntityMentionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [EntityMentionEdge]!
+  aggregate: AggregateEntityMention!
+}
+
+input EntityMentionCreateInput {
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  entity: EntityCreateOneWithoutMentionsInput
+  conversationBlock: ConversationBlockCreateOneWithoutEntityMentionsInput
+}
+
+input EntityMentionCreateManyWithoutConversationBlockInput {
+  create: [EntityMentionCreateWithoutConversationBlockInput!]
+}
+
+input EntityMentionCreateManyWithoutEntityInput {
+  create: [EntityMentionCreateWithoutEntityInput!]
+}
+
+input EntityMentionCreateWithoutConversationBlockInput {
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  entity: EntityCreateOneWithoutMentionsInput
+}
+
+input EntityMentionCreateWithoutEntityInput {
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  conversationBlock: ConversationBlockCreateOneWithoutEntityMentionsInput
+}
+
+"""An edge in a connection."""
+type EntityMentionEdge {
+  """The item at the end of the edge."""
+  node: EntityMention!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum EntityMentionOrderByInput {
+  salience_ASC
+  salience_DESC
+  sentiment_ASC
+  sentiment_DESC
+  sentimentMagnitude_ASC
+  sentimentMagnitude_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type EntityMentionPreviousValues {
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+}
+
+type EntityMentionSubscriptionPayload {
+  mutation: MutationType!
+  node: EntityMention
+  updatedFields: [String!]
+  previousValues: EntityMentionPreviousValues
+}
+
+input EntityMentionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EntityMentionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EntityMentionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EntityMentionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: EntityMentionWhereInput
+}
+
+input EntityMentionUpdateInput {
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  entity: EntityUpdateOneWithoutMentionsInput
+  conversationBlock: ConversationBlockUpdateOneWithoutEntityMentionsInput
+}
+
+input EntityMentionUpdateManyWithoutConversationBlockInput {
+  create: [EntityMentionCreateWithoutConversationBlockInput!]
+}
+
+input EntityMentionUpdateManyWithoutEntityInput {
+  create: [EntityMentionCreateWithoutEntityInput!]
+}
+
+input EntityMentionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EntityMentionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EntityMentionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EntityMentionWhereInput!]
+  salience: Float
+
+  """All values that are not equal to given value."""
+  salience_not: Float
+
+  """All values that are contained in given list."""
+  salience_in: [Float!]
+
+  """All values that are not contained in given list."""
+  salience_not_in: [Float!]
+
+  """All values less than the given value."""
+  salience_lt: Float
+
+  """All values less than or equal the given value."""
+  salience_lte: Float
+
+  """All values greater than the given value."""
+  salience_gt: Float
+
+  """All values greater than or equal the given value."""
+  salience_gte: Float
+  sentiment: Float
+
+  """All values that are not equal to given value."""
+  sentiment_not: Float
+
+  """All values that are contained in given list."""
+  sentiment_in: [Float!]
+
+  """All values that are not contained in given list."""
+  sentiment_not_in: [Float!]
+
+  """All values less than the given value."""
+  sentiment_lt: Float
+
+  """All values less than or equal the given value."""
+  sentiment_lte: Float
+
+  """All values greater than the given value."""
+  sentiment_gt: Float
+
+  """All values greater than or equal the given value."""
+  sentiment_gte: Float
+  sentimentMagnitude: Float
+
+  """All values that are not equal to given value."""
+  sentimentMagnitude_not: Float
+
+  """All values that are contained in given list."""
+  sentimentMagnitude_in: [Float!]
+
+  """All values that are not contained in given list."""
+  sentimentMagnitude_not_in: [Float!]
+
+  """All values less than the given value."""
+  sentimentMagnitude_lt: Float
+
+  """All values less than or equal the given value."""
+  sentimentMagnitude_lte: Float
+
+  """All values greater than the given value."""
+  sentimentMagnitude_gt: Float
+
+  """All values greater than or equal the given value."""
+  sentimentMagnitude_gte: Float
+  entity: EntityWhereInput
+  conversationBlock: ConversationBlockWhereInput
+}
+
+enum EntityOrderByInput {
+  id_ASC
+  id_DESC
+  googleMetadataId_ASC
+  googleMetadataId_DESC
+  wikipediaURL_ASC
+  wikipediaURL_DESC
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  hash_ASC
+  hash_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type EntityPreviousValues {
+  id: ID!
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  hash: String!
+}
+
+type EntitySubscriptionPayload {
+  mutation: MutationType!
+  node: Entity
+  updatedFields: [String!]
+  previousValues: EntityPreviousValues
+}
+
+input EntitySubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EntitySubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EntitySubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EntitySubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: EntityWhereInput
+}
+
+enum EntityType {
+  UNKNOWN
+  PERSON
+  LOCATION
+  ORGANIZATION
+  EVENT
+  WORK_OF_ART
+  CONSUMER_GOOD
+  OTHER
+}
+
+input EntityUpdateInput {
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  hash: String
+  mentions: EntityMentionUpdateManyWithoutEntityInput
+}
+
+input EntityUpdateOneWithoutMentionsInput {
+  create: EntityCreateWithoutMentionsInput
+  connect: EntityWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: EntityUpdateWithoutMentionsDataInput
+  upsert: EntityUpsertWithoutMentionsInput
+}
+
+input EntityUpdateWithoutMentionsDataInput {
+  googleMetadataId: String
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  hash: String
+}
+
+input EntityUpsertWithoutMentionsInput {
+  update: EntityUpdateWithoutMentionsDataInput!
+  create: EntityCreateWithoutMentionsInput!
+}
+
+input EntityWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EntityWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EntityWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EntityWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  googleMetadataId: String
+
+  """All values that are not equal to given value."""
+  googleMetadataId_not: String
+
+  """All values that are contained in given list."""
+  googleMetadataId_in: [String!]
+
+  """All values that are not contained in given list."""
+  googleMetadataId_not_in: [String!]
+
+  """All values less than the given value."""
+  googleMetadataId_lt: String
+
+  """All values less than or equal the given value."""
+  googleMetadataId_lte: String
+
+  """All values greater than the given value."""
+  googleMetadataId_gt: String
+
+  """All values greater than or equal the given value."""
+  googleMetadataId_gte: String
+
+  """All values containing the given string."""
+  googleMetadataId_contains: String
+
+  """All values not containing the given string."""
+  googleMetadataId_not_contains: String
+
+  """All values starting with the given string."""
+  googleMetadataId_starts_with: String
+
+  """All values not starting with the given string."""
+  googleMetadataId_not_starts_with: String
+
+  """All values ending with the given string."""
+  googleMetadataId_ends_with: String
+
+  """All values not ending with the given string."""
+  googleMetadataId_not_ends_with: String
+  wikipediaURL: String
+
+  """All values that are not equal to given value."""
+  wikipediaURL_not: String
+
+  """All values that are contained in given list."""
+  wikipediaURL_in: [String!]
+
+  """All values that are not contained in given list."""
+  wikipediaURL_not_in: [String!]
+
+  """All values less than the given value."""
+  wikipediaURL_lt: String
+
+  """All values less than or equal the given value."""
+  wikipediaURL_lte: String
+
+  """All values greater than the given value."""
+  wikipediaURL_gt: String
+
+  """All values greater than or equal the given value."""
+  wikipediaURL_gte: String
+
+  """All values containing the given string."""
+  wikipediaURL_contains: String
+
+  """All values not containing the given string."""
+  wikipediaURL_not_contains: String
+
+  """All values starting with the given string."""
+  wikipediaURL_starts_with: String
+
+  """All values not starting with the given string."""
+  wikipediaURL_not_starts_with: String
+
+  """All values ending with the given string."""
+  wikipediaURL_ends_with: String
+
+  """All values not ending with the given string."""
+  wikipediaURL_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  type: EntityType
+
+  """All values that are not equal to given value."""
+  type_not: EntityType
+
+  """All values that are contained in given list."""
+  type_in: [EntityType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [EntityType!]
+  hash: String
+
+  """All values that are not equal to given value."""
+  hash_not: String
+
+  """All values that are contained in given list."""
+  hash_in: [String!]
+
+  """All values that are not contained in given list."""
+  hash_not_in: [String!]
+
+  """All values less than the given value."""
+  hash_lt: String
+
+  """All values less than or equal the given value."""
+  hash_lte: String
+
+  """All values greater than the given value."""
+  hash_gt: String
+
+  """All values greater than or equal the given value."""
+  hash_gte: String
+
+  """All values containing the given string."""
+  hash_contains: String
+
+  """All values not containing the given string."""
+  hash_not_contains: String
+
+  """All values starting with the given string."""
+  hash_starts_with: String
+
+  """All values not starting with the given string."""
+  hash_not_starts_with: String
+
+  """All values ending with the given string."""
+  hash_ends_with: String
+
+  """All values not ending with the given string."""
+  hash_not_ends_with: String
+  mentions_every: EntityMentionWhereInput
+  mentions_some: EntityMentionWhereInput
+  mentions_none: EntityMentionWhereInput
+}
+
+input EntityWhereUniqueInput {
+  id: ID
+  googleMetadataId: String
+  hash: String
+}
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -550,6 +1200,8 @@ type Mutation {
   createVideoUpload(data: VideoUploadCreateInput!): VideoUpload!
   createVideoUploadStorageLink(data: VideoUploadStorageLinkCreateInput!): VideoUploadStorageLink!
   createNewsSource(data: NewsSourceCreateInput!): NewsSource!
+  createEntity(data: EntityCreateInput!): Entity!
+  createEntityMention(data: EntityMentionCreateInput!): EntityMention!
   createVideoUploadAdminMetadata(data: VideoUploadAdminMetadataCreateInput!): VideoUploadAdminMetadata!
   createVideoUploadStatusLogItem(data: VideoUploadStatusLogItemCreateInput!): VideoUploadStatusLogItem!
   createConversationBlock(data: ConversationBlockCreateInput!): ConversationBlock!
@@ -563,6 +1215,7 @@ type Mutation {
   updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateVideoUploadStorageLink(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   updateNewsSource(data: NewsSourceUpdateInput!, where: NewsSourceWhereUniqueInput!): NewsSource
+  updateEntity(data: EntityUpdateInput!, where: EntityWhereUniqueInput!): Entity
   updateVideoUploadAdminMetadata(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   updateVideoUploadStatusLogItem(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
   updateConversationBlock(data: ConversationBlockUpdateInput!, where: ConversationBlockWhereUniqueInput!): ConversationBlock
@@ -575,6 +1228,7 @@ type Mutation {
   deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   deleteNewsSource(where: NewsSourceWhereUniqueInput!): NewsSource
+  deleteEntity(where: EntityWhereUniqueInput!): Entity
   deleteVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   deleteVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
   deleteConversationBlock(where: ConversationBlockWhereUniqueInput!): ConversationBlock
@@ -587,6 +1241,7 @@ type Mutation {
   upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!, create: VideoUploadStorageLinkCreateInput!, update: VideoUploadStorageLinkUpdateInput!): VideoUploadStorageLink!
   upsertNewsSource(where: NewsSourceWhereUniqueInput!, create: NewsSourceCreateInput!, update: NewsSourceUpdateInput!): NewsSource!
+  upsertEntity(where: EntityWhereUniqueInput!, create: EntityCreateInput!, update: EntityUpdateInput!): Entity!
   upsertVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!, create: VideoUploadAdminMetadataCreateInput!, update: VideoUploadAdminMetadataUpdateInput!): VideoUploadAdminMetadata!
   upsertVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!, create: VideoUploadStatusLogItemCreateInput!, update: VideoUploadStatusLogItemUpdateInput!): VideoUploadStatusLogItem!
   upsertConversationBlock(where: ConversationBlockWhereUniqueInput!, create: ConversationBlockCreateInput!, update: ConversationBlockUpdateInput!): ConversationBlock!
@@ -599,6 +1254,8 @@ type Mutation {
   updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
   updateManyVideoUploadStorageLinks(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereInput): BatchPayload!
   updateManyNewsSources(data: NewsSourceUpdateInput!, where: NewsSourceWhereInput): BatchPayload!
+  updateManyEntities(data: EntityUpdateInput!, where: EntityWhereInput): BatchPayload!
+  updateManyEntityMentions(data: EntityMentionUpdateInput!, where: EntityMentionWhereInput): BatchPayload!
   updateManyVideoUploadAdminMetadatas(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   updateManyVideoUploadStatusLogItems(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereInput): BatchPayload!
   updateManyConversationBlocks(data: ConversationBlockUpdateInput!, where: ConversationBlockWhereInput): BatchPayload!
@@ -612,6 +1269,8 @@ type Mutation {
   deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
   deleteManyVideoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput): BatchPayload!
   deleteManyNewsSources(where: NewsSourceWhereInput): BatchPayload!
+  deleteManyEntities(where: EntityWhereInput): BatchPayload!
+  deleteManyEntityMentions(where: EntityMentionWhereInput): BatchPayload!
   deleteManyVideoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   deleteManyVideoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput): BatchPayload!
   deleteManyConversationBlocks(where: ConversationBlockWhereInput): BatchPayload!
@@ -1787,6 +2446,8 @@ type Query {
   videoUploads(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUpload]!
   videoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStorageLink]!
   newsSources(where: NewsSourceWhereInput, orderBy: NewsSourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSource]!
+  entities(where: EntityWhereInput, orderBy: EntityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Entity]!
+  entityMentions(where: EntityMentionWhereInput, orderBy: EntityMentionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EntityMention]!
   videoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadAdminMetadata]!
   videoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStatusLogItem]!
   conversationBlocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock]!
@@ -1800,6 +2461,7 @@ type Query {
   videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   videoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   newsSource(where: NewsSourceWhereUniqueInput!): NewsSource
+  entity(where: EntityWhereUniqueInput!): Entity
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
   conversationBlock(where: ConversationBlockWhereUniqueInput!): ConversationBlock
@@ -1812,6 +2474,8 @@ type Query {
   videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
   videoUploadStorageLinksConnection(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStorageLinkConnection!
   newsSourcesConnection(where: NewsSourceWhereInput, orderBy: NewsSourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceConnection!
+  entitiesConnection(where: EntityWhereInput, orderBy: EntityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EntityConnection!
+  entityMentionsConnection(where: EntityMentionWhereInput, orderBy: EntityMentionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EntityMentionConnection!
   videoUploadAdminMetadatasConnection(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadAdminMetadataConnection!
   videoUploadStatusLogItemsConnection(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStatusLogItemConnection!
   conversationBlocksConnection(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConversationBlockConnection!
@@ -2139,6 +2803,8 @@ type Subscription {
   videoUpload(where: VideoUploadSubscriptionWhereInput): VideoUploadSubscriptionPayload
   videoUploadStorageLink(where: VideoUploadStorageLinkSubscriptionWhereInput): VideoUploadStorageLinkSubscriptionPayload
   newsSource(where: NewsSourceSubscriptionWhereInput): NewsSourceSubscriptionPayload
+  entity(where: EntitySubscriptionWhereInput): EntitySubscriptionPayload
+  entityMention(where: EntityMentionSubscriptionWhereInput): EntityMentionSubscriptionPayload
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataSubscriptionWhereInput): VideoUploadAdminMetadataSubscriptionPayload
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemSubscriptionWhereInput): VideoUploadStatusLogItemSubscriptionPayload
   conversationBlock(where: ConversationBlockSubscriptionWhereInput): ConversationBlockSubscriptionPayload

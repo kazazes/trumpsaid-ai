@@ -44,3 +44,14 @@ enum VideoUploadFileLinkVersion {
   WEB
   MASTER
 }
+
+enum EntityType {
+  UNKNOWN
+  PERSON
+  LOCATION
+  ORGANIZATION
+  EVENT
+  WORK_OF_ART
+  CONSUMER_GOOD
+  OTHER
+}

@@ -23,7 +23,7 @@ export default {
       { where: { name: speaker.name }, create: { name: speaker.name }, update: { } });
     }));
 
-    try { 
+    try {
       await ctx.db.mutation.updateVideoUploadMetadata(
         { where : { id: upload.metadata.id },
           data: {
@@ -31,7 +31,7 @@ export default {
               create: {
                 blocks,
                 createdBy: { connect: { id: ctx.user.id } },
-                videoMetadata: { connect: { id: upload.metadata.id }},
+                videoMetadata: { connect: { id: upload.metadata.id } },
                 draft: true,
               },
             },
@@ -43,14 +43,14 @@ export default {
 
     upload = await ctx.db.query.videoUpload({ where: { id: videoId } }, '{ id metadata { id conversations { id createdBy { id } } } }');
     const transcript = await ctx.db.query.videoConversations(
-      { 
-        where: { 
-          videoMetadata: { id: upload.metadata.id }
+      {
+        where: {
+          videoMetadata: { id: upload.metadata.id },
         },
-        orderBy: 'createdAt_DESC', 
+        orderBy: 'createdAt_DESC',
         first: 1 },
-        '{ id blocks { speaker { id name } start end content }}');
-    
+      '{ id blocks { id speaker { id name } start end content }}');
+
     new TranscriptNLP().augmentTranscriptWithNLP(transcript[0]);
 
     return upload;

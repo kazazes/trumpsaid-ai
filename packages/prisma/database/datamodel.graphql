@@ -109,6 +109,26 @@ type ConversationBlock {
   start: Float!
   end: Float!
   content: String!
+  entityMentions: [EntityMention!]! @relation(name: "EntityConversationMention")
+}
+
+type Entity {
+  id: ID! @unique
+  googleMetadataId: String @unique
+  wikipediaURL: String
+  name: String
+  type: EntityType
+  mentions: [EntityMention!]! @relation(name: "EntityMentionRelation")
+  hash: String! @unique # a crc32 hash of name + type + googleMID
+}
+
+type EntityMention {
+  entity: Entity @relation(name: "EntityMentionRelation")
+  salience: Float
+  sentiment: Float
+  sentimentMagnitude: Float
+  conversationBlock: ConversationBlock
+    @relation(name: "EntityConversationMention")
 }
 
 type VideoUploadAdminMetadata {
