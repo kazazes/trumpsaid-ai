@@ -5926,9 +5926,9 @@ graphql-request@^1.4.0:
   dependencies:
     cross-fetch "2.2.2"
 
-graphql-shield@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/graphql-shield/-/graphql-shield-3.2.1.tgz#069afa3d07d08bb6722030f428a0bb047232122c"
+graphql-shield@3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/graphql-shield/-/graphql-shield-3.2.2.tgz#591d7f7adb15635ea80911325c381095b01f9739"
   dependencies:
     object-hash "^1.3.0"
     opencollective "1.0.3"
