@@ -1192,7 +1192,7 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
-"@types/fluent-ffmpeg@2.1.7":
+"@types/fluent-ffmpeg@^2.1.6":
   version "2.1.7"
   resolved "https://registry.yarnpkg.com/@types/fluent-ffmpeg/-/fluent-ffmpeg-2.1.7.tgz#e7905af52754de19b0fb5263102cbc957ac6cac9"
   dependencies:
@@ -1251,9 +1251,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jquery@*", "@types/jquery@^3.3.6":
-  version "3.3.6"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.6.tgz#5932ead926307ca21e5b36808257f7c926b06565"
+"@types/jquery@*", "@types/jquery@3.3.8":
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.8.tgz#0d1849fd6708921fe75553942fe11a7743b54c9b"
 
 "@types/lodash@^4.14.104":
   version "4.14.116"
