@@ -1251,7 +1251,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jquery@*", "@types/jquery@3.3.8":
+"@types/jquery@*", "@types/jquery@^3.3.6":
   version "3.3.8"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.8.tgz#0d1849fd6708921fe75553942fe11a7743b54c9b"
 
@@ -11811,9 +11811,9 @@ webpack-sources@^1.1.0, webpack-sources@^1.2.0:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.16.5:
-  version "4.19.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.19.0.tgz#252296c8af2d21c0994911007defdb3913a7bc66"
+webpack@4.19.1:
+  version "4.19.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.19.1.tgz#096674bc3b573f8756c762754366e5b333d6576f"
   dependencies:
     "@webassemblyjs/ast" "1.7.6"
     "@webassemblyjs/helper-module-context" "1.7.6"
