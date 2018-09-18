@@ -1251,7 +1251,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jquery@*", "@types/jquery@3.3.9":
+"@types/jquery@*", "@types/jquery@^3.3.6":
   version "3.3.9"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.9.tgz#91f2aaf5c1e91fd79598fc00ecb4504d78b51fd7"
 
@@ -4655,7 +4655,7 @@ es-to-primitive@^1.1.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.1"
 
-es6-promise@^4.0.3, es6-promise@^4.2.4:
+es6-promise@^4.0.3:
   version "4.2.5"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.5.tgz#da6d0d5692efb461e082c14817fe2427d8f5d054"
 
@@ -7906,17 +7906,16 @@ multimatch@^2.1.0:
     arrify "^1.0.0"
     minimatch "^3.0.0"
 
-music-metadata@^2.8.0:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-2.8.1.tgz#bb466f2e0489785a56a54155ea2af57e8844f1ca"
+music-metadata@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.0.0.tgz#977f96f1b867f2caab680f6ffad9e45be4316cca"
   dependencies:
     debug "^4.0.1"
-    es6-promise "^4.2.4"
     file-type "9"
     media-typer "^0.3.0"
-    strtok3 "1.6.0"
-    then-read-stream "^1.2.1"
-    token-types "^0.10.0"
+    strtok3 "^2.0.0"
+    then-read-stream "^1.3.0"
+    token-types "^1.0.0"
 
 mute-stream@0.0.7, mute-stream@~0.0.4:
   version "0.0.7"
@@ -10657,14 +10656,13 @@ strong-log-transformer@^2.0.0:
     minimist "^1.2.0"
     through "^2.3.4"
 
-strtok3@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-1.6.0.tgz#221e887703fd0773a76e57f52b560838f12411bd"
+strtok3@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-2.0.0.tgz#cd09a2d0058ce16c94f6e1da92bf97e8512411fa"
   dependencies:
-    debug "^3.1.0"
-    es6-promise "^4.2.4"
-    then-read-stream "^1.2.1"
-    token-types "^0.10.0"
+    debug "^4.0.1"
+    then-read-stream "^1.3.0"
+    token-types "^1.0.0"
 
 stubs@^3.0.0:
   version "3.0.0"
@@ -10819,7 +10817,7 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
-then-read-stream@^1.2.1:
+then-read-stream@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/then-read-stream/-/then-read-stream-1.3.0.tgz#fb99314d1c5845fea29e5d271f261a1259039c09"
 
@@ -10943,9 +10941,9 @@ token-stream@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/token-stream/-/token-stream-0.0.1.tgz#ceeefc717a76c4316f126d0b9dbaa55d7e7df01a"
 
-token-types@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/token-types/-/token-types-0.10.0.tgz#b45ac19ede381ff58fc818d760f7113a6158693b"
+token-types@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/token-types/-/token-types-1.0.0.tgz#91f8180eb5464abb28af361ced3ac855a1e18fb2"
 
 toposort@^1.0.0:
   version "1.0.7"
