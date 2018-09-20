@@ -5089,9 +5089,9 @@ express-jwt@^5.3.1:
     jsonwebtoken "^8.1.0"
     lodash.set "^4.0.0"
 
-express-rate-limit@^3.1.0:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-3.1.1.tgz#a1e431df7f12f8cc39d691b72bcac09a3771ff7c"
+express-rate-limit@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-3.2.0.tgz#92368aab15a6b17c68399d4d4b4289850f13c4fe"
   dependencies:
     defaults "^1.0.3"
 
@@ -7708,13 +7708,13 @@ metascraper-clearbit-logo@^4.3.0:
   dependencies:
     got "~9.2.0"
 
-metascraper-date@4.3.5:
+metascraper-date@^4.3.2:
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/metascraper-date/-/metascraper-date-4.3.5.tgz#774efe95b5d79138f4b2926deda03188a5e0c64d"
   dependencies:
     "@metascraper/helpers" "^4.3.5"
 
-metascraper-description@4.3.5:
+metascraper-description@^4.3.2:
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/metascraper-description/-/metascraper-description-4.3.5.tgz#511576a3cc158f29fb043fcf8736b593410151aa"
   dependencies:
@@ -7726,7 +7726,7 @@ metascraper-lang@^4.3.2:
   dependencies:
     "@metascraper/helpers" "^4.3.2"
 
-metascraper-publisher@4.3.5:
+metascraper-publisher@^4.3.2:
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/metascraper-publisher/-/metascraper-publisher-4.3.5.tgz#4c9910f8a7fab3e52d6ac5fb8504459c69e6a0e7"
   dependencies:
