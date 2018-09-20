@@ -7708,25 +7708,25 @@ metascraper-clearbit-logo@^4.3.0:
   dependencies:
     got "~9.2.0"
 
-metascraper-date@4.3.5:
+metascraper-date@^4.3.2:
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/metascraper-date/-/metascraper-date-4.3.5.tgz#774efe95b5d79138f4b2926deda03188a5e0c64d"
   dependencies:
     "@metascraper/helpers" "^4.3.5"
 
-metascraper-description@4.3.5:
+metascraper-description@^4.3.2:
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/metascraper-description/-/metascraper-description-4.3.5.tgz#511576a3cc158f29fb043fcf8736b593410151aa"
   dependencies:
     "@metascraper/helpers" "^4.3.5"
 
-metascraper-lang@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/metascraper-lang/-/metascraper-lang-4.3.2.tgz#028355a726750148535ba61c9356ab562f8c6265"
+metascraper-lang@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-lang/-/metascraper-lang-4.3.5.tgz#2960df582e9d5e6486e62d861c4057b180d3cbfa"
   dependencies:
-    "@metascraper/helpers" "^4.3.2"
+    "@metascraper/helpers" "^4.3.5"
 
-metascraper-publisher@4.3.5:
+metascraper-publisher@^4.3.2:
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/metascraper-publisher/-/metascraper-publisher-4.3.5.tgz#4c9910f8a7fab3e52d6ac5fb8504459c69e6a0e7"
   dependencies:
