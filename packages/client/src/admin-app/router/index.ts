@@ -39,11 +39,6 @@ export default new Router({
                   component: VideoSubmissionsTable,
                 },
                 {
-                  path: ':submissionId/review',
-                  name: 'Review',
-                  component: VideoSubmissionReview,
-                },
-                {
                   path: ':submissionId',
                   name: 'Details',
                   component: VideoSubmission,

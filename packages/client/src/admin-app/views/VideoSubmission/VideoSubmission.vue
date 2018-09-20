@@ -25,7 +25,7 @@
         <VideoTranscriptEditor :video-upload="videoUpload" />
       </div>
       <div v-else-if="readyForReview">
-
+        <VideoSubmissionReview :video-upload="videoUpload" />
       </div>
       <b-row>
         <b-col sm="12" class="text-center mb-2">
@@ -55,6 +55,7 @@
   } from '../../constants/graphql';
   import VideoSubmissionInitialMetadata from './VideoSubmissionInitialMetadata.vue';
   import VideoTranscriptEditor from './VideoTranscriptEditor.vue';
+  import VideoSubmissionReview from './VideoSubmissionReview.vue';
 
   // tslint:disable-next-line:no-var-requires variable-name
   const Spinner = require('vue-simple-spinner');
@@ -65,6 +66,7 @@
       Spinner,
       VideoSubmissionInitialMetadata,
       VideoTranscriptEditor,
+      VideoSubmissionReview,
     },
     apollo: {
       videoUpload: {
@@ -176,7 +178,6 @@
       );
 
       if (this.videoUpload !== undefined && userCreatedConversation !== -1) {
-        this.$router.push(`/videos/submissions/${this.videoUpload.id}/review`);
         return true;
       }
 

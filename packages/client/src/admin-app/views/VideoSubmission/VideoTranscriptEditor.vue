@@ -254,7 +254,7 @@
         });
       }
 
-      this.$router.push(`/videos/submissions/${this.videoUpload.id}/review`);
+      this.$router.go(0);
     }
     validateTranscript() {
       const noSpeaker = this.editableTranscript.find(
