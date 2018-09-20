@@ -9,7 +9,7 @@ export class TranscriptSentimentAnalysis {
   private client: any;
   constructor() {
     this.client = language.v1.LanguageServiceClient({
-      projectId: process.env.GOOGLE_PROJECT_ID
+      projectId: process.env.GOOGLE_PROJECT_ID,
     });
   }
 
@@ -25,8 +25,8 @@ export class TranscriptSentimentAnalysis {
       .then((results: any) => {
         const entities: IEntity[] = results[0].entities;
 
-        logger.debug(`Entities and sentiments:`);
-        entities.forEach(entity => {
+        logger.debug('Entities and sentiments:');
+        entities.forEach((entity) => {
           logger.debug(`  Name: ${entity.name}`);
           logger.debug(`  Type: ${entity.type}`);
           logger.debug(`  Score: ${entity.sentiment.score}`);
@@ -53,7 +53,7 @@ interface ITextSpan {
 // https://cloud.google.com/nodejs/docs/reference/language/1.2.x/google.cloud.language.v1#.Sentiment
 interface ISentiment {
   magnitude: number;
-  score: number;  
+  score: number;
 }
 
 // https://cloud.google.com/nodejs/docs/reference/language/1.2.x/google.cloud.language.v1#.EntityMention

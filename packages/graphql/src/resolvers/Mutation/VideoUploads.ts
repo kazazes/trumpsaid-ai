@@ -15,6 +15,7 @@ import { isURL } from 'validator';
 
 import { IApolloContext } from '../../apollo';
 
+// tslint:disable-next-line:no-var-requires
 const nlp = require('compromise');
 
 export default {

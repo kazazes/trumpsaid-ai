@@ -25,10 +25,11 @@
     "serve": "NODE_ENV=production pm2-runtime dist/worker.js"
   },
   "dependencies": {
-    "@trumpsaid/prisma": "^1.0.0",
-    "@trumpsaid/web-workers": "^1.0.0",
+    "@google-cloud/language": "^1.2.0",
     "@trumpsaid/common": "^1.0.0",
+    "@trumpsaid/prisma": "^1.0.0",
     "@trumpsaid/pubsub": "^1.0.0",
+    "@trumpsaid/web-workers": "^1.0.0",
     "await-sleep": "0.0.1",
     "moment": "^2.22.2",
     "tslib": "^1.9.3"

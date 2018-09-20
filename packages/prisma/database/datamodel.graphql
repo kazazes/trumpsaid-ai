@@ -153,7 +153,6 @@ type Speaker {
   name: String! @unique
   avatarPath: String
   title: String
-  # TODO: Transcript items relation
 }
 
 type Date {
