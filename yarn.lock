@@ -7707,22 +7707,22 @@ metascraper-author@^4.3.2:
     lodash "~4.17.10"
 
 metascraper-clearbit-logo@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/metascraper-clearbit-logo/-/metascraper-clearbit-logo-4.3.0.tgz#a75b805f5664df04d9daaad3720c0dbfeff31c75"
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-clearbit-logo/-/metascraper-clearbit-logo-4.3.5.tgz#a0134dc3d971dc81b3b801c6116923f8eebaf2b3"
   dependencies:
     got "~9.2.0"
 
-metascraper-date@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/metascraper-date/-/metascraper-date-4.3.2.tgz#8a9e3d5ff538e902830231d40ee1c71396d6ecd2"
+metascraper-date@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-date/-/metascraper-date-4.3.5.tgz#774efe95b5d79138f4b2926deda03188a5e0c64d"
   dependencies:
-    "@metascraper/helpers" "^4.3.2"
+    "@metascraper/helpers" "^4.3.5"
 
-metascraper-description@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/metascraper-description/-/metascraper-description-4.3.2.tgz#7c588ba50bd84c0daa3dfa32a0a2edb97de6099d"
+metascraper-description@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-description/-/metascraper-description-4.3.5.tgz#511576a3cc158f29fb043fcf8736b593410151aa"
   dependencies:
-    "@metascraper/helpers" "^4.3.2"
+    "@metascraper/helpers" "^4.3.5"
 
 metascraper-lang@^4.3.2:
   version "4.3.2"
@@ -7730,17 +7730,17 @@ metascraper-lang@^4.3.2:
   dependencies:
     "@metascraper/helpers" "^4.3.2"
 
-metascraper-publisher@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/metascraper-publisher/-/metascraper-publisher-4.3.2.tgz#42ffabca138b30fbb9bd14c1d5e2317c95e5727f"
+metascraper-publisher@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-publisher/-/metascraper-publisher-4.3.5.tgz#4c9910f8a7fab3e52d6ac5fb8504459c69e6a0e7"
   dependencies:
-    "@metascraper/helpers" "^4.3.2"
+    "@metascraper/helpers" "^4.3.5"
 
 metascraper-title@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/metascraper-title/-/metascraper-title-4.3.2.tgz#4d93970343b680acf1da972849fa2a2137dd15e7"
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-title/-/metascraper-title-4.3.5.tgz#349dec33d821dde5454826b99adb7ed2611269a0"
   dependencies:
-    "@metascraper/helpers" "^4.3.2"
+    "@metascraper/helpers" "^4.3.5"
     lodash "~4.17.10"
 
 metascraper@4.3.5:
