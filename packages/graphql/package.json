@@ -25,6 +25,7 @@
     "@trumpsaid/web-workers": "^1.0.0",
     "apollo-server-core": "^2.0.4",
     "apollo-server-express": "^2.0.4",
+    "compromise": "^11.12.0",
     "got": "^9.2.1",
     "graphql-import": "^0.7.0",
     "graphql-middleware": "^1.6.6",
