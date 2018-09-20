@@ -7699,11 +7699,11 @@ mersenne-twister@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/mersenne-twister/-/mersenne-twister-1.1.0.tgz#f916618ee43d7179efcf641bec4531eb9670978a"
 
-metascraper-author@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/metascraper-author/-/metascraper-author-4.3.2.tgz#5c070f654c3de0afcd6b12e3feaa643c8f183993"
+metascraper-author@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-author/-/metascraper-author-4.3.5.tgz#03d47a2fd5133431fbe7eb0f50cac2ee1a7c79b5"
   dependencies:
-    "@metascraper/helpers" "^4.3.2"
+    "@metascraper/helpers" "^4.3.5"
     lodash "~4.17.10"
 
 metascraper-clearbit-logo@^4.3.0:
