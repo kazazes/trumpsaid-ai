@@ -13,9 +13,6 @@ const stackdriverLogging = new LoggingWinston({
 });
 
 const consoleLogging = new winston.transports.Console({
-  timestamp() {
-    return Date.now();
-  },
   formatter(options) {
     const ts = moment().toISOString();
     return `${ts}   ${config.colorize(
@@ -26,7 +23,7 @@ const consoleLogging = new winston.transports.Console({
         ? '\n\t' + JSON.stringify(options.meta)
         : ''
     }
-    `;
+    `.trim();
   },
 });
 
