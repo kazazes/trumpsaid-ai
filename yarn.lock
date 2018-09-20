@@ -969,6 +969,26 @@
     url-regex "~4.1.1"
     video-extensions "~1.1.0"
 
+"@metascraper/helpers@^4.3.5":
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/@metascraper/helpers/-/helpers-4.3.5.tgz#383a87301e3fc1cf3705935c511a0eba45caa4d6"
+  dependencies:
+    audio-extensions "0.0.0"
+    chrono-node "~1.3.5"
+    condense-whitespace "~1.0.0"
+    file-extension "~4.0.5"
+    image-extensions "~1.1.0"
+    is-relative-url "~2.0.0"
+    iso-639-3 "~1.1.0"
+    isostring "0.0.1"
+    lodash "~4.17.10"
+    mime-types "~2.1.20"
+    normalize-url "~3.3.0"
+    smartquotes "~2.3.1"
+    title "~3.3.2"
+    url-regex "~4.1.1"
+    video-extensions "~1.1.0"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -7712,11 +7732,11 @@ metascraper-publisher@^4.3.2:
   dependencies:
     "@metascraper/helpers" "^4.3.2"
 
-metascraper-title@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/metascraper-title/-/metascraper-title-4.3.2.tgz#4d93970343b680acf1da972849fa2a2137dd15e7"
+metascraper-title@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-title/-/metascraper-title-4.3.5.tgz#349dec33d821dde5454826b99adb7ed2611269a0"
   dependencies:
-    "@metascraper/helpers" "^4.3.2"
+    "@metascraper/helpers" "^4.3.5"
     lodash "~4.17.10"
 
 metascraper@^4.3.2:
