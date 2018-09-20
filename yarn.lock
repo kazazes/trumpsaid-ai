@@ -7702,9 +7702,9 @@ metascraper-author@^4.3.2:
     "@metascraper/helpers" "^4.3.2"
     lodash "~4.17.10"
 
-metascraper-clearbit-logo@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/metascraper-clearbit-logo/-/metascraper-clearbit-logo-4.3.0.tgz#a75b805f5664df04d9daaad3720c0dbfeff31c75"
+metascraper-clearbit-logo@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-clearbit-logo/-/metascraper-clearbit-logo-4.3.5.tgz#a0134dc3d971dc81b3b801c6116923f8eebaf2b3"
   dependencies:
     got "~9.2.0"
 
@@ -7732,11 +7732,11 @@ metascraper-publisher@4.3.5:
   dependencies:
     "@metascraper/helpers" "^4.3.5"
 
-metascraper-title@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/metascraper-title/-/metascraper-title-4.3.2.tgz#4d93970343b680acf1da972849fa2a2137dd15e7"
+metascraper-title@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-title/-/metascraper-title-4.3.5.tgz#349dec33d821dde5454826b99adb7ed2611269a0"
   dependencies:
-    "@metascraper/helpers" "^4.3.2"
+    "@metascraper/helpers" "^4.3.5"
     lodash "~4.17.10"
 
 metascraper@^4.3.2:
