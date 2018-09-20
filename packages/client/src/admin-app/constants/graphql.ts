@@ -128,6 +128,14 @@ query {
 }
 `;
 
+export const PUBLISH_UPLOAD = gql`
+  mutation($videoId: ID!) {
+    publishVideoUpload(id: $videoId) {
+      id
+    }
+  }
+`;
+
 export const CREATE_CONVERSATION = gql`
 mutation($videoId: ID!, $blocks: [ConversationBlockCreateInput!]!) {
   createConversation(videoId: $videoId, blocks: $blocks) {

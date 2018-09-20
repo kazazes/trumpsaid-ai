@@ -2,8 +2,12 @@
   <div class="wrapper">
     <b-nav style="margin: -1.5rem -1.9rem; padding: 0 1.5rem;" class="mb-4 bg-light">
       <div class="my-2 mx-2">
+        <b-btn v-if="readyForReview" size="sm" variant="success" @click="submitForApproval">
+          Publish
+        </b-btn>
         <b-btn size="sm" variant="outline-danger" @click="deleteUpload">
-          <i class="icon icon-trash" />&nbsp;Delete Upload</b-btn>
+          <i class="icon icon-trash" />&nbsp;Delete
+        </b-btn>
       </div>
     </b-nav>
     <div class="animated fadeIn">
@@ -52,6 +56,7 @@
   import {
     DELETE_VIDEO_UPLOAD,
     VIDEO_UPLOAD_DETAILS,
+    PUBLISH_UPLOAD,
   } from '../../constants/graphql';
   import VideoSubmissionInitialMetadata from './VideoSubmissionInitialMetadata.vue';
   import VideoTranscriptEditor from './VideoTranscriptEditor.vue';
@@ -82,6 +87,29 @@
     public videoUpload: VideoUpload;
     public selectThumbnailDisabled: boolean = false;
     public loading: boolean = false;
+
+    protected async submitForApproval() {
+      const { title, subtitle, dateRecorded } = this.videoUpload.metadata;
+      if (title === null || subtitle === null || dateRecorded === null) {
+        return this.$notify({
+          type: 'warn',
+          title:
+            'Title, subtitle and date recorded are required. Did you save them?',
+        });
+      }
+
+      await this.$apollo.mutate({
+        mutation: PUBLISH_UPLOAD,
+        variables: {
+          videoId: this.videoUpload.id,
+        },
+      });
+
+      return this.$notify({
+        type: 'success',
+        title: 'Published!',
+      });
+    }
 
     protected async deleteUpload() {
       if (window.confirm('Are you you want to delete this video?')) {

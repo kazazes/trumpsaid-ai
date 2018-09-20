@@ -94,6 +94,23 @@ export default {
   ) => {
     return ctx.db.mutation.deleteVideoUpload({ where: { id: args.id } });
   },
+  publishVideoUpload: async (
+    obj: any,
+    args: any,
+    ctx: IApolloContext,
+    info: any,
+  ) => {
+    // TODO: Add checks for publishability
+    logger.info(`${ctx.user.id} published ${args.id}`);
+    return ctx.db.mutation.updateVideoUpload(
+      { where: { id: args.id },
+        data: {
+          published: true,
+          publishedBy: { connect: { id: ctx.user.id },
+          },
+        },
+      });
+  },
   downloadVideoUploadSources: async (
     obj: any,
     args: any,
@@ -105,7 +122,6 @@ export default {
     return upload;
   },
   transcribe: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
-    // TODO: Set to processing, dispatch transcription job
     const upload = await ctx.db.query.videoUpload(
       { where: { id: args.id } },
       ' { id storageLinks { version fileType bucket path videoUpload {id} } } ',
