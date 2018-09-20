@@ -24,6 +24,9 @@
       <div v-else-if="awaitingTranscriptionReview" style="margin: -1.5rem -30px 0 -30px" class="bg-white">
         <VideoTranscriptEditor :video-upload="videoUpload" />
       </div>
+      <div v-else-if="readyForReview">
+
+      </div>
       <b-row>
         <b-col sm="12" class="text-center mb-2">
           <b-button v-b-toggle.debug-info>Toggle Debug Info</b-button>
@@ -42,10 +45,14 @@
   import {
     VideoUpload,
     VideoUploadStorageLink,
+    VideoConversation,
   } from '@trumpsaid/prisma';
   import Vue from 'vue';
   import Component from 'vue-class-component';
-  import { DELETE_VIDEO_UPLOAD, VIDEO_UPLOAD_DETAILS } from '../constants/graphql';
+  import {
+    DELETE_VIDEO_UPLOAD,
+    VIDEO_UPLOAD_DETAILS,
+  } from '../constants/graphql';
   import VideoSubmissionInitialMetadata from './VideoSubmissionInitialMetadata.vue';
   import VideoTranscriptEditor from './VideoTranscriptEditor.vue';
 
@@ -63,11 +70,11 @@
       videoUpload: {
         query: VIDEO_UPLOAD_DETAILS,
         variables(): any {
-          return { videoSubmissionId: this.$route.params.submissionId }
+          return { videoSubmissionId: this.$route.params.submissionId };
         },
         pollInterval: 1000,
       },
-    }
+    },
   })
   export default class VideoSubmission extends Vue {
     public videoUpload: VideoUpload;
@@ -100,24 +107,31 @@
     }
 
     get needsInitialMetadata() {
-      return this.videoUpload !== undefined && this.videoUpload.metadata.renderEnd === 0;
+      return (
+        this.videoUpload !== undefined &&
+        this.videoUpload.metadata.renderEnd === 0
+      );
     }
 
     get mp4Master() {
-      if (this.videoUpload === undefined) { return undefined };
+      if (this.videoUpload === undefined) {
+        return undefined;
+      }
       return this.videoUpload.storageLinks.find(
         (link: VideoUploadStorageLink) => {
           return link.version === 'MASTER' && link.fileType === 'MP4';
-        }
+        },
       );
     }
 
     get mp4Web() {
-      if (this.videoUpload === undefined) { return undefined; }
+      if (this.videoUpload === undefined) {
+        return undefined;
+      }
       return this.videoUpload.storageLinks.find(
         (link: VideoUploadStorageLink) => {
           return link.version === 'WEB' && link.fileType === 'MP4';
-        }
+        },
       );
     }
 
@@ -131,15 +145,42 @@
 
     get awaitingTranscriptionReview() {
       if (this.videoUpload === undefined) {
-        return false
+        return false;
       }
 
+      const userCreatedConversation = this.videoUpload.metadata.conversations.findIndex(
+        (convo: VideoConversation) => {
+          return convo.createdBy !== null;
+        },
+      );
+
       const firstConvo = this.videoUpload.metadata.conversations[0];
+
       return (
         !this.awaitingTranscription &&
+        userCreatedConversation === -1 &&
         firstConvo !== undefined &&
         firstConvo.createdBy === null
       );
+    }
+
+    get readyForReview() {
+      if (this.videoUpload === undefined) {
+        return false;
+      }
+
+      const userCreatedConversation = this.videoUpload.metadata.conversations.findIndex(
+        (convo: VideoConversation) => {
+          return convo.createdBy !== null;
+        },
+      );
+
+      if (this.videoUpload !== undefined && userCreatedConversation !== -1) {
+        this.$router.push(`/videos/submissions/${this.videoUpload.id}/review`);
+        return true;
+      }
+
+      return false;
     }
   }
 </script>
