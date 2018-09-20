@@ -17,13 +17,9 @@ import adminRouter from './routes/adminRouter';
 import authRouter from './routes/authRouter';
 import rootRouter from './routes/rootRouter';
 
-// import csrf from "csurf";
-// import lusca from "lusca";
 const app = express();
 const env = process.env.NODE_ENV;
 
-// Express configuration
-// tslint:disable-next-line:no-magic-numbers
 app.set('port', process.env.PORT || 3000);
 app.set('hostname', process.env.HOST || '127.0.0.1');
 app.set('views', './views');
@@ -33,8 +29,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(expressFlash());
-// app.use(lusca.xframe("SAMEORIGIN"));
-// app.use(lusca.xssProtection(true));
 
 const staticPath = path.join('../client/dist');
 app.use(express.static(staticPath, { maxAge: 31557600000 }));
