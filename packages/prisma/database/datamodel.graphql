@@ -50,8 +50,9 @@ type VideoUploadMetadata {
   videoUpload: VideoUpload!
     @unique
     @relation(name: "VideoUploadMetadataRelation")
-  title: String
+  title: String @unique
   subtitle: String
+  slug: String @unique
   dateRecorded: Date
   speakers: Int! @default(value: "2")
   renderStart: Float! @default(value: "0")
@@ -152,7 +153,6 @@ type Speaker {
   name: String! @unique
   avatarPath: String
   title: String
-  # TODO: Transcript items relation
 }
 
 type Date {

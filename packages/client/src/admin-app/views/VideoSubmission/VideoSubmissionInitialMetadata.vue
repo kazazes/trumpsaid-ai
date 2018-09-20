@@ -44,15 +44,12 @@
   </b-row>
 </template>
 <script lang="ts">
-  import {
-    VideoUpload,
-    VideoUploadStorageLink,
-  } from '@trumpsaid/prisma';
+  import { VideoUpload, VideoUploadStorageLink } from '@trumpsaid/prisma';
   import timestampFormat from 'hh-mm-ss';
   import Vue from 'vue';
   import Component from 'vue-class-component';
-  import { SET_INITIAL_UPLOAD_METADATA } from '../constants/graphql';
-  import VideoPlayer from './VideoPlayer.vue';
+  import { SET_INITIAL_UPLOAD_METADATA } from '../../constants/graphql';
+  import VideoPlayer from '../VideoPlayer.vue';
 
   @Component({
     name: 'VideoSubmissionInitialMetadata',
@@ -131,7 +128,7 @@
     private setPlaceholderEnd() {
       this.initialMetadata.renderEnd = timestampFormat.fromS(
         this.player.duration(),
-        'hh:mm:ss'
+        'hh:mm:ss',
       );
     }
     private formatedUpload() {
@@ -139,11 +136,11 @@
     }
     private getPoster(video: VideoUpload) {
       const storageLink = video.storageLinks.find(
-        (link) => link.version === 'WEB' && link.fileType === 'THUMBNAIL'
+        (link) => link.version === 'WEB' && link.fileType === 'THUMBNAIL',
       );
       const linkUrl = `https://storage.googleapis.com/${
         storageLink.bucket
-        }/${encodeURI(storageLink.path)}`;
+      }/${encodeURI(storageLink.path)}`;
       return linkUrl;
     }
     private setToPlayerTime(prop: string) {
@@ -157,13 +154,13 @@
 
       this.initialMetadata[prop] = timestampFormat.fromS(
         this.player.currentTime(),
-        'hh:mm:ss'
+        'hh:mm:ss',
       );
     }
     private getSource(storageLink: VideoUploadStorageLink) {
       const linkUrl = `https://storage.googleapis.com/${
         storageLink.bucket
-        }/${encodeURI(storageLink.path)}`;
+      }/${encodeURI(storageLink.path)}`;
       return [{ src: linkUrl, mimeType: storageLink.mimeType }];
     }
     private getAMaster(): VideoUploadStorageLink {
@@ -173,7 +170,7 @@
             link.version === 'MASTER' &&
             (link.fileType === 'MP4' || link.fileType === 'WEBM')
           );
-        }
+        },
       );
     }
   }

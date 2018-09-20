@@ -57,7 +57,7 @@
   import moment from 'moment';
   import { isURL } from 'validator';
   import Vue from 'vue';
-  import { ADD_NEWS_SOURCE_ITEMS, DELETE_NEWS_SOURCE_ITEM, VIDEO_UPLOAD_DETAILS } from '../constants/graphql';
+  import { ADD_NEWS_SOURCE_ITEMS, DELETE_NEWS_SOURCE_ITEM, VIDEO_UPLOAD_DETAILS } from '../../constants/graphql';
 
   export default Vue.extend({
     name: 'VideoSubmissionMetadata',

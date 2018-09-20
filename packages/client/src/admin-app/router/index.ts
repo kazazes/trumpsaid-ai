@@ -6,10 +6,9 @@ const DefaultContainer = require('../containers/DefaultContainer.vue').default;
 
 // Views
 const Videos = require('../views/Videos.vue').default;
-const VideoSubmission = require('../views/VideoSubmission.vue').default;
-const VideoSubmissionsTable = require('../views/VideoSubmissionsTable.vue').default;
-const VideoSubmissions = require('../views/VideoSubmissions.vue').default;
-const VideoSubmissionReview = require('../views/VideoSubmissionReview.vue').default;
+const VideoSubmission = require('../views/VideoSubmission/VideoSubmission.vue').default;
+const VideoSubmissionsTable = require('../views/VideoSubmission/VideoSubmissionsTable.vue').default;
+const VideoSubmissions = require('../views/VideoSubmission/VideoSubmissions.vue').default;
 
 export default new Router({
   mode: 'hash', // Demo is living in GitHub.io, so required!
@@ -37,11 +36,6 @@ export default new Router({
                   path: 'all',
                   name: 'All Submissions',
                   component: VideoSubmissionsTable,
-                },
-                {
-                  path: ':submissionId/review',
-                  name: 'Review',
-                  component: VideoSubmissionReview,
                 },
                 {
                   path: ':submissionId',

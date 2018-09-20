@@ -1,5 +1,5 @@
 # source: http://10.142.0.5:4466/trumpsaid/development
-# timestamp: Fri Sep 14 2018 21:20:50 GMT-0400 (EDT)
+# timestamp: Thu Sep 20 2018 14:55:49 GMT-0400 (EDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -3823,6 +3823,7 @@ type VideoUploadMetadata implements Node {
   videoUpload(where: VideoUploadWhereInput): VideoUpload!
   title: String
   subtitle: String
+  slug: String
   dateRecorded(where: DateWhereInput): Date
   speakers: Int!
   renderStart: Float!
@@ -3844,6 +3845,7 @@ type VideoUploadMetadataConnection {
 input VideoUploadMetadataCreateInput {
   title: String
   subtitle: String
+  slug: String
   speakers: Int
   renderStart: Float
   renderEnd: Float
@@ -3866,6 +3868,7 @@ input VideoUploadMetadataCreateOneWithoutVideoUploadInput {
 input VideoUploadMetadataCreateWithoutVideoUploadInput {
   title: String
   subtitle: String
+  slug: String
   speakers: Int
   renderStart: Float
   renderEnd: Float
@@ -3890,6 +3893,8 @@ enum VideoUploadMetadataOrderByInput {
   title_DESC
   subtitle_ASC
   subtitle_DESC
+  slug_ASC
+  slug_DESC
   speakers_ASC
   speakers_DESC
   renderStart_ASC
@@ -3906,6 +3911,7 @@ type VideoUploadMetadataPreviousValues {
   id: ID!
   title: String
   subtitle: String
+  slug: String
   speakers: Int!
   renderStart: Float!
   renderEnd: Float!
@@ -3953,6 +3959,7 @@ input VideoUploadMetadataSubscriptionWhereInput {
 input VideoUploadMetadataUpdateDataInput {
   title: String
   subtitle: String
+  slug: String
   speakers: Int
   renderStart: Float
   renderEnd: Float
@@ -3965,6 +3972,7 @@ input VideoUploadMetadataUpdateDataInput {
 input VideoUploadMetadataUpdateInput {
   title: String
   subtitle: String
+  slug: String
   speakers: Int
   renderStart: Float
   renderEnd: Float
@@ -3993,6 +4001,7 @@ input VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
 input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   title: String
   subtitle: String
+  slug: String
   speakers: Int
   renderStart: Float
   renderEnd: Float
@@ -4140,6 +4149,46 @@ input VideoUploadMetadataWhereInput {
 
   """All values not ending with the given string."""
   subtitle_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
   speakers: Int
 
   """All values that are not equal to given value."""
@@ -4218,6 +4267,8 @@ input VideoUploadMetadataWhereInput {
 
 input VideoUploadMetadataWhereUniqueInput {
   id: ID
+  title: String
+  slug: String
 }
 
 enum VideoUploadOrderByInput {

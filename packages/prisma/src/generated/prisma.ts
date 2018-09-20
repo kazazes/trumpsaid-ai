@@ -4017,6 +4017,7 @@ type VideoUploadMetadata implements Node {
   videoUpload(where: VideoUploadWhereInput): VideoUpload!
   title: String
   subtitle: String
+  slug: String
   dateRecorded(where: DateWhereInput): Date
   speakers: Int!
   renderStart: Float!
@@ -4038,6 +4039,7 @@ type VideoUploadMetadataConnection {
 input VideoUploadMetadataCreateInput {
   title: String
   subtitle: String
+  slug: String
   speakers: Int
   renderStart: Float
   renderEnd: Float
@@ -4060,6 +4062,7 @@ input VideoUploadMetadataCreateOneWithoutVideoUploadInput {
 input VideoUploadMetadataCreateWithoutVideoUploadInput {
   title: String
   subtitle: String
+  slug: String
   speakers: Int
   renderStart: Float
   renderEnd: Float
@@ -4084,6 +4087,8 @@ enum VideoUploadMetadataOrderByInput {
   title_DESC
   subtitle_ASC
   subtitle_DESC
+  slug_ASC
+  slug_DESC
   speakers_ASC
   speakers_DESC
   renderStart_ASC
@@ -4100,6 +4105,7 @@ type VideoUploadMetadataPreviousValues {
   id: ID!
   title: String
   subtitle: String
+  slug: String
   speakers: Int!
   renderStart: Float!
   renderEnd: Float!
@@ -4147,6 +4153,7 @@ input VideoUploadMetadataSubscriptionWhereInput {
 input VideoUploadMetadataUpdateDataInput {
   title: String
   subtitle: String
+  slug: String
   speakers: Int
   renderStart: Float
   renderEnd: Float
@@ -4159,6 +4166,7 @@ input VideoUploadMetadataUpdateDataInput {
 input VideoUploadMetadataUpdateInput {
   title: String
   subtitle: String
+  slug: String
   speakers: Int
   renderStart: Float
   renderEnd: Float
@@ -4187,6 +4195,7 @@ input VideoUploadMetadataUpdateOneWithoutVideoUploadInput {
 input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   title: String
   subtitle: String
+  slug: String
   speakers: Int
   renderStart: Float
   renderEnd: Float
@@ -4334,6 +4343,46 @@ input VideoUploadMetadataWhereInput {
 
   """All values not ending with the given string."""
   subtitle_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
   speakers: Int
 
   """All values that are not equal to given value."""
@@ -4412,6 +4461,8 @@ input VideoUploadMetadataWhereInput {
 
 input VideoUploadMetadataWhereUniqueInput {
   id: ID
+  title: String
+  slug: String
 }
 
 enum VideoUploadOrderByInput {
@@ -5600,6 +5651,8 @@ export type VideoUploadMetadataOrderByInput =   'id_ASC' |
   'title_DESC' |
   'subtitle_ASC' |
   'subtitle_DESC' |
+  'slug_ASC' |
+  'slug_DESC' |
   'speakers_ASC' |
   'speakers_DESC' |
   'renderStart_ASC' |
@@ -6064,6 +6117,7 @@ export interface NewsSourceItemWhereInput {
 export interface VideoUploadMetadataCreateWithoutVideoUploadInput {
   title?: String
   subtitle?: String
+  slug?: String
   speakers?: Int
   renderStart?: Float
   renderEnd?: Float
@@ -6425,6 +6479,7 @@ export interface VideoUploadSubscriptionWhereInput {
 export interface VideoUploadMetadataCreateInput {
   title?: String
   subtitle?: String
+  slug?: String
   speakers?: Int
   renderStart?: Float
   renderEnd?: Float
@@ -6532,6 +6587,8 @@ export interface NewsSourceItemCreateManyInput {
 
 export interface VideoUploadMetadataWhereUniqueInput {
   id?: ID_Input
+  title?: String
+  slug?: String
 }
 
 export interface NewsSourceItemCreateInput {
@@ -7231,6 +7288,7 @@ export interface NewsSourceRootDomainUpdateInput {
 export interface VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   title?: String
   subtitle?: String
+  slug?: String
   speakers?: Int
   renderStart?: Float
   renderEnd?: Float
@@ -7445,6 +7503,20 @@ export interface VideoUploadMetadataWhereInput {
   subtitle_not_starts_with?: String
   subtitle_ends_with?: String
   subtitle_not_ends_with?: String
+  slug?: String
+  slug_not?: String
+  slug_in?: String[] | String
+  slug_not_in?: String[] | String
+  slug_lt?: String
+  slug_lte?: String
+  slug_gt?: String
+  slug_gte?: String
+  slug_contains?: String
+  slug_not_contains?: String
+  slug_starts_with?: String
+  slug_not_starts_with?: String
+  slug_ends_with?: String
+  slug_not_ends_with?: String
   speakers?: Int
   speakers_not?: Int
   speakers_in?: Int[] | Int
@@ -7482,6 +7554,7 @@ export interface VideoUploadMetadataWhereInput {
 export interface VideoUploadMetadataUpdateDataInput {
   title?: String
   subtitle?: String
+  slug?: String
   speakers?: Int
   renderStart?: Float
   renderEnd?: Float
@@ -7521,6 +7594,7 @@ export interface VideoUploadUpdateWithoutMetadataDataInput {
 export interface VideoUploadMetadataUpdateInput {
   title?: String
   subtitle?: String
+  slug?: String
   speakers?: Int
   renderStart?: Float
   renderEnd?: Float
@@ -7905,6 +7979,7 @@ export interface VideoUploadMetadata extends Node {
   videoUpload: VideoUpload
   title?: String
   subtitle?: String
+  slug?: String
   dateRecorded?: Date
   speakers: Int
   renderStart: Float
@@ -7921,6 +7996,7 @@ export interface VideoUploadMetadataPreviousValues {
   id: ID_Output
   title?: String
   subtitle?: String
+  slug?: String
   speakers: Int
   renderStart: Float
   renderEnd: Float

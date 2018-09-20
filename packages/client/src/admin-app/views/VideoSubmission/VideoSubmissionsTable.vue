@@ -37,13 +37,13 @@
 </template>
 
 <script lang="ts">
-    import { VideoUpload } from '@trumpsaid/prisma';
+  import { VideoUpload } from '@trumpsaid/prisma';
   import gql from 'graphql-tag';
   import moment from 'moment';
-import Vue from 'vue';
+  import Vue from 'vue';
   import Component from 'vue-class-component';
-  import { LIST_UPLOADS } from '../constants/graphql';
-  import VideoSubmitModal from '../forms/VideoSubmitModal.vue';
+  import { LIST_UPLOADS } from '../../constants/graphql';
+  import VideoSubmitModal from '../../forms/VideoSubmitModal.vue';
 
   // tslint:disable-next-line:variable-name
   const Spinner = require('vue-simple-spinner');
@@ -87,12 +87,12 @@ import Vue from 'vue';
       if (window.confirm('Are you you want to delete this video?')) {
         await this.$apollo.mutate({
           mutation: gql`
-          mutation($id: ID!) {
-            deleteVideoUpload(id: $id) {
-              id
+            mutation($id: ID!) {
+              deleteVideoUpload(id: $id) {
+                id
+              }
             }
-          }
-        `,
+          `,
           variables: {
             id: itemId,
           },

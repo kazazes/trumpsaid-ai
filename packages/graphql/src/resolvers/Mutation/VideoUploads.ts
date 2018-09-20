@@ -4,6 +4,7 @@ import {
   NewsSourceItemCreateManyInput,
   prismaContext as prisma,
   VideoUploadCreateInput,
+  VideoUploadMetadataUpdateDataInput,
   VideoUploadMetadataUpdateInput,
 } from '@trumpsaid/prisma';
 import { publishDownloadJob, publishRenderJob, publishThumbnailJob } from '@trumpsaid/responders';
@@ -13,6 +14,9 @@ import normalizeUrl from 'normalize-url';
 import { isURL } from 'validator';
 
 import { IApolloContext } from '../../apollo';
+
+// tslint:disable-next-line:no-var-requires
+const nlp = require('compromise');
 
 export default {
   createVideoUpload: async (
@@ -94,6 +98,23 @@ export default {
   ) => {
     return ctx.db.mutation.deleteVideoUpload({ where: { id: args.id } });
   },
+  publishVideoUpload: async (
+    obj: any,
+    args: any,
+    ctx: IApolloContext,
+    info: any,
+  ) => {
+    // TODO: Add checks for publishability
+    logger.info(`${ctx.user.id} published ${args.id}`);
+    return ctx.db.mutation.updateVideoUpload(
+      { where: { id: args.id },
+        data: {
+          published: true,
+          publishedBy: { connect: { id: ctx.user.id },
+          },
+        },
+      });
+  },
   downloadVideoUploadSources: async (
     obj: any,
     args: any,
@@ -105,7 +126,6 @@ export default {
     return upload;
   },
   transcribe: async (obj: any, args: any, ctx: IApolloContext, info: any) => {
-    // TODO: Set to processing, dispatch transcription job
     const upload = await ctx.db.query.videoUpload(
       { where: { id: args.id } },
       ' { id storageLinks { version fileType bucket path videoUpload {id} } } ',
@@ -123,11 +143,19 @@ export default {
     ctx: IApolloContext,
     info: any,
   ) => {
-    const update = args.metadata;
+    const update: VideoUploadMetadataUpdateDataInput = args.metadata;
     const upload = await ctx.db.query.videoUpload(
       { where: { id: args.id } },
-      ' { metadata { id }} ',
+      ' { metadata { id slug }} ',
     );
+
+    // TODO: Handle slug changes with redirect
+    if (update.title && !upload.metadata.slug) {
+      const doc = nlp(update.title);
+      const slug = encodeURIComponent(doc.normalize().out('root').replace(' ', '-').trim());
+      update.slug = slug;
+    }
+
     const metadataId = upload.metadata.id;
     return ctx.db.mutation.updateVideoUploadMetadata({
       data: update,
