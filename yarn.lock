@@ -271,7 +271,7 @@
     retry-request "^4.0.0"
     through2 "^2.0.3"
 
-"@google-cloud/debug-agent@3.0.0":
+"@google-cloud/debug-agent@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/debug-agent/-/debug-agent-3.0.0.tgz#9f2d50b5b70508a5ac4edbc29cdd3653d0fcd4c7"
   dependencies:
@@ -952,6 +952,26 @@
 "@metascraper/helpers@^4.3.2":
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/@metascraper/helpers/-/helpers-4.3.2.tgz#0e74f7534ab2a0d2e2605a00c606d5992ea79042"
+  dependencies:
+    audio-extensions "0.0.0"
+    chrono-node "~1.3.5"
+    condense-whitespace "~1.0.0"
+    file-extension "~4.0.5"
+    image-extensions "~1.1.0"
+    is-relative-url "~2.0.0"
+    iso-639-3 "~1.1.0"
+    isostring "0.0.1"
+    lodash "~4.17.10"
+    mime-types "~2.1.20"
+    normalize-url "~3.3.0"
+    smartquotes "~2.3.1"
+    title "~3.3.2"
+    url-regex "~4.1.1"
+    video-extensions "~1.1.0"
+
+"@metascraper/helpers@^4.3.5":
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/@metascraper/helpers/-/helpers-4.3.5.tgz#383a87301e3fc1cf3705935c511a0eba45caa4d6"
   dependencies:
     audio-extensions "0.0.0"
     chrono-node "~1.3.5"
@@ -1935,7 +1955,15 @@ apollo-server-core@2.0.7:
     subscriptions-transport-ws "^0.9.11"
     ws "^5.2.0"
 
-apollo-server-core@2.1.0:
+apollo-server-core@^1.3.6, apollo-server-core@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-1.4.0.tgz#4faff7f110bfdd6c3f47008302ae24140f94c592"
+  dependencies:
+    apollo-cache-control "^0.1.0"
+    apollo-tracing "^0.1.0"
+    graphql-extensions "^0.0.x"
+
+apollo-server-core@^2.0.3, apollo-server-core@^2.0.4:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-2.1.0.tgz#b56f9f1ddb948b257e738eb25c5fdfd2f2fb2e07"
   dependencies:
@@ -1956,14 +1984,6 @@ apollo-server-core@2.1.0:
     lodash "^4.17.10"
     subscriptions-transport-ws "^0.9.11"
     ws "^5.2.0"
-
-apollo-server-core@^1.3.6, apollo-server-core@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-1.4.0.tgz#4faff7f110bfdd6c3f47008302ae24140f94c592"
-  dependencies:
-    apollo-cache-control "^0.1.0"
-    apollo-tracing "^0.1.0"
-    graphql-extensions "^0.0.x"
 
 apollo-server-env@2.0.3, apollo-server-env@^2.0.3:
   version "2.0.3"
@@ -7706,11 +7726,11 @@ metascraper-lang@^4.3.2:
   dependencies:
     "@metascraper/helpers" "^4.3.2"
 
-metascraper-publisher@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/metascraper-publisher/-/metascraper-publisher-4.3.2.tgz#42ffabca138b30fbb9bd14c1d5e2317c95e5727f"
+metascraper-publisher@4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/metascraper-publisher/-/metascraper-publisher-4.3.5.tgz#4c9910f8a7fab3e52d6ac5fb8504459c69e6a0e7"
   dependencies:
-    "@metascraper/helpers" "^4.3.2"
+    "@metascraper/helpers" "^4.3.5"
 
 metascraper-title@^4.3.2:
   version "4.3.2"
@@ -7799,7 +7819,7 @@ min-document@^2.19.0:
   dependencies:
     dom-walk "^0.1.0"
 
-mini-css-extract-plugin@0.4.3:
+mini-css-extract-plugin@^0.4.2:
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-0.4.3.tgz#98d60fcc5d228c3e36a9bd15a1d6816d6580beb8"
   dependencies:
@@ -9162,7 +9182,7 @@ printj@~1.1.0:
   version "1.1.2"
   resolved "http://registry.npmjs.org/printj/-/printj-1.1.2.tgz#d90deb2975a8b9f600fb3a1c94e3f4c53c78a222"
 
-prisma-binding@2.1.6:
+prisma-binding@^2.1.5:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/prisma-binding/-/prisma-binding-2.1.6.tgz#b0799ca830f0516bd2d5a3f39f457f2a646dbad2"
   dependencies:
