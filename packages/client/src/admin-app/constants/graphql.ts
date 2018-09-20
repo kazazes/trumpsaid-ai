@@ -65,6 +65,7 @@ query videoUpload($videoSubmissionId: ID!) {
       }
       conversations {
         id
+        createdAt
         createdBy {
           id
         }
@@ -75,6 +76,15 @@ query videoUpload($videoSubmissionId: ID!) {
           start
           end
           content
+          entityMentions {
+            entity {
+              id
+              name
+              type
+            }
+            salience
+            sentiment
+          }
         }
       }
     }
@@ -145,10 +155,10 @@ mutation($id: ID!, $newsItemCreateInputs: NewsSourceItemCreateManyInput) {
     }
   }
 }
-`
+`;
 
 export const DELETE_NEWS_SOURCE_ITEM = gql`
 mutation($id: ID!) {
   deleteNewsSourceItem(id: $id)
 }
-`
+`;

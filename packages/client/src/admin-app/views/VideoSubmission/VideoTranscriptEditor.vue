@@ -58,7 +58,6 @@
                   <option v-if="item.speaker" selected>
                     {{ item.speaker.name }}
                   </option>
-                  <option v-else disabled selected value="null">Select speaker</option>
                   <option v-for="speaker in newSpeakers" :key="speaker.name" :value="speaker">
                     {{ speaker.name }}
                   </option>
@@ -111,6 +110,7 @@
   import autosize from 'autosize';
   import timestampFormat from 'hh-mm-ss';
   import { pullAt } from 'lodash';
+  import moment from 'moment';
   import Vue from 'vue';
   import {
     ConversationBlock,
@@ -119,8 +119,8 @@
     VideoUpload,
     VideoUploadStorageLink,
   } from '@trumpsaid/prisma';
-  import { CREATE_CONVERSATION, LIST_SPEAKERS } from '../constants/graphql';
-  import VideoPlayer from './VideoPlayer.vue';
+  import { CREATE_CONVERSATION, LIST_SPEAKERS } from '../../constants/graphql';
+  import VideoPlayer from '../VideoPlayer.vue';
   import Component from 'vue-class-component';
 
   (window as any).autosize = autosize;
@@ -161,7 +161,7 @@
 
     get draftSaved() {
       const draft = localStorage.getItem(
-        this.videoUpload.id + '.transcript.draft'
+        this.videoUpload.id + '.transcript.draft',
       );
       if (draft && draft.length > 0) {
         return true;
@@ -174,8 +174,17 @@
     }
 
     mounted() {
+      const sortedTranscripts = this.videoUpload.metadata.conversations.sort(
+        (convoA, convoB) => {
+          return (
+            moment(convoA.createdAt).milliseconds() -
+            moment(convoB.createdAt).milliseconds()
+          );
+        },
+      );
+
       this.editableTranscript = JSON.parse(
-        JSON.stringify(this.videoUpload.metadata.conversations[0].blocks)
+        JSON.stringify(sortedTranscripts[0].blocks),
       );
     }
 
@@ -187,7 +196,7 @@
       try {
         localStorage.setItem(
           this.videoUpload.id + '.transcript.draft',
-          JSON.stringify(this.editableTranscript)
+          JSON.stringify(this.editableTranscript),
         );
       } catch (e) {
         return this.$notify({
@@ -205,7 +214,7 @@
     }
     handleRestoreDraft() {
       const rawDraft = localStorage.getItem(
-        this.videoUpload.id + '.transcript.draft'
+        this.videoUpload.id + '.transcript.draft',
       );
       this.editableTranscript = JSON.parse(rawDraft);
       Vue.nextTick().then(() => {
@@ -255,7 +264,7 @@
           }
 
           return false;
-        }
+        },
       );
 
       const emptyContent = this.editableTranscript.find(
@@ -265,7 +274,7 @@
           }
 
           return false;
-        }
+        },
       );
 
       if (noSpeaker) {
@@ -465,24 +474,24 @@
     }
     getPoster(video: VideoUpload) {
       const storageLink = video.storageLinks.find(
-        (link) => link.version === 'WEB' && link.fileType === 'THUMBNAIL'
+        (link) => link.version === 'WEB' && link.fileType === 'THUMBNAIL',
       );
       const linkUrl = `https://storage.googleapis.com/${
         storageLink.bucket
-        }/${encodeURI(storageLink.path)}`;
+      }/${encodeURI(storageLink.path)}`;
       return linkUrl;
     }
     getSource(storageLink: VideoUploadStorageLink) {
       const linkUrl = `https://storage.googleapis.com/${
         storageLink.bucket
-        }/${encodeURI(storageLink.path)}`;
+      }/${encodeURI(storageLink.path)}`;
       return [{ src: linkUrl, mimeType: storageLink.mimeType }];
     }
     getMp4Web(): VideoUploadStorageLink {
       return this.videoUpload.storageLinks.find(
         (link: VideoUploadStorageLink) => {
           return link.version === 'WEB' && link.fileType === 'MP4';
-        }
+        },
       );
     }
   }

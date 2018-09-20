@@ -43,7 +43,7 @@
   import { Date as GraphQLDate } from '@trumpsaid/prisma';
   import moment from 'moment';
   import Vue from 'vue';
-  import { UPDATE_METADATA } from '../constants/graphql';
+  import { UPDATE_METADATA } from '../../constants/graphql';
 
   // tslint:disable-next-line:no-var-requires variable-name
   const DatePicker = require('vuejs-datepicker').default;

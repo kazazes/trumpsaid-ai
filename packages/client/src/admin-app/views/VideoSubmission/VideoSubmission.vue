@@ -52,7 +52,7 @@
   import {
     DELETE_VIDEO_UPLOAD,
     VIDEO_UPLOAD_DETAILS,
-  } from '../constants/graphql';
+  } from '../../constants/graphql';
   import VideoSubmissionInitialMetadata from './VideoSubmissionInitialMetadata.vue';
   import VideoTranscriptEditor from './VideoTranscriptEditor.vue';
 
