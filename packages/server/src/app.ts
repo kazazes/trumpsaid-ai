@@ -16,6 +16,7 @@ import strategy, { deserializeUser, serializeUser } from './helpers/passport';
 import adminRouter from './routes/adminRouter';
 import authRouter from './routes/authRouter';
 import rootRouter from './routes/rootRouter';
+import videoRouter from './routes/videoRouter';
 
 const app = express();
 const env = process.env.NODE_ENV;
@@ -86,6 +87,7 @@ app.use(
 app.use('/', authRouter);
 app.use('/', rootRouter);
 app.use('/admin', adminRouter);
+app.use('/video', videoRouter);
 
 app.use(
   (

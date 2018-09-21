@@ -17,6 +17,24 @@ type User {
   adminRoles: [AdminRole]
 }
 
+type PublishedVideo {
+  id: ID! @unique
+  videoUpload: VideoUpload!
+    @unique
+    @relation(name: "VideoUploadPublishedRelation")
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  storageLinks: [VideoUploadStorageLink!]!
+  slug: String @unique
+  title: String @unique
+  dateRecorded: Date
+  speakers: Int! @default(value: "2")
+  conversation: VideoConversation!
+    @relation(name: "PublishedConversationsRelation", onDelete: CASCADE)
+  newsSources: [NewsSourceItem!]!
+    @relation(name: "NewsSourceItemPublishedRelation", onDelete: CASCADE)
+}
+
 type VideoUpload implements IVideo {
   id: ID! @unique
   adminMetadata: VideoUploadAdminMetadata
@@ -25,8 +43,6 @@ type VideoUpload implements IVideo {
   updatedAt: DateTime!
   metadata: VideoUploadMetadata!
     @relation(name: "VideoUploadMetadataRelation", onDelete: CASCADE)
-  publishedBy: User @relation(name: "VideoPublisher")
-  published: Boolean! @default(value: "false")
   statusLog: [VideoUploadStatusLogItem!]!
     @relation(name: "VideoUploadLogItemRelation", onDelete: CASCADE)
   storageLinks: [VideoUploadStorageLink!]!
@@ -54,6 +70,9 @@ type VideoUploadMetadata {
   subtitle: String
   slug: String @unique
   dateRecorded: Date
+  publishedBy: User @relation(name: "VideoPublisher")
+  published: Boolean! @default(value: "false")
+  publishedVideo: PublishedVideo
   speakers: Int! @default(value: "2")
   renderStart: Float! @default(value: "0")
   renderEnd: Float! @default(value: "0")

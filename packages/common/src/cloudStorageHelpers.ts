@@ -16,6 +16,7 @@ export const storage = new Storage({
 });
 
 export const processingBucket = storage.bucket(process.env.VIDEO_PROCESSING_BUCKET);
+export const publishedBucket = storage.bucket(process.env.VIDEO_PUBLISHED_BUCKET);
 export const delimiter = '/';
 
 export const createFileInProcessing = (path: string, filename: string) => {
@@ -48,6 +49,21 @@ export const makeFilePublic = (bucketName: string, path: string) => {
     .catch((e: any) => {
       logger.error(`Error making file public ${bucketName}/${path}\n${e}`);
     });
+};
+
+export const copyItemToPublished = async (item: IDownloadableItem, newTitle: string) => {
+  try {
+    const file = await processingBucket.getFiles({ prefix: item.path });
+    const copy = await file[0][0].copy(publishedBucket);
+    const copied = copy[0];
+    // const metadata = (await copied.getMetadata())[0];
+    // const path = metadata.name.replace(new RegExp(`/${search}/g`), replace);
+    return copied;
+  } catch(e) {
+    logger.error(e);
+    throw e;
+  }
+
 };
 
  /**

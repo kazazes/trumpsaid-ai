@@ -1,5 +1,5 @@
 # source: http://10.142.0.5:4466/trumpsaid/development
-# timestamp: Thu Sep 20 2018 14:55:49 GMT-0400 (EDT)
+# timestamp: Thu Sep 20 2018 16:13:59 GMT-0400 (EDT)
 
 enum AdminRole {
   CREATE_UPLOAD
@@ -35,6 +35,10 @@ type AggregateNewsSourceItem {
 }
 
 type AggregateNewsSourceRootDomain {
+  count: Int!
+}
+
+type AggregatePublishedVideo {
   count: Int!
 }
 
@@ -1197,89 +1201,95 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createVideoUpload(data: VideoUploadCreateInput!): VideoUpload!
-  createVideoUploadStorageLink(data: VideoUploadStorageLinkCreateInput!): VideoUploadStorageLink!
   createNewsSource(data: NewsSourceCreateInput!): NewsSource!
   createEntity(data: EntityCreateInput!): Entity!
   createEntityMention(data: EntityMentionCreateInput!): EntityMention!
   createVideoUploadAdminMetadata(data: VideoUploadAdminMetadataCreateInput!): VideoUploadAdminMetadata!
   createVideoUploadStatusLogItem(data: VideoUploadStatusLogItemCreateInput!): VideoUploadStatusLogItem!
+  createPublishedVideo(data: PublishedVideoCreateInput!): PublishedVideo!
   createConversationBlock(data: ConversationBlockCreateInput!): ConversationBlock!
-  createNewsSourceItem(data: NewsSourceItemCreateInput!): NewsSourceItem!
-  createDate(data: DateCreateInput!): Date!
   createVideoConversation(data: VideoConversationCreateInput!): VideoConversation!
+  createVideoUploadStorageLink(data: VideoUploadStorageLinkCreateInput!): VideoUploadStorageLink!
+  createDate(data: DateCreateInput!): Date!
   createNewsSourceRootDomain(data: NewsSourceRootDomainCreateInput!): NewsSourceRootDomain!
   createSpeaker(data: SpeakerCreateInput!): Speaker!
   createVideoUploadMetadata(data: VideoUploadMetadataCreateInput!): VideoUploadMetadata!
+  createNewsSourceItem(data: NewsSourceItemCreateInput!): NewsSourceItem!
+  createVideoUpload(data: VideoUploadCreateInput!): VideoUpload!
   createUser(data: UserCreateInput!): User!
-  updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
-  updateVideoUploadStorageLink(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   updateNewsSource(data: NewsSourceUpdateInput!, where: NewsSourceWhereUniqueInput!): NewsSource
   updateEntity(data: EntityUpdateInput!, where: EntityWhereUniqueInput!): Entity
   updateVideoUploadAdminMetadata(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   updateVideoUploadStatusLogItem(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
+  updatePublishedVideo(data: PublishedVideoUpdateInput!, where: PublishedVideoWhereUniqueInput!): PublishedVideo
   updateConversationBlock(data: ConversationBlockUpdateInput!, where: ConversationBlockWhereUniqueInput!): ConversationBlock
-  updateNewsSourceItem(data: NewsSourceItemUpdateInput!, where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
   updateVideoConversation(data: VideoConversationUpdateInput!, where: VideoConversationWhereUniqueInput!): VideoConversation
+  updateVideoUploadStorageLink(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   updateNewsSourceRootDomain(data: NewsSourceRootDomainUpdateInput!, where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   updateSpeaker(data: SpeakerUpdateInput!, where: SpeakerWhereUniqueInput!): Speaker
   updateVideoUploadMetadata(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
+  updateNewsSourceItem(data: NewsSourceItemUpdateInput!, where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
+  updateVideoUpload(data: VideoUploadUpdateInput!, where: VideoUploadWhereUniqueInput!): VideoUpload
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
-  deleteVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   deleteNewsSource(where: NewsSourceWhereUniqueInput!): NewsSource
   deleteEntity(where: EntityWhereUniqueInput!): Entity
   deleteVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   deleteVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
+  deletePublishedVideo(where: PublishedVideoWhereUniqueInput!): PublishedVideo
   deleteConversationBlock(where: ConversationBlockWhereUniqueInput!): ConversationBlock
-  deleteNewsSourceItem(where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
   deleteVideoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
+  deleteVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   deleteNewsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   deleteSpeaker(where: SpeakerWhereUniqueInput!): Speaker
   deleteVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
+  deleteNewsSourceItem(where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
+  deleteVideoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   deleteUser(where: UserWhereUniqueInput!): User
-  upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
-  upsertVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!, create: VideoUploadStorageLinkCreateInput!, update: VideoUploadStorageLinkUpdateInput!): VideoUploadStorageLink!
   upsertNewsSource(where: NewsSourceWhereUniqueInput!, create: NewsSourceCreateInput!, update: NewsSourceUpdateInput!): NewsSource!
   upsertEntity(where: EntityWhereUniqueInput!, create: EntityCreateInput!, update: EntityUpdateInput!): Entity!
   upsertVideoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!, create: VideoUploadAdminMetadataCreateInput!, update: VideoUploadAdminMetadataUpdateInput!): VideoUploadAdminMetadata!
   upsertVideoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!, create: VideoUploadStatusLogItemCreateInput!, update: VideoUploadStatusLogItemUpdateInput!): VideoUploadStatusLogItem!
+  upsertPublishedVideo(where: PublishedVideoWhereUniqueInput!, create: PublishedVideoCreateInput!, update: PublishedVideoUpdateInput!): PublishedVideo!
   upsertConversationBlock(where: ConversationBlockWhereUniqueInput!, create: ConversationBlockCreateInput!, update: ConversationBlockUpdateInput!): ConversationBlock!
-  upsertNewsSourceItem(where: NewsSourceItemWhereUniqueInput!, create: NewsSourceItemCreateInput!, update: NewsSourceItemUpdateInput!): NewsSourceItem!
   upsertVideoConversation(where: VideoConversationWhereUniqueInput!, create: VideoConversationCreateInput!, update: VideoConversationUpdateInput!): VideoConversation!
+  upsertVideoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!, create: VideoUploadStorageLinkCreateInput!, update: VideoUploadStorageLinkUpdateInput!): VideoUploadStorageLink!
   upsertNewsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!, create: NewsSourceRootDomainCreateInput!, update: NewsSourceRootDomainUpdateInput!): NewsSourceRootDomain!
   upsertSpeaker(where: SpeakerWhereUniqueInput!, create: SpeakerCreateInput!, update: SpeakerUpdateInput!): Speaker!
   upsertVideoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!, create: VideoUploadMetadataCreateInput!, update: VideoUploadMetadataUpdateInput!): VideoUploadMetadata!
+  upsertNewsSourceItem(where: NewsSourceItemWhereUniqueInput!, create: NewsSourceItemCreateInput!, update: NewsSourceItemUpdateInput!): NewsSourceItem!
+  upsertVideoUpload(where: VideoUploadWhereUniqueInput!, create: VideoUploadCreateInput!, update: VideoUploadUpdateInput!): VideoUpload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
-  updateManyVideoUploadStorageLinks(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereInput): BatchPayload!
   updateManyNewsSources(data: NewsSourceUpdateInput!, where: NewsSourceWhereInput): BatchPayload!
   updateManyEntities(data: EntityUpdateInput!, where: EntityWhereInput): BatchPayload!
   updateManyEntityMentions(data: EntityMentionUpdateInput!, where: EntityMentionWhereInput): BatchPayload!
   updateManyVideoUploadAdminMetadatas(data: VideoUploadAdminMetadataUpdateInput!, where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   updateManyVideoUploadStatusLogItems(data: VideoUploadStatusLogItemUpdateInput!, where: VideoUploadStatusLogItemWhereInput): BatchPayload!
+  updateManyPublishedVideos(data: PublishedVideoUpdateInput!, where: PublishedVideoWhereInput): BatchPayload!
   updateManyConversationBlocks(data: ConversationBlockUpdateInput!, where: ConversationBlockWhereInput): BatchPayload!
-  updateManyNewsSourceItems(data: NewsSourceItemUpdateInput!, where: NewsSourceItemWhereInput): BatchPayload!
-  updateManyDates(data: DateUpdateInput!, where: DateWhereInput): BatchPayload!
   updateManyVideoConversations(data: VideoConversationUpdateInput!, where: VideoConversationWhereInput): BatchPayload!
+  updateManyVideoUploadStorageLinks(data: VideoUploadStorageLinkUpdateInput!, where: VideoUploadStorageLinkWhereInput): BatchPayload!
+  updateManyDates(data: DateUpdateInput!, where: DateWhereInput): BatchPayload!
   updateManyNewsSourceRootDomains(data: NewsSourceRootDomainUpdateInput!, where: NewsSourceRootDomainWhereInput): BatchPayload!
   updateManySpeakers(data: SpeakerUpdateInput!, where: SpeakerWhereInput): BatchPayload!
   updateManyVideoUploadMetadatas(data: VideoUploadMetadataUpdateInput!, where: VideoUploadMetadataWhereInput): BatchPayload!
+  updateManyNewsSourceItems(data: NewsSourceItemUpdateInput!, where: NewsSourceItemWhereInput): BatchPayload!
+  updateManyVideoUploads(data: VideoUploadUpdateInput!, where: VideoUploadWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
-  deleteManyVideoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput): BatchPayload!
   deleteManyNewsSources(where: NewsSourceWhereInput): BatchPayload!
   deleteManyEntities(where: EntityWhereInput): BatchPayload!
   deleteManyEntityMentions(where: EntityMentionWhereInput): BatchPayload!
   deleteManyVideoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput): BatchPayload!
   deleteManyVideoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput): BatchPayload!
+  deleteManyPublishedVideos(where: PublishedVideoWhereInput): BatchPayload!
   deleteManyConversationBlocks(where: ConversationBlockWhereInput): BatchPayload!
-  deleteManyNewsSourceItems(where: NewsSourceItemWhereInput): BatchPayload!
-  deleteManyDates(where: DateWhereInput): BatchPayload!
   deleteManyVideoConversations(where: VideoConversationWhereInput): BatchPayload!
+  deleteManyVideoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput): BatchPayload!
+  deleteManyDates(where: DateWhereInput): BatchPayload!
   deleteManyNewsSourceRootDomains(where: NewsSourceRootDomainWhereInput): BatchPayload!
   deleteManySpeakers(where: SpeakerWhereInput): BatchPayload!
   deleteManyVideoUploadMetadatas(where: VideoUploadMetadataWhereInput): BatchPayload!
+  deleteManyNewsSourceItems(where: NewsSourceItemWhereInput): BatchPayload!
+  deleteManyVideoUploads(where: VideoUploadWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
@@ -2442,49 +2452,412 @@ type PageInfo {
   endCursor: String
 }
 
+type PublishedVideo implements Node {
+  id: ID!
+  videoUpload(where: VideoUploadWhereInput): VideoUpload!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  storageLinks(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStorageLink!]
+  slug: String
+  title: String
+  dateRecorded(where: DateWhereInput): Date
+  speakers: Int!
+  conversation(where: VideoConversationWhereInput): VideoConversation!
+  newsSources(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceItem!]
+}
+
+"""A connection to a list of items."""
+type PublishedVideoConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PublishedVideoEdge]!
+  aggregate: AggregatePublishedVideo!
+}
+
+input PublishedVideoCreateInput {
+  slug: String
+  title: String
+  speakers: Int
+  videoUpload: VideoUploadCreateOneInput!
+  storageLinks: VideoUploadStorageLinkCreateManyInput
+  dateRecorded: DateCreateOneInput
+  conversation: VideoConversationCreateOneInput!
+  newsSources: NewsSourceItemCreateManyInput
+}
+
+input PublishedVideoCreateOneInput {
+  create: PublishedVideoCreateInput
+  connect: PublishedVideoWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type PublishedVideoEdge {
+  """The item at the end of the edge."""
+  node: PublishedVideo!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PublishedVideoOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  slug_ASC
+  slug_DESC
+  title_ASC
+  title_DESC
+  speakers_ASC
+  speakers_DESC
+}
+
+type PublishedVideoPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  slug: String
+  title: String
+  speakers: Int!
+}
+
+type PublishedVideoSubscriptionPayload {
+  mutation: MutationType!
+  node: PublishedVideo
+  updatedFields: [String!]
+  previousValues: PublishedVideoPreviousValues
+}
+
+input PublishedVideoSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PublishedVideoSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PublishedVideoSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PublishedVideoSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PublishedVideoWhereInput
+}
+
+input PublishedVideoUpdateDataInput {
+  slug: String
+  title: String
+  speakers: Int
+  videoUpload: VideoUploadUpdateOneInput
+  storageLinks: VideoUploadStorageLinkUpdateManyInput
+  dateRecorded: DateUpdateOneInput
+  conversation: VideoConversationUpdateOneInput
+  newsSources: NewsSourceItemUpdateManyInput
+}
+
+input PublishedVideoUpdateInput {
+  slug: String
+  title: String
+  speakers: Int
+  videoUpload: VideoUploadUpdateOneInput
+  storageLinks: VideoUploadStorageLinkUpdateManyInput
+  dateRecorded: DateUpdateOneInput
+  conversation: VideoConversationUpdateOneInput
+  newsSources: NewsSourceItemUpdateManyInput
+}
+
+input PublishedVideoUpdateOneInput {
+  create: PublishedVideoCreateInput
+  connect: PublishedVideoWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PublishedVideoUpdateDataInput
+  upsert: PublishedVideoUpsertNestedInput
+}
+
+input PublishedVideoUpsertNestedInput {
+  update: PublishedVideoUpdateDataInput!
+  create: PublishedVideoCreateInput!
+}
+
+input PublishedVideoWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PublishedVideoWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PublishedVideoWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PublishedVideoWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  speakers: Int
+
+  """All values that are not equal to given value."""
+  speakers_not: Int
+
+  """All values that are contained in given list."""
+  speakers_in: [Int!]
+
+  """All values that are not contained in given list."""
+  speakers_not_in: [Int!]
+
+  """All values less than the given value."""
+  speakers_lt: Int
+
+  """All values less than or equal the given value."""
+  speakers_lte: Int
+
+  """All values greater than the given value."""
+  speakers_gt: Int
+
+  """All values greater than or equal the given value."""
+  speakers_gte: Int
+  videoUpload: VideoUploadWhereInput
+  storageLinks_every: VideoUploadStorageLinkWhereInput
+  storageLinks_some: VideoUploadStorageLinkWhereInput
+  storageLinks_none: VideoUploadStorageLinkWhereInput
+  dateRecorded: DateWhereInput
+  conversation: VideoConversationWhereInput
+  newsSources_every: NewsSourceItemWhereInput
+  newsSources_some: NewsSourceItemWhereInput
+  newsSources_none: NewsSourceItemWhereInput
+}
+
+input PublishedVideoWhereUniqueInput {
+  id: ID
+  slug: String
+  title: String
+}
+
 type Query {
-  videoUploads(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUpload]!
-  videoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStorageLink]!
   newsSources(where: NewsSourceWhereInput, orderBy: NewsSourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSource]!
   entities(where: EntityWhereInput, orderBy: EntityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Entity]!
   entityMentions(where: EntityMentionWhereInput, orderBy: EntityMentionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EntityMention]!
   videoUploadAdminMetadatas(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadAdminMetadata]!
   videoUploadStatusLogItems(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStatusLogItem]!
+  publishedVideos(where: PublishedVideoWhereInput, orderBy: PublishedVideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PublishedVideo]!
   conversationBlocks(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ConversationBlock]!
-  newsSourceItems(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceItem]!
-  dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date]!
   videoConversations(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoConversation]!
+  videoUploadStorageLinks(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStorageLink]!
+  dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date]!
   newsSourceRootDomains(where: NewsSourceRootDomainWhereInput, orderBy: NewsSourceRootDomainOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceRootDomain]!
   speakers(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Speaker]!
   videoUploadMetadatas(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadMetadata]!
+  newsSourceItems(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NewsSourceItem]!
+  videoUploads(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUpload]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
-  videoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   newsSource(where: NewsSourceWhereUniqueInput!): NewsSource
   entity(where: EntityWhereUniqueInput!): Entity
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataWhereUniqueInput!): VideoUploadAdminMetadata
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemWhereUniqueInput!): VideoUploadStatusLogItem
+  publishedVideo(where: PublishedVideoWhereUniqueInput!): PublishedVideo
   conversationBlock(where: ConversationBlockWhereUniqueInput!): ConversationBlock
-  newsSourceItem(where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
   videoConversation(where: VideoConversationWhereUniqueInput!): VideoConversation
+  videoUploadStorageLink(where: VideoUploadStorageLinkWhereUniqueInput!): VideoUploadStorageLink
   newsSourceRootDomain(where: NewsSourceRootDomainWhereUniqueInput!): NewsSourceRootDomain
   speaker(where: SpeakerWhereUniqueInput!): Speaker
   videoUploadMetadata(where: VideoUploadMetadataWhereUniqueInput!): VideoUploadMetadata
+  newsSourceItem(where: NewsSourceItemWhereUniqueInput!): NewsSourceItem
+  videoUpload(where: VideoUploadWhereUniqueInput!): VideoUpload
   user(where: UserWhereUniqueInput!): User
-  videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
-  videoUploadStorageLinksConnection(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStorageLinkConnection!
   newsSourcesConnection(where: NewsSourceWhereInput, orderBy: NewsSourceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceConnection!
   entitiesConnection(where: EntityWhereInput, orderBy: EntityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EntityConnection!
   entityMentionsConnection(where: EntityMentionWhereInput, orderBy: EntityMentionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EntityMentionConnection!
   videoUploadAdminMetadatasConnection(where: VideoUploadAdminMetadataWhereInput, orderBy: VideoUploadAdminMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadAdminMetadataConnection!
   videoUploadStatusLogItemsConnection(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStatusLogItemConnection!
+  publishedVideosConnection(where: PublishedVideoWhereInput, orderBy: PublishedVideoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PublishedVideoConnection!
   conversationBlocksConnection(where: ConversationBlockWhereInput, orderBy: ConversationBlockOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ConversationBlockConnection!
-  newsSourceItemsConnection(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceItemConnection!
-  datesConnection(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DateConnection!
   videoConversationsConnection(where: VideoConversationWhereInput, orderBy: VideoConversationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoConversationConnection!
+  videoUploadStorageLinksConnection(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadStorageLinkConnection!
+  datesConnection(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DateConnection!
   newsSourceRootDomainsConnection(where: NewsSourceRootDomainWhereInput, orderBy: NewsSourceRootDomainOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceRootDomainConnection!
   speakersConnection(where: SpeakerWhereInput, orderBy: SpeakerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SpeakerConnection!
   videoUploadMetadatasConnection(where: VideoUploadMetadataWhereInput, orderBy: VideoUploadMetadataOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadMetadataConnection!
+  newsSourceItemsConnection(where: NewsSourceItemWhereInput, orderBy: NewsSourceItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NewsSourceItemConnection!
+  videoUploadsConnection(where: VideoUploadWhereInput, orderBy: VideoUploadOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VideoUploadConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
@@ -2800,20 +3173,21 @@ input SpeakerWhereUniqueInput {
 }
 
 type Subscription {
-  videoUpload(where: VideoUploadSubscriptionWhereInput): VideoUploadSubscriptionPayload
-  videoUploadStorageLink(where: VideoUploadStorageLinkSubscriptionWhereInput): VideoUploadStorageLinkSubscriptionPayload
   newsSource(where: NewsSourceSubscriptionWhereInput): NewsSourceSubscriptionPayload
   entity(where: EntitySubscriptionWhereInput): EntitySubscriptionPayload
   entityMention(where: EntityMentionSubscriptionWhereInput): EntityMentionSubscriptionPayload
   videoUploadAdminMetadata(where: VideoUploadAdminMetadataSubscriptionWhereInput): VideoUploadAdminMetadataSubscriptionPayload
   videoUploadStatusLogItem(where: VideoUploadStatusLogItemSubscriptionWhereInput): VideoUploadStatusLogItemSubscriptionPayload
+  publishedVideo(where: PublishedVideoSubscriptionWhereInput): PublishedVideoSubscriptionPayload
   conversationBlock(where: ConversationBlockSubscriptionWhereInput): ConversationBlockSubscriptionPayload
-  newsSourceItem(where: NewsSourceItemSubscriptionWhereInput): NewsSourceItemSubscriptionPayload
-  date(where: DateSubscriptionWhereInput): DateSubscriptionPayload
   videoConversation(where: VideoConversationSubscriptionWhereInput): VideoConversationSubscriptionPayload
+  videoUploadStorageLink(where: VideoUploadStorageLinkSubscriptionWhereInput): VideoUploadStorageLinkSubscriptionPayload
+  date(where: DateSubscriptionWhereInput): DateSubscriptionPayload
   newsSourceRootDomain(where: NewsSourceRootDomainSubscriptionWhereInput): NewsSourceRootDomainSubscriptionPayload
   speaker(where: SpeakerSubscriptionWhereInput): SpeakerSubscriptionPayload
   videoUploadMetadata(where: VideoUploadMetadataSubscriptionWhereInput): VideoUploadMetadataSubscriptionPayload
+  newsSourceItem(where: NewsSourceItemSubscriptionWhereInput): NewsSourceItemSubscriptionPayload
+  videoUpload(where: VideoUploadSubscriptionWhereInput): VideoUploadSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -3319,6 +3693,11 @@ input VideoConversationCreateManyInput {
   connect: [VideoConversationWhereUniqueInput!]
 }
 
+input VideoConversationCreateOneInput {
+  create: VideoConversationCreateInput
+  connect: VideoConversationWhereUniqueInput
+}
+
 """An edge in a connection."""
 type VideoConversationEdge {
   """The item at the end of the edge."""
@@ -3407,9 +3786,22 @@ input VideoConversationUpdateManyInput {
   upsert: [VideoConversationUpsertWithWhereUniqueNestedInput!]
 }
 
+input VideoConversationUpdateOneInput {
+  create: VideoConversationCreateInput
+  connect: VideoConversationWhereUniqueInput
+  delete: Boolean
+  update: VideoConversationUpdateDataInput
+  upsert: VideoConversationUpsertNestedInput
+}
+
 input VideoConversationUpdateWithWhereUniqueNestedInput {
   where: VideoConversationWhereUniqueInput!
   data: VideoConversationUpdateDataInput!
+}
+
+input VideoConversationUpsertNestedInput {
+  update: VideoConversationUpdateDataInput!
+  create: VideoConversationCreateInput!
 }
 
 input VideoConversationUpsertWithWhereUniqueNestedInput {
@@ -3510,8 +3902,6 @@ type VideoUpload implements Node {
   createdAt: DateTime!
   updatedAt: DateTime!
   metadata(where: VideoUploadMetadataWhereInput): VideoUploadMetadata!
-  publishedBy(where: UserWhereInput): User
-  published: Boolean!
   statusLog(where: VideoUploadStatusLogItemWhereInput, orderBy: VideoUploadStatusLogItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStatusLogItem!]
   storageLinks(where: VideoUploadStorageLinkWhereInput, orderBy: VideoUploadStorageLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VideoUploadStorageLink!]
   submitedBy(where: UserWhereInput): User!
@@ -3706,14 +4096,17 @@ type VideoUploadConnection {
 }
 
 input VideoUploadCreateInput {
-  published: Boolean
   submitedUrl: String!
   adminMetadata: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
   metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
-  publishedBy: UserCreateOneInput
   statusLog: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
   storageLinks: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
   submitedBy: UserCreateOneInput!
+}
+
+input VideoUploadCreateOneInput {
+  create: VideoUploadCreateInput
+  connect: VideoUploadWhereUniqueInput
 }
 
 input VideoUploadCreateOneWithoutAdminMetadataInput {
@@ -3737,41 +4130,33 @@ input VideoUploadCreateOneWithoutStorageLinksInput {
 }
 
 input VideoUploadCreateWithoutAdminMetadataInput {
-  published: Boolean
   submitedUrl: String!
   metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
-  publishedBy: UserCreateOneInput
   statusLog: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
   storageLinks: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
   submitedBy: UserCreateOneInput!
 }
 
 input VideoUploadCreateWithoutMetadataInput {
-  published: Boolean
   submitedUrl: String!
   adminMetadata: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
-  publishedBy: UserCreateOneInput
   statusLog: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
   storageLinks: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
   submitedBy: UserCreateOneInput!
 }
 
 input VideoUploadCreateWithoutStatusLogInput {
-  published: Boolean
   submitedUrl: String!
   adminMetadata: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
   metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
-  publishedBy: UserCreateOneInput
   storageLinks: VideoUploadStorageLinkCreateManyWithoutVideoUploadInput
   submitedBy: UserCreateOneInput!
 }
 
 input VideoUploadCreateWithoutStorageLinksInput {
-  published: Boolean
   submitedUrl: String!
   adminMetadata: VideoUploadAdminMetadataCreateOneWithoutVideoUploadInput
   metadata: VideoUploadMetadataCreateOneWithoutVideoUploadInput!
-  publishedBy: UserCreateOneInput
   statusLog: VideoUploadStatusLogItemCreateManyWithoutVideoUploadInput
   submitedBy: UserCreateOneInput!
 }
@@ -3825,6 +4210,9 @@ type VideoUploadMetadata implements Node {
   subtitle: String
   slug: String
   dateRecorded(where: DateWhereInput): Date
+  publishedBy(where: UserWhereInput): User
+  published: Boolean!
+  publishedVideo(where: PublishedVideoWhereInput): PublishedVideo
   speakers: Int!
   renderStart: Float!
   renderEnd: Float!
@@ -3846,11 +4234,14 @@ input VideoUploadMetadataCreateInput {
   title: String
   subtitle: String
   slug: String
+  published: Boolean
   speakers: Int
   renderStart: Float
   renderEnd: Float
   videoUpload: VideoUploadCreateOneWithoutMetadataInput!
   dateRecorded: DateCreateOneInput
+  publishedBy: UserCreateOneInput
+  publishedVideo: PublishedVideoCreateOneInput
   conversations: VideoConversationCreateManyInput
   newsSources: NewsSourceItemCreateManyInput
 }
@@ -3869,10 +4260,13 @@ input VideoUploadMetadataCreateWithoutVideoUploadInput {
   title: String
   subtitle: String
   slug: String
+  published: Boolean
   speakers: Int
   renderStart: Float
   renderEnd: Float
   dateRecorded: DateCreateOneInput
+  publishedBy: UserCreateOneInput
+  publishedVideo: PublishedVideoCreateOneInput
   conversations: VideoConversationCreateManyInput
   newsSources: NewsSourceItemCreateManyInput
 }
@@ -3895,6 +4289,8 @@ enum VideoUploadMetadataOrderByInput {
   subtitle_DESC
   slug_ASC
   slug_DESC
+  published_ASC
+  published_DESC
   speakers_ASC
   speakers_DESC
   renderStart_ASC
@@ -3912,6 +4308,7 @@ type VideoUploadMetadataPreviousValues {
   title: String
   subtitle: String
   slug: String
+  published: Boolean!
   speakers: Int!
   renderStart: Float!
   renderEnd: Float!
@@ -3960,11 +4357,14 @@ input VideoUploadMetadataUpdateDataInput {
   title: String
   subtitle: String
   slug: String
+  published: Boolean
   speakers: Int
   renderStart: Float
   renderEnd: Float
   videoUpload: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded: DateUpdateOneInput
+  publishedBy: UserUpdateOneInput
+  publishedVideo: PublishedVideoUpdateOneInput
   conversations: VideoConversationUpdateManyInput
   newsSources: NewsSourceItemUpdateManyInput
 }
@@ -3973,11 +4373,14 @@ input VideoUploadMetadataUpdateInput {
   title: String
   subtitle: String
   slug: String
+  published: Boolean
   speakers: Int
   renderStart: Float
   renderEnd: Float
   videoUpload: VideoUploadUpdateOneWithoutMetadataInput
   dateRecorded: DateUpdateOneInput
+  publishedBy: UserUpdateOneInput
+  publishedVideo: PublishedVideoUpdateOneInput
   conversations: VideoConversationUpdateManyInput
   newsSources: NewsSourceItemUpdateManyInput
 }
@@ -4002,10 +4405,13 @@ input VideoUploadMetadataUpdateWithoutVideoUploadDataInput {
   title: String
   subtitle: String
   slug: String
+  published: Boolean
   speakers: Int
   renderStart: Float
   renderEnd: Float
   dateRecorded: DateUpdateOneInput
+  publishedBy: UserUpdateOneInput
+  publishedVideo: PublishedVideoUpdateOneInput
   conversations: VideoConversationUpdateManyInput
   newsSources: NewsSourceItemUpdateManyInput
 }
@@ -4189,6 +4595,10 @@ input VideoUploadMetadataWhereInput {
 
   """All values not ending with the given string."""
   slug_not_ends_with: String
+  published: Boolean
+
+  """All values that are not equal to given value."""
+  published_not: Boolean
   speakers: Int
 
   """All values that are not equal to given value."""
@@ -4257,6 +4667,8 @@ input VideoUploadMetadataWhereInput {
   renderEnd_gte: Float
   videoUpload: VideoUploadWhereInput
   dateRecorded: DateWhereInput
+  publishedBy: UserWhereInput
+  publishedVideo: PublishedVideoWhereInput
   conversations_every: VideoConversationWhereInput
   conversations_some: VideoConversationWhereInput
   conversations_none: VideoConversationWhereInput
@@ -4278,8 +4690,6 @@ enum VideoUploadOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
-  published_ASC
-  published_DESC
   submitedUrl_ASC
   submitedUrl_DESC
 }
@@ -4288,7 +4698,6 @@ type VideoUploadPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  published: Boolean!
   submitedUrl: String!
 }
 
@@ -4630,6 +5039,11 @@ input VideoUploadStorageLinkCreateInput {
   videoUpload: VideoUploadCreateOneWithoutStorageLinksInput!
 }
 
+input VideoUploadStorageLinkCreateManyInput {
+  create: [VideoUploadStorageLinkCreateInput!]
+  connect: [VideoUploadStorageLinkWhereUniqueInput!]
+}
+
 input VideoUploadStorageLinkCreateManyWithoutVideoUploadInput {
   create: [VideoUploadStorageLinkCreateWithoutVideoUploadInput!]
   connect: [VideoUploadStorageLinkWhereUniqueInput!]
@@ -4719,6 +5133,15 @@ input VideoUploadStorageLinkSubscriptionWhereInput {
   node: VideoUploadStorageLinkWhereInput
 }
 
+input VideoUploadStorageLinkUpdateDataInput {
+  path: String
+  bucket: String
+  version: VideoUploadFileLinkVersion
+  fileType: VideoUploadFileLinkType
+  mimeType: String
+  videoUpload: VideoUploadUpdateOneWithoutStorageLinksInput
+}
+
 input VideoUploadStorageLinkUpdateInput {
   path: String
   bucket: String
@@ -4726,6 +5149,15 @@ input VideoUploadStorageLinkUpdateInput {
   fileType: VideoUploadFileLinkType
   mimeType: String
   videoUpload: VideoUploadUpdateOneWithoutStorageLinksInput
+}
+
+input VideoUploadStorageLinkUpdateManyInput {
+  create: [VideoUploadStorageLinkCreateInput!]
+  connect: [VideoUploadStorageLinkWhereUniqueInput!]
+  disconnect: [VideoUploadStorageLinkWhereUniqueInput!]
+  delete: [VideoUploadStorageLinkWhereUniqueInput!]
+  update: [VideoUploadStorageLinkUpdateWithWhereUniqueNestedInput!]
+  upsert: [VideoUploadStorageLinkUpsertWithWhereUniqueNestedInput!]
 }
 
 input VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput {
@@ -4745,9 +5177,20 @@ input VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput {
   mimeType: String
 }
 
+input VideoUploadStorageLinkUpdateWithWhereUniqueNestedInput {
+  where: VideoUploadStorageLinkWhereUniqueInput!
+  data: VideoUploadStorageLinkUpdateDataInput!
+}
+
 input VideoUploadStorageLinkUpdateWithWhereUniqueWithoutVideoUploadInput {
   where: VideoUploadStorageLinkWhereUniqueInput!
   data: VideoUploadStorageLinkUpdateWithoutVideoUploadDataInput!
+}
+
+input VideoUploadStorageLinkUpsertWithWhereUniqueNestedInput {
+  where: VideoUploadStorageLinkWhereUniqueInput!
+  update: VideoUploadStorageLinkUpdateDataInput!
+  create: VideoUploadStorageLinkCreateInput!
 }
 
 input VideoUploadStorageLinkUpsertWithWhereUniqueWithoutVideoUploadInput {
@@ -4991,15 +5434,30 @@ input VideoUploadSubscriptionWhereInput {
   node: VideoUploadWhereInput
 }
 
-input VideoUploadUpdateInput {
-  published: Boolean
+input VideoUploadUpdateDataInput {
   submitedUrl: String
   adminMetadata: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
   metadata: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy: UserUpdateOneInput
   statusLog: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
   storageLinks: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
   submitedBy: UserUpdateOneInput
+}
+
+input VideoUploadUpdateInput {
+  submitedUrl: String
+  adminMetadata: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
+  metadata: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
+  statusLog: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
+  storageLinks: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
+  submitedBy: UserUpdateOneInput
+}
+
+input VideoUploadUpdateOneInput {
+  create: VideoUploadCreateInput
+  connect: VideoUploadWhereUniqueInput
+  delete: Boolean
+  update: VideoUploadUpdateDataInput
+  upsert: VideoUploadUpsertNestedInput
 }
 
 input VideoUploadUpdateOneWithoutAdminMetadataInput {
@@ -5035,43 +5493,40 @@ input VideoUploadUpdateOneWithoutStorageLinksInput {
 }
 
 input VideoUploadUpdateWithoutAdminMetadataDataInput {
-  published: Boolean
   submitedUrl: String
   metadata: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy: UserUpdateOneInput
   statusLog: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
   storageLinks: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
   submitedBy: UserUpdateOneInput
 }
 
 input VideoUploadUpdateWithoutMetadataDataInput {
-  published: Boolean
   submitedUrl: String
   adminMetadata: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy: UserUpdateOneInput
   statusLog: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
   storageLinks: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
   submitedBy: UserUpdateOneInput
 }
 
 input VideoUploadUpdateWithoutStatusLogDataInput {
-  published: Boolean
   submitedUrl: String
   adminMetadata: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
   metadata: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy: UserUpdateOneInput
   storageLinks: VideoUploadStorageLinkUpdateManyWithoutVideoUploadInput
   submitedBy: UserUpdateOneInput
 }
 
 input VideoUploadUpdateWithoutStorageLinksDataInput {
-  published: Boolean
   submitedUrl: String
   adminMetadata: VideoUploadAdminMetadataUpdateOneWithoutVideoUploadInput
   metadata: VideoUploadMetadataUpdateOneWithoutVideoUploadInput
-  publishedBy: UserUpdateOneInput
   statusLog: VideoUploadStatusLogItemUpdateManyWithoutVideoUploadInput
   submitedBy: UserUpdateOneInput
+}
+
+input VideoUploadUpsertNestedInput {
+  update: VideoUploadUpdateDataInput!
+  create: VideoUploadCreateInput!
 }
 
 input VideoUploadUpsertWithoutAdminMetadataInput {
@@ -5187,10 +5642,6 @@ input VideoUploadWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
-  published: Boolean
-
-  """All values that are not equal to given value."""
-  published_not: Boolean
   submitedUrl: String
 
   """All values that are not equal to given value."""
@@ -5233,7 +5684,6 @@ input VideoUploadWhereInput {
   submitedUrl_not_ends_with: String
   adminMetadata: VideoUploadAdminMetadataWhereInput
   metadata: VideoUploadMetadataWhereInput
-  publishedBy: UserWhereInput
   statusLog_every: VideoUploadStatusLogItemWhereInput
   statusLog_some: VideoUploadStatusLogItemWhereInput
   statusLog_none: VideoUploadStatusLogItemWhereInput

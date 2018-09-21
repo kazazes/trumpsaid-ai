@@ -41,6 +41,8 @@ query videoUpload($videoSubmissionId: ID!) {
         month
         year
       }
+      published
+      slug
       speakers
       renderStart
       renderEnd

@@ -12,6 +12,7 @@ export {
   delimiter,
   directoryFromPath,
   downloadNewStorageItem,
+  copyItemToPublished,
   downloadNewStorageItems,
   downloadSourceFile,
   downloadStorageItem,

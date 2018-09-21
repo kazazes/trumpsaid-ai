@@ -1,0 +1,12 @@
+extends layout
+
+block extraHead
+  
+block content
+  .container
+      .row.mt-3
+        .col.col-md-10.offset-md-1.col-sm-12.mt-3
+          .card.wider
+            .card-body(style="background-color: #fff")
+              .text-center
+                pre #{JSON.stringify(video, null, 2)}

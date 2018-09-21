@@ -1,8 +1,9 @@
-import { logger } from '@trumpsaid/common';
+import { copyItemToPublished, logger } from '@trumpsaid/common';
 import {
   NewsSourceItemCreateInput,
   NewsSourceItemCreateManyInput,
   prismaContext as prisma,
+  // PublishedVideoCreateInput,
   VideoUploadCreateInput,
   VideoUploadMetadataUpdateDataInput,
   VideoUploadMetadataUpdateInput,
@@ -105,15 +106,54 @@ export default {
     info: any,
   ) => {
     // TODO: Add checks for publishability
+    const upload = await ctx.db.query.videoUpload(
+      { where: { id: args.id } },
+      ` { storageLinks { id path bucket version fileType mimeType }
+        metadata { id slug speakers dateRecorded { month day year } newsSources { id } } } `);
+    // const conversation = await ctx.db.query.videoConversations(
+    //   {
+    //     where: { videoMetadata: { id: upload.metadata.id }, draft: false },
+    //     orderBy: 'createdAt_DESC',
+    //     first: 1,
+    //   },
+    //   '{ id }');
+
+    // const publishedVideo: PublishedVideoCreateInput = {
+    //   videoUpload: { connect: { id: args.id } },
+    //   conversation: { connect: { id: conversation[0].id } },
+    //   dateRecorded: { create: upload.metadata.dateRecorded },
+    //   newsSources: { connect: upload.metadata.newsSources },
+    //   slug: upload.metadata.slug,
+    //   speakers: upload.metadata.speakers,
+    //   title: upload.metadata.title,
+    // };
+
+    // const published = await ctx.db.mutation.createPublishedVideo({ data: publishedVideo }, ' { id } ');
+
+    const webVersions = upload.storageLinks
+    .filter((link) => {
+      return link.version === 'WEB';
+    });
+
+    const copies = webVersions.map((link) => {
+      return copyItemToPublished({ bucket: link.bucket, path: link.path }, upload.metadata.slug);
+    });
+
+    await Promise.all(copies).catch((e) => {
+      logger.error(e);
+      throw e;
+    });
+
     logger.info(`${ctx.user.id} published ${args.id}`);
-    return ctx.db.mutation.updateVideoUpload(
-      { where: { id: args.id },
+    await ctx.db.mutation.updateVideoUploadMetadata(
+      { where: { id: upload.metadata.id },
         data: {
           published: true,
-          publishedBy: { connect: { id: ctx.user.id },
-          },
+          publishedBy: { connect: { id: ctx.user.id } },
+          // publishedVideo: { connect: { id: published.id } },
         },
       });
+
   },
   downloadVideoUploadSources: async (
     obj: any,
@@ -150,9 +190,9 @@ export default {
     );
 
     // TODO: Handle slug changes with redirect
-    if (update.title && !upload.metadata.slug) {
+    if (update.title) {
       const doc = nlp(update.title);
-      const slug = encodeURIComponent(doc.normalize().out('root').replace(' ', '-').trim());
+      const slug = encodeURIComponent(doc.normalize().out('root').replace(/\s/g, '-').trim());
       update.slug = slug;
     }
 
