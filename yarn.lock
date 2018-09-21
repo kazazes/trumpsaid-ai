@@ -4701,7 +4701,7 @@ es-to-primitive@^1.1.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.1"
 
-es6-promise@^4.0.3, es6-promise@^4.2.4:
+es6-promise@^4.0.3:
   version "4.2.5"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.5.tgz#da6d0d5692efb461e082c14817fe2427d8f5d054"
 
@@ -6020,21 +6020,21 @@ graphql-tools@3.1.0:
     deprecated-decorator "^0.1.6"
     iterall "^1.1.3"
 
-graphql-tools@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-4.0.0.tgz#6ea01937c6f947212f83567ba687e97c22fdd2a6"
-  dependencies:
-    apollo-link "^1.2.3"
-    apollo-utilities "^1.0.1"
-    deprecated-decorator "^0.1.6"
-    iterall "^1.1.3"
-    uuid "^3.1.0"
-
 graphql-tools@^3.0.0, graphql-tools@^3.0.4, graphql-tools@^3.0.5:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-3.1.1.tgz#d593358f01e7c8b1671a17b70ddb034dea9dbc50"
   dependencies:
     apollo-link "^1.2.2"
+    apollo-utilities "^1.0.1"
+    deprecated-decorator "^0.1.6"
+    iterall "^1.1.3"
+    uuid "^3.1.0"
+
+graphql-tools@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-4.0.0.tgz#6ea01937c6f947212f83567ba687e97c22fdd2a6"
+  dependencies:
+    apollo-link "^1.2.3"
     apollo-utilities "^1.0.1"
     deprecated-decorator "^0.1.6"
     iterall "^1.1.3"
@@ -7967,17 +7967,16 @@ multimatch@^2.1.0:
     arrify "^1.0.0"
     minimatch "^3.0.0"
 
-music-metadata@^2.8.0:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-2.8.1.tgz#bb466f2e0489785a56a54155ea2af57e8844f1ca"
+music-metadata@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.1.0.tgz#4340a4148dff9567a6f7b0139bf1ce3add88d0da"
   dependencies:
     debug "^4.0.1"
-    es6-promise "^4.2.4"
     file-type "9"
     media-typer "^0.3.0"
-    strtok3 "1.6.0"
-    then-read-stream "^1.2.1"
-    token-types "^0.10.0"
+    strtok3 "^2.1.0"
+    then-read-stream "^1.3.0"
+    token-types "^1.0.0"
 
 mute-stream@0.0.7, mute-stream@~0.0.4:
   version "0.0.7"
@@ -10722,14 +10721,13 @@ strong-log-transformer@^2.0.0:
     minimist "^1.2.0"
     through "^2.3.4"
 
-strtok3@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-1.6.0.tgz#221e887703fd0773a76e57f52b560838f12411bd"
+strtok3@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-2.1.0.tgz#f1e3aab64c15dadd23b09fdf9788afd11031b85a"
   dependencies:
-    debug "^3.1.0"
-    es6-promise "^4.2.4"
-    then-read-stream "^1.2.1"
-    token-types "^0.10.0"
+    debug "^4.0.1"
+    then-read-stream "^1.3.0"
+    token-types "^1.0.0"
 
 stubs@^3.0.0:
   version "3.0.0"
@@ -10891,7 +10889,7 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
-then-read-stream@^1.2.1:
+then-read-stream@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/then-read-stream/-/then-read-stream-1.3.0.tgz#fb99314d1c5845fea29e5d271f261a1259039c09"
 
@@ -11015,9 +11013,9 @@ token-stream@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/token-stream/-/token-stream-0.0.1.tgz#ceeefc717a76c4316f126d0b9dbaa55d7e7df01a"
 
-token-types@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/token-types/-/token-types-0.10.0.tgz#b45ac19ede381ff58fc818d760f7113a6158693b"
+token-types@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/token-types/-/token-types-1.0.0.tgz#91f8180eb5464abb28af361ced3ac855a1e18fb2"
 
 toposort@^1.0.0:
   version "1.0.7"
