@@ -9,7 +9,7 @@ import {
 import { findIndex, slice, take } from 'lodash';
 import Long from 'long';
 import moment from 'moment';
-import * as mm from 'music-metadata';
+import { parseStream } from 'music-metadata';
 
 // tslint:disable-next-line:no-submodule-imports
 // tslint:disable-next-line:no-var-requires
@@ -56,7 +56,7 @@ export default class VideoTranscriber {
     const audioReadStream = getReadStream(this.flacLink);
     const audioFileSize = await getFileSize(this.flacLink);
 
-    const audioMetadata = await mm.parseStream(audioReadStream, 'audio/flac', {
+    const audioMetadata = await parseStream(audioReadStream, 'audio/flac', {
       duration: false,
       skipCovers: true,
       fileSize: audioFileSize,
