@@ -19,7 +19,7 @@
     "clean": "rimraf ./dist"
   },
   "dependencies": {
-    "@google-cloud/logging-winston": "^0.9.0",
+    "@google-cloud/logging-winston": "^0.10.0",
     "@google-cloud/storage": "^1.7.0",
     "@trumpsaid/prisma": "^1.0.0",
     "express-jwt": "^5.3.1",
