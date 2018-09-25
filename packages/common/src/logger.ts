@@ -1,35 +1,35 @@
-import moment from 'moment';
+import { LoggingWinston } from '@google-cloud/logging-winston';
 import winston from 'winston';
 
-const Logger = winston.Logger;
-const config = winston.config;
-
-const level = process.env.NODE_ENV === 'development' ? 'silly' : 'debug';
-
-// tslint:disable-next-line:no-var-requires
-const LoggingWinston = require('@google-cloud/logging-winston').LoggingWinston;
 const stackdriverLogging = new LoggingWinston({
   projectId: process.env.GOOGLE_PROJECT_ID,
 });
 
-const consoleLogging = new winston.transports.Console({
-  formatter(options) {
-    const ts = moment().toISOString();
-    return `${ts}   ${config.colorize(
-      options.level,
-      options.level.toUpperCase(),
-    )}   ${options.message ? options.message : ''} ${
-      options.meta && Object.keys(options.meta).length
-        ? '\n\t' + JSON.stringify(options.meta)
-        : ''
-    }
-    `.trim();
-  },
-});
+const alignedWithColorsAndTime = winston.format.combine(
+  winston.format.colorize(),
+  winston.format.timestamp(),
+  winston.format.align(),
+  winston.format.printf((info) => {
+    const {
+      // tslint:disable-next-line:trailing-comma
+      timestamp, level, message, ...args
+    } = info;
 
-const logger = new Logger({
-  level,
-  transports: [stackdriverLogging, consoleLogging],
+    // tslint:disable-next-line:no-magic-numbers
+    const ts = timestamp.slice(0, 19).replace('T', ' ');
+    // tslint:disable-next-line:no-magic-numbers
+    return `${ts} [${level}]: ${message} ${Object.keys(args).length ? JSON.stringify(args, null, 2) : ''}`;
+  }),
+);
+
+const logger = winston.createLogger({
+  transports: [
+    new winston.transports.Console({
+      level: process.env.NODE_ENV === 'development' ? 'silly ' : 'debug',
+      format: alignedWithColorsAndTime,
+    }),
+    stackdriverLogging,
+  ],
 });
 
 export default logger;
