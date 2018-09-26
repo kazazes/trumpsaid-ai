@@ -105,9 +105,9 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@coreui/coreui-pro@^2.0.6":
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.9.tgz#20a9fa0a553b2e6ad3dedcfb4567476265b6363c"
+"@coreui/coreui-pro@2.0.10":
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.10.tgz#e24a0bf6cddda3cda4d5cd4a925d9f1ae712ec1b"
   dependencies:
     bootstrap "^4.1.3"
 
@@ -5988,7 +5988,7 @@ graphql-request@^1.4.0:
   dependencies:
     cross-fetch "2.2.2"
 
-graphql-shield@3.2.4:
+graphql-shield@^3.2.1:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/graphql-shield/-/graphql-shield-3.2.4.tgz#9d2faec48996a71a61dfdc7de0bb529243784cce"
   dependencies:
