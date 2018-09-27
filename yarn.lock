@@ -105,7 +105,7 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@coreui/coreui-pro@2.0.10":
+"@coreui/coreui-pro@^2.0.6":
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.10.tgz#e24a0bf6cddda3cda4d5cd4a925d9f1ae712ec1b"
   dependencies:
@@ -1246,9 +1246,9 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
-"@types/fluent-ffmpeg@^2.1.6":
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/@types/fluent-ffmpeg/-/fluent-ffmpeg-2.1.7.tgz#e7905af52754de19b0fb5263102cbc957ac6cac9"
+"@types/fluent-ffmpeg@2.1.8":
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/@types/fluent-ffmpeg/-/fluent-ffmpeg-2.1.8.tgz#a9ffff2140d641ec898ebdddaa1e6e7e962d7943"
   dependencies:
     "@types/events" "*"
     "@types/node" "*"
