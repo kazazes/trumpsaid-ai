@@ -105,9 +105,9 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@coreui/coreui-pro@2.0.11":
-  version "2.0.11"
-  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.11.tgz#d330afd9a426f19f9ac63ee5c6263238c56bc133"
+"@coreui/coreui-pro@2.0.12":
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.12.tgz#2494f37e61deae21c8ba4db5d2f9b88e25763662"
   dependencies:
     bootstrap "^4.1.3"
 
