@@ -7948,9 +7948,9 @@ multimatch@^2.1.0:
     arrify "^1.0.0"
     minimatch "^3.0.0"
 
-music-metadata@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.1.0.tgz#4340a4148dff9567a6f7b0139bf1ce3add88d0da"
+music-metadata@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.1.1.tgz#80eccd1aa38bf6f03edc5e2c8176202b6b2c8afc"
   dependencies:
     debug "^4.0.1"
     file-type "9"
@@ -11794,7 +11794,7 @@ webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
 
-webpack-cli@3.1.2:
+webpack-cli@^3.1.0:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.1.2.tgz#17d7e01b77f89f884a2bbf9db545f0f6a648e746"
   dependencies:
