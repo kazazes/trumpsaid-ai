@@ -105,9 +105,9 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@coreui/coreui-pro@^2.0.6":
-  version "2.0.12"
-  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.12.tgz#2494f37e61deae21c8ba4db5d2f9b88e25763662"
+"@coreui/coreui-pro@2.0.13":
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.13.tgz#159476e41358bdc03ca6e5bac77486de192ccda6"
   dependencies:
     bootstrap "^4.1.3"
 
@@ -7948,7 +7948,7 @@ multimatch@^2.1.0:
     arrify "^1.0.0"
     minimatch "^3.0.0"
 
-music-metadata@3.1.1:
+music-metadata@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.1.1.tgz#80eccd1aa38bf6f03edc5e2c8176202b6b2c8afc"
   dependencies:
