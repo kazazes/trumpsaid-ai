@@ -250,7 +250,7 @@
     retry-request "^4.0.0"
     through2 "^2.0.3"
 
-"@google-cloud/common@^0.25.1":
+"@google-cloud/common@^0.25.0", "@google-cloud/common@^0.25.1":
   version "0.25.3"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.25.3.tgz#9d565ba9114075f9a9c9ab0d1dda1e2818f79684"
   dependencies:
@@ -369,12 +369,13 @@
     through2 "^2.0.3"
     uuid "^3.1.0"
 
-"@google-cloud/speech@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/speech/-/speech-2.1.0.tgz#7935b9668f9f349466906e7bd758d72b5686922e"
+"@google-cloud/speech@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@google-cloud/speech/-/speech-2.1.1.tgz#10684556c81fe6906ff294f3d50477ee7a8a93b0"
   dependencies:
+    "@google-cloud/common" "^0.25.0"
     extend "^3.0.1"
-    google-gax "^0.19.0"
+    google-gax "^0.20.0"
     google-proto-files "^0.16.0"
     lodash.merge "^4.6.1"
     protobufjs "^6.8.6"
@@ -11674,7 +11675,7 @@ vue-mq@^0.2.1:
   dependencies:
     json2mq "^0.2.0"
 
-vue-multiselect@2.1.2:
+vue-multiselect@^2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/vue-multiselect/-/vue-multiselect-2.1.2.tgz#2bb2f4c7ef449b71d9707c77425900b9e3641e2b"
 
