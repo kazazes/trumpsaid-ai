@@ -115,7 +115,7 @@
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@coreui/icons/-/icons-0.3.0.tgz#d5bece91b1442a9543593d1146bc8042b18489e3"
 
-"@coreui/vue@2.0.1":
+"@coreui/vue@^2.0.0-rc.3":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@coreui/vue/-/vue-2.0.1.tgz#aa726f1d5e359e8d3c41811e61ba185d8d6b0ab1"
   dependencies:
@@ -1294,9 +1294,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jquery@*", "@types/jquery@^3.3.6":
-  version "3.3.10"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.10.tgz#d0afaec7ee55f591992e74c607df5dc7cd9c76ab"
+"@types/jquery@*", "@types/jquery@3.3.11":
+  version "3.3.11"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.11.tgz#f120f79e4abe92d449abc227072699417c853488"
 
 "@types/lodash@^4.14.104":
   version "4.14.116"
