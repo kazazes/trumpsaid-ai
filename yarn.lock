@@ -115,9 +115,9 @@
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@coreui/icons/-/icons-0.3.0.tgz#d5bece91b1442a9543593d1146bc8042b18489e3"
 
-"@coreui/vue@^2.0.0-rc.3":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@coreui/vue/-/vue-2.0.0.tgz#e616234c096bc63dd19f7a0aa8bc5087a448357b"
+"@coreui/vue@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@coreui/vue/-/vue-2.0.1.tgz#aa726f1d5e359e8d3c41811e61ba185d8d6b0ab1"
   dependencies:
     vue-clickaway "^2.2.2"
     vue-perfect-scrollbar "^0.1.0"
