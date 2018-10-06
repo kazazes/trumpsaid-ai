@@ -1293,9 +1293,11 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jquery@*", "@types/jquery@^3.3.6":
-  version "3.3.11"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.11.tgz#f120f79e4abe92d449abc227072699417c853488"
+"@types/jquery@*", "@types/jquery@3.3.12":
+  version "3.3.12"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.12.tgz#e83229bcbf09dc668f9d4c1894864199521ff258"
+  dependencies:
+    "@types/sizzle" "*"
 
 "@types/lodash@^4.14.104":
   version "4.14.116"
@@ -1384,6 +1386,10 @@
   dependencies:
     "@types/glob" "*"
     "@types/node" "*"
+
+"@types/sizzle@*":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
 
 "@types/tapable@*":
   version "1.0.4"
@@ -5929,7 +5935,7 @@ graphql-middleware@1.6.6:
   dependencies:
     graphql-tools "^3.0.5"
 
-graphql-middleware@1.7.6:
+graphql-middleware@^1.6.6:
   version "1.7.6"
   resolved "https://registry.yarnpkg.com/graphql-middleware/-/graphql-middleware-1.7.6.tgz#f226bf6671f3d82a9378f8b335804c8e44d21733"
   dependencies:
