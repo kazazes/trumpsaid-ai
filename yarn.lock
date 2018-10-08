@@ -169,9 +169,9 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
-"@fortawesome/fontawesome-free@^5.3.1":
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.3.1.tgz#5466b8f31c1f493a96754c1426c25796d0633dd9"
+"@fortawesome/fontawesome-free@5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.4.0.tgz#f3eea20ce4c216dc35e3c13f52f1caf9fc52d746"
 
 "@google-cloud/common-grpc@^0.9.0":
   version "0.9.0"
@@ -1293,7 +1293,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jquery@*", "@types/jquery@3.3.13":
+"@types/jquery@*", "@types/jquery@^3.3.6":
   version "3.3.13"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.13.tgz#7c06223fd38d121fe43180667e957a3fa6aefe5d"
   dependencies:
