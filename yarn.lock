@@ -1293,9 +1293,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jquery@*", "@types/jquery@^3.3.6":
-  version "3.3.13"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.13.tgz#7c06223fd38d121fe43180667e957a3fa6aefe5d"
+"@types/jquery@*", "@types/jquery@3.3.14":
+  version "3.3.14"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.14.tgz#7c78e18f8c4bf9a8eae1de62815493ab1d7cc04f"
   dependencies:
     "@types/sizzle" "*"
 
@@ -5008,7 +5008,7 @@ express-jwt@^5.3.1:
     jsonwebtoken "^8.1.0"
     lodash.set "^4.0.0"
 
-express-rate-limit@3.2.1:
+express-rate-limit@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/express-rate-limit/-/express-rate-limit-3.2.1.tgz#939e64d7a2173c72c1c3229896e6911791de5972"
   dependencies:
