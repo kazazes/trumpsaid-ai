@@ -815,9 +815,9 @@
     inquirer "^6.2.0"
     npmlog "^4.1.2"
 
-"@lerna/publish@^3.4.2":
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/@lerna/publish/-/publish-3.4.2.tgz#a597e64b1327260127260cabb6d647d4cec3f80e"
+"@lerna/publish@^3.4.3":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@lerna/publish/-/publish-3.4.3.tgz#fb956ca2a871729982022889f90d0e8eb8528340"
   dependencies:
     "@lerna/batch-packages" "^3.1.2"
     "@lerna/check-working-tree" "^3.3.0"
@@ -7139,8 +7139,8 @@ lcid@^2.0.0:
     invert-kv "^2.0.0"
 
 lerna@^3.1.4:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/lerna/-/lerna-3.4.2.tgz#a72d845d6eaf9cf1f20b7242b38ee3d49eb6211b"
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/lerna/-/lerna-3.4.3.tgz#501454efb453c65c305802d370ee337f7298787e"
   dependencies:
     "@lerna/add" "^3.4.1"
     "@lerna/bootstrap" "^3.4.1"
@@ -7154,7 +7154,7 @@ lerna@^3.1.4:
     "@lerna/init" "^3.3.0"
     "@lerna/link" "^3.3.0"
     "@lerna/list" "^3.3.2"
-    "@lerna/publish" "^3.4.2"
+    "@lerna/publish" "^3.4.3"
     "@lerna/run" "^3.3.2"
     "@lerna/version" "^3.4.1"
     import-local "^1.0.0"
