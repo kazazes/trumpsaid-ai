@@ -212,26 +212,6 @@
     string-format-obj "^1.1.0"
     through2 "^2.0.3"
 
-"@google-cloud/common@^0.20.3":
-  version "0.20.3"
-  resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.20.3.tgz#639fb9ed07b0e20bdcfa84ebb0838b8cb2068e3b"
-  dependencies:
-    "@types/duplexify" "^3.5.0"
-    "@types/request" "^2.47.0"
-    arrify "^1.0.1"
-    axios "^0.18.0"
-    duplexify "^3.6.0"
-    ent "^2.2.0"
-    extend "^3.0.1"
-    google-auth-library "^1.6.0"
-    is "^3.2.1"
-    pify "^3.0.0"
-    request "^2.87.0"
-    retry-request "^4.0.0"
-    split-array-stream "^2.0.0"
-    stream-events "^1.0.4"
-    through2 "^2.0.3"
-
 "@google-cloud/common@^0.23.0":
   version "0.23.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.23.0.tgz#34076548b31817324baad23257b4ce27d6cd0a40"
@@ -250,7 +230,7 @@
     retry-request "^4.0.0"
     through2 "^2.0.3"
 
-"@google-cloud/common@^0.25.0", "@google-cloud/common@^0.25.1":
+"@google-cloud/common@^0.25.0", "@google-cloud/common@^0.25.1", "@google-cloud/common@^0.25.3":
   version "0.25.3"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.25.3.tgz#9d565ba9114075f9a9c9ab0d1dda1e2818f79684"
   dependencies:
@@ -409,12 +389,13 @@
     through2 "^2.0.0"
     xdg-basedir "^3.0.0"
 
-"@google-cloud/trace-agent@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@google-cloud/trace-agent/-/trace-agent-3.1.1.tgz#85dec822a7240374fa8ae3e345a182b6031614b2"
+"@google-cloud/trace-agent@3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/trace-agent/-/trace-agent-3.2.0.tgz#72329626e37c3c887cd7da9ec5650cb83c312016"
   dependencies:
-    "@google-cloud/common" "^0.20.3"
+    "@google-cloud/common" "^0.25.3"
     builtin-modules "^3.0.0"
+    console-log-level "^1.4.0"
     continuation-local-storage "^3.2.1"
     extend "^3.0.0"
     gcp-metadata "^0.7.0"
@@ -424,6 +405,7 @@
     require-in-the-middle "^3.0.0"
     semver "^5.4.1"
     shimmer "^1.2.0"
+    teeny-request "^3.9.0"
     uuid "^3.0.1"
 
 "@grpc/grpc-js@^0.2.0":
@@ -4765,7 +4747,7 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@5.7.0:
+eslint@^5.5.0:
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.7.0.tgz#55c326d6fb2ad45fcbd0ce17c3846f025d1d819c"
   dependencies:
@@ -10792,6 +10774,14 @@ teeny-request@^3.6.0:
   dependencies:
     https-proxy-agent "^2.2.1"
     node-fetch "^2.2.0"
+
+teeny-request@^3.9.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/teeny-request/-/teeny-request-3.10.0.tgz#6c7d9073499cd0140c67bd367bd3f9ce75e4beae"
+  dependencies:
+    https-proxy-agent "^2.2.1"
+    node-fetch "^2.2.0"
+    uuid "^3.3.2"
 
 temp-dir@^1.0.0:
   version "1.0.0"
