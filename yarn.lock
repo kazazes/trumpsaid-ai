@@ -126,23 +126,23 @@
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@ffmpeg-installer/darwin-x64/-/darwin-x64-4.0.6.tgz#366c0ee40160e0e6b6e4748f97a2bd9dd45d9e68"
 
-"@ffmpeg-installer/ffmpeg@^1.0.15":
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/@ffmpeg-installer/ffmpeg/-/ffmpeg-1.0.15.tgz#e7eb92710971e73eb29986eda32359edfdc4f0df"
+"@ffmpeg-installer/ffmpeg@1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@ffmpeg-installer/ffmpeg/-/ffmpeg-1.0.16.tgz#f6e515b71019058e71e5a031d328cd262c81e2f9"
   optionalDependencies:
     "@ffmpeg-installer/darwin-x64" "4.0.6"
-    "@ffmpeg-installer/linux-ia32" "4.0.4"
-    "@ffmpeg-installer/linux-x64" "4.0.4"
+    "@ffmpeg-installer/linux-ia32" "4.0.5"
+    "@ffmpeg-installer/linux-x64" "4.0.5"
     "@ffmpeg-installer/win32-ia32" "4.0.4"
     "@ffmpeg-installer/win32-x64" "4.0.3"
 
-"@ffmpeg-installer/linux-ia32@4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@ffmpeg-installer/linux-ia32/-/linux-ia32-4.0.4.tgz#b8d2c789f2b481f032b9c74efd648699768f1693"
+"@ffmpeg-installer/linux-ia32@4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@ffmpeg-installer/linux-ia32/-/linux-ia32-4.0.5.tgz#43d1c1019dbd229764b3d2d2d17bc9ac1c61c5ea"
 
-"@ffmpeg-installer/linux-x64@4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@ffmpeg-installer/linux-x64/-/linux-x64-4.0.4.tgz#0d550a1de1dd506c8a71c896013a58527f3d2604"
+"@ffmpeg-installer/linux-x64@4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@ffmpeg-installer/linux-x64/-/linux-x64-4.0.5.tgz#f746508eeaedb5d676e3bf8744a5ee6067ed6d75"
 
 "@ffmpeg-installer/win32-ia32@4.0.4":
   version "4.0.4"
@@ -11596,7 +11596,7 @@ vue-chartjs@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.4.0.tgz#669e4453be0676605fc9290b3b581867ccd15c88"
 
-vue-class-component@6.3.0:
+vue-class-component@^6.2.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-6.3.0.tgz#32c3a3302d4a047f9750a9d1f2cc56823b899294"
 
