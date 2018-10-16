@@ -1294,8 +1294,8 @@
     "@types/node" "*"
 
 "@types/jquery@*", "@types/jquery@^3.3.6":
-  version "3.3.17"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.17.tgz#0903a65889625facd424f19c6c0a03fddf00b4c6"
+  version "3.3.18"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.18.tgz#ab419606bc9a01419682617b247eed039cff124e"
   dependencies:
     "@types/sizzle" "*"
 
