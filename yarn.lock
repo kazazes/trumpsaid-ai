@@ -7642,15 +7642,15 @@ metascraper-title@^4.3.2:
     lodash "~4.17.10"
 
 metascraper@^4.3.2:
-  version "4.3.5"
-  resolved "https://registry.yarnpkg.com/metascraper/-/metascraper-4.3.5.tgz#299a7774646dd7290c786316eef5cd6f07b083f3"
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/metascraper/-/metascraper-4.4.4.tgz#08c2e376ab56221c85fc860d732386782efc7fd0"
   dependencies:
     "@metascraper/helpers" "^4.3.5"
     cheerio "~1.0.0-rc.2"
     cheerio-advanced-selectors "~2.0.1"
     lodash "~4.17.10"
     p-reduce "~1.0.0"
-    sanitize-html "~1.19.0"
+    sanitize-html "~1.19.1"
     whoops "~4.0.1"
 
 methmeth@^1.1.0:
@@ -9945,9 +9945,9 @@ safe-regex@^1.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
-sanitize-html@~1.19.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/sanitize-html/-/sanitize-html-1.19.0.tgz#34d8a4b864aba79602e4a32003f293fc242df0a9"
+sanitize-html@~1.19.1:
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/sanitize-html/-/sanitize-html-1.19.1.tgz#e8b33c69578054d6ee4f57ea152d6497f3f6fb7d"
   dependencies:
     chalk "^2.3.0"
     htmlparser2 "^3.9.0"
