@@ -106,8 +106,8 @@
     to-fast-properties "^2.0.0"
 
 "@coreui/coreui-pro@^2.0.6":
-  version "2.0.19"
-  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.19.tgz#06c522e9935a65ee7666f661f21054cb7666fa2f"
+  version "2.0.20"
+  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.20.tgz#99bfdfbedbe3eee5f266f7bfca0150179100517f"
   dependencies:
     bootstrap "^4.1.3"
 
