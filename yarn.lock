@@ -170,8 +170,8 @@
     tslib "^1.8.1"
 
 "@fortawesome/fontawesome-free@^5.3.1":
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.4.1.tgz#6194786c1a705ab84253e06429834466670e3c3f"
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.4.2.tgz#b2d782da69c45ea61954291e2615a8f7741c96b2"
 
 "@google-cloud/common-grpc@^0.9.0":
   version "0.9.0"
