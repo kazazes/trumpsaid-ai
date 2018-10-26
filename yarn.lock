@@ -2018,8 +2018,8 @@ apollo-utilities@1.0.22:
     fast-json-stable-stringify "^2.0.0"
 
 apollo-utilities@^1.0.0, apollo-utilities@^1.0.1, apollo-utilities@^1.0.19, apollo-utilities@^1.0.21, apollo-utilities@^1.0.22:
-  version "1.0.23"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.23.tgz#9416e5da31cc8d9d46502de6f90aa1447cd368c6"
+  version "1.0.24"
+  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.24.tgz#77d2d3008bb9ee52aa76b799ce7a8d6cb6cf8a1c"
   dependencies:
     fast-json-stable-stringify "^2.0.0"
 
