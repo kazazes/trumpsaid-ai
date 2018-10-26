@@ -1448,9 +1448,9 @@
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
 
-"@videojs/http-streaming@1.2.5":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@videojs/http-streaming/-/http-streaming-1.2.5.tgz#08e1af247e66f0513c0d0dc3eae1a2002d452c7d"
+"@videojs/http-streaming@1.2.6":
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/@videojs/http-streaming/-/http-streaming-1.2.6.tgz#01b9767c7d1b53dbadb1c7b2cef2a880e1c312f2"
   dependencies:
     aes-decrypter "3.0.0"
     global "^4.3.0"
@@ -11479,10 +11479,10 @@ video-extensions@~1.1.0:
   resolved "https://registry.yarnpkg.com/video-extensions/-/video-extensions-1.1.0.tgz#eaa86b45f29a853c2b873e9d8e23b513712997d6"
 
 "video.js@^6.8.0 || ^7.0.0", video.js@^7.1.0:
-  version "7.2.3"
-  resolved "https://registry.yarnpkg.com/video.js/-/video.js-7.2.3.tgz#26dffee2abcc89e40cfdb5497392edbd424099f2"
+  version "7.2.4"
+  resolved "https://registry.yarnpkg.com/video.js/-/video.js-7.2.4.tgz#d1f9768947ef1c2288cec787ecc4d617a9e8956c"
   dependencies:
-    "@videojs/http-streaming" "1.2.5"
+    "@videojs/http-streaming" "1.2.6"
     babel-runtime "^6.9.2"
     global "4.3.2"
     safe-json-parse "4.0.0"
