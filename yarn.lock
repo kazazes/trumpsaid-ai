@@ -7526,7 +7526,7 @@ mdbootstrap@^4.5.9:
   version "4.5.11"
   resolved "https://registry.yarnpkg.com/mdbootstrap/-/mdbootstrap-4.5.11.tgz#d7450e092f09fb11f00ed2cee344abdec5acd044"
 
-media-typer@0.3.0, media-typer@^0.3.0:
+media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
 
@@ -7923,15 +7923,15 @@ multimatch@^2.1.0:
     minimatch "^3.0.0"
 
 music-metadata@^3.1.0:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.1.4.tgz#ca652c462ebd5f470d15045888f35e3580d0545b"
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.1.5.tgz#02ed83657c42f899eac1842573a1cec535f65aee"
   dependencies:
     debug "^4.1.0"
     file-type "^10.0.0"
-    media-typer "^0.3.0"
-    strtok3 "^2.1.0"
+    media-typer "0.3.0"
+    strtok3 "^2.1.1"
     then-read-stream "^1.3.1"
-    token-types "^1.0.0"
+    token-types "^1.0.1"
 
 mute-stream@0.0.7, mute-stream@~0.0.4:
   version "0.0.7"
@@ -10621,13 +10621,13 @@ strong-log-transformer@^2.0.0:
     minimist "^1.2.0"
     through "^2.3.4"
 
-strtok3@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-2.1.0.tgz#f1e3aab64c15dadd23b09fdf9788afd11031b85a"
+strtok3@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-2.1.1.tgz#33772fc5e2b5872c4af7271187479de7bfd60c11"
   dependencies:
-    debug "^4.0.1"
-    then-read-stream "^1.3.0"
-    token-types "^1.0.0"
+    debug "^4.1.0"
+    then-read-stream "^1.3.1"
+    token-types "^1.0.1"
 
 stubs@^3.0.0:
   version "3.0.0"
@@ -10787,10 +10787,6 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
-then-read-stream@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/then-read-stream/-/then-read-stream-1.3.0.tgz#fb99314d1c5845fea29e5d271f261a1259039c09"
-
 then-read-stream@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/then-read-stream/-/then-read-stream-1.3.1.tgz#81f91fa31d8044bd9a6d49b84af4fb6b34b5cfc7"
@@ -10915,9 +10911,9 @@ token-stream@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/token-stream/-/token-stream-0.0.1.tgz#ceeefc717a76c4316f126d0b9dbaa55d7e7df01a"
 
-token-types@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/token-types/-/token-types-1.0.0.tgz#91f8180eb5464abb28af361ced3ac855a1e18fb2"
+token-types@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/token-types/-/token-types-1.0.1.tgz#c91671bd80f7e2ded10dee4b8ff17247c40378c7"
 
 toposort@^1.0.0:
   version "1.0.7"
