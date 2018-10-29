@@ -5914,9 +5914,9 @@ graphql-middleware@1.7.7:
   dependencies:
     graphql-tools "^4.0.1"
 
-graphql-middleware@^1.6.6:
-  version "1.7.8"
-  resolved "https://registry.yarnpkg.com/graphql-middleware/-/graphql-middleware-1.7.8.tgz#617940d3cd462e9553e582d2b6ce86cb0e95a3dd"
+graphql-middleware@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/graphql-middleware/-/graphql-middleware-2.0.1.tgz#702cbed93b971bd818dc94d9bf45abc693fd2afe"
   dependencies:
     graphql-tools "^4.0.2"
 
