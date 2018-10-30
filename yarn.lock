@@ -7919,8 +7919,8 @@ multimatch@^2.1.0:
     minimatch "^3.0.0"
 
 music-metadata@^3.1.0:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.1.5.tgz#02ed83657c42f899eac1842573a1cec535f65aee"
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.1.6.tgz#d91ede54eb3b19023f3db5e833354d7ac51adfa7"
   dependencies:
     debug "^4.1.0"
     file-type "^10.0.0"
