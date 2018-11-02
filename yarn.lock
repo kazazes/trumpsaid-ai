@@ -11670,8 +11670,8 @@ vue@^2.5.0, vue@^2.5.17:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
 
 vuejs-datepicker@^1.5.3:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/vuejs-datepicker/-/vuejs-datepicker-1.5.3.tgz#cf26082526151724ac31a3bb8e89da998e3876df"
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/vuejs-datepicker/-/vuejs-datepicker-1.5.4.tgz#dacdb5eb5ef44342c67cb59b93a0d5da9c1809b3"
 
 vuex@^3.0.1:
   version "3.0.1"
