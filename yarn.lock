@@ -1316,8 +1316,8 @@
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.0.tgz#719551d2352d301ac8b81db732acb6bdc28dbdef"
 
 "@types/mathjs@^4.4.1":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@types/mathjs/-/mathjs-4.4.2.tgz#7b6eda67fd8cf2352692d94afcdcca88736e1819"
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/@types/mathjs/-/mathjs-4.4.3.tgz#26de56cf36c4dc4ae40ab2e84e39a88e64e6d1dc"
   dependencies:
     decimal.js "^10.0.0"
 
