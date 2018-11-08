@@ -8895,8 +8895,8 @@ pm2@^3.0.4:
     gkt "https://tgz.pm2.io/gkt-1.0.0.tgz"
 
 popper.js@^1.12.9, popper.js@^1.14.1, popper.js@^1.14.3:
-  version "1.14.4"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.4.tgz#8eec1d8ff02a5a3a152dd43414a15c7b79fd69b6"
+  version "1.14.5"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.5.tgz#98abcce7c7c34c4ee47fcbc6b3da8af2c0a127bc"
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
