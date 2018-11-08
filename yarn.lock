@@ -1094,6 +1094,12 @@
   dependencies:
     symbol-observable "^1.2.0"
 
+"@sindresorhus/is@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.12.0.tgz#55c37409c809e802efea25911a579731adfc6e07"
+  dependencies:
+    symbol-observable "^1.2.0"
+
 "@szmarczak/http-timer@^1.1.0":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-1.1.1.tgz#6402258dfe467532b26649ef076b4d11f74fb612"
@@ -3124,6 +3130,18 @@ cache-base@^1.0.1:
 cacheable-request@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/cacheable-request/-/cacheable-request-5.0.0.tgz#7ce347741c48d85c76bc41b78f6bf13e2907056d"
+  dependencies:
+    clone-response "^1.0.2"
+    get-stream "^4.0.0"
+    http-cache-semantics "^4.0.0"
+    keyv "^3.0.0"
+    lowercase-keys "^1.0.1"
+    normalize-url "^3.1.0"
+    responselike "^1.0.2"
+
+cacheable-request@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/cacheable-request/-/cacheable-request-5.1.0.tgz#ce0958e977bdb4a5b718464049793b8d4bf7d75d"
   dependencies:
     clone-response "^1.0.2"
     get-stream "^4.0.0"
@@ -5540,6 +5558,12 @@ get-stream@^4.0.0:
   dependencies:
     pump "^3.0.0"
 
+get-stream@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-4.1.0.tgz#c1b255575f3dc21d59bfc79cd3d2b46b1c3a54b5"
+  dependencies:
+    pump "^3.0.0"
+
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
@@ -5833,7 +5857,23 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
-got@^9.2.1, got@~9.2.0:
+got@^9.2.1:
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/got/-/got-9.3.1.tgz#f0e6d531e6ece50375de4f18a640b716862f102c"
+  dependencies:
+    "@sindresorhus/is" "^0.12.0"
+    "@szmarczak/http-timer" "^1.1.0"
+    cacheable-request "^5.1.0"
+    decompress-response "^3.3.0"
+    duplexer3 "^0.1.4"
+    get-stream "^4.1.0"
+    lowercase-keys "^1.0.1"
+    mimic-response "^1.0.1"
+    p-cancelable "^1.0.0"
+    to-readable-stream "^1.0.0"
+    url-parse-lax "^3.0.0"
+
+got@~9.2.0:
   version "9.2.2"
   resolved "https://registry.yarnpkg.com/got/-/got-9.2.2.tgz#d6cb73f40d4cb512864c2f66f275f258ab43aa25"
   dependencies:
@@ -8457,6 +8497,10 @@ osenv@0, osenv@^0.1.4, osenv@^0.1.5:
 p-cancelable@^0.5.0:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/p-cancelable/-/p-cancelable-0.5.1.tgz#b797a33c43c645cd70d5a838b1d25352b9e29e75"
+
+p-cancelable@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/p-cancelable/-/p-cancelable-1.0.0.tgz#07e9c6d22c31f9c6784cb4f1e1454a79b6d9e2d6"
 
 p-defer@^1.0.0:
   version "1.0.0"
