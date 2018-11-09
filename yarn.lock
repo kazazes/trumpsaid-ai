@@ -4031,8 +4031,8 @@ css-selector-tokenizer@^0.7.0:
     regexpu-core "^1.0.0"
 
 css-vars-ponyfill@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/css-vars-ponyfill/-/css-vars-ponyfill-1.9.0.tgz#beb2c5e40baacd0edf199edb7063c29b41bb86f1"
+  version "1.12.2"
+  resolved "https://registry.yarnpkg.com/css-vars-ponyfill/-/css-vars-ponyfill-1.12.2.tgz#928322d05382f976268ddf396f9f10d2f989aa8e"
 
 css-what@2.1:
   version "2.1.0"
