@@ -1833,8 +1833,8 @@ apollo-client-preset@^1.0.8:
     graphql-tag "^2.4.2"
 
 apollo-client@^2.2.2, apollo-client@^2.4.0:
-  version "2.4.5"
-  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.4.5.tgz#545beda1ef60814943b5622f0feabc9f29ee9822"
+  version "2.4.6"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.4.6.tgz#ba24a2def6ea9d487b41672652ca967cc7c05e4a"
   dependencies:
     "@types/zen-observable" "^0.8.0"
     apollo-cache "1.1.20"
