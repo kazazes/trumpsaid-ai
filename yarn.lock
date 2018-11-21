@@ -1810,11 +1810,11 @@ apollo-cache-inmemory@^1.1.7, apollo-cache-inmemory@^1.2.8:
     apollo-utilities "^1.0.21"
     graphql-anywhere "^4.1.19"
 
-apollo-cache@1.1.20:
-  version "1.1.20"
-  resolved "https://registry.yarnpkg.com/apollo-cache/-/apollo-cache-1.1.20.tgz#6152cc4baf6a63e376efee79f75de4f5c84bf90e"
+apollo-cache@1.1.21:
+  version "1.1.21"
+  resolved "https://registry.yarnpkg.com/apollo-cache/-/apollo-cache-1.1.21.tgz#950025e2272741ba8e5064419906e3ac4072925d"
   dependencies:
-    apollo-utilities "^1.0.25"
+    apollo-utilities "^1.0.26"
 
 apollo-cache@^1.1.17:
   version "1.1.17"
@@ -1833,14 +1833,14 @@ apollo-client-preset@^1.0.8:
     graphql-tag "^2.4.2"
 
 apollo-client@^2.2.2, apollo-client@^2.4.0:
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.4.6.tgz#ba24a2def6ea9d487b41672652ca967cc7c05e4a"
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.4.7.tgz#b6712fd4c9ba346e3c44cfec7e6868e532b6a957"
   dependencies:
     "@types/zen-observable" "^0.8.0"
-    apollo-cache "1.1.20"
+    apollo-cache "1.1.21"
     apollo-link "^1.0.0"
     apollo-link-dedup "^1.0.0"
-    apollo-utilities "1.0.25"
+    apollo-utilities "1.0.26"
     symbol-observable "^1.0.2"
     zen-observable "^0.8.0"
   optionalDependencies:
@@ -2019,13 +2019,7 @@ apollo-upload-server@^5.0.0:
     busboy "^0.2.14"
     object-path "^0.11.4"
 
-apollo-utilities@1.0.25:
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.25.tgz#899b00f5f990fb451675adf84cb3de82eb6372ea"
-  dependencies:
-    fast-json-stable-stringify "^2.0.0"
-
-apollo-utilities@^1.0.0, apollo-utilities@^1.0.1, apollo-utilities@^1.0.19, apollo-utilities@^1.0.21, apollo-utilities@^1.0.25:
+apollo-utilities@1.0.26, apollo-utilities@^1.0.0, apollo-utilities@^1.0.1, apollo-utilities@^1.0.19, apollo-utilities@^1.0.21, apollo-utilities@^1.0.26:
   version "1.0.26"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.26.tgz#589c66bf4d16223531351cf667a230c787def1da"
   dependencies:
