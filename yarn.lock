@@ -220,26 +220,6 @@
     string-format-obj "^1.1.0"
     through2 "^2.0.3"
 
-"@google-cloud/common@^0.20.3":
-  version "0.20.3"
-  resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.20.3.tgz#639fb9ed07b0e20bdcfa84ebb0838b8cb2068e3b"
-  dependencies:
-    "@types/duplexify" "^3.5.0"
-    "@types/request" "^2.47.0"
-    arrify "^1.0.1"
-    axios "^0.18.0"
-    duplexify "^3.6.0"
-    ent "^2.2.0"
-    extend "^3.0.1"
-    google-auth-library "^1.6.0"
-    is "^3.2.1"
-    pify "^3.0.0"
-    request "^2.87.0"
-    retry-request "^4.0.0"
-    split-array-stream "^2.0.0"
-    stream-events "^1.0.4"
-    through2 "^2.0.3"
-
 "@google-cloud/common@^0.23.0":
   version "0.23.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.23.0.tgz#34076548b31817324baad23257b4ce27d6cd0a40"
@@ -275,6 +255,23 @@
     pify "^4.0.0"
     retry-request "^4.0.0"
     through2 "^2.0.3"
+
+"@google-cloud/common@^0.26.0":
+  version "0.26.2"
+  resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.26.2.tgz#9c54e2471a84aa031e95a24824976e080f255645"
+  dependencies:
+    "@google-cloud/projectify" "^0.3.2"
+    "@google-cloud/promisify" "^0.3.0"
+    "@types/duplexify" "^3.5.0"
+    "@types/request" "^2.47.0"
+    arrify "^1.0.1"
+    duplexify "^3.6.0"
+    ent "^2.2.0"
+    extend "^3.0.1"
+    google-auth-library "^2.0.0"
+    pify "^4.0.0"
+    retry-request "^4.0.0"
+    through2 "^3.0.0"
 
 "@google-cloud/debug-agent@^3.0.0":
   version "3.0.0"
@@ -350,6 +347,10 @@
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/projectify/-/projectify-0.3.0.tgz#adb984ac61f7ec855558ef677621b2488c50d05d"
 
+"@google-cloud/projectify@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@google-cloud/projectify/-/projectify-0.3.2.tgz#ed54c98cae646dc03a742eac288184a13d33a4c2"
+
 "@google-cloud/promisify@^0.3.0":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@google-cloud/promisify/-/promisify-0.3.1.tgz#f641e6d944a8e0a05ee0cb1091dfa60089becdba"
@@ -418,20 +419,22 @@
     xdg-basedir "^3.0.0"
 
 "@google-cloud/trace-agent@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@google-cloud/trace-agent/-/trace-agent-3.1.1.tgz#85dec822a7240374fa8ae3e345a182b6031614b2"
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@google-cloud/trace-agent/-/trace-agent-3.3.1.tgz#7fabdb0f53b7aa2255848068206c5d2ce86da395"
   dependencies:
-    "@google-cloud/common" "^0.20.3"
+    "@google-cloud/common" "^0.26.0"
     builtin-modules "^3.0.0"
+    console-log-level "^1.4.0"
     continuation-local-storage "^3.2.1"
     extend "^3.0.0"
-    gcp-metadata "^0.7.0"
+    gcp-metadata "^0.9.0"
     hex2dec "^1.0.1"
     is "^3.2.0"
     methods "^1.1.1"
     require-in-the-middle "^3.0.0"
     semver "^5.4.1"
     shimmer "^1.2.0"
+    teeny-request "^3.9.0"
     uuid "^3.0.1"
 
 "@grpc/grpc-js@^0.2.0":
@@ -5486,6 +5489,14 @@ gcp-metadata@^0.8.0:
     json-bigint "^0.3.0"
     retry-axios "0.3.2"
 
+gcp-metadata@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/gcp-metadata/-/gcp-metadata-0.9.0.tgz#0b47298bbd6d3419b58a177f1933216aa251a5c2"
+  dependencies:
+    axios "^0.18.0"
+    json-bigint "^0.3.0"
+    retry-axios "0.3.2"
+
 gcs-resumable-upload@^0.10.2:
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/gcs-resumable-upload/-/gcs-resumable-upload-0.10.2.tgz#7f29b3ee23dcec4170367c0711418249c660545f"
@@ -9545,6 +9556,14 @@ readable-stream@1.1.x:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
+"readable-stream@2 || 3":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.0.6.tgz#351302e4c68b5abd6a2ed55376a7f9a25be3057a"
+  dependencies:
+    inherits "^2.0.3"
+    string_decoder "^1.1.1"
+    util-deprecate "^1.0.1"
+
 readable-stream@~2.0.6:
   version "2.0.6"
   resolved "http://registry.npmjs.org/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
@@ -10543,6 +10562,12 @@ string_decoder@^1.0.0, string_decoder@~1.1.1:
   dependencies:
     safe-buffer "~5.1.0"
 
+string_decoder@^1.1.1:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.2.0.tgz#fe86e738b19544afe70469243b2a1ee9240eae8d"
+  dependencies:
+    safe-buffer "~5.1.0"
+
 string_decoder@~0.10.x:
   version "0.10.31"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
@@ -10733,6 +10758,14 @@ teeny-request@^3.6.0:
     https-proxy-agent "^2.2.1"
     node-fetch "^2.2.0"
 
+teeny-request@^3.9.0:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/teeny-request/-/teeny-request-3.9.1.tgz#5b17261200686590e827009956b30fa12e8eec4d"
+  dependencies:
+    https-proxy-agent "^2.2.1"
+    node-fetch "^2.2.0"
+    uuid "^3.3.2"
+
 temp-dir@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/temp-dir/-/temp-dir-1.0.0.tgz#0a7c0ea26d3a39afa7e0ebea9c1fc0bc4daa011d"
@@ -10804,6 +10837,13 @@ through2@^2.0.0, through2@^2.0.2, through2@^2.0.3:
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
   dependencies:
     readable-stream "^2.1.5"
+    xtend "~4.0.1"
+
+through2@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/through2/-/through2-3.0.0.tgz#468b461df9cd9fcc170f22ebf6852e467e578ff2"
+  dependencies:
+    readable-stream "2 || 3"
     xtend "~4.0.1"
 
 through@2, "through@>=2.2.7 <3", through@^2.3.4, through@^2.3.6, through@~2.3.6:
@@ -11374,7 +11414,7 @@ use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
 
-util-deprecate@~1.0.1:
+util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
 
