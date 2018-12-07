@@ -39,7 +39,7 @@
     "mathjs": "^5.1.0",
     "moment": "^2.22.2",
     "server-health": "^3.0.0",
-    "sharp": "^0.20.5",
+    "sharp": "^0.21.0",
     "shelljs": "^0.8.2",
     "tslib": "^1.9.3",
     "youtube-dl": "^1.12.2"
