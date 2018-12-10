@@ -113,8 +113,8 @@
     to-fast-properties "^2.0.0"
 
 "@coreui/coreui-pro@^2.0.6":
-  version "2.0.25"
-  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.0.25.tgz#a23d5e0db9093ccd40d238e8f03f0863b96a4e6a"
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@coreui/coreui-pro/-/coreui-pro-2.1.3.tgz#737db90379296a53a07b166bad5ac8a580eec53a"
   dependencies:
     "@babel/polyfill" "^7.0.0"
     bootstrap "^4.1.3"
