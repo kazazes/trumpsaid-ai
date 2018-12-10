@@ -8997,8 +8997,8 @@ pm2-multimeter@^0.1.2:
     charm "~0.1.1"
 
 pm2@^3.0.4:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/pm2/-/pm2-3.2.2.tgz#ddde90397d6054feb92a51230c3ae0f1e3d9f2c1"
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/pm2/-/pm2-3.2.3.tgz#af3f3e92ec9f986e31dcbfe9b36815a0054f4fbf"
   dependencies:
     "@pm2/agent" "^0.5.11"
     "@pm2/io" "~2.4.2"
