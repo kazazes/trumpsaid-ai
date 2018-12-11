@@ -240,24 +240,6 @@
     stream-events "^1.0.4"
     through2 "^2.0.3"
 
-"@google-cloud/common@^0.23.0":
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.23.0.tgz#34076548b31817324baad23257b4ce27d6cd0a40"
-  dependencies:
-    "@google-cloud/projectify" "^0.3.0"
-    "@google-cloud/promisify" "^0.3.0"
-    "@types/duplexify" "^3.5.0"
-    "@types/request" "^2.47.0"
-    arrify "^1.0.1"
-    duplexify "^3.6.0"
-    ent "^2.2.0"
-    extend "^3.0.1"
-    google-auth-library "^1.6.0"
-    is "^3.2.1"
-    pify "^4.0.0"
-    retry-request "^4.0.0"
-    through2 "^2.0.3"
-
 "@google-cloud/common@^0.25.0", "@google-cloud/common@^0.25.1":
   version "0.25.3"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.25.3.tgz#9d565ba9114075f9a9c9ab0d1dda1e2818f79684"
@@ -276,24 +258,41 @@
     retry-request "^4.0.0"
     through2 "^2.0.3"
 
-"@google-cloud/debug-agent@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/debug-agent/-/debug-agent-3.0.0.tgz#9f2d50b5b70508a5ac4edbc29cdd3653d0fcd4c7"
+"@google-cloud/common@^0.27.0":
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.27.0.tgz#31dbd52d7472f2606df05b194887db2b595bdad5"
   dependencies:
-    "@google-cloud/common" "^0.23.0"
+    "@google-cloud/projectify" "^0.3.2"
+    "@google-cloud/promisify" "^0.3.0"
+    "@types/duplexify" "^3.5.0"
+    "@types/request" "^2.47.0"
+    arrify "^1.0.1"
+    duplexify "^3.6.0"
+    ent "^2.2.0"
+    extend "^3.0.1"
+    google-auth-library "^2.0.0"
+    pify "^4.0.0"
+    retry-request "^4.0.0"
+
+"@google-cloud/debug-agent@^3.0.0":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@google-cloud/debug-agent/-/debug-agent-3.0.1.tgz#8c6349424ba30db12a4d5684eefd7d3afa66050e"
+  dependencies:
+    "@google-cloud/common" "^0.27.0"
+    "@sindresorhus/is" "^0.13.0"
     acorn "^5.0.3"
     coffeescript "^2.0.0"
     console-log-level "^1.4.0"
     extend "^3.0.1"
     findit2 "^2.2.3"
-    gcp-metadata "^0.7.0"
-    lodash "^4.12.0"
+    gcp-metadata "^0.9.0"
+    lodash.pickby "^4.6.0"
     p-limit "^2.0.0"
+    pify "^4.0.1"
     semver "^5.5.0"
     source-map "^0.6.1"
     split "^1.0.0"
-    teeny-request "^3.6.0"
-    util.promisify "^1.0.0"
+    teeny-request "^3.11.1"
 
 "@google-cloud/language@^1.2.0":
   version "1.2.0"
@@ -349,6 +348,10 @@
 "@google-cloud/projectify@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/projectify/-/projectify-0.3.0.tgz#adb984ac61f7ec855558ef677621b2488c50d05d"
+
+"@google-cloud/projectify@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@google-cloud/projectify/-/projectify-0.3.2.tgz#ed54c98cae646dc03a742eac288184a13d33a4c2"
 
 "@google-cloud/promisify@^0.3.0":
   version "0.3.1"
@@ -1091,6 +1094,12 @@
 "@sindresorhus/is@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.11.0.tgz#a65970040a5b55c4713452666703b92a6c331fdb"
+  dependencies:
+    symbol-observable "^1.2.0"
+
+"@sindresorhus/is@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.13.0.tgz#a85d06c13658d0cc9584537df4a99423461f114b"
   dependencies:
     symbol-observable "^1.2.0"
 
@@ -4131,13 +4140,7 @@ debug@^3.0, debug@^3.1, debug@^3.1.0:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.0.1.tgz#f9bb36d439b8d1f0dd52d8fb6b46e4ebb8c1cd5b"
-  dependencies:
-    ms "^2.1.1"
-
-debug@^4.1.0:
+debug@^4.0.1, debug@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.0.tgz#373687bffa678b38b1cd91f861b63850035ddc87"
   dependencies:
@@ -5471,6 +5474,14 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
+gaxios@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/gaxios/-/gaxios-1.0.3.tgz#73f17ed9986423448ebb9f6bb32b05f64fabdd96"
+  dependencies:
+    extend "^3.0.2"
+    https-proxy-agent "^2.2.1"
+    node-fetch "^2.2.0"
+
 gaze@^1.0.0:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/gaze/-/gaze-1.1.3.tgz#c441733e13b927ac8c0ff0b4c3b033f28812924a"
@@ -5500,6 +5511,13 @@ gcp-metadata@^0.8.0:
     axios "^0.18.0"
     json-bigint "^0.3.0"
     retry-axios "0.3.2"
+
+gcp-metadata@^0.9.0:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/gcp-metadata/-/gcp-metadata-0.9.3.tgz#1f9d7495f7460a14526481f29e11596dd563dd26"
+  dependencies:
+    gaxios "^1.0.2"
+    json-bigint "^0.3.0"
 
 gcs-resumable-upload@^0.10.2:
   version "0.10.2"
@@ -7442,6 +7460,10 @@ lodash.once@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
 
+lodash.pickby@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
+
 lodash.set@^4.0.0:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
@@ -7483,7 +7505,7 @@ lodash.unescape@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.unescape/-/lodash.unescape-4.0.1.tgz#bf2249886ce514cda112fae9218cdc065211fc9c"
 
-lodash@^4.0.0, lodash@^4.12.0, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.10:
+lodash@^4.0.0, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.10:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
@@ -8931,6 +8953,10 @@ pify@^3.0.0:
 pify@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-4.0.0.tgz#db04c982b632fd0df9090d14aaf1c8413cadb695"
+
+pify@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
 
 pinkie-promise@^2.0.0:
   version "2.0.1"
@@ -10880,12 +10906,13 @@ tar@^4, tar@^4.4.6:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-teeny-request@^3.6.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/teeny-request/-/teeny-request-3.9.0.tgz#f5dd7ec3053a9dd39347107f3173efefff727685"
+teeny-request@^3.11.1:
+  version "3.11.3"
+  resolved "https://registry.yarnpkg.com/teeny-request/-/teeny-request-3.11.3.tgz#335c629f7645e5d6599362df2f3230c4cbc23a55"
   dependencies:
     https-proxy-agent "^2.2.1"
     node-fetch "^2.2.0"
+    uuid "^3.3.2"
 
 temp-dir@^1.0.0:
   version "1.0.0"
