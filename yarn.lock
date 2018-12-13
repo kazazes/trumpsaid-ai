@@ -1422,8 +1422,8 @@
     source-map "^0.6.1"
 
 "@types/validator@^9.4.1":
-  version "9.4.3"
-  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-9.4.3.tgz#11321eae0546b20f13020131ff890c294df72ecb"
+  version "9.4.4"
+  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-9.4.4.tgz#67c745e988f721ea2a1e4cc5b4cd76e6bb3a76b1"
 
 "@types/video.js@^7.2.3":
   version "7.2.5"
