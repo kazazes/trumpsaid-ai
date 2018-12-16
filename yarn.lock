@@ -5213,9 +5213,9 @@ file-loader@^2.0.0:
     loader-utils "^1.0.2"
     schema-utils "^1.0.0"
 
-file-type@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/file-type/-/file-type-10.0.0.tgz#084f32ab827238aa9a1482195ca7448c77a006b3"
+file-type@^10.5.0:
+  version "10.6.0"
+  resolved "https://registry.yarnpkg.com/file-type/-/file-type-10.6.0.tgz#95a94871d26b39f137a03cfd25450f0a56a38143"
 
 fill-range@^4.0.0:
   version "4.0.0"
@@ -8071,14 +8071,13 @@ multimatch@^2.1.0:
     minimatch "^3.0.0"
 
 music-metadata@^3.1.0:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.1.6.tgz#d91ede54eb3b19023f3db5e833354d7ac51adfa7"
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/music-metadata/-/music-metadata-3.3.0.tgz#54389503007897b349051fcbced0a0adec93e525"
   dependencies:
     debug "^4.1.0"
-    file-type "^10.0.0"
+    file-type "^10.5.0"
     media-typer "0.3.0"
-    strtok3 "^2.1.1"
-    then-read-stream "^1.3.1"
+    strtok3 "^2.3.0"
     token-types "^1.0.1"
 
 mute-stream@0.0.7, mute-stream@~0.0.4:
@@ -10784,12 +10783,12 @@ strong-log-transformer@^2.0.0:
     minimist "^1.2.0"
     through "^2.3.4"
 
-strtok3@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-2.1.1.tgz#33772fc5e2b5872c4af7271187479de7bfd60c11"
+strtok3@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-2.3.0.tgz#1f0168ce82c5aa52bf6a567ef44e6c70a69cf514"
   dependencies:
     debug "^4.1.0"
-    then-read-stream "^1.3.1"
+    then-read-stream "^1.5.0"
     token-types "^1.0.1"
 
 stubs@^3.0.0:
@@ -10972,9 +10971,9 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
-then-read-stream@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/then-read-stream/-/then-read-stream-1.3.1.tgz#81f91fa31d8044bd9a6d49b84af4fb6b34b5cfc7"
+then-read-stream@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/then-read-stream/-/then-read-stream-1.5.0.tgz#1077809ac135f11fc54fb7ae01631dff8b598082"
 
 throttle-debounce@^2.0.0:
   version "2.0.1"
