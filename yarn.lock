@@ -1286,11 +1286,12 @@
     "@types/node" "*"
     "@types/request" "*"
 
-"@types/got@^8.3.3":
-  version "8.3.4"
-  resolved "https://registry.yarnpkg.com/@types/got/-/got-8.3.4.tgz#c6acca7252cdc9f7ae58070d13a45eb6ef9f88e7"
+"@types/got@^9.2.1":
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/@types/got/-/got-9.2.1.tgz#962e5a041d66f8be484740d76a6ca15d2a8d141b"
   dependencies:
     "@types/node" "*"
+    "@types/tough-cookie" "*"
 
 "@types/graphql-deduplicator@^2.0.0":
   version "2.0.0"
