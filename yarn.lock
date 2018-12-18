@@ -1311,8 +1311,8 @@
     "@types/node" "*"
 
 "@types/jquery@*", "@types/jquery@^3.3.6":
-  version "3.3.22"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.22.tgz#cde55dc8f83207dffd16205b05f97ce824581735"
+  version "3.3.27"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.27.tgz#f27c3e793b743359d1ee2b926b4ef0d0c33e59f7"
   dependencies:
     "@types/sizzle" "*"
 
