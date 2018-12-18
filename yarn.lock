@@ -11804,8 +11804,8 @@ vue-select@^2.4.0:
   resolved "https://registry.yarnpkg.com/vue-select/-/vue-select-2.5.1.tgz#9886e7123150a52dc8dbfe3202d0387268835aaa"
 
 vue-simple-calendar@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/vue-simple-calendar/-/vue-simple-calendar-4.0.2.tgz#b2c7530759e6e07314b27848f96705ee18029875"
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/vue-simple-calendar/-/vue-simple-calendar-4.1.0.tgz#a935dbfa204726240dd74605c143c978c4379b63"
   dependencies:
     vue "^2.5.17"
 
