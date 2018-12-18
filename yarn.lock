@@ -1452,8 +1452,8 @@
     "@types/node" "*"
 
 "@types/youtube-dl@^1.12.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@types/youtube-dl/-/youtube-dl-1.12.0.tgz#fc5d638c2cac0d72433b6300cd3d139c46a2c1d9"
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@types/youtube-dl/-/youtube-dl-1.12.1.tgz#810ca501fac4b42a41c19927adc82c898ac90023"
   dependencies:
     "@types/node" "*"
 
