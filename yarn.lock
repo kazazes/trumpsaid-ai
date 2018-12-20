@@ -1393,8 +1393,8 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.2.tgz#fa8e1ad1d474688a757140c91de6dace6f4abc8d"
 
 "@types/redis@*", "@types/redis@^2.8.6":
-  version "2.8.8"
-  resolved "https://registry.yarnpkg.com/@types/redis/-/redis-2.8.8.tgz#70855e79a6020080cca3cb5f1f5ee7f11b49a979"
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/@types/redis/-/redis-2.8.9.tgz#3addfdbd81cc773c2446e34225c0911c43b960fc"
   dependencies:
     "@types/node" "*"
 
