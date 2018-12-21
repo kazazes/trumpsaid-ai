@@ -1276,10 +1276,9 @@
     "@types/serve-static" "*"
 
 "@types/fluent-ffmpeg@^2.1.6":
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/@types/fluent-ffmpeg/-/fluent-ffmpeg-2.1.8.tgz#a9ffff2140d641ec898ebdddaa1e6e7e962d7943"
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/@types/fluent-ffmpeg/-/fluent-ffmpeg-2.1.9.tgz#260e155b14b1c7f9cdccab7e1600c1f74444f25a"
   dependencies:
-    "@types/events" "*"
     "@types/node" "*"
 
 "@types/form-data@*":
