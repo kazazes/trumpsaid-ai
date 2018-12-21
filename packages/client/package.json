@@ -42,7 +42,7 @@
     "graphql": "^0.13.0",
     "graphql-import": "^0.7.0",
     "graphql-middleware": "^1.6.6",
-    "graphql-shield": "^3.2.1",
+    "graphql-shield": "^5.0.1",
     "graphql-tag": "^2.9.2",
     "graphql-tools": "^4.0.0",
     "graphql-yoga": "^1.16.1",
