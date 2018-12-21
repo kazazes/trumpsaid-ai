@@ -496,15 +496,15 @@
     read-package-tree "^5.1.6"
     semver "^5.5.0"
 
-"@lerna/changed@^3.7.2":
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/@lerna/changed/-/changed-3.7.2.tgz#a3886bd09ed28d80a175f4180f333d7e02550f4b"
+"@lerna/changed@^3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@lerna/changed/-/changed-3.8.0.tgz#b133844e55a9a98f9a00cd16457bc11c0329f618"
   dependencies:
     "@lerna/collect-updates" "^3.6.0"
     "@lerna/command" "^3.7.2"
     "@lerna/listable" "^3.6.0"
     "@lerna/output" "^3.6.0"
-    "@lerna/version" "^3.7.2"
+    "@lerna/version" "^3.8.0"
 
 "@lerna/check-working-tree@^3.6.0":
   version "3.6.0"
@@ -839,9 +839,9 @@
     inquirer "^6.2.0"
     libnpm "^2.0.1"
 
-"@lerna/publish@^3.7.2":
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/@lerna/publish/-/publish-3.7.2.tgz#c59fab7ebe5b3befc6fb207d24b9027577369c56"
+"@lerna/publish@^3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@lerna/publish/-/publish-3.8.0.tgz#ed1e933a359819d52004b4414652935f11211f8f"
   dependencies:
     "@lerna/batch-packages" "^3.6.0"
     "@lerna/check-working-tree" "^3.6.0"
@@ -860,7 +860,7 @@
     "@lerna/run-lifecycle" "^3.7.1"
     "@lerna/run-parallel-batches" "^3.0.0"
     "@lerna/validation-error" "^3.6.0"
-    "@lerna/version" "^3.7.2"
+    "@lerna/version" "^3.8.0"
     figgy-pudding "^3.5.1"
     fs-extra "^7.0.0"
     libnpm "^2.0.1"
@@ -954,9 +954,9 @@
   dependencies:
     libnpm "^2.0.1"
 
-"@lerna/version@^3.7.2":
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/@lerna/version/-/version-3.7.2.tgz#a6e28902a1d55c9dfdf38d348f9dd54ecd8402e2"
+"@lerna/version@^3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@lerna/version/-/version-3.8.0.tgz#d4a56d1890ed32ba7dd403c06305df934564e1b1"
   dependencies:
     "@lerna/batch-packages" "^3.6.0"
     "@lerna/check-working-tree" "^3.6.0"
@@ -7198,12 +7198,12 @@ lcid@^2.0.0:
     invert-kv "^2.0.0"
 
 lerna@^3.1.4:
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/lerna/-/lerna-3.7.2.tgz#6c04fe52ad3f9f08bb2842840d47dc350bf21825"
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/lerna/-/lerna-3.8.0.tgz#55f4d4144ddad2872ee5bc52a47366df10a3b7ee"
   dependencies:
     "@lerna/add" "^3.7.2"
     "@lerna/bootstrap" "^3.7.2"
-    "@lerna/changed" "^3.7.2"
+    "@lerna/changed" "^3.8.0"
     "@lerna/clean" "^3.7.2"
     "@lerna/cli" "^3.6.0"
     "@lerna/create" "^3.7.2"
@@ -7213,9 +7213,9 @@ lerna@^3.1.4:
     "@lerna/init" "^3.7.2"
     "@lerna/link" "^3.7.2"
     "@lerna/list" "^3.7.2"
-    "@lerna/publish" "^3.7.2"
+    "@lerna/publish" "^3.8.0"
     "@lerna/run" "^3.7.2"
-    "@lerna/version" "^3.7.2"
+    "@lerna/version" "^3.8.0"
     import-local "^1.0.0"
     libnpm "^2.0.1"
 
