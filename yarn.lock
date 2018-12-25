@@ -1240,8 +1240,8 @@
     "@types/express-unless" "*"
 
 "@types/express-rate-limit@^2.9.3":
-  version "2.9.3"
-  resolved "https://registry.yarnpkg.com/@types/express-rate-limit/-/express-rate-limit-2.9.3.tgz#e83a548bf251ad12ca49055c22d3f2da4e16b62d"
+  version "2.9.4"
+  resolved "https://registry.yarnpkg.com/@types/express-rate-limit/-/express-rate-limit-2.9.4.tgz#b43019f908949ef6a333105ab8b66255c8671833"
   dependencies:
     "@types/express" "*"
 
