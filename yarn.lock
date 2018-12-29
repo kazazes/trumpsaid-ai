@@ -1167,8 +1167,8 @@
     "@types/node" "*"
 
 "@types/bootstrap@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-4.1.2.tgz#3d6a3ea111e88ca926803a0e02b1f3d4c9913a5b"
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-4.1.4.tgz#dd1c890f11f036274405ad6608f18ac7a0c41311"
   dependencies:
     "@types/jquery" "*"
     popper.js "^1.14.1"
