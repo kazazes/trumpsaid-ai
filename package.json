@@ -46,7 +46,7 @@
     "nodemon": "1.18.9",
     "npm-run-all": "4.1.5",
     "pm2": "^3.0.4",
-    "rimraf": "2.6.2",
+    "rimraf": "2.6.3",
     "ts-loader": "^5.0.0",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
