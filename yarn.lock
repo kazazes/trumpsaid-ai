@@ -3644,8 +3644,8 @@ compression@^1.7.3:
     vary "~1.1.2"
 
 compromise@^11.12.0:
-  version "11.12.5"
-  resolved "https://registry.yarnpkg.com/compromise/-/compromise-11.12.5.tgz#d701be2dd4591f70e98956d97ed3a2a9468dee07"
+  version "11.12.6"
+  resolved "https://registry.yarnpkg.com/compromise/-/compromise-11.12.6.tgz#6f850838f28d7d7af5aa683608716acc327d7db6"
   dependencies:
     efrt-unpack "2.0.3"
 
