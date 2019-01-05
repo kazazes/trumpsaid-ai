@@ -7753,8 +7753,8 @@ md5.js@^1.3.4:
     inherits "^2.0.1"
 
 mdbootstrap@^4.5.9:
-  version "4.5.11"
-  resolved "https://registry.yarnpkg.com/mdbootstrap/-/mdbootstrap-4.5.11.tgz#d7450e092f09fb11f00ed2cee344abdec5acd044"
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/mdbootstrap/-/mdbootstrap-4.6.0.tgz#47387ee2dc8355a6b060f2fe01e9e893a00c585a"
 
 media-typer@0.3.0:
   version "0.3.0"
