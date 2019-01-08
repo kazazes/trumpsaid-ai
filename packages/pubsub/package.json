@@ -19,7 +19,7 @@
     "clean": "rimraf ./dist"
   },
   "dependencies": {
-    "@google-cloud/pubsub": "0.20",
+    "@google-cloud/pubsub": "0.22",
     "@trumpsaid/common": "^1.0.0",
     "@trumpsaid/prisma": "^1.0.0",
     "tslib": "^1.9.3"
