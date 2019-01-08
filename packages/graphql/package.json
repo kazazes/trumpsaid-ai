@@ -43,7 +43,7 @@
     "@types/errorhandler": "^0.0.32",
     "@types/got": "^8.3.3",
     "@types/morgan": "^1.7.35",
-    "@types/passport": "^0.4.6",
+    "@types/passport": "^1.0.0",
     "@types/validator": "^9.4.1"
   }
 }
