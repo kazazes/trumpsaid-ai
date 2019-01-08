@@ -25,7 +25,7 @@
     "serve": "NODE_ENV=production pm2-runtime dist/worker.js"
   },
   "dependencies": {
-    "@google-cloud/language": "^1.2.0",
+    "@google-cloud/language": "^2.0.0",
     "@trumpsaid/common": "^1.0.0",
     "@trumpsaid/prisma": "^1.0.0",
     "@trumpsaid/pubsub": "^1.0.0",
