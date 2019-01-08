@@ -296,8 +296,8 @@
     lodash.merge "^4.6.0"
 
 "@google-cloud/logging-winston@^0.10.0":
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/@google-cloud/logging-winston/-/logging-winston-0.10.1.tgz#658004cd1814c8f95a068ce078349ed8ebf427dd"
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/@google-cloud/logging-winston/-/logging-winston-0.10.2.tgz#025424ae0bfce503cc9397280d2f20f057640c8b"
   dependencies:
     "@google-cloud/logging" "^4.0.1"
     "@sindresorhus/is" "^0.10.0"
