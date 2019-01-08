@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@types/compression": "^0.0.36",
-    "@types/connect-redis": "^0.0.7",
+    "@types/connect-redis": "^0.0.8",
     "@types/errorhandler": "^0.0.32",
     "@types/got": "^8.3.3",
     "@types/morgan": "^1.7.35",
