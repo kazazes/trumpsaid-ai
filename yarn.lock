@@ -6070,11 +6070,11 @@ graphql-request@^1.5.0:
   dependencies:
     cross-fetch "2.2.2"
 
-graphql-shield@^3.2.1:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/graphql-shield/-/graphql-shield-3.2.5.tgz#ecbc89b9caead787c1d1189ee6cfb657b958e227"
+graphql-shield@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/graphql-shield/-/graphql-shield-5.1.0.tgz#e5f45c11aeb23fea230fe0e7218e48e6af66c6bc"
   dependencies:
-    object-hash "^1.3.0"
+    object-hash "^1.3.1"
     opencollective "1.0.3"
 
 graphql-subscriptions@^0.5.8:
@@ -8557,9 +8557,9 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
-object-hash@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-1.3.0.tgz#76d9ba6ff113cf8efc0d996102851fe6723963e2"
+object-hash@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-1.3.1.tgz#fde452098a951cb145f039bb7d455449ddc126df"
 
 object-keys@^1.0.0, object-keys@^1.0.11, object-keys@^1.0.12:
   version "1.0.12"
