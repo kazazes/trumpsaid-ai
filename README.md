@@ -1,6 +1,8 @@
+#### I've had to stop development of this project due to work constraints. It is a bonafide beast, and will surely turn a profit if we get it to production. If you would like to help develop, please get in touch. It's quite close to the finish line.
+
 <h2 align="center">
 
-<img src="https://trumpsaid.ai/img/logo.svg" height=100>
+<img src="https://raw.githubusercontent.com/trumpsaid-ai/trumpsaid-ai/master/packages/client/src/public/img/logo.svg" height=100>
 <br>
 <a href="https://trumpsaid.ai">Trump Said...</a>
 </h2>
