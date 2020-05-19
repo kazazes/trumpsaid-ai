@@ -11957,8 +11957,8 @@ vue-timers@^1.7.3:
   resolved "https://registry.yarnpkg.com/vue-timers/-/vue-timers-1.7.4.tgz#13e80a38e9c23978604437bd1c50e433ee258e12"
 
 vue2-google-maps@^0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/vue2-google-maps/-/vue2-google-maps-0.10.2.tgz#2a6d2942e8a37103fa0707f8b3cb052a7a372bab"
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/vue2-google-maps/-/vue2-google-maps-0.10.5.tgz#84058fe241a878011a1e08a42b32cb36e9c5e1da"
   dependencies:
     babel-runtime "^5.8.0"
     marker-clusterer-plus "^2.1.4"
