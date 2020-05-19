@@ -8915,8 +8915,8 @@ pascalcase@^0.1.1:
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
 
 passport-auth0@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/passport-auth0/-/passport-auth0-1.0.0.tgz#5c604f767543be516bf563986093bbd5c4460590"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/passport-auth0/-/passport-auth0-1.1.0.tgz#fc6fac83ae3ec5a3e5d462c05d145a4fbdad6703"
   dependencies:
     passport-oauth "^1.0.0"
     request "^2.61.0"
